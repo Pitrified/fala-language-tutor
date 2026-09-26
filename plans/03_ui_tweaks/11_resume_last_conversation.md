@@ -16,11 +16,14 @@ The spec's demo-ready list has "Conversation persists across app restarts", unch
 - The "new conversation" button (item 06) keeps starting a fresh one, and the previous stays saved.
 - The logic goes in `ConversationController`, as a method the screen calls, not in the widget: no business logic in widgets.
 
-## Decide before building
+## Decided
+
+Both proposals below accepted by the user on 2026-09-26. Building is deferred.
+
 
 - **The default language changed since that conversation.** A conversation's language is fixed once it has messages (`docs/functional-specs.md`, "Target language"). Resuming a Portuguese conversation after the default became Spanish either continues in Portuguese, or starts a new Spanish one and leaves the Portuguese one saved.
-  Proposed: resume only when the last conversation's language matches the current default; otherwise start a new one. That matches what the user did on the Pixel, and the old conversation stays on disk.
-- **The last conversation has no messages.** Proposed: reuse it rather than creating another empty one, so reopening the app repeatedly does not pile up empty conversations.
+  Decided: resume only when the last conversation's language matches the current default; otherwise start a new one. That matches what the user did on the Pixel, and the old conversation stays on disk.
+- **The last conversation has no messages.** Decided: reuse it rather than creating another empty one, so reopening the app repeatedly does not pile up empty conversations.
 
 ## Done when
 

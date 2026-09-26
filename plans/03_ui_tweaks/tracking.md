@@ -36,3 +36,4 @@ Append-only. Newest at the bottom.
 - 2026-09-25 : item 10, an unparseable reply now reads as a failed turn rather than as the tutor writing English prose.
 - 2026-09-25 : item 08 in the list, long corrections not wrapping while streaming, has no sub-plan; this folder stays in progress until it does.
 - 2026-09-26 : item 11 added from the first Pixel run of fala-language-tutor: reopening the app starts a new conversation instead of resuming the last. Planned, with two points to decide before building.
+- 2026-09-26 : item 11's two open points decided as proposed (resume only in the current default language; reuse an empty last conversation). Stays `planned`; built later.
