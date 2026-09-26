@@ -23,6 +23,7 @@ Analysis and decisions in [`00_start.md`](00_start.md).
 | 07 | 07 - Engine selection: correct model name, OpenAI default, scoped settings | [`07_engine_selection.md`](07_engine_selection.md)                           | done |
 | 09 | 09 - Split CEFR text into guidance + description                           | [`09_cefr_guidance_and_description.md`](09_cefr_guidance_and_description.md) | done |
 | 10 | 10 - A malformed reply reads as a failed turn, not as the tutor talking    | [`10_malformed_reply_display.md`](10_malformed_reply_display.md)             | done |
+| 11 | 11 - Reopening the app resumes the last conversation                       | [`11_resume_last_conversation.md`](11_resume_last_conversation.md)           | planned |
 
 Status values: draft / planned / in progress / done / superseded / discarded.
 
@@ -34,3 +35,4 @@ Append-only. Newest at the bottom.
 - 2026-08-02 : items 04 to 07 and 09 executed (scroll-to-bottom, taller input, new-conversation button, engine selection, CEFR guidance).
 - 2026-09-25 : item 10, an unparseable reply now reads as a failed turn rather than as the tutor writing English prose.
 - 2026-09-25 : item 08 in the list, long corrections not wrapping while streaming, has no sub-plan; this folder stays in progress until it does.
+- 2026-09-26 : item 11 added from the first Pixel run of fala-language-tutor: reopening the app starts a new conversation instead of resuming the last. Planned, with two points to decide before building.
