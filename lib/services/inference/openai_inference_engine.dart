@@ -1,0 +1,216 @@
+import 'dart:async';
+
+import 'package:openai_dart/openai_dart.dart';
+
+import '../../models/inference_status.dart';
+import '../settings/api_key_store.dart';
+import 'inference_engine.dart';
+
+/// Builds an [OpenAIClient] from an API key.
+///
+/// Exposed as a typedef so tests can inject a fake-client builder without
+/// hitting the network. Production callers use [defaultOpenAIClientBuilder].
+typedef OpenAIClientBuilder = OpenAIClient Function(String apiKey);
+
+/// Base URL override, for pointing a **debug** build at a local mock server.
+///
+/// Empty by default, which means the real API (`https://api.openai.com/v1`).
+/// Set at build time and never at runtime:
+/// `flutter run --dart-define=OPENAI_BASE_URL=http://10.0.2.2:8080/v1`.
+///
+/// It is a test seam, not a feature. There is deliberately no Settings field for
+/// it: an endpoint a user can change is a way to have their key sent elsewhere.
+/// See `docs/getting-started.md`, "How the app is pointed at the mock".
+const String openAiBaseUrlOverride = String.fromEnvironment('OPENAI_BASE_URL');
+
+/// Default builder: real OpenAI HTTP client, or the override when one is set.
+OpenAIClient defaultOpenAIClientBuilder(String apiKey) =>
+    OpenAIClient.withApiKey(
+      apiKey,
+      baseUrl: openAiBaseUrlOverride.isEmpty ? null : openAiBaseUrlOverride,
+    );
+
+/// Cloud inference engine backed by the OpenAI Chat Completions API.
+///
+/// Implements [InferenceEngine] so the rest of the app (notably
+/// `StructuredInferenceEngine<T>`) can swap between this and the fake engine
+/// without code changes. Output is constrained to the [schema] it is
+/// given, using OpenAI's strict structured-output mode, so the parser
+/// downstream sees well-formed JSON. The engine knows nothing about the shape
+/// of that JSON; the caller that wires it passes the schema.
+///
+/// The engine reads the API key and model id on every [generate] call so
+/// changes persisted via Settings are picked up without re-initializing the
+/// engine. The underlying [OpenAIClient] is rebuilt only when the key
+/// actually changes.
+class OpenAiInferenceEngine implements InferenceEngine {
+  OpenAiInferenceEngine({
+    required this.apiKeyStore,
+    required this.modelProvider,
+    required this.schemaName,
+    required this.schema,
+    this.clientBuilder = defaultOpenAIClientBuilder,
+  });
+
+  /// Secure storage for the OpenAI API key. Read on every generate.
+  final ApiKeyStore apiKeyStore;
+
+  /// Resolves the active model id on every call (e.g. `'gpt-4o-mini'`).
+  final String Function() modelProvider;
+
+  /// Constructs an [OpenAIClient] from an API key. Tests inject a fake.
+  final OpenAIClientBuilder clientBuilder;
+
+  /// Schema name passed to OpenAI; surfaced in error responses for debugging.
+  final String schemaName;
+
+  /// JSON Schema enforced via `response_format: json_schema` (strict mode).
+  final Map<String, dynamic> schema;
+
+  final _statusController = StreamController<InferenceStatus>.broadcast();
+  InferenceStatus _status = const InferenceStatus.uninitialized();
+
+  OpenAIClient? _client;
+  String? _cachedKey;
+
+  @override
+  InferenceStatus get status => _status;
+
+  @override
+  Stream<InferenceStatus> get statusStream => _statusController.stream;
+
+  @override
+  bool get isReady => _status == const InferenceStatus.ready();
+
+  @override
+  Future<void> initialize() async {
+    // No network call: key validity is verified lazily on the first
+    // [generate] so engine swaps are instantaneous.
+    _setStatus(const InferenceStatus.ready());
+  }
+
+  @override
+  Future<InferenceResult> generate(InferenceRequest request) async {
+    if (!isReady) {
+      return const InferenceFailure(error: 'Engine not initialized');
+    }
+    final key = await apiKeyStore.read();
+    if (key == null || key.isEmpty) {
+      return const InferenceFailure(
+        error: 'OpenAI key missing or rejected. Open Settings to update.',
+      );
+    }
+    _setStatus(const InferenceStatus.generating());
+    try {
+      final client = _clientFor(key);
+      final response = await client.chat.completions.create(
+        ChatCompletionCreateRequest(
+          model: modelProvider(),
+          messages: [ChatMessage.user(request.prompt)],
+          maxCompletionTokens: request.maxTokens,
+          temperature: request.temperature,
+          responseFormat: ResponseFormat.jsonSchema(
+            name: schemaName,
+            schema: schema,
+          ),
+        ),
+      );
+      final raw = response.choices.isEmpty
+          ? ''
+          : (response.choices.first.message.content ?? '');
+      _setStatus(const InferenceStatus.ready());
+      if (raw.isEmpty) {
+        return const InferenceFailure(error: 'OpenAI returned empty response');
+      }
+      return InferenceSuccess(rawText: raw);
+    } on OpenAIException catch (e) {
+      _setStatus(const InferenceStatus.ready());
+      return InferenceFailure(error: _messageFor(e));
+    }
+  }
+
+  @override
+  Stream<String> generateStream(InferenceRequest request) async* {
+    if (!isReady) {
+      throw const InferenceStreamException('Engine not initialized');
+    }
+    final key = await apiKeyStore.read();
+    if (key == null || key.isEmpty) {
+      throw const InferenceStreamException(
+        'OpenAI key missing or rejected. Open Settings to update.',
+      );
+    }
+    _setStatus(const InferenceStatus.generating());
+    final buffer = StringBuffer();
+    try {
+      final client = _clientFor(key);
+      // createStream sends the same request with stream=true, so the strict
+      // json_schema constraint is preserved and every partial buffer is a
+      // well-formed-JSON prefix.
+      final events = client.chat.completions.createStream(
+        ChatCompletionCreateRequest(
+          model: modelProvider(),
+          messages: [ChatMessage.user(request.prompt)],
+          maxCompletionTokens: request.maxTokens,
+          temperature: request.temperature,
+          responseFormat: ResponseFormat.jsonSchema(
+            name: schemaName,
+            schema: schema,
+          ),
+        ),
+      );
+      await for (final event in events) {
+        final delta = event.textDelta;
+        if (delta != null && delta.isNotEmpty) {
+          buffer.write(delta);
+          yield buffer.toString(); // cumulative buffer-so-far
+        }
+      }
+      if (buffer.isEmpty) {
+        throw const InferenceStreamException('OpenAI returned empty response');
+      }
+    } on OpenAIException catch (e) {
+      throw InferenceStreamException(_messageFor(e));
+    } finally {
+      _setStatus(const InferenceStatus.ready());
+    }
+  }
+
+  /// Maps an OpenAI SDK exception to a user-facing message. Shared by [generate]
+  /// and [generateStream] so the two paths cannot drift. The specific subtypes
+  /// are matched before the generic [OpenAIException] fallback.
+  String _messageFor(OpenAIException e) {
+    return switch (e) {
+      AuthenticationException() =>
+        'OpenAI key missing or rejected. Open Settings to update.',
+      RateLimitException() => 'OpenAI rate limit reached. Try again shortly.',
+      RequestTimeoutException() =>
+        'OpenAI request timed out. Check your connection.',
+      ConnectionException() =>
+        'Network error reaching OpenAI. Check your connection.',
+      _ => 'OpenAI error: ${e.message}',
+    };
+  }
+
+  OpenAIClient _clientFor(String key) {
+    if (_client != null && _cachedKey == key) {
+      return _client!;
+    }
+    _client?.close();
+    _cachedKey = key;
+    _client = clientBuilder(key);
+    return _client!;
+  }
+
+  @override
+  Future<void> dispose() async {
+    _client?.close();
+    _client = null;
+    await _statusController.close();
+  }
+
+  void _setStatus(InferenceStatus status) {
+    _status = status;
+    _statusController.add(status);
+  }
+}

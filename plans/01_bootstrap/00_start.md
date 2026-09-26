@@ -1,6 +1,6 @@
 ---
-status: in progress
-priority: 1
+status: done
+priority: 0
 description: |
   Bootstrap this repo from flutter-setup-project: the tutor with the cloud engine only, its
   tests and gates from the first commit, the LLM testing machinery copied in, and the product
