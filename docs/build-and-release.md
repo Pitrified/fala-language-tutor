@@ -130,10 +130,14 @@ flutter build appbundle --release
 
 ## Size budget
 
-Not measured since the on-device engine was removed. The last measurement, with `flutter_gemma`
-and its native libraries still in the build, was 43 MB for the arm64-v8a split APK, most of it
-that engine; without it the APK should be much smaller, and the number here waits for a build
-on a machine with the Android SDK.
+Measured on 2026-09-26 (Flutter 3.44.5, release builds signed with the debug key, built in a cloud session):
+
+| Artifact | Size | Notes |
+|----------|------|-------|
+| Split APK, arm64-v8a | 17.8 MB | what a phone installs when sideloaded (43 MB while the app carried `flutter_gemma`) |
+| Split APK, x86_64 | 19.1 MB | emulator |
+| Debug APK (`app-debug.apk`) | 122.4 MB | unoptimized, every ABI; for development only |
+| armeabi-v7a | dropped | 32-bit (`--target-platform android-arm64,android-x64`) |
 
 Build split APKs with
 `flutter build apk --release --split-per-abi --target-platform android-arm64,android-x64`; for
