@@ -55,9 +55,7 @@ class SettingsScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 8),
           const _CefrDropdown(),
-          // Engine-specific settings: only OpenAI has any today. The on-device
-          // model is managed on the download screen, so gemma/fake show nothing
-          // here. TODO: add a gemma section here when it gains settings.
+          // Engine-specific settings: only OpenAI has any; fake shows nothing.
           if (selectedKind == EngineKind.openai) ...[
             const SizedBox(height: 24),
             const Divider(),

@@ -46,9 +46,9 @@ class InferenceStreamException implements Exception {
   String toString() => 'InferenceStreamException: $message';
 }
 
-/// Abstract interface for on-device LLM inference.
+/// Abstract interface for LLM inference.
 ///
-/// All backends (FakeInferenceEngine, FlutterGemmaEngine, etc.) implement this.
+/// All backends (FakeInferenceEngine, OpenAiInferenceEngine) implement this.
 /// App code interacts only with this interface via Riverpod providers.
 abstract class InferenceEngine {
   /// Current status of the engine.
@@ -57,7 +57,7 @@ abstract class InferenceEngine {
   /// Stream of status changes for reactive UI updates.
   Stream<InferenceStatus> get statusStream;
 
-  /// Initialize the engine (load model weights, warm up).
+  /// Initialize the engine (build clients, load resources).
   ///
   /// Must be called before [generate]. Can be called only once.
   /// Transitions status: uninitialized -> loading -> ready (or error).
@@ -87,7 +87,7 @@ abstract class InferenceEngine {
   /// Whether the engine is ready to accept inference requests.
   bool get isReady;
 
-  /// Release all resources (model memory, GPU handles).
+  /// Release all resources (clients, streams).
   ///
   /// After dispose, the engine cannot be reused.
   Future<void> dispose();
@@ -97,7 +97,7 @@ abstract class InferenceEngine {
 /// not stream natively: it runs the one-shot [generate] and emits the result as
 /// a single (already-complete) cumulative buffer.
 ///
-/// The production engines (OpenAI, gemma) stream for real; this remains the
+/// The production engine (OpenAI) streams for real; this remains the
 /// base case for any engine or test double that genuinely cannot. It honors the
 /// streaming contract: success yields one final buffer, failure throws
 /// [InferenceStreamException].

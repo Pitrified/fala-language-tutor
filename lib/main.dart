@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gemma/flutter_gemma.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -12,9 +11,8 @@ import 'services/settings/app_settings_repository.dart';
 
 /// Set to true via --dart-define=FAKE_ENGINE=true for dev/test builds.
 ///
-/// When set on a fresh install (no persisted setting), boots into the fake
-/// engine instead of the default on-device Gemma. Once the user picks an
-/// engine in Settings, the persisted value wins.
+/// Forces the fake engine on this run instead of the persisted choice (the
+/// default is OpenAI), and persists it so the Settings screen reflects it.
 const bool kUseFakeEngine = bool.fromEnvironment(
   'FAKE_ENGINE',
   defaultValue: false,
@@ -32,12 +30,6 @@ void main() async {
   if (kUseFakeEngine) {
     await settings.setEngineKind(EngineKind.fake);
   }
-
-  // flutter_gemma requires initialize() before any plugin call, including the
-  // model-installed check that runs when the on-device engine is selected.
-  // Always initialize so switching to Gemma at runtime works regardless of
-  // which engine the app booted with.
-  await FlutterGemma.initialize();
 
   final repo = ConversationRepository();
   await repo.initialize();

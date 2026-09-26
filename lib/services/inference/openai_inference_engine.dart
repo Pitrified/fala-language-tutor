@@ -33,8 +33,8 @@ OpenAIClient defaultOpenAIClientBuilder(String apiKey) =>
 /// Cloud inference engine backed by the OpenAI Chat Completions API.
 ///
 /// Implements [InferenceEngine] so the rest of the app (notably
-/// `StructuredInferenceEngine<T>`) can swap between this and the on-device
-/// engines without code changes. Output is constrained to the [schema] it is
+/// `StructuredInferenceEngine<T>`) can swap between this and the fake engine
+/// without code changes. Output is constrained to the [schema] it is
 /// given, using OpenAI's strict structured-output mode, so the parser
 /// downstream sees well-formed JSON. The engine knows nothing about the shape
 /// of that JSON; the caller that wires it passes the schema.

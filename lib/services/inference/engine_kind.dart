@@ -4,14 +4,11 @@
 /// enum's [name]. Selection in the Settings screen drives which factory the
 /// engine registry returns.
 enum EngineKind {
-  /// Scripted responses from an asset fixture. Used in tests and on-device
-  /// UI smoke testing.
+  /// Scripted responses from an asset fixture. Used in tests and for UI
+  /// smoke testing without a key.
   fake,
 
-  /// On-device LLM via `flutter_gemma` (currently Qwen3 0.6B).
-  gemma,
-
-  /// OpenAI cloud chat completions. Wired up in plan 03.2.
+  /// OpenAI cloud chat completions.
   openai,
 }
 
@@ -22,8 +19,6 @@ extension EngineKindX on EngineKind {
     switch (this) {
       case EngineKind.fake:
         return 'Fake (scripted)';
-      case EngineKind.gemma:
-        return 'On-device (Gemma / Qwen3)';
       case EngineKind.openai:
         return 'OpenAI (cloud)';
     }
@@ -35,7 +30,6 @@ extension EngineKindX on EngineKind {
   bool get isImplemented {
     switch (this) {
       case EngineKind.fake:
-      case EngineKind.gemma:
       case EngineKind.openai:
         return true;
     }

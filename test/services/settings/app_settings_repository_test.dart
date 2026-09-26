@@ -44,6 +44,13 @@ void main() {
     },
   );
 
+  test('engineKind maps a stored gemma, from an install with the on-device '
+      'engine, to the default', () async {
+    final box = await Hive.openBox<String>('test_app_settings');
+    await box.put(AppSettingsRepository.keyEngineKind, 'gemma');
+    expect(repo.engineKind(), EngineKind.openai);
+  });
+
   test('openaiModel defaults to gpt-4o-mini and round-trips', () async {
     expect(repo.openaiModel(), 'gpt-4o-mini');
     await repo.setOpenaiModel('gpt-4o');

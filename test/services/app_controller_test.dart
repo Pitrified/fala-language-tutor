@@ -40,16 +40,13 @@ class _FakeEngine implements InferenceEngine {
 void main() {
   late _FakeEngine engine;
   late AppController controller;
-  late bool modelInstalled;
   InferenceEngine? readyEngine;
 
   setUp(() {
     engine = _FakeEngine();
     readyEngine = null;
-    modelInstalled = false;
     controller = AppController(
-      engineFactory: (_) => engine,
-      modelChecker: () async => modelInstalled,
+      engineFactory: () => engine,
       onEngineReady: (e) => readyEngine = e,
     );
   });
@@ -62,18 +59,7 @@ void main() {
     expect(controller.state, isA<AppLoading>());
   });
 
-  test('sets AppNeedsModel when model not installed', () async {
-    modelInstalled = false;
-
-    await controller.initialize();
-
-    expect(controller.state, isA<AppNeedsModel>());
-    expect(engine.initializeCalled, isFalse);
-  });
-
-  test('sets AppReady when model exists and engine initializes', () async {
-    modelInstalled = true;
-
+  test('sets AppReady when the engine initializes', () async {
     await controller.initialize();
 
     expect(controller.state, isA<AppReady>());
@@ -82,17 +68,15 @@ void main() {
   });
 
   test('sets AppError when engine fails to initialize', () async {
-    modelInstalled = true;
     engine.shouldBeReady = false;
 
     await controller.initialize();
 
     expect(controller.state, isA<AppError>());
+    expect(readyEngine, isNull);
   });
 
-  test('stateStream emits state changes', () async {
-    modelInstalled = false;
-
+  test('stateStream emits loading then ready', () async {
     final states = <AppState>[];
     controller.stateStream.listen(states.add);
 
@@ -101,13 +85,16 @@ void main() {
 
     expect(states, hasLength(2));
     expect(states[0], isA<AppLoading>());
-    expect(states[1], isA<AppNeedsModel>());
+    expect(states[1], isA<AppReady>());
   });
 
-  test('onModelDownloaded retries initialization', () async {
-    modelInstalled = true;
+  test('initialize can be retried after an error', () async {
+    engine.shouldBeReady = false;
+    await controller.initialize();
+    expect(controller.state, isA<AppError>());
 
-    await controller.onModelDownloaded();
+    engine.shouldBeReady = true;
+    await controller.initialize();
 
     expect(controller.state, isA<AppReady>());
   });

@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:fala/services/inference/engine_kind.dart';
 import 'package:fala/services/inference/engine_registry.dart';
 import 'package:fala/services/inference/fake_inference_engine.dart';
-import 'package:fala/services/inference/flutter_gemma_engine.dart';
 import 'package:fala/services/inference/openai_inference_engine.dart';
 import 'package:fala/services/settings/api_key_store.dart';
 import 'package:fala/services/settings/app_settings_repository.dart';
@@ -33,30 +32,17 @@ void main() {
   group('engineFactoryFor', () {
     test('returns a FakeInferenceEngine factory for EngineKind.fake', () {
       final factory = engineFactoryFor(EngineKind.fake, deps);
-      expect(factory(''), isA<FakeInferenceEngine>());
-    });
-
-    test('returns a FlutterGemmaEngine factory for EngineKind.gemma', () {
-      final factory = engineFactoryFor(EngineKind.gemma, deps);
-      expect(factory('some/path'), isA<FlutterGemmaEngine>());
+      expect(factory(), isA<FakeInferenceEngine>());
     });
 
     test('returns an OpenAiInferenceEngine factory for EngineKind.openai', () {
       final factory = engineFactoryFor(EngineKind.openai, deps);
-      expect(factory(''), isA<OpenAiInferenceEngine>());
-    });
-  });
-
-  group('skipModelCheckFor', () {
-    test('returns true for fake and openai, false for gemma', () {
-      expect(skipModelCheckFor(EngineKind.fake), isTrue);
-      expect(skipModelCheckFor(EngineKind.openai), isTrue);
-      expect(skipModelCheckFor(EngineKind.gemma), isFalse);
+      expect(factory(), isA<OpenAiInferenceEngine>());
     });
   });
 
   group('EngineKindX', () {
-    test('all kinds are implemented after 03.2', () {
+    test('every kind is implemented', () {
       for (final kind in EngineKind.values) {
         expect(kind.isImplemented, isTrue, reason: kind.name);
       }

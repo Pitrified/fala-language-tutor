@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 
 import 'providers/app_provider.dart';
 import 'screens/conversation/conversation_screen.dart';
-import 'screens/model_download/model_download_screen.dart';
 import 'screens/settings/settings_screen.dart';
 import 'screens/welcome/welcome_screen.dart';
 import 'services/app/app_controller.dart';
@@ -13,7 +12,6 @@ import 'services/app/app_controller.dart';
 abstract final class AppRoutes {
   static const welcome = '/';
   static const conversation = '/conversation';
-  static const modelDownload = '/model-download';
   static const settings = '/settings';
 }
 
@@ -33,18 +31,8 @@ final routerProvider = Provider<GoRouter>((ref) {
       // Settings is always reachable.
       if (location == AppRoutes.settings) return null;
 
-      // Redirect to model download if model is needed
-      if (appState is AppNeedsModel && location != AppRoutes.modelDownload) {
-        return AppRoutes.modelDownload;
-      }
-
       // Prevent accessing conversation if not ready
       if (location == AppRoutes.conversation && appState is! AppReady) {
-        return AppRoutes.welcome;
-      }
-
-      // Redirect away from model download if model is available
-      if (location == AppRoutes.modelDownload && appState is AppReady) {
         return AppRoutes.welcome;
       }
 
@@ -58,10 +46,6 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: AppRoutes.conversation,
         builder: (context, state) => const ConversationScreen(),
-      ),
-      GoRoute(
-        path: AppRoutes.modelDownload,
-        builder: (context, state) => const ModelDownloadScreen(),
       ),
       GoRoute(
         path: AppRoutes.settings,

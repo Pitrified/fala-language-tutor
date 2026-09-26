@@ -1,30 +1,23 @@
 import 'dart:async';
 
-import '../../config/model_config.dart';
-import '../../models/model_metadata.dart';
 import '../inference/inference_engine.dart';
-
-/// Checks whether the model is available for inference.
-typedef ModelChecker = Future<bool> Function();
 
 /// Top-level application state.
 sealed class AppState {
   const AppState();
 }
 
+/// The selected engine is being initialized.
 class AppLoading extends AppState {
   const AppLoading();
 }
 
-class AppNeedsModel extends AppState {
-  const AppNeedsModel();
-}
-
+/// The engine is initialized and a conversation can start.
 class AppReady extends AppState {
-  const AppReady({required this.modelInfo});
-  final ModelMetadata modelInfo;
+  const AppReady();
 }
 
+/// Initialization failed; [message] says why.
 class AppError extends AppState {
   const AppError({required this.message});
   final String message;
@@ -32,24 +25,16 @@ class AppError extends AppState {
 
 /// Controls application-level lifecycle.
 ///
-/// Checks if model is downloaded, initializes the inference engine,
-/// and exposes state for the router to decide navigation.
+/// Initializes the selected inference engine and exposes state for the
+/// welcome screen and the router to decide what the user can do.
 class AppController {
-  AppController({
-    required this.engineFactory,
-    required this.onEngineReady,
-    required this.modelChecker,
-    this.modelName = ModelConfig.defaultModelFileName,
-    this.skipModelCheck = false,
-  });
+  AppController({required this.engineFactory, required this.onEngineReady});
 
-  final InferenceEngine Function(String modelPath) engineFactory;
+  /// Builds the engine for the currently selected engine kind.
+  final InferenceEngine Function() engineFactory;
+
+  /// Called once the engine is initialized, to publish it to the app.
   final void Function(InferenceEngine engine) onEngineReady;
-  final ModelChecker modelChecker;
-  final String modelName;
-
-  /// When true, skip model file verification (used with FakeInferenceEngine).
-  final bool skipModelCheck;
 
   InferenceEngine? _engine;
 
@@ -64,21 +49,12 @@ class AppController {
 
   /// Run the initialization sequence.
   ///
-  /// Checks model availability, initializes engine if model found.
-  /// Times out after 10 seconds if engine init hangs.
+  /// Builds and initializes the engine. Times out after 10 seconds if engine
+  /// init hangs.
   Future<void> initialize() async {
     _setState(const AppLoading());
 
-    if (!skipModelCheck) {
-      final isAvailable = await modelChecker();
-
-      if (!isAvailable) {
-        _setState(const AppNeedsModel());
-        return;
-      }
-    }
-
-    _engine = engineFactory('');
+    _engine = engineFactory();
 
     try {
       await _engine!.initialize().timeout(const Duration(seconds: 10));
@@ -89,26 +65,12 @@ class AppController {
 
     if (_engine!.isReady) {
       onEngineReady(_engine!);
-      _setState(
-        AppReady(
-          modelInfo: ModelMetadata(
-            name: modelName,
-            filePath: '',
-            fileSizeBytes: 0,
-            downloadedAt: DateTime.now(),
-          ),
-        ),
-      );
+      _setState(const AppReady());
     } else {
       _setState(
         const AppError(message: 'Failed to initialize inference engine'),
       );
     }
-  }
-
-  /// Called after model download completes. Retries initialization.
-  Future<void> onModelDownloaded() async {
-    await initialize();
   }
 
   void _setState(AppState newState) {

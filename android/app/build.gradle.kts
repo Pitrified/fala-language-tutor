@@ -42,28 +42,12 @@ android {
         }
     }
 
-    // See docs/build-and-release.md: flutter_gemma 0.13.6 bundles native libs for engine
-    // paths this app never uses. It runs only the LiteRT-LM path (ModelType.qwen3 /
-    // ModelFileType.litertlm) with no embeddings/RAG and no MediaPipe .task/.bin models,
-    // so the MediaPipe, image-generator and RAG .so files are dead weight (~116 MB/ABI).
-    // Keep liblitertlm_jni.so (our engine) and libsqlite3.so (may have other consumers).
-    // Re-verify this list on flutter_gemma upgrades.
+    // 32-bit v7a guard: --target-platform (see docs/build-and-release.md) drops v7a
+    // from split builds; this exclude keeps a plain `flutter build apk`/`appbundle`
+    // without the flag from packaging v7a libs too.
     packaging {
         jniLibs {
-            excludes += listOf(
-                // 32-bit v7a guard: --target-platform (see docs/build-and-release.md) drops v7a
-                // from split builds, but a plain `flutter build apk`/`appbundle` without the flag
-                // would still package flutter_gemma's AAR v7a libs; this exclude makes that safe.
-                "lib/armeabi-v7a/**",
-                "**/libllm_inference_engine_jni.so",              // MediaPipe LLM (tasks-genai), .task/.bin only
-                "**/libmediapipe_tasks_vision_jni.so",            // vision tasks
-                "**/libmediapipe_tasks_vision_image_generator_jni.so", // image generation
-                "**/libimagegenerator_gpu.so",                    // image generation GPU
-                "**/libgemma_embedding_model_jni.so",             // RAG embedding (localagents-rag)
-                "**/libgecko_embedding_model_jni.so",             // RAG embedding (localagents-rag)
-                "**/libtext_chunker_jni.so",                      // RAG text chunking
-                "**/libsqlite_vector_store_jni.so",               // RAG vector store
-            )
+            excludes += listOf("lib/armeabi-v7a/**")
         }
     }
 

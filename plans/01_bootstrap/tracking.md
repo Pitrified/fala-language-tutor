@@ -14,8 +14,8 @@ This repo written from flutter-setup-project with the tutor on the cloud engine 
 | #  | Phase                          | Plan                                       | Status      |
 | -- | ------------------------------ | ------------------------------------------ | ----------- |
 | 01 | Copy the baseline              | [`01_baseline.md`](01_baseline.md)         | done        |
-| 02 | Cut the on-device engine       | [`02_cloud_only.md`](02_cloud_only.md)     | in progress |
-| 03 | Docs and instructions          | [`03_docs.md`](03_docs.md)                 | planned     |
+| 02 | Cut the on-device engine       | [`02_cloud_only.md`](02_cloud_only.md)     | done        |
+| 03 | Docs and instructions          | [`03_docs.md`](03_docs.md)                 | in progress |
 | 04 | Move the open plan folders     | [`04_plans.md`](04_plans.md)               | planned     |
 | 05 | Verify and push                | [`05_verify.md`](05_verify.md)             | planned     |
 
@@ -27,3 +27,4 @@ Append-only. Newest at the bottom.
 
 - 2026-09-26 : repo created empty by the user; this plan written by the session that ran the source's audit.
 - 2026-09-26 : phase 1 - source tree at `db87b69` copied with `git archive`, minus its plans and the non-code guide rows; links to guide-only docs made absolute; the format gate extended to untracked files here and in the source. All gates pass, 168 tests.
+- 2026-09-26 : phase 2 - on-device engine removed: five source files, the model download route, `flutter_gemma` and `path_provider`, the Android excludes for it; `AppController` kept without the model check. All gates pass, 166 tests.
