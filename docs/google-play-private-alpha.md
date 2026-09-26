@@ -60,8 +60,8 @@ Even an internal release needs a main store listing filled in:
 
 - Title: `fala - Language Tutor`
 - Short description: `Practise a language by chatting with an AI tutor that corrects you`
-- Full description: 2-3 paragraphs about AI-assisted language practice (cloud
-  via OpenAI by default, or a fully on-device model - see privacy policy). Name the
+- Full description: 2-3 paragraphs about AI-assisted language practice (through
+  OpenAI, with the user's own key - see privacy policy). Name the
   languages: Portuguese (Brazilian), Spanish, French, Italian, German
 - App icon: 512x512 PNG
 - Feature graphic: 1024x500 banner
@@ -91,13 +91,11 @@ Data Safety for fala depends on the active engine (see
 [privacy-policy.md](privacy-policy.md)):
 
 - fala runs **no** analytics, ads, or tracking of its own.
-- The **default OpenAI (cloud) engine** sends the user's messages to OpenAI to
+- The **OpenAI engine**, the only real one, sends the user's messages to OpenAI to
   generate replies. That is a third-party data transfer and must be declared:
   under Data Safety, mark **Messages / other user content** as *collected and
   shared with a third party* for **App functionality**, over an encrypted
-  connection. Do **not** declare "No data shared" while OpenAI is the default.
-- Only if you ship with the on-device engine forced and the OpenAI path removed
-  could you honestly declare *No data collected, no data shared*.
+  connection. "No data shared" is not an honest declaration for this app.
 
 Keep this honest and re-check it whenever the default engine or any network path
 changes.
@@ -206,7 +204,7 @@ If a build is broken:
 ## 14. Verification
 
 - Install from the Play Store internal link on a physical device.
-- App launches, model downloads on first run, a conversation works end to end.
+- App launches, the OpenAI key is accepted in Settings, a conversation works end to end.
 
 ---
 

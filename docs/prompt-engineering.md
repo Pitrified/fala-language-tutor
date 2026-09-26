@@ -21,7 +21,7 @@ lib/models/tutor_response.dart      <-- Dart model for structured output
 
 ### `assets/prompts/tutor_response/v1.txt`
 
-The prompt template sent to the on-device model. Contains:
+The prompt template sent to the model. Contains:
 
 - System instruction (role, language, CEFR level)
 - Exact JSON format the model must produce
@@ -78,16 +78,12 @@ The `PromptManager` auto-selects the highest version number (scans v10 down to v
 | `{{user_message}}` | User input | The message the user just typed |
 | `{{conversation_history}}` | Last N messages | Formatted history for context |
 
-### 3. Key constraints for on-device models
+### 3. Output constraints
 
-Small models (0.6B-1B parameters) need different prompting than cloud APIs:
-
-- **Be explicit about format.** Show the exact JSON structure with field descriptions.
-- **Use "Output ONLY the JSON"** to reduce preamble/commentary.
-- **Keep instructions short.** Long system prompts eat into the token budget (1024 max).
-- **Avoid complex reasoning.** Small models struggle with multi-step logic.
-- **Repeat critical rules.** Redundancy helps small models comply.
-- **Test with thinking disabled.** Qwen3's thinking mode (`<think>` tags) can leak into output. We set `isThinking: false` in the engine.
+The OpenAI engine sends `tutor_response_schema.dart` as a strict `json_schema` response format, so
+the reply is well-formed JSON with every required field. The prompt still shows the structure and
+says to output only the JSON, because the schema constrains shape, not content: which fields carry
+the correction and which the reply is the prompt's job.
 
 ### 4. Testing prompts without building APK
 
@@ -97,9 +93,9 @@ Use the fake engine with a modified response to test parsing:
 flutter test test/services/prompt_manager_test.dart
 ```
 
-Or run the full app with `--dart-define=FAKE_ENGINE=true` to bypass the model entirely and test UI flow with canned responses.
+Or run the full app with `--dart-define=FAKE_ENGINE=true` to bypass the API entirely and test UI flow with canned responses.
 
-### 5. Debugging on-device output
+### 5. Debugging model output
 
 When the model produces unexpected output:
 
@@ -108,13 +104,10 @@ When the model produces unexpected output:
    adb logcat --pid=$(adb shell pidof com.fala.app) | grep "flutter"
    ```
 
-2. Look for `InferenceChat: Complete response accumulated:` in logs - this shows exactly what the model returned.
+2. If the JSON is malformed, the `JsonExtractor` will fail and `StructuredParseFailure` fires. The UI shows the raw text as a fallback.
 
-3. If the JSON is malformed, the `JsonExtractor` will fail and `StructuredParseFailure` fires. The UI shows the raw text as a fallback.
-
-4. Common issues:
+3. Common issues:
    - Model outputs text before/after JSON -> `JsonExtractor` handles this (strategy 3)
-   - Model outputs `<think>...</think>` tags -> Filtered by flutter_gemma when `isThinking: false`
    - Model hallucinates extra fields -> `fromJson` ignores unknown keys (freezed default)
    - Model omits required fields -> Parse fails, raw text shown
 
@@ -151,14 +144,4 @@ The prompt instructs the model to:
 Worked example, with Portuguese as the target: the model is told it is a
 "Portuguese (Brazilian) language tutor", replies in Portuguese and translates into English.
 
-The on-device model (Qwen3 0.6B) produces reasonable responses at this scale but may:
-
-- Give generic corrections for unusual sentences
-- Struggle with idiomatic expressions
-- Produce shorter replies than larger models would
-
-Cloud (OpenAI) is the engine the prompt is tuned against. Where the two engines
-disagree about a prompt, the cloud output is the target and the on-device one is
-the compromise.
-
-These limitations are expected for a 0.6B parameter model and can be improved by upgrading to a larger model later (the `InferenceEngine` interface makes this a config-level change).
+The prompt is tuned against the OpenAI model set in Settings, `gpt-4o-mini` by default.

@@ -4,7 +4,7 @@
 
 ## Purpose
 
-Abstract interface for on-device LLM inference. All backends implement this
+Abstract interface for LLM inference. All backends implement this
 contract. App code interacts only with this interface via providers; the concrete
 implementation is selected at startup through the engine factory.
 
@@ -56,7 +56,7 @@ uninitialized -> loading -> ready -> generating -> ready
 
 | Class | File | Use case |
 |-------|------|----------|
-| `FlutterGemmaEngine` | `flutter_gemma_engine.dart` | Production on-device inference |
+| `OpenAiInferenceEngine` | `openai_inference_engine.dart` | Production: OpenAI chat completions, streamed, with the response schema passed in |
 | `FakeInferenceEngine` | `fake_inference_engine.dart` | Tests and dev builds |
 
 ## Provider
@@ -65,4 +65,4 @@ uninitialized -> loading -> ready -> generating -> ready
 
 - `NotifierProvider<InferenceEngineNotifier, InferenceEngine?>`
 - Initially null; set by `AppController.onEngineReady` callback.
-- `engineFactoryProvider` (must be overridden at ProviderScope) selects which implementation to construct.
+- `engineFactoryProvider` derives the factory from the selected `EngineKind` through `engineFactoryFor` in `engine_registry.dart`; tests can override it.

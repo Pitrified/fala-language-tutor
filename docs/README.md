@@ -25,7 +25,6 @@ All documentation needed to go from zero to a working private alpha.
 
 ### Guides
 
-- [guides/model-management.md](https://github.com/Pitrified/flutter-setup-project/blob/main/docs/guides/model-management.md) - Download, cache, validate model files
 - ~~guides/prompts.md~~ - Not needed; covered by [prompt-engineering.md](prompt-engineering.md)
 - ~~guides/structured-output.md~~ - Not needed; covered by [prompt-engineering.md](prompt-engineering.md)
 
@@ -36,7 +35,6 @@ All documentation needed to go from zero to a working private alpha.
 - [library/conversation-controller.md](library/conversation-controller.md)
 - [library/structured-output-system.md](library/structured-output-system.md)
 - [library/conversation-repository.md](library/conversation-repository.md)
-- [library/runtime-model-manager.md](https://github.com/Pitrified/flutter-setup-project/blob/main/docs/library/runtime-model-manager.md)
 - [library/prompt-manager.md](library/prompt-manager.md)
 
 ### Build and release

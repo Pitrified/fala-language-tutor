@@ -14,18 +14,18 @@ fala/                                 # Flutter project root
   lib/
     main.dart                         # Entry point
     app.dart                          # App widget, providers, router
-    config/                           # Typed configuration classes
     models/                           # Freezed data models (generated)
     providers/                        # Riverpod providers
     screens/                          # UI screens (one folder per screen)
       welcome/
       conversation/
-      model_download/
+      settings/
     services/                         # Business logic services
       inference/                      # InferenceEngine + implementations
       conversation/                   # ConversationController
       persistence/                    # ConversationRepository
-      model/                          # RuntimeModelManager
+      settings/                       # AppSettingsRepository, ApiKeyStore
+      app/                            # AppController
       prompt/                         # PromptManager
       logging/                        # AppLogger
   test/
@@ -42,9 +42,8 @@ fala/                                 # Flutter project root
 | Layer | Path | Can depend on | Cannot depend on |
 |-------|------|---------------|------------------|
 | Models | lib/models/ | Nothing (pure data) | Everything else |
-| Config | lib/config/ | Models | Services, Screens, Providers |
-| Services | lib/services/ | Models, Config | Providers, Screens |
-| Providers | lib/providers/ | Services, Models, Config | Screens |
+| Services | lib/services/ | Models | Providers, Screens |
+| Providers | lib/providers/ | Services, Models | Screens |
 | Screens | lib/screens/ | Providers, Models | Services directly |
 
 Widgets used by one screen live in that screen's `widgets/` folder. There is no shared `lib/widgets/` or `lib/utils/` today; create one when a second screen needs the same widget or helper.
@@ -60,7 +59,7 @@ Key constraint: screens never import from services directly - they go through pr
 | Providers | camelCase + Provider suffix | `conversationControllerProvider` |
 | Freezed models | PascalCase | `ConversationMessage` |
 | Enums | PascalCase type, camelCase values | `InferenceStatus.ready` |
-| Folders | snake_case | `model_download/` |
+| Folders | snake_case | `conversation/` |
 | Test files | same name + _test | `conversation_controller_test.dart` |
 
 ## Assets

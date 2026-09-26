@@ -2,16 +2,16 @@
 
 ## Overview
 
-Android language-tutoring app. The user chats in Portuguese and gets structured
-corrections plus a conversational reply, streamed token by token.
+Android language-tutoring app. The user chats in the language they are learning (Portuguese by
+default) and gets structured corrections plus a conversational reply, streamed token by token.
 
 Two inference engines sit behind one `InferenceEngine` interface, selected in Settings:
 
-- **on-device**: Qwen3-0.6B (`.litertlm`, LiteRT-LM path of `flutter_gemma`), downloaded on
-  first launch, offline afterwards.
 - **cloud**: OpenAI via `openai_dart`, with the key stored in `flutter_secure_storage`.
+- **fake**: `FakeInferenceEngine`, scripted replies from an asset fixture, and the one every test uses.
 
-`FakeInferenceEngine` is the third implementation and the one every test uses.
+The repo was split out of [flutter-setup-project](https://github.com/Pitrified/flutter-setup-project),
+which keeps the guide to setting up Flutter, the AI playbook, and the history from before the split.
 
 ## Source of truth
 
@@ -22,15 +22,13 @@ Two inference engines sit behind one `InferenceEngine` interface, selected in Se
 - System specs: [docs/library/](../docs/library/)
 - Build and release: [docs/build-and-release.md](../docs/build-and-release.md)
 
-The docs lag the code in places, because the phases after 09 moved faster than the docs did.
 Where a doc and the code disagree, the code is the fact and the doc is the bug: say so rather
 than coding to the stale line. Where a doc and a *request* disagree, stop and ask.
 
 ## Progress
 
 Each phase folder under [plans/](../plans/) owns its own `tracking.md` once it has phases, written in the shape the
-`tracked-development` skill describes; a draft has only its `00_start.md`. Read the phase folder itself: the folders up to 09 predate the
-convention and keep their own index, and none of them is the index for anything newer.
+`tracked-development` skill describes; a draft has only its `00_start.md`. Read the phase folder itself.
 
 ## Plans are a diary, docs are the as-is
 
@@ -50,7 +48,7 @@ instance of it.
 
 ## Stack
 
-Flutter (Dart) - Riverpod - GoRouter - Hive - flutter_gemma - openai_dart -
+Flutter (Dart) - Riverpod - GoRouter - Hive - openai_dart -
 freezed + json_serializable - Android, min API 26, target 36
 
 ## Hard rules
@@ -62,7 +60,7 @@ freezed + json_serializable - Android, min API 26, target 36
 - Tests use `FakeInferenceEngine`, never a real engine or the network
 - Trailing commas on multi-line argument lists
 - Generated files (`*.freezed.dart`, `*.g.dart`) are gitignored, not committed
-- No iOS, macOS, web or desktop code until phase 11 is actually being executed
+- No iOS, macOS, web or desktop code: the app is Android only for now
 - Touch the files the request is about and leave the rest alone
 
 ## Gates
@@ -96,6 +94,9 @@ be given twice, the fix is a mechanism, not more prose.
 This box is headless: no device, no emulator, and `flutter devices` is empty. It builds, analyzes
 and tests. Anything that needs the Pixel (install, on-device smoke test, timing) and every `git push`
 happens from a `g7` session, so hand those back rather than working around them.
+
+A claude.ai cloud session is a third machine: headless like this box, able to push, and without
+Flutter until it is installed (`docs/getting-started.md`, "Fresh cloud session").
 
 `flutter` and the Android SDK are on the PATH in every shell here, including non-interactive ones
 (`~/.bashrc` sets them above its interactivity guard, 2026-09-24). `scripts/check.sh` still falls

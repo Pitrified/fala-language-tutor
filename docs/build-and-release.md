@@ -25,8 +25,8 @@ flutter run --release
 
 The default `flutter build apk` produces one fat APK carrying native libraries for every
 CPU architecture. We only ship arm64-v8a (phones) and x86_64 (emulators); 32-bit
-armeabi-v7a is dropped as unrealistic for an on-device LLM: a 32-bit device has
-neither the memory nor the speed to run the model.
+armeabi-v7a is dropped. The reason was an on-device model a 32-bit device could not run;
+that engine is gone, and v7a stays dropped until a device that needs it turns up.
 Restrict the ABI set with `--target-platform` and split per architecture so a device
 gets only the code it runs:
 
@@ -54,11 +54,6 @@ direct install and for AAB uploads; it only matters if you upload split APKs dir
 For the Play Store, upload the AAB instead (`flutter build appbundle`) - Google splits per ABI
 server-side and each user downloads only their architecture.
 
-The release build also excludes the flutter_gemma native libs this app never loads (MediaPipe,
-image-generator and RAG `.so` files) via `packaging { jniLibs.excludes }` in
-`android/app/build.gradle.kts`; the app runs only the LiteRT-LM / qwen3 path.
-Re-verify that exclude list on every flutter_gemma upgrade: it is a list of paths
-inside someone else's package, and nothing fails loudly if one is renamed.
 
 ### Debugging a live app on device
 
@@ -135,24 +130,14 @@ flutter build appbundle --release
 
 ## Size budget
 
-`flutter_gemma` bundles native libs for engine paths this app never uses, so the old "<30MB APK"
-target is not reachable, but the release build now drops armeabi-v7a and excludes the unused
-MediaPipe / image-generator / RAG `.so` files (see the split-per-ABI section above). The LLM model downloads separately at runtime and is not counted below.
-Measured on 2026-07-11 (Flutter 3.44.0, debug-signed release, on-device inference verified):
+Not measured since the on-device engine was removed. The last measurement, with `flutter_gemma`
+and its native libraries still in the build, was 43 MB for the arm64-v8a split APK, most of it
+that engine; without it the APK should be much smaller, and the number here waits for a build
+on a machine with the Android SDK.
 
-| Artifact | Size | Notes |
-|----------|------|-------|
-| Fat APK (`app-release.apk`, arm64 + x86_64) | 103 MB | both shipped ABIs; avoid for distribution |
-| Split APK, arm64-v8a | 43 MB | on-disk; what a phone installs when sideloaded (was 160 MB) |
-| Split APK, x86_64 | 48 MB | emulator (was 80 MB) |
-| armeabi-v7a | dropped | 32-bit, unsupported (`--target-platform android-arm64,android-x64`) |
-
-The remaining native weight is `liblitertlm_jni.so` (~20 MB, the LiteRT-LM engine this app runs)
-plus `libflutter.so` and `libapp.so`. Build split APKs with
+Build split APKs with
 `flutter build apk --release --split-per-abi --target-platform android-arm64,android-x64`; for
 per-device Play download sizes run `bundletool get-size total --dimensions=ABI` on `app-release.aab`.
-An earlier bundletool measurement (2026-07-09, before `libllm_inference_engine_jni.so` was also
-excluded) gave a Play download of ~31 MB for arm64-v8a; the current build should come in below that.
 
 ## Install on device
 
@@ -203,10 +188,6 @@ emulator -avd fala_test
 ```bash
 flutter run --release
 ```
-
-Note: The model download URL is a placeholder. On first run, the app will
-show the "needs model" screen (expected behavior until a real model server
-is configured).
 
 ## Version management
 

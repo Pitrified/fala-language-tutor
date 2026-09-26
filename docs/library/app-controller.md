@@ -4,36 +4,32 @@
 
 ## Purpose
 
-Controls top-level application lifecycle. Checks model availability, initializes
-the inference engine, and exposes reactive state for the router to decide
-navigation (loading screen, download screen, or conversation screen).
+Controls top-level application lifecycle: builds and initializes the selected inference
+engine, and exposes reactive state for the welcome screen and the router (loading, ready to
+start a conversation, or an error with a retry).
 
 ## State machine
 
 ```
-AppLoading -> AppNeedsModel   (model not found)
 AppLoading -> AppReady        (engine initialized)
 AppLoading -> AppError        (init timeout or failure)
+AppError   -> AppLoading      (initialize() called again, e.g. from Retry)
 ```
 
-`AppState` is a sealed class with four subtypes:
+`AppState` is a sealed class with three subtypes:
 
 | State | Meaning |
 |-------|---------|
 | `AppLoading` | Initialization in progress |
-| `AppNeedsModel` | Model file not available on device |
-| `AppReady` | Engine initialized, model info available |
+| `AppReady` | Engine initialized |
 | `AppError` | Something failed (message field) |
 
 ## Constructor parameters
 
 | Param | Type | Required | Description |
 |-------|------|----------|-------------|
-| `engineFactory` | `InferenceEngine Function(String)` | yes | Factory to create engine from model path |
-| `onEngineReady` | `void Function(InferenceEngine)` | yes | Callback fired when engine reaches ready state |
-| `modelChecker` | `Future<bool> Function()` | yes | Checks if model file exists on device |
-| `modelName` | `String` | no | Defaults to `ModelConfig.defaultModelFileName` |
-| `skipModelCheck` | `bool` | no | Bypass model verification (for FakeInferenceEngine) |
+| `engineFactory` | `InferenceEngine Function()` | yes | Builds the engine for the selected engine kind |
+| `onEngineReady` | `void Function(InferenceEngine)` | yes | Callback fired when the engine reaches ready state |
 
 ## Public API
 
@@ -41,38 +37,32 @@ AppLoading -> AppError        (init timeout or failure)
 |--------|-----------|-------------|
 | `state` | `AppState get state` | Current state (synchronous read) |
 | `stateStream` | `Stream<AppState> get stateStream` | Broadcast stream of state changes |
-| `initialize()` | `Future<void>` | Run init sequence: check model, create engine, call onEngineReady |
-| `onModelDownloaded()` | `Future<void>` | Re-trigger initialize after download completes |
+| `initialize()` | `Future<void>` | Create the engine, initialize it, call onEngineReady |
 | `dispose()` | `Future<void>` | Close stream controller |
 
 ## Behavior details
 
 - `initialize()` times out engine init after 10 seconds.
-- When `skipModelCheck` is true, skips `modelChecker` call entirely (used in test builds with `FakeInferenceEngine`).
 - `onEngineReady` is only called when `engine.isReady == true` after initialization.
+- The router keeps the conversation route unreachable until the state is `AppReady`.
 
 ## Dependencies
 
 - `InferenceEngine` (interface)
-- `ModelConfig` (default model file name)
-- `ModelMetadata` (passed in `AppReady` state)
 
 ## Provider
 
-`appControllerProvider` in `lib/providers/app_provider.dart`:
+`appControllerProvider` in `lib/providers/app_provider.dart`, rebuilt when the selected
+engine kind changes because it watches `engineFactoryProvider`:
 
 ```dart
 final appControllerProvider = Provider<AppController>((ref) {
   final factory = ref.watch(engineFactoryProvider);
   return AppController(
     engineFactory: factory,
-    modelChecker: () => FlutterGemma.isModelInstalled(
-      ModelConfig.defaultModelFileName,
-    ),
     onEngineReady: (engine) {
       ref.read(inferenceEngineProvider.notifier).setEngine(engine);
     },
-    skipModelCheck: ref.watch(skipModelCheckProvider),
   );
 });
 ```
