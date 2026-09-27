@@ -1,7 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/cefr_level.dart';
 import '../models/target_language.dart';
+import '../models/topic.dart';
 import '../services/inference/engine_kind.dart';
 import '../services/settings/api_key_store.dart';
 import '../services/settings/app_settings_repository.dart';
@@ -144,6 +146,40 @@ class DefaultTopicNotifier extends Notifier<String> {
 final defaultTopicProvider = NotifierProvider<DefaultTopicNotifier, String>(
   DefaultTopicNotifier.new,
 );
+
+/// Reactive holder for the recent custom topics shown in the topic picker,
+/// newest first. One list for every target language.
+///
+/// Writes through to the repository; the ordering and cap are
+/// [pushRecentTopic]'s.
+class RecentTopicsNotifier extends Notifier<List<String>> {
+  @override
+  List<String> build() {
+    return ref.read(appSettingsRepositoryProvider).recentTopics();
+  }
+
+  /// Move or add [topic] to the front of the list, if it is a custom topic.
+  Future<void> remember(String topic) async {
+    await _store(pushRecentTopic(state, topic));
+  }
+
+  /// Drop [topic] from the list.
+  Future<void> remove(String topic) async {
+    await _store(state.where((t) => t != topic).toList());
+  }
+
+  Future<void> _store(List<String> topics) async {
+    if (listEquals(topics, state)) return;
+    await ref.read(appSettingsRepositoryProvider).setRecentTopics(topics);
+    state = topics;
+  }
+}
+
+/// Provider for the recent custom topics, newest first.
+final recentTopicsProvider =
+    NotifierProvider<RecentTopicsNotifier, List<String>>(
+      RecentTopicsNotifier.new,
+    );
 
 /// Reactive holder for the default [TargetLanguage] used to seed new
 /// conversations.

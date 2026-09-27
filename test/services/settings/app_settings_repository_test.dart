@@ -78,6 +78,23 @@ void main() {
     expect(repo.defaultTopicValue(), 'Daily routine');
   });
 
+  test('recentTopics defaults to empty and round-trips', () async {
+    expect(repo.recentTopics(), isEmpty);
+    await repo.setRecentTopics(['ciclismo', 'jazz']);
+    expect(repo.recentTopics(), ['ciclismo', 'jazz']);
+  });
+
+  test(
+    'recentTopics reads a value that is not a list of strings as empty',
+    () async {
+      final box = await Hive.openBox<String>('test_app_settings');
+      for (final bad in ['not json', '{"a": 1}', '[1, 2]']) {
+        await box.put(AppSettingsRepository.keyRecentTopics, bad);
+        expect(repo.recentTopics(), isEmpty, reason: bad);
+      }
+    },
+  );
+
   test('defaultLanguage defaults to pt-BR and round-trips', () async {
     expect(repo.defaultLanguage(), TargetLanguage.ptBr);
     await repo.setDefaultLanguage(TargetLanguage.esEs);

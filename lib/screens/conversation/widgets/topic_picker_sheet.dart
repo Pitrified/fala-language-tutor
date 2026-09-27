@@ -5,11 +5,15 @@ import '../../../models/topic.dart';
 /// Bottom sheet for picking a [Topic].
 ///
 /// Layout: a `TextField` at the top with an "Apply" button for a custom topic,
-/// then a scrollable list of [kSuggestedTopics]. Returns the picked [Topic],
+/// then the [recent] custom topics, newest first, then [kSuggestedTopics], in
+/// one scrollable list. A recent topic's remove button calls [onRemoveRecent]
+/// and drops it from the sheet without closing it. Returns the picked [Topic],
 /// or `null` if the user dismissed the sheet.
 Future<Topic?> showTopicPickerSheet(
   BuildContext context, {
   required Topic current,
+  List<String> recent = const [],
+  Future<void> Function(String topic)? onRemoveRecent,
 }) {
   return showModalBottomSheet<Topic>(
     context: context,
@@ -19,15 +23,25 @@ Future<Topic?> showTopicPickerSheet(
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(sheetContext).viewInsets.bottom,
       ),
-      child: _TopicPickerBody(current: current),
+      child: _TopicPickerBody(
+        current: current,
+        recent: recent,
+        onRemoveRecent: onRemoveRecent,
+      ),
     ),
   );
 }
 
 class _TopicPickerBody extends StatefulWidget {
-  const _TopicPickerBody({required this.current});
+  const _TopicPickerBody({
+    required this.current,
+    required this.recent,
+    required this.onRemoveRecent,
+  });
 
   final Topic current;
+  final List<String> recent;
+  final Future<void> Function(String topic)? onRemoveRecent;
 
   @override
   State<_TopicPickerBody> createState() => _TopicPickerBodyState();
@@ -37,6 +51,7 @@ class _TopicPickerBodyState extends State<_TopicPickerBody> {
   late final TextEditingController _controller = TextEditingController(
     text: widget.current.isCustom ? widget.current.value : '',
   );
+  late final List<String> _recent = List.of(widget.recent);
 
   @override
   void dispose() {
@@ -48,6 +63,28 @@ class _TopicPickerBodyState extends State<_TopicPickerBody> {
     final raw = _controller.text.trim();
     if (raw.isEmpty) return;
     Navigator.of(context).pop(Topic(value: raw, isCustom: true));
+  }
+
+  void _remove(String topic) {
+    setState(() => _recent.remove(topic));
+    widget.onRemoveRecent?.call(topic);
+  }
+
+  Widget _topicTile(Topic topic, {Widget? trailing}) {
+    final isSelected = topic == widget.current;
+    return ListTile(
+      title: Text(topic.value),
+      trailing: trailing ?? (isSelected ? const Icon(Icons.check) : null),
+      selected: isSelected,
+      onTap: () => Navigator.of(context).pop(topic),
+    );
+  }
+
+  Widget _sectionLabel(String text) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 12, 16, 4),
+      child: Text(text, style: Theme.of(context).textTheme.labelLarge),
+    );
   }
 
   @override
@@ -97,18 +134,24 @@ class _TopicPickerBodyState extends State<_TopicPickerBody> {
               ),
             const Divider(height: 1),
             Expanded(
-              child: ListView.separated(
-                itemCount: kSuggestedTopics.length,
-                separatorBuilder: (_, _) => const Divider(height: 1),
-                itemBuilder: (context, index) {
-                  final t = kSuggestedTopics[index];
-                  final isSelected = t == widget.current;
-                  return ListTile(
-                    title: Text(t.value),
-                    trailing: isSelected ? const Icon(Icons.check) : null,
-                    onTap: () => Navigator.of(context).pop(t),
-                  );
-                },
+              child: ListView(
+                children: [
+                  if (_recent.isNotEmpty) ...[
+                    _sectionLabel('Recent'),
+                    for (final value in _recent)
+                      _topicTile(
+                        Topic(value: value, isCustom: true),
+                        trailing: IconButton(
+                          tooltip: 'Remove $value',
+                          icon: const Icon(Icons.close),
+                          onPressed: () => _remove(value),
+                        ),
+                      ),
+                    const Divider(height: 1),
+                    _sectionLabel('Suggestions'),
+                  ],
+                  for (final t in kSuggestedTopics) _topicTile(t),
+                ],
               ),
             ),
           ],

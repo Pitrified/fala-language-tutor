@@ -540,15 +540,19 @@ class _TopicAction extends ConsumerWidget {
             icon: const Icon(Icons.bookmark_outline, size: 18),
             label: Text(label),
             onPressed: () async {
+              final recent = ref.read(recentTopicsProvider.notifier);
               final picked = await showTopicPickerSheet(
                 context,
                 current: current,
+                recent: ref.read(recentTopicsProvider),
+                onRemoveRecent: recent.remove,
               );
               if (picked == null) return;
               await controller.setTopic(picked.value);
               await ref
                   .read(defaultTopicProvider.notifier)
                   .select(picked.value);
+              await recent.remember(picked.value);
             },
           ),
         );
