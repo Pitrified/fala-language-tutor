@@ -7,11 +7,10 @@ import '../../models/target_language.dart';
 import '../../providers/app_provider.dart';
 import '../../providers/settings_provider.dart';
 import '../../services/app/app_controller.dart';
-import '../../services/inference/engine_kind.dart';
 
 /// Welcome screen - app entry point.
 ///
-/// Displays app name, status indicator, and start button.
+/// Displays the app name, a loading indicator, and the start button.
 /// Triggers app initialization on first build.
 class WelcomeScreen extends ConsumerStatefulWidget {
   const WelcomeScreen({super.key});
@@ -82,7 +81,7 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
                     if (state is AppReady)
                       FilledButton(
                         onPressed: () => context.go(AppRoutes.conversation),
-                        child: const Text('Start Conversation'),
+                        child: const Text('Start learning'),
                       ),
                     if (state is AppLoading) const CircularProgressIndicator(),
                     if (state is AppError)
@@ -114,22 +113,7 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
   Widget _buildStatusWidget(BuildContext context, AppState state) {
     return switch (state) {
       AppLoading() => const Text('Loading...'),
-      AppReady() => Text(
-        'Model: ${_modelLabel()}',
-        style: Theme.of(context).textTheme.bodySmall,
-      ),
-      AppError() => const SizedBox.shrink(),
-    };
-  }
-
-  /// Label for the active engine's model, derived from the selected engine
-  /// kind, so it follows an OpenAI-model change, which does not re-init the
-  /// controller.
-  String _modelLabel() {
-    final kind = ref.watch(selectedEngineKindProvider);
-    return switch (kind) {
-      EngineKind.openai => ref.watch(openaiModelProvider),
-      EngineKind.fake => EngineKind.fake.displayName,
+      AppReady() || AppError() => const SizedBox.shrink(),
     };
   }
 }
