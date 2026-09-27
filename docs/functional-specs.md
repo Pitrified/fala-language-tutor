@@ -75,7 +75,7 @@ App Launch
 |--------|---------|----------|
 | Welcome | App entry, runtime status, start session (or model setup when a key is missing) | Until navigation |
 | Settings | Index of the two settings pages, also listed in the conversation drawer | Until navigation |
-| Language | Target language and CEFR level, applied to the open conversation and to new ones | Until navigation |
+| Language | Target language and CEFR level, applied to the open conversation and to new ones; the "Read replies aloud" switch | Until navigation |
 | Model | Engine, then the selected engine's details (OpenAI key and model) | Until navigation |
 | Conversation | Main interaction: messages, input, corrections; the app bar holds the topic picker, the drawer the settings, a link to the source repository and the version | Session-scoped |
 
@@ -129,7 +129,7 @@ and `correction.errors` are empty/empty list.
 | Hive box | Dart model | Contents |
 |----------|------------|----------|
 | conversations | `Conversation` (list of `ConversationMessage` with `TutorResponse`) | Messages: role, content, timestamp, correction data |
-| app_settings | `AppSettingsRepository` (plain strings) | Engine kind, OpenAI model id, target language, CEFR level |
+| app_settings | `AppSettingsRepository` (plain strings) | Engine kind, OpenAI model id, target language, CEFR level, recent topics, read replies aloud |
 
 ## 10. Error Handling
 

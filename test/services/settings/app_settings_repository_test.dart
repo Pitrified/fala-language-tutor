@@ -72,6 +72,14 @@ void main() {
     },
   );
 
+  test('readRepliesAloud defaults to off and round-trips', () async {
+    expect(repo.readRepliesAloud(), isFalse);
+    await repo.setReadRepliesAloud(true);
+    expect(repo.readRepliesAloud(), isTrue);
+    await repo.setReadRepliesAloud(false);
+    expect(repo.readRepliesAloud(), isFalse);
+  });
+
   test('defaultTopic defaults to empty and round-trips', () async {
     expect(repo.defaultTopicValue(), '');
     await repo.setDefaultTopic('Daily routine');

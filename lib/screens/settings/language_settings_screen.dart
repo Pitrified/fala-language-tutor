@@ -5,10 +5,12 @@ import '../../models/cefr_level.dart';
 import '../../models/target_language.dart';
 import '../../providers/conversation_provider.dart';
 import '../../providers/settings_provider.dart';
+import '../../providers/speech_provider.dart';
+import '../conversation/widgets/speak_button.dart';
 import 'widgets/language_switch.dart';
 
-/// Language settings: the language being learned and the CEFR level. Both
-/// apply to the open conversation as well as to new ones.
+/// Language settings: the language being learned and the CEFR level, which
+/// apply to the open conversation as well as to new ones, and speech.
 class LanguageSettingsScreen extends ConsumerWidget {
   const LanguageSettingsScreen({super.key});
 
@@ -41,6 +43,17 @@ class LanguageSettingsScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 8),
           const _CefrDropdown(),
+          const SizedBox(height: 24),
+          const Divider(),
+          const SizedBox(height: 8),
+          Text('Speech', style: Theme.of(context).textTheme.titleMedium),
+          const SizedBox(height: 4),
+          Text(
+            'Replies are read with your phone\'s text-to-speech. The speaker '
+            'next to a reply reads it again.',
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+          const _SpeechSection(),
         ],
       ),
     );
@@ -128,6 +141,73 @@ class _CefrDropdown extends ConsumerWidget {
             style: Theme.of(context).textTheme.bodySmall,
           ),
         ),
+      ],
+    );
+  }
+}
+
+/// The "Read replies aloud" switch, and a warning with an install button when
+/// the phone has no voice for the language being learned.
+///
+/// Checks the voice again when the app returns to the foreground, which is how
+/// the learner comes back from the install screen.
+class _SpeechSection extends ConsumerStatefulWidget {
+  const _SpeechSection();
+
+  @override
+  ConsumerState<_SpeechSection> createState() => _SpeechSectionState();
+}
+
+class _SpeechSectionState extends ConsumerState<_SpeechSection>
+    with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      ref.invalidate(voiceAvailableProvider);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final language = ref.watch(defaultTargetLanguageProvider);
+    final available = ref.watch(voiceAvailableProvider(language));
+    final textTheme = Theme.of(context).textTheme;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SwitchListTile(
+          contentPadding: EdgeInsets.zero,
+          title: const Text('Read replies aloud'),
+          value: ref.watch(readRepliesAloudProvider),
+          onChanged: (value) =>
+              ref.read(readRepliesAloudProvider.notifier).set(value),
+        ),
+        if (available.hasValue && !available.requireValue) ...[
+          Text(
+            'This phone has no ${language.displayName} voice yet, so replies '
+            'stay silent.',
+            style: textTheme.bodySmall?.copyWith(
+              color: Theme.of(context).colorScheme.error,
+            ),
+          ),
+          const SizedBox(height: 8),
+          OutlinedButton(
+            onPressed: () => openVoiceInstall(context, ref),
+            child: const Text('Install voice'),
+          ),
+        ],
       ],
     );
   }

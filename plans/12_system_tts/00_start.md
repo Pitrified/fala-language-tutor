@@ -1,5 +1,5 @@
 ---
-status: draft
+status: in progress
 priority: 0
 description: |
   Read the tutor's replies aloud with Android's system text-to-speech: what is spoken, when it
@@ -10,7 +10,7 @@ description: |
 
 Spun off on 2026-09-27 from option O1 of [`../05_audio_io/00_start.md`](../05_audio_io/00_start.md), which stays the home of speech input and of the cloud and self-hosted voices.
 
-Status: options only. Nothing decided, no phases derived.
+Options below, as first written; the answers to Q1 to Q7 and the decisions they lead to are at the end.
 
 ## Where this came from
 
@@ -83,9 +83,25 @@ A "Speech" section on the Language page, since voices are per language: the auto
 ## Open questions
 
 - Q1: `flutter_tts` (new dependency) or our own platform channel?
+  ANS: `flutter_tts`; the new dependency is approved (user, 2026-09-27).
 - Q2: What is spoken: the reply only (S1), or the corrected sentence first (S2)?
+  ANS: the reply only (user, 2026-09-27).
 - Q3: When: on demand only (W1), or also automatic after a complete reply (W2)? Is sentence-by-sentence streaming (W3) worth its complexity, now or later?
+  ANS: both W1 and W2: W1 to replay a specific message, W2 to hear each reply automatically (user, 2026-09-27). W3 not asked for.
 - Q4: Speed: engine default (R1), a setting (R2), or tied to the CEFR level (R3)?
+  ANS: the engine default at all levels (user, 2026-09-27).
 - Q5: Does typing in the input bar stop the speech?
+  ANS: no (user, 2026-09-27).
 - Q6: Is a separate "Stop" chip wanted, or is the bubble's own icon enough?
+  ANS: no chip, the bubble's icon only (user, 2026-09-27).
 - Q7: A missing voice: hide the control (A1) or explain and link to the install screen (A2)?
+  ANS: explain and link: "a user starting a new language might not have the full phone set up for that yet" (user, 2026-09-27).
+
+## Decisions
+
+- D1: `flutter_tts` behind a `SpeechService` interface in `lib/services/speech/`, with `SystemSpeechService` for the app and `FakeSpeechService` for tests. The install-voice link is not in `flutter_tts`, so a small method channel in `MainActivity` fires Android's install-voice-data intent, falling back to the text-to-speech settings screen. The manifest declares the `TTS_SERVICE` query, which `flutter_tts` needs on Android 11 and later.
+- D2: spoken text is `conversation.content`, with emoji and markdown symbols removed; the locale is the conversation's language; the rate is the engine's.
+- D3: a speaker icon beside every tutor bubble plays that reply and turns into a stop icon while it plays. Starting one reply stops any other.
+- D4: "Read replies aloud" is a switch in a "Speech" section of the Language page, off by default for now, so a fresh install does not start talking in a public place. With it on, a reply is read once it is complete and committed, only while the conversation is on screen and the app in the foreground. Replies loaded from history are never read by themselves.
+- D5: speech stops when the learner sends a message, starts a new conversation, resumes one, opens a settings page, or leaves the app (`paused` or `hidden`, not `inactive`, so pulling down the notification shade does not cut it). Typing does not stop it (Q5). A call moves the app to the background, which covers that case; `flutter_tts` requests ducking focus but ignores losing it, so another app starting to play sound while fala is in the foreground does not stop fala. That is left as is until it proves to matter.
+- D6: with no voice for the conversation's language, tapping the speaker opens a dialog that says so and offers "Install voice". Automatic reading skips silently; the Speech section says when the current language has no voice, with the same "Install voice" button, and checks again when the app comes back to the foreground.

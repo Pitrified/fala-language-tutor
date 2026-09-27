@@ -32,6 +32,14 @@ When the OpenAI engine is active:
   (Android Keystore via EncryptedSharedPreferences), never committed, never
   logged, and never sent anywhere except to OpenAI as the request credential.
 
+## Reading replies aloud
+
+A speaker button beside each reply, and the optional "Read replies aloud"
+setting, read the reply with your phone's text-to-speech engine. fala passes the
+reply text to that engine on your device and sends it nowhere else. Which engine
+runs, and whether it uses network voices, is chosen in Android Settings, under
+text-to-speech output, and governed by that engine's own terms.
+
 ## Local data
 
 The app stores the following on your device only:
@@ -40,7 +48,8 @@ The app stores the following on your device only:
   reference.
 - **OpenAI API key**: encrypted, as described above (only if you set one).
 - **App preferences**: the selected engine and OpenAI model, the language you are
-  learning, your level, and the last five topics you typed.
+  learning, your level, the last five topics you typed, and whether replies are
+  read aloud.
 
 ## Data deletion
 

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -9,6 +11,7 @@ import '../../models/topic.dart';
 import '../../models/tutor_response.dart';
 import '../../providers/conversation_provider.dart';
 import '../../providers/settings_provider.dart';
+import '../../providers/speech_provider.dart';
 import '../../services/conversation/conversation_controller.dart';
 import '../../services/inference/structured_stream_engine.dart';
 import '../settings/settings_entries.dart';
@@ -17,6 +20,7 @@ import 'widgets/message_bubble.dart';
 import 'widgets/model_setup_banner.dart';
 import 'widgets/resume_choice.dart';
 import 'widgets/source_link.dart';
+import 'widgets/speak_button.dart';
 import 'widgets/streaming_reply_view.dart';
 import 'widgets/streaming_tutor_entry.dart';
 import 'widgets/topic_picker_sheet.dart';
@@ -48,9 +52,14 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen>
   /// resume or new. Nothing is open while it is set.
   Conversation? _resumable;
 
+  /// Kept from [initState]: `ref` cannot be used in [dispose], where speech
+  /// has to stop too.
+  late final SpeechNotifier _speech;
+
   @override
   void initState() {
     super.initState();
+    _speech = ref.read(speechProvider.notifier);
     _scrollController.addListener(_onScroll);
     WidgetsBinding.instance.addObserver(this);
     _initConversation();
@@ -80,6 +89,7 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen>
   Future<void> _newConversation() async {
     final controller = ref.read(conversationControllerProvider);
     if (controller == null) return;
+    unawaited(_speech.stop());
     await controller.startConversation(
       language: ref.read(defaultTargetLanguageProvider),
       cefrLevel: ref.read(defaultCefrLevelProvider),
@@ -97,6 +107,7 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen>
   Future<void> _resumeConversation(Conversation conversation) async {
     final controller = ref.read(conversationControllerProvider);
     if (controller == null) return;
+    unawaited(_speech.stop());
     await controller.loadConversation(conversation.id);
     setState(() {
       _resumable = null;
@@ -116,12 +127,45 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen>
       _isPinnedToBottom = true;
     });
     _textController.clear();
+    unawaited(_speech.stop());
 
     final controller = ref.read(conversationControllerProvider);
     await controller?.sendMessage(text);
+    if (!mounted) return;
 
     setState(() => _isSending = false);
     _scrollToBottom();
+    await _readReplyAloud(controller);
+  }
+
+  /// Read the reply that just arrived, when "Read replies aloud" is on and the
+  /// learner is still looking at this conversation. Skipped silently without
+  /// a voice: the Language page says so.
+  Future<void> _readReplyAloud(ConversationController? controller) async {
+    if (!ref.read(readRepliesAloudProvider)) return;
+    final conversation = controller?.currentConversation;
+    final last = conversation?.messages.lastOrNull;
+    if (conversation == null ||
+        last == null ||
+        last.role != MessageRole.tutor ||
+        last.content.isEmpty) {
+      return;
+    }
+    final TargetLanguage language =
+        TargetLanguageX.fromCode(conversation.language) ??
+        ref.read(defaultTargetLanguageProvider);
+    if (!await ref.read(speechServiceProvider).isVoiceAvailable(language)) {
+      return;
+    }
+    final inForeground =
+        WidgetsBinding.instance.lifecycleState == AppLifecycleState.resumed;
+    if (!mounted || !inForeground) return;
+    if (!(ModalRoute.of(context)?.isCurrent ?? true)) return;
+    await _speech.play(
+      messageId: last.id,
+      text: last.content,
+      language: language,
+    );
   }
 
   /// Recompute whether the user is following the bottom of the list. A small
@@ -210,7 +254,18 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen>
   }
 
   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // Leaving the app stops the reading; `inactive` alone (the notification
+    // shade) does not.
+    if (state == AppLifecycleState.paused ||
+        state == AppLifecycleState.hidden) {
+      unawaited(_speech.stop());
+    }
+  }
+
+  @override
   void dispose() {
+    unawaited(_speech.stop());
     WidgetsBinding.instance.removeObserver(this);
     _scrollController.removeListener(_onScroll);
     _textController.dispose();
@@ -331,6 +386,8 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen>
       isSending: _isSending,
       messages: messages,
     );
+    // The conversation's own language picks the voice, not the default.
+    final language = _copyLanguage;
 
     return ListView.builder(
       controller: _scrollController,
@@ -355,6 +412,15 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen>
               // Revealing the translation on the last bubble grows it below the
               // fold; follow it down if the user is pinned.
               onTranslationRevealed: isLast ? _followGrowthIfPinned : null,
+              trailing:
+                  message.role == MessageRole.tutor &&
+                      message.content.isNotEmpty
+                  ? SpeakButton(
+                      messageId: message.id,
+                      text: message.content,
+                      language: language,
+                    )
+                  : null,
             ),
           ],
         );

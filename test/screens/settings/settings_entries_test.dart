@@ -1,14 +1,20 @@
 import 'dart:async';
 
 import 'package:fala/app.dart';
+import 'package:fala/providers/speech_provider.dart';
 import 'package:fala/screens/settings/settings_entries.dart';
 import 'package:fala/screens/settings/settings_screen.dart';
+import 'package:fala/services/speech/fake_speech_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 
 void main() {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  late FakeSpeechService speech;
+
+  setUp(() => speech = FakeSpeechService());
 
   /// A router with the real settings paths. The two pages are stand-ins: this
   /// checks where the entries lead, not what the pages hold.
@@ -43,7 +49,12 @@ void main() {
 
   Future<GoRouter> pumpApp(WidgetTester tester) async {
     final r = router();
-    await tester.pumpWidget(MaterialApp.router(routerConfig: r));
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [speechServiceProvider.overrideWithValue(speech)],
+        child: MaterialApp.router(routerConfig: r),
+      ),
+    );
     return r;
   }
 
