@@ -56,7 +56,7 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen>
     final controller = ref.read(conversationControllerProvider);
     if (controller == null) return;
     if (controller.currentConversation == null) {
-      await controller.startConversation(
+      await controller.resumeOrStartConversation(
         language: ref.read(defaultTargetLanguageProvider),
         cefrLevel: ref.read(defaultCefrLevelProvider),
         topic: ref.read(defaultTopicProvider),

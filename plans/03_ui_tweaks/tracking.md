@@ -24,7 +24,7 @@ Analysis and decisions in [`00_start.md`](00_start.md).
 | 08 | 08 - A long correction wraps while it streams                               | [`08_long_correction_wrap.md`](08_long_correction_wrap.md)                   | done |
 | 09 | 09 - Split CEFR text into guidance + description                           | [`09_cefr_guidance_and_description.md`](09_cefr_guidance_and_description.md) | done |
 | 10 | 10 - A malformed reply reads as a failed turn, not as the tutor talking    | [`10_malformed_reply_display.md`](10_malformed_reply_display.md)             | done |
-| 11 | 11 - Reopening the app resumes the last conversation                       | [`11_resume_last_conversation.md`](11_resume_last_conversation.md)           | planned |
+| 11 | 11 - Reopening the app resumes the last conversation                       | [`11_resume_last_conversation.md`](11_resume_last_conversation.md)           | done |
 
 Status values: draft / planned / in progress / done / superseded / discarded.
 
@@ -39,3 +39,4 @@ Append-only. Newest at the bottom.
 - 2026-09-26 : item 11 added from the first Pixel run of fala-language-tutor: reopening the app starts a new conversation instead of resuming the last. Planned, with two points to decide before building.
 - 2026-09-26 : item 11's two open points decided as proposed (resume only in the current default language; reuse an empty last conversation). Stays `planned`; built later.
 - 2026-09-27 : item 08 - a streaming correction whose corrected form had not arrived sat in a `Row` and did not wrap; now rich text like the finished line. Test seen failing first (1450 px overflow).
+- 2026-09-27 : item 11 - reopening the app resumes the last conversation when it is in the current default language, and reuses an empty one. Four controller tests, seen failing first. 172 tests.

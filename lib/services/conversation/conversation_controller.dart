@@ -87,6 +87,33 @@ class ConversationController {
     return conversation;
   }
 
+  /// Resume the most recently updated conversation, or start a new one.
+  ///
+  /// The last conversation is resumed when it is in [language], whether or
+  /// not it has messages, so reopening the app neither drops the conversation
+  /// nor adds an empty one each time. When it is in another language, because
+  /// the default changed since, a new conversation starts in [language] with
+  /// [cefrLevel] and [topic], and the old one stays saved. A conversation's
+  /// language is fixed once it has messages, so it is never switched here.
+  Future<Conversation> resumeOrStartConversation({
+    required TargetLanguage language,
+    required CefrLevel cefrLevel,
+    String topic = '',
+  }) async {
+    final saved = repository.listAll();
+    final latest = saved.isEmpty ? null : saved.first;
+    if (latest != null && latest.language == language.code) {
+      _currentConversation = latest;
+      _conversationController.add(latest);
+      return latest;
+    }
+    return startConversation(
+      language: language,
+      cefrLevel: cefrLevel,
+      topic: topic,
+    );
+  }
+
   /// Load an existing conversation by ID.
   Future<void> loadConversation(String id) async {
     _currentConversation = repository.load(id);

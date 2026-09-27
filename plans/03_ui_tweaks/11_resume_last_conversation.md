@@ -1,5 +1,5 @@
 ---
-status: planned
+status: done
 ---
 
 # 11 - Reopening the app resumes the last conversation
@@ -18,7 +18,7 @@ The spec's demo-ready list has "Conversation persists across app restarts", unch
 
 ## Decided
 
-Both proposals below accepted by the user on 2026-09-26. Building is deferred.
+Both proposals below accepted by the user on 2026-09-26, and built on 2026-09-27.
 
 
 - **The default language changed since that conversation.** A conversation's language is fixed once it has messages (`docs/functional-specs.md`, "Target language"). Resuming a Portuguese conversation after the default became Spanish either continues in Portuguese, or starts a new Spanish one and leaves the Portuguese one saved.
@@ -29,3 +29,10 @@ Both proposals below accepted by the user on 2026-09-26. Building is deferred.
 
 - A controller test: with a saved conversation, entering resumes it; with none, a new one starts; with a saved conversation in another language, a new one starts.
 - `scripts/check.sh` passes, and the Pixel shows the last conversation after a restart.
+
+## What the implementation found
+
+- `ConversationController.resumeOrStartConversation` takes the first of `ConversationRepository.listAll()`, which is already newest first, and resumes it when its language matches; otherwise it calls `startConversation`. The conversation screen calls it where it used to call `startConversation` on entry. The "new conversation" button still calls `startConversation`.
+- **Tests seen failing first**, as a compile error while the method did not exist, then passing: resume in the same language after a simulated restart (a second controller over the same repository), a new conversation when none is saved, a new one when the default language changed (the old one still saved with its messages), and reuse of an empty last conversation.
+- **An empty conversation in another language** is left saved when a new one starts. Reopening the app repeatedly in one language does not pile them up; switching language each time would leave one empty conversation per switch. Not handled, since nothing lists conversations to the user yet.
+- Not checked on a device yet, nor through `scripts/e2e.sh`, which needs an emulator.

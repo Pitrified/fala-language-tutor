@@ -346,4 +346,80 @@ void main() {
       expect(okMsg!.content, 'Ola!');
     },
   );
+
+  group('resumeOrStartConversation', () {
+    // A second controller over the same repository is what the app sees after
+    // it is closed and reopened: nothing in memory, the conversations on disk.
+    ConversationController reopened() => ConversationController(
+      streamEngine: streamEngine,
+      repository: repo,
+      promptManager: promptManager,
+    );
+
+    test('resumes the last conversation in the current language', () async {
+      final first = await controller.startConversation(
+        language: TargetLanguage.esEs,
+      );
+      await controller.sendMessage('Hola');
+
+      final after = reopened();
+      final resumed = await after.resumeOrStartConversation(
+        language: TargetLanguage.esEs,
+        cefrLevel: CefrLevel.a1,
+      );
+
+      expect(resumed.id, first.id);
+      expect(resumed.messages, hasLength(2));
+      expect(after.currentConversation?.id, first.id);
+      expect(repo.listAll(), hasLength(1));
+      await after.dispose();
+    });
+
+    test('starts a new one when there is none', () async {
+      final started = await controller.resumeOrStartConversation(
+        language: TargetLanguage.ptBr,
+        cefrLevel: CefrLevel.b1,
+        topic: 'travel',
+      );
+
+      expect(started.messages, isEmpty);
+      expect(started.language, TargetLanguage.ptBr.code);
+      expect(started.topic, 'travel');
+      expect(repo.listAll(), hasLength(1));
+    });
+
+    test('starts a new one when the default language changed', () async {
+      final portuguese = await controller.startConversation(
+        language: TargetLanguage.ptBr,
+      );
+      await controller.sendMessage('Oi');
+
+      final after = reopened();
+      final started = await after.resumeOrStartConversation(
+        language: TargetLanguage.esEs,
+        cefrLevel: CefrLevel.a1,
+      );
+
+      expect(started.id, isNot(portuguese.id));
+      expect(started.language, TargetLanguage.esEs.code);
+      expect(repo.load(portuguese.id)?.messages, hasLength(2));
+      await after.dispose();
+    });
+
+    test('reuses an empty last conversation instead of adding one', () async {
+      final empty = await controller.startConversation(
+        language: TargetLanguage.ptBr,
+      );
+
+      final after = reopened();
+      final resumed = await after.resumeOrStartConversation(
+        language: TargetLanguage.ptBr,
+        cefrLevel: CefrLevel.a1,
+      );
+
+      expect(resumed.id, empty.id);
+      expect(repo.listAll(), hasLength(1));
+      await after.dispose();
+    });
+  });
 }
