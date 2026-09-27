@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../app.dart';
+import '../../build_info.dart';
 import '../../models/cefr_level.dart';
 import '../../models/conversation.dart';
 import '../../models/conversation_message.dart';
@@ -56,7 +57,7 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen>
     final controller = ref.read(conversationControllerProvider);
     if (controller == null) return;
     if (controller.currentConversation == null) {
-      await controller.startConversation(
+      await controller.resumeOrStartConversation(
         language: ref.read(defaultTargetLanguageProvider),
         cefrLevel: ref.read(defaultCefrLevelProvider),
         topic: ref.read(defaultTopicProvider),
@@ -420,6 +421,11 @@ class _AppDrawer extends StatelessWidget {
                 context.push(AppRoutes.settings);
               },
             ),
+            const ListTile(
+              dense: true,
+              enabled: false,
+              title: Text('Version $appVersionLabel'),
+            ),
           ],
         ),
       ),
@@ -493,35 +499,12 @@ class _LanguageAction extends ConsumerWidget {
                 context,
                 current: current,
               );
-              final action = languageSwitchAction(
+              if (picked == null || !context.mounted) return;
+              await applyLanguageChoice(
+                context: context,
+                ref: ref,
+                controller: controller,
                 picked: picked,
-                current: current,
-                hasMessages:
-                    controller.currentConversation?.messages.isNotEmpty ??
-                    false,
-              );
-              if (action == LanguageSwitchAction.none) return;
-
-              // The default moves even when the restart is declined: the user
-              // said which language they want next.
-              await ref
-                  .read(defaultTargetLanguageProvider.notifier)
-                  .select(picked!);
-
-              if (action == LanguageSwitchAction.switchInPlace) {
-                await controller.setLanguage(picked);
-                return;
-              }
-              if (!context.mounted) return;
-              final confirmed = await showLanguageSwitchDialog(
-                context,
-                language: picked,
-              );
-              if (!confirmed) return;
-              await controller.startConversation(
-                language: picked,
-                cefrLevel: ref.read(defaultCefrLevelProvider),
-                topic: ref.read(defaultTopicProvider),
               );
             },
           ),

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../models/target_language.dart';
+import '../../../providers/settings_provider.dart';
+import '../../../services/conversation/conversation_controller.dart';
 
 /// What picking a language in the sheet should do to the current conversation.
 enum LanguageSwitchAction {
@@ -103,4 +106,49 @@ Future<bool> showLanguageSwitchDialog(
     ),
   );
   return confirmed ?? false;
+}
+
+/// Make [picked] the default language and apply it to [controller]'s open
+/// conversation, from wherever the choice was made (the app bar chip or the
+/// Settings screen).
+///
+/// The default always moves: the user said which language they want next. The
+/// open conversation switches in place while it is empty; once it has messages
+/// the user is asked before a new conversation starts in [picked], and keeps
+/// the current one if they decline. With no open conversation, or no
+/// controller yet, only the default changes.
+Future<void> applyLanguageChoice({
+  required BuildContext context,
+  required WidgetRef ref,
+  required ConversationController? controller,
+  required TargetLanguage picked,
+}) async {
+  final conversation = controller?.currentConversation;
+  final action = languageSwitchAction(
+    picked: picked,
+    current:
+        TargetLanguageX.fromCode(conversation?.language) ??
+        ref.read(defaultTargetLanguageProvider),
+    hasMessages: conversation?.messages.isNotEmpty ?? false,
+  );
+  await ref.read(defaultTargetLanguageProvider.notifier).select(picked);
+  if (controller == null || conversation == null) return;
+  switch (action) {
+    case LanguageSwitchAction.none:
+      return;
+    case LanguageSwitchAction.switchInPlace:
+      await controller.setLanguage(picked);
+    case LanguageSwitchAction.confirmRestart:
+      if (!context.mounted) return;
+      final confirmed = await showLanguageSwitchDialog(
+        context,
+        language: picked,
+      );
+      if (!confirmed) return;
+      await controller.startConversation(
+        language: picked,
+        cefrLevel: ref.read(defaultCefrLevelProvider),
+        topic: ref.read(defaultTopicProvider),
+      );
+  }
 }

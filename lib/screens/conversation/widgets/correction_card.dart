@@ -112,19 +112,25 @@ class CorrectionCard extends StatelessWidget {
       return _skeleton(context, width: 100);
     }
     if (corrected == null || corrected.isEmpty) {
-      return Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            original,
-            style: const TextStyle(
-              decoration: TextDecoration.lineThrough,
-              color: Colors.red,
+      // Rich text rather than a Row, so a long original wraps while the
+      // corrected form is still streaming, the same way the finished line does.
+      return Text.rich(
+        TextSpan(
+          children: [
+            TextSpan(
+              text: original,
+              style: const TextStyle(
+                decoration: TextDecoration.lineThrough,
+                color: Colors.red,
+              ),
             ),
-          ),
-          const Text(' -> '),
-          _skeleton(context, width: 60),
-        ],
+            const TextSpan(text: ' -> '),
+            WidgetSpan(
+              alignment: PlaceholderAlignment.middle,
+              child: _skeleton(context, width: 60),
+            ),
+          ],
+        ),
       );
     }
     return RichText(

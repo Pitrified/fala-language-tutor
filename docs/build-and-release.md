@@ -21,6 +21,11 @@ Or simply:
 flutter run --release
 ```
 
+### Version label
+
+`scripts/build-apk.sh` builds the split release APKs (or passes its arguments to `flutter build apk`) with the version the app shows at the bottom of its drawer: the version name from `pubspec.yaml` and the first eight characters of the commit, as `0.0.1+a739b0e1`, with `-dirty` when the tree has uncommitted changes.
+A build without the script shows `dev+local`.
+
 ### Smaller APKs (split per ABI)
 
 The default `flutter build apk` produces one fat APK carrying native libraries for every

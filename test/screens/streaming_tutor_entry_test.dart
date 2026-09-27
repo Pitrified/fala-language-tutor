@@ -61,7 +61,7 @@ void main() {
           ),
         ),
       );
-      expect(find.text('eu gosto'), findsOneWidget);
+      expect(richTextWith('eu gosto'), findsOneWidget);
       expect(richTextWith('Eu gosto'), findsNothing);
       expect(find.text('Capitalize.'), findsNothing);
 
