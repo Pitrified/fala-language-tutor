@@ -1,5 +1,5 @@
 ---
-status: in progress
+status: done
 ---
 
 # 01 - Speaker button on tutor replies
@@ -26,4 +26,4 @@ status: in progress
 ## Done when
 
 - The tests pass and `scripts/check.sh` passes.
-- On the Pixel, a reply is read in the conversation's language, the icon stops it, and leaving the app stops it. Checked by the user.
+- On the Pixel, a reply is read in the conversation's language, the icon stops it, and leaving the app stops it. Checked by the user on 2026-09-27.

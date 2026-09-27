@@ -1,5 +1,5 @@
 ---
-status: in progress
+status: done
 ---
 
 # 02 - Read replies aloud automatically
@@ -23,4 +23,4 @@ status: in progress
 ## Done when
 
 - The tests pass and `scripts/check.sh` passes.
-- On the Pixel, with the switch on, each reply is read once it arrives, and not when resuming a conversation. Checked by the user.
+- On the Pixel, with the switch on, each reply is read once it arrives, and not when resuming a conversation. Checked by the user on 2026-09-27.
