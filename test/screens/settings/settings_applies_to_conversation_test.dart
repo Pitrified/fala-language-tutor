@@ -8,7 +8,7 @@ import 'package:fala/models/tutor_response.dart';
 import 'package:fala/providers/conversation_provider.dart';
 import 'package:fala/providers/service_providers.dart';
 import 'package:fala/providers/settings_provider.dart';
-import 'package:fala/screens/settings/settings_screen.dart';
+import 'package:fala/screens/settings/language_settings_screen.dart';
 import 'package:fala/services/conversation/conversation_controller.dart';
 import 'package:fala/services/inference/engine_kind.dart';
 import 'package:fala/services/inference/inference_engine.dart';
@@ -92,7 +92,7 @@ void main() {
           conversationRepositoryProvider.overrideWithValue(repo),
           conversationControllerProvider.overrideWithValue(controller),
         ],
-        child: const MaterialApp(home: SettingsScreen()),
+        child: const MaterialApp(home: LanguageSettingsScreen()),
       ),
     );
     await settle(tester);

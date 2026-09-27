@@ -74,8 +74,10 @@ App Launch
 | Screen | Purpose | Lifetime |
 |--------|---------|----------|
 | Welcome | App entry, runtime status, start session | Until navigation |
-| Settings | Engine, OpenAI key and model, target language, CEFR level | Until navigation |
-| Conversation | Main interaction: messages, input, corrections | Session-scoped |
+| Settings | Index of the two settings pages, also listed in the conversation drawer | Until navigation |
+| Language | Target language and CEFR level, applied to the open conversation and to new ones | Until navigation |
+| Model | Engine, then the selected engine's details (OpenAI key and model) | Until navigation |
+| Conversation | Main interaction: messages, input, corrections; the app bar holds the topic picker, the drawer the settings | Session-scoped |
 
 ## 6. Systems
 

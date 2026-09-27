@@ -172,8 +172,6 @@ void main() {
     final menu = tester.getRect(find.byTooltip('Open navigation menu'));
     expect(menu.left, greaterThanOrEqualTo(0));
     final topic = tester.getRect(find.byIcon(Icons.bookmark_outline));
-    final language = tester.getRect(find.text('português'));
-    expect(language.left, greaterThanOrEqualTo(menu.right));
     expect(topic.left, greaterThanOrEqualTo(menu.right));
     expect(
       tester.getRect(find.byTooltip('New conversation')).right,
