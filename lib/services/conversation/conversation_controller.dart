@@ -110,9 +110,8 @@ class ConversationController {
     required CefrLevel cefrLevel,
     String topic = '',
   }) async {
-    final saved = repository.listAll();
-    final latest = saved.isEmpty ? null : saved.first;
-    if (latest != null && latest.language == language.code) {
+    final latest = _latestIn(language);
+    if (latest != null) {
       _currentConversation = latest;
       _topicCarriedOver = false;
       _conversationController.add(latest);
@@ -123,6 +122,21 @@ class ConversationController {
       cefrLevel: cefrLevel,
       topic: topic,
     );
+  }
+
+  /// The conversation [resumeOrStartConversation] would open for [language],
+  /// when it has messages; `null` when it would start a new one or open an
+  /// empty one. Opens nothing, so a caller can offer the choice first.
+  Conversation? resumableConversation(TargetLanguage language) {
+    final latest = _latestIn(language);
+    return latest == null || latest.messages.isEmpty ? null : latest;
+  }
+
+  /// The most recently updated conversation, when it is in [language].
+  Conversation? _latestIn(TargetLanguage language) {
+    final saved = repository.listAll();
+    final latest = saved.isEmpty ? null : saved.first;
+    return latest?.language == language.code ? latest : null;
   }
 
   /// Load an existing conversation by ID.
