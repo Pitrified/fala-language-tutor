@@ -11,7 +11,6 @@ import '../../models/target_language.dart';
 import '../../models/topic.dart';
 import '../../models/tutor_response.dart';
 import '../../providers/conversation_provider.dart';
-import '../../providers/service_providers.dart';
 import '../../providers/settings_provider.dart';
 import '../../services/conversation/conversation_controller.dart';
 import '../../services/inference/structured_stream_engine.dart';
@@ -402,30 +401,11 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen>
   }
 }
 
-class _AppDrawer extends ConsumerWidget {
+class _AppDrawer extends StatelessWidget {
   const _AppDrawer();
 
-  /// What storage holds and what is on screen, for diagnosing resume on a
-  /// device where logs are not available. Temporary: remove once the
-  /// resume-on-reopen report is explained.
-  String _storageDiagnostic(WidgetRef ref) {
-    final repository = ref.read(conversationRepositoryProvider);
-    final saved = repository.listAll();
-    final latest = saved.isEmpty ? null : saved.first;
-    final showing = ref
-        .read(conversationControllerProvider)
-        ?.currentConversation;
-    final defaultLanguage = ref.read(defaultTargetLanguageProvider).code;
-    String describe(Conversation? c) => c == null
-        ? 'none'
-        : '${c.language} ${c.messages.length} msgs ${c.id.substring(c.id.length - 5)}';
-    return 'Saved ${saved.length}, unreadable ${repository.unreadableCount}. '
-        'Latest: ${describe(latest)}. Showing: ${describe(showing)}. '
-        'Default: $defaultLanguage.';
-  }
-
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Drawer(
       child: SafeArea(
         child: ListView(
@@ -445,11 +425,6 @@ class _AppDrawer extends ConsumerWidget {
               dense: true,
               enabled: false,
               title: Text('Version $appVersionLabel'),
-            ),
-            ListTile(
-              dense: true,
-              enabled: false,
-              title: Text(_storageDiagnostic(ref)),
             ),
           ],
         ),
@@ -524,35 +499,12 @@ class _LanguageAction extends ConsumerWidget {
                 context,
                 current: current,
               );
-              final action = languageSwitchAction(
+              if (picked == null || !context.mounted) return;
+              await applyLanguageChoice(
+                context: context,
+                ref: ref,
+                controller: controller,
                 picked: picked,
-                current: current,
-                hasMessages:
-                    controller.currentConversation?.messages.isNotEmpty ??
-                    false,
-              );
-              if (action == LanguageSwitchAction.none) return;
-
-              // The default moves even when the restart is declined: the user
-              // said which language they want next.
-              await ref
-                  .read(defaultTargetLanguageProvider.notifier)
-                  .select(picked!);
-
-              if (action == LanguageSwitchAction.switchInPlace) {
-                await controller.setLanguage(picked);
-                return;
-              }
-              if (!context.mounted) return;
-              final confirmed = await showLanguageSwitchDialog(
-                context,
-                language: picked,
-              );
-              if (!confirmed) return;
-              await controller.startConversation(
-                language: picked,
-                cefrLevel: ref.read(defaultCefrLevelProvider),
-                topic: ref.read(defaultTopicProvider),
               );
             },
           ),

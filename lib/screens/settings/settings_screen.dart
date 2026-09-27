@@ -3,8 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../models/cefr_level.dart';
 import '../../models/target_language.dart';
+import '../../providers/conversation_provider.dart';
 import '../../providers/settings_provider.dart';
 import '../../services/inference/engine_kind.dart';
+import '../conversation/widgets/language_picker_sheet.dart';
 
 /// Settings screen.
 ///
@@ -34,8 +36,9 @@ class SettingsScreen extends ConsumerWidget {
           Text('Language', style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 4),
           Text(
-            'The language you are learning. Applies to new conversations: an '
-            'existing one keeps the language it started in.',
+            'The language you are learning. The open conversation switches too: '
+            'an empty one in place, one with messages by starting a new '
+            'conversation after you confirm.',
             style: Theme.of(context).textTheme.bodySmall,
           ),
           const SizedBox(height: 8),
@@ -49,8 +52,8 @@ class SettingsScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 4),
           Text(
-            'Used for new conversations. Change the active conversation '
-            'from its chip in the app bar.',
+            'Applies to the open conversation from the next message, and to '
+            'new conversations.',
             style: Theme.of(context).textTheme.bodySmall,
           ),
           const SizedBox(height: 8),
@@ -130,9 +133,12 @@ class _LanguageDropdown extends ConsumerWidget {
           ],
           onChanged: (language) async {
             if (language == null) return;
-            await ref
-                .read(defaultTargetLanguageProvider.notifier)
-                .select(language);
+            await applyLanguageChoice(
+              context: context,
+              ref: ref,
+              controller: ref.read(conversationControllerProvider),
+              picked: language,
+            );
           },
         ),
         Padding(
@@ -172,6 +178,7 @@ class _CefrDropdown extends ConsumerWidget {
           onChanged: (level) async {
             if (level == null) return;
             await ref.read(defaultCefrLevelProvider.notifier).select(level);
+            await ref.read(conversationControllerProvider)?.setCefrLevel(level);
           },
         ),
         Padding(
@@ -235,9 +242,7 @@ class _OpenAiSectionState extends ConsumerState<_OpenAiSection> {
         .read(openaiModelProvider.notifier)
         .setModel(_modelController.text);
     await _refreshKeyStatus();
-    messenger.showSnackBar(
-      const SnackBar(content: Text('OpenAI settings saved.')),
-    );
+    messenger.showSnackBar(const SnackBar(content: Text('Settings saved.')));
   }
 
   Future<void> _clearKey() async {
