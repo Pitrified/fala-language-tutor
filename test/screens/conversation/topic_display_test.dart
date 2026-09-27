@@ -155,4 +155,29 @@ void main() {
     expect(find.textContaining('Topic:'), findsNothing);
     expect(find.textContaining('Say something'), findsNothing);
   });
+
+  testWidgets('a long topic leaves the menu button on screen', (tester) async {
+    // A Pixel's portrait width in logical pixels.
+    tester.view.physicalSize = const Size(412, 915);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+    await tester.runAsync(
+      () => controller.startConversation(
+        language: TargetLanguage.ptBr,
+        topic: 'planning a cycling trip along the Portuguese coast',
+      ),
+    );
+    await pumpScreen(tester);
+
+    final menu = tester.getRect(find.byTooltip('Open navigation menu'));
+    expect(menu.left, greaterThanOrEqualTo(0));
+    final topic = tester.getRect(find.byIcon(Icons.bookmark_outline));
+    final language = tester.getRect(find.text('português'));
+    expect(language.left, greaterThanOrEqualTo(menu.right));
+    expect(topic.left, greaterThanOrEqualTo(menu.right));
+    expect(
+      tester.getRect(find.byTooltip('New conversation')).right,
+      lessThanOrEqualTo(412),
+    );
+  });
 }

@@ -63,3 +63,10 @@ Read from the code on 2026-09-27, not run on a device.
 - Q5: are recent custom topics kept per target language?
   Recommended: yes, if Q1 is a: a topic typed in one language is written in that language.
   ANS: no, one list for all languages.
+- Q6: should a topic have a short name and a longer description?
+  Raised on 2026-09-27 after the long-topic app bar bug. Today the one string is both the label (chip, recent list, empty-state line) and what the prompt receives as `{{topic}}`, so a detailed topic reads badly as a label and a short label gives the tutor little to steer by.
+  a. keep one string. Long text already works end to end since phase 03: the chip ellipsizes, and the prompt gets it all. Only the recent list and the empty-state line show it in full.
+  b. name and optional description. The name is shown everywhere; the prompt gets both. Costs: a `topicDescription` field on `Conversation` (freezed, with a default so stored conversations still read), a new prompt version with a `{{topic_description}}` variable, the recent list storing pairs instead of strings, and a second field in the picker.
+  c. one string in storage, with the label derived: the first line, or the text before a colon, is the name. No model or prompt change, but a convention the learner has to know.
+  Recommended: a for now, and b if a detailed topic turns out to be common. Phase 03 removes the bug that raised the question. b is a moderate change in four places, and its benefit depends on how often a learner writes more than a few words. With a, the recent list can ellipsize to two lines.
+  NEW_ANS:
