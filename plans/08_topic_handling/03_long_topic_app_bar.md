@@ -17,9 +17,11 @@ The language, topic and CEFR chips and the new-conversation button were all `App
 - The three chips move into the app bar's title slot as a row; the topic chip is `Flexible` and its label is one line with an ellipsis, so it takes whatever width is left. The new-conversation button stays in `actions`.
 - The 18-character cut is gone; the width decides where the label ends.
 - The "fala" title text is dropped from the app bar. The drawer header already shows it.
+- In the picker, a topic's label is cut at two lines with an ellipsis, so a long recent topic does not make one entry fill the list (`00_start.md` Q6).
 
 ## Done when
 
 - The widget test with a long topic at 412 pixels finds the menu button, the chips and the new-conversation button inside the screen and not overlapping, with no overflow.
+- A widget test finds a long recent topic cut at two lines.
 - `scripts/check.sh` passes.
 - On the Pixel, the menu button stays visible with a long topic. Not yet checked.

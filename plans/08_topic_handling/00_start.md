@@ -69,4 +69,4 @@ Read from the code on 2026-09-27, not run on a device.
   b. name and optional description. The name is shown everywhere; the prompt gets both. Costs: a `topicDescription` field on `Conversation` (freezed, with a default so stored conversations still read), a new prompt version with a `{{topic_description}}` variable, the recent list storing pairs instead of strings, and a second field in the picker.
   c. one string in storage, with the label derived: the first line, or the text before a colon, is the name. No model or prompt change, but a convention the learner has to know.
   Recommended: a for now, and b if a detailed topic turns out to be common. Phase 03 removes the bug that raised the question. b is a moderate change in four places, and its benefit depends on how often a learner writes more than a few words. With a, the recent list can ellipsize to two lines.
-  NEW_ANS:
+  ANS: a, keep it simple, with the recent list cut at two lines (phase 03).

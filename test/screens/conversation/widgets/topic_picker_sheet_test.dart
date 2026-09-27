@@ -68,4 +68,14 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Recent'), findsNothing);
   });
+
+  testWidgets('a long recent topic is cut at two lines', (tester) async {
+    const long =
+        'planning a cycling trip along the Portuguese coast, with the '
+        'vocabulary for gear, routes, weather and places to sleep';
+    await openSheet(tester, recent: [long]);
+    final text = tester.widget<Text>(find.text(long));
+    expect(text.maxLines, 2);
+    expect(text.overflow, TextOverflow.ellipsis);
+  });
 }

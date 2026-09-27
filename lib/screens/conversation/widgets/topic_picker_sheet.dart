@@ -73,7 +73,9 @@ class _TopicPickerBodyState extends State<_TopicPickerBody> {
   Widget _topicTile(Topic topic, {Widget? trailing}) {
     final isSelected = topic == widget.current;
     return ListTile(
-      title: Text(topic.value),
+      // A long custom topic is cut at two lines; the prompt still gets all of
+      // it.
+      title: Text(topic.value, maxLines: 2, overflow: TextOverflow.ellipsis),
       trailing: trailing ?? (isSelected ? const Icon(Icons.check) : null),
       selected: isSelected,
       onTap: () => Navigator.of(context).pop(topic),
