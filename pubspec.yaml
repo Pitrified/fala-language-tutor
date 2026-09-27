@@ -17,6 +17,7 @@ dependencies:
   hive_flutter:
   json_annotation:
   openai_dart:
+  url_launcher: ^6.3.2
 
 dev_dependencies:
   build_runner:

@@ -121,6 +121,7 @@ class _OpenAiSectionState extends ConsumerState<_OpenAiSection> {
     await ref
         .read(openaiModelProvider.notifier)
         .setModel(_modelController.text);
+    ref.invalidate(apiKeyPresentProvider);
     await _refreshKeyStatus();
     messenger.showSnackBar(const SnackBar(content: Text('Settings saved.')));
   }
@@ -129,6 +130,7 @@ class _OpenAiSectionState extends ConsumerState<_OpenAiSection> {
     final messenger = ScaffoldMessenger.of(context);
     await ref.read(apiKeyStoreProvider).clear();
     _keyController.clear();
+    ref.invalidate(apiKeyPresentProvider);
     await _refreshKeyStatus();
     messenger.showSnackBar(
       const SnackBar(content: Text('OpenAI key cleared.')),

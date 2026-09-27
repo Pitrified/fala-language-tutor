@@ -14,7 +14,9 @@ import '../../services/inference/structured_stream_engine.dart';
 import '../settings/settings_entries.dart';
 import 'widgets/correction_card.dart';
 import 'widgets/message_bubble.dart';
+import 'widgets/model_setup_banner.dart';
 import 'widgets/resume_choice.dart';
+import 'widgets/source_link.dart';
 import 'widgets/streaming_reply_view.dart';
 import 'widgets/streaming_tutor_entry.dart';
 import 'widgets/topic_picker_sheet.dart';
@@ -243,6 +245,8 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen>
       drawer: const _AppDrawer(),
       body: Column(
         children: [
+          if (ref.watch(modelSetupNeededProvider) ?? false)
+            const ModelSetupBanner(),
           if (resumable != null)
             Expanded(
               child: ResumeChoice(
@@ -470,6 +474,7 @@ class _AppDrawer extends StatelessWidget {
               ),
             ),
             const SettingsEntries(),
+            const SourceLink(),
             const ListTile(
               dense: true,
               enabled: false,
