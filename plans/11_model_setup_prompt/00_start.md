@@ -1,5 +1,5 @@
 ---
-status: in progress
+status: done
 priority: 0
 description: |
   Point a user without an API key at the Model page: "Setup model" on the welcome screen, a red

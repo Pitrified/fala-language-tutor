@@ -1,5 +1,5 @@
 ---
-status: in progress
+status: done
 ---
 
 # 01 - Setup prompt, banner and source link
@@ -29,4 +29,4 @@ status: in progress
 ## Done when
 
 - The tests pass and `scripts/check.sh` passes.
-- On the Pixel: a fresh install (or cleared key) shows "Setup model"; saving a key turns it into "Start learning"; clearing the key shows the red strip in the conversation; "Source: fala" opens the repository in the browser. Checked by the user.
+- On the Pixel: a fresh install (or cleared key) shows "Setup model"; saving a key turns it into "Start learning"; clearing the key shows the red strip in the conversation; "Source: fala" opens the repository in the browser. Checked by the user on 2026-09-27.
