@@ -1,5 +1,5 @@
 ---
-status: in progress
+status: done
 priority: 0
 description: |
   Small UI and functionality fixes, one sub-plan each, from tap-to-reveal translation to the

@@ -18,4 +18,4 @@ The pending state is a `Text.rich` too: the struck-through original, the arrow, 
 
 - **Test seen failing first:** a 240-pixel-wide card with a 108-character original and no corrected form. Before the fix: `A RenderFlex overflowed by 1450 pixels on the right`. The same card with the corrected form present passed, which pins the cause to the pending state. After the fix both pass, and the original's height shows it wrapped.
 - `streaming_tutor_entry_test.dart` found the pending original as a plain `Text` widget; it now finds it inside the rich text. What it checks is unchanged.
-- Not checked on a device yet: the fix shows on the next Pixel run, with a long wrong sentence.
+- Checked on the Pixel on 2026-09-27 with build `0.0.1+c45ce050`: a long wrong sentence's correction wraps while it streams.

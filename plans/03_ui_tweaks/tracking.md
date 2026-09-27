@@ -43,3 +43,4 @@ Append-only. Newest at the bottom.
 - 2026-09-27 : item 11 - reopening the app resumes the last conversation when it is in the current default language, and reuses an empty one. Four controller tests, seen failing first. 172 tests.
 - 2026-09-27 : item 11 confirmed on the Pixel with build `0.0.1+470faa9c` and a temporary storage line in the drawer; the failure on the previous build was most likely a bad reinstall. `listAll` now skips unreadable entries. The drawer shows the version, `0.0.1+<commit>`, set by `scripts/build-apk.sh`.
 - 2026-09-27 : item 12 - the Settings language and level dropdowns apply to the open conversation, through the same helper as the language chip; three widget tests, failing against the old screen. Save message made general. Diagnostic line removed.
+- 2026-09-27 : items 08 and 12 confirmed on the Pixel with build `0.0.1+c45ce050`. Every item is done and verified; folder closed, priority back to 0.
