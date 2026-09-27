@@ -25,6 +25,7 @@ Analysis and decisions in [`00_start.md`](00_start.md).
 | 09 | 09 - Split CEFR text into guidance + description                           | [`09_cefr_guidance_and_description.md`](09_cefr_guidance_and_description.md) | done |
 | 10 | 10 - A malformed reply reads as a failed turn, not as the tutor talking    | [`10_malformed_reply_display.md`](10_malformed_reply_display.md)             | done |
 | 11 | 11 - Reopening the app resumes the last conversation                       | [`11_resume_last_conversation.md`](11_resume_last_conversation.md)           | done |
+| 12 | 12 - Settings apply to the open conversation                               | [`12_settings_apply_to_conversation.md`](12_settings_apply_to_conversation.md) | done |
 
 Status values: draft / planned / in progress / done / superseded / discarded.
 
@@ -40,3 +41,5 @@ Append-only. Newest at the bottom.
 - 2026-09-26 : item 11's two open points decided as proposed (resume only in the current default language; reuse an empty last conversation). Stays `planned`; built later.
 - 2026-09-27 : item 08 - a streaming correction whose corrected form had not arrived sat in a `Row` and did not wrap; now rich text like the finished line. Test seen failing first (1450 px overflow).
 - 2026-09-27 : item 11 - reopening the app resumes the last conversation when it is in the current default language, and reuses an empty one. Four controller tests, seen failing first. 172 tests.
+- 2026-09-27 : item 11 confirmed on the Pixel with build `0.0.1+470faa9c` and a temporary storage line in the drawer; the failure on the previous build was most likely a bad reinstall. `listAll` now skips unreadable entries. The drawer shows the version, `0.0.1+<commit>`, set by `scripts/build-apk.sh`.
+- 2026-09-27 : item 12 - the Settings language and level dropdowns apply to the open conversation, through the same helper as the language chip; three widget tests, failing against the old screen. Save message made general. Diagnostic line removed.
