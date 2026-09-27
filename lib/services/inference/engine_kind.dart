@@ -34,4 +34,14 @@ extension EngineKindX on EngineKind {
         return true;
     }
   }
+
+  /// Whether this kind needs an API key in `ApiKeyStore` before it can answer.
+  bool get requiresKey {
+    switch (this) {
+      case EngineKind.fake:
+        return false;
+      case EngineKind.openai:
+        return true;
+    }
+  }
 }

@@ -10,7 +10,9 @@ import '../../services/app/app_controller.dart';
 
 /// Welcome screen - app entry point.
 ///
-/// Displays the app name, a loading indicator, and the start button.
+/// Displays the app name, a loading indicator, and the start button, which
+/// reads "Setup model" and opens the Model page while the selected engine
+/// still needs a key.
 /// Triggers app initialization on first build.
 class WelcomeScreen extends ConsumerStatefulWidget {
   const WelcomeScreen({super.key});
@@ -79,10 +81,19 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
                     _buildStatusWidget(context, state),
                     const SizedBox(height: 32),
                     if (state is AppReady)
-                      FilledButton(
-                        onPressed: () => context.go(AppRoutes.conversation),
-                        child: const Text('Start learning'),
-                      ),
+                      switch (ref.watch(modelSetupNeededProvider)) {
+                        // The key store has not answered yet.
+                        null => const SizedBox.shrink(),
+                        true => FilledButton(
+                          onPressed: () =>
+                              context.push(AppRoutes.modelSettings),
+                          child: const Text('Setup model'),
+                        ),
+                        false => FilledButton(
+                          onPressed: () => context.go(AppRoutes.conversation),
+                          child: const Text('Start learning'),
+                        ),
+                      },
                     if (state is AppLoading) const CircularProgressIndicator(),
                     if (state is AppError)
                       Column(

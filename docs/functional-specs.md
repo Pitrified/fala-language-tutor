@@ -73,11 +73,11 @@ App Launch
 
 | Screen | Purpose | Lifetime |
 |--------|---------|----------|
-| Welcome | App entry, runtime status, start session | Until navigation |
+| Welcome | App entry, runtime status, start session (or model setup when a key is missing) | Until navigation |
 | Settings | Index of the two settings pages, also listed in the conversation drawer | Until navigation |
 | Language | Target language and CEFR level, applied to the open conversation and to new ones | Until navigation |
 | Model | Engine, then the selected engine's details (OpenAI key and model) | Until navigation |
-| Conversation | Main interaction: messages, input, corrections; the app bar holds the topic picker, the drawer the settings | Session-scoped |
+| Conversation | Main interaction: messages, input, corrections; the app bar holds the topic picker, the drawer the settings, a link to the source repository and the version | Session-scoped |
 
 ## 6. Systems
 
@@ -135,7 +135,8 @@ and `correction.errors` are empty/empty list.
 
 | Failure | Fallback |
 |---------|----------|
-| Missing or rejected API key | Failure message pointing at Settings |
+| No API key stored for an engine that needs one | Welcome offers "Setup model" instead of "Start learning"; the conversation shows a red "Model setup needed" strip under the app bar. Both open the Model page |
+| Rejected API key | Failure message pointing at Settings |
 | Network error or rate limit | Failure message, allow retry |
 | Engine initialization fails | Error on the Welcome screen with a retry |
 | Inference timeout | Show timeout message, allow retry |

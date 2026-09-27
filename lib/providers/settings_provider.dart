@@ -24,6 +24,21 @@ final appSettingsRepositoryProvider = Provider<AppSettingsRepository>((ref) {
 /// Default value is fine for runtime; override in tests with a fake.
 final apiKeyStoreProvider = Provider<ApiKeyStore>((ref) => ApiKeyStore());
 
+/// Whether an API key is stored. Invalidate it after writing or clearing the
+/// key so the screens that ask for setup notice.
+final apiKeyPresentProvider = FutureProvider<bool>(
+  (ref) => ref.watch(apiKeyStoreProvider).hasKey(),
+);
+
+/// Whether the selected engine needs setup before it can answer: it requires a
+/// key and none is stored. `null` while the key store has not answered yet, so
+/// a screen can wait rather than show the wrong prompt for a moment.
+final modelSetupNeededProvider = Provider<bool?>((ref) {
+  if (!ref.watch(selectedEngineKindProvider).requiresKey) return false;
+  final present = ref.watch(apiKeyPresentProvider);
+  return present.hasValue ? !present.requireValue : null;
+});
+
 /// Reactive holder for the currently selected [EngineKind].
 ///
 /// Reads the initial value from [AppSettingsRepository] and persists every

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:fala/models/inference_status.dart';
 import 'package:fala/models/tutor_response.dart';
 import 'package:fala/providers/conversation_provider.dart';
+import 'package:fala/providers/settings_provider.dart';
 import 'package:fala/screens/conversation/conversation_screen.dart';
 import 'package:fala/services/conversation/conversation_controller.dart';
 import 'package:fala/services/inference/inference_engine.dart';
@@ -104,6 +105,7 @@ void main() {
       ProviderScope(
         overrides: [
           conversationControllerProvider.overrideWithValue(controller),
+          modelSetupNeededProvider.overrideWithValue(false),
         ],
         child: const MaterialApp(home: ConversationScreen()),
       ),
