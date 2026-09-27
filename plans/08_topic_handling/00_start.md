@@ -1,5 +1,5 @@
 ---
-status: draft
+status: in progress
 priority: 0
 description: |
   Clarify how topics work: remember the last five custom topics in the picker, keep carrying
@@ -9,7 +9,7 @@ description: |
 
 # Topic handling
 
-Draft spin-off, raised 2026-09-27. No phases derived.
+Spin-off raised 2026-09-27. Phases and progress in [`tracking.md`](tracking.md).
 
 ## Where this came from
 
@@ -59,7 +59,7 @@ Read from the code on 2026-09-27, not run on a device.
   - a new conversation that inherited a topic says so where the learner looks first, as a line in the empty conversation such as "Topic: cycling, from your last conversation", gone once the first message is sent;
   - the picker gains the recent list (Q1) and keeps "Clear topic", which is how the learner drops the carried-over topic.
   Settings would come back into question if the default ever stops being "last used", for example a fixed default topic chosen once.
-  NEW_ANS:
+  ANS: the revised proposal, accepted: no Settings control for now.
 - Q5: are recent custom topics kept per target language?
   Recommended: yes, if Q1 is a: a topic typed in one language is written in that language.
   ANS: no, one list for all languages.
