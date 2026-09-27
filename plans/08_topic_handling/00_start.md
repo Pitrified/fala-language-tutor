@@ -1,5 +1,5 @@
 ---
-status: in progress
+status: done
 priority: 0
 description: |
   Clarify how topics work: remember the last five custom topics in the picker, keep carrying

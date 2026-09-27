@@ -1,5 +1,5 @@
 ---
-status: in progress
+status: done
 ---
 
 # 03 - A long topic keeps the app bar on screen
@@ -24,4 +24,4 @@ The language, topic and CEFR chips and the new-conversation button were all `App
 - The widget test with a long topic at 412 pixels finds the menu button, the chips and the new-conversation button inside the screen and not overlapping, with no overflow.
 - A widget test finds a long recent topic cut at two lines.
 - `scripts/check.sh` passes.
-- On the Pixel, the menu button stays visible with a long topic. Not yet checked.
+- On the Pixel, the menu button stays visible with a long topic. Checked by the user on 2026-09-27.
