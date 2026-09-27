@@ -1,5 +1,5 @@
 ---
-status: in progress
+status: done
 ---
 
 # 02 - Topic picker only in the app bar
@@ -18,4 +18,4 @@ status: in progress
 ## Done when
 
 - The tests pass and `scripts/check.sh` passes.
-- On the Pixel, the app bar shows the menu, the topic and the new-conversation button only. Checked by the user.
+- On the Pixel, the app bar shows the menu, the topic and the new-conversation button only. Checked by the user on 2026-09-27.

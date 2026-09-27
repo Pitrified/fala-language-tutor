@@ -1,5 +1,5 @@
 ---
-status: in progress
+status: done
 priority: 0
 description: |
   Split Settings into a Language page and a Model page, reached from two drawer entries under a thin
