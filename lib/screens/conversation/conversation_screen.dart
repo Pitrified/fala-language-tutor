@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../app.dart';
+import '../../build_info.dart';
 import '../../models/cefr_level.dart';
 import '../../models/conversation.dart';
 import '../../models/conversation_message.dart';
@@ -10,6 +11,7 @@ import '../../models/target_language.dart';
 import '../../models/topic.dart';
 import '../../models/tutor_response.dart';
 import '../../providers/conversation_provider.dart';
+import '../../providers/service_providers.dart';
 import '../../providers/settings_provider.dart';
 import '../../services/conversation/conversation_controller.dart';
 import '../../services/inference/structured_stream_engine.dart';
@@ -400,11 +402,30 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen>
   }
 }
 
-class _AppDrawer extends StatelessWidget {
+class _AppDrawer extends ConsumerWidget {
   const _AppDrawer();
 
+  /// What storage holds and what is on screen, for diagnosing resume on a
+  /// device where logs are not available. Temporary: remove once the
+  /// resume-on-reopen report is explained.
+  String _storageDiagnostic(WidgetRef ref) {
+    final repository = ref.read(conversationRepositoryProvider);
+    final saved = repository.listAll();
+    final latest = saved.isEmpty ? null : saved.first;
+    final showing = ref
+        .read(conversationControllerProvider)
+        ?.currentConversation;
+    final defaultLanguage = ref.read(defaultTargetLanguageProvider).code;
+    String describe(Conversation? c) => c == null
+        ? 'none'
+        : '${c.language} ${c.messages.length} msgs ${c.id.substring(c.id.length - 5)}';
+    return 'Saved ${saved.length}, unreadable ${repository.unreadableCount}. '
+        'Latest: ${describe(latest)}. Showing: ${describe(showing)}. '
+        'Default: $defaultLanguage.';
+  }
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Drawer(
       child: SafeArea(
         child: ListView(
@@ -419,6 +440,16 @@ class _AppDrawer extends StatelessWidget {
                 Navigator.of(context).pop();
                 context.push(AppRoutes.settings);
               },
+            ),
+            const ListTile(
+              dense: true,
+              enabled: false,
+              title: Text('Version $appVersionLabel'),
+            ),
+            ListTile(
+              dense: true,
+              enabled: false,
+              title: Text(_storageDiagnostic(ref)),
             ),
           ],
         ),
