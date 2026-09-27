@@ -1,5 +1,5 @@
 ---
-status: in progress
+status: done
 ---
 
 # 02 - Welcome screen wording
@@ -16,4 +16,4 @@ From the Pixel run of phase 01 (user, 2026-09-27): the first screen's button rea
 ## Done when
 
 - The widget test passes and `scripts/check.sh` passes.
-- On the Pixel, the first screen shows "Start learning" with no model line. Not yet checked.
+- On the Pixel, the first screen shows "Start learning" with no model line. Checked by the user on 2026-09-27.

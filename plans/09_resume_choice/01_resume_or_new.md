@@ -1,5 +1,5 @@
 ---
-status: in progress
+status: done
 ---
 
 # 01 - Resume or new on a cold start
@@ -21,4 +21,4 @@ status: in progress
 - Controller tests cover `resumableConversation`: messages, empty, other language, none saved.
 - Widget tests: the choice shows for a last conversation with messages; Resume shows its messages; New shows the empty state and keeps the old conversation saved; an empty last conversation opens with no choice.
 - `scripts/check.sh` passes.
-- On the Pixel, a cold start offers the choice. Not yet checked.
+- On the Pixel, a cold start offers the choice. Checked by the user on 2026-09-27.

@@ -1,5 +1,5 @@
 ---
-status: in progress
+status: done
 priority: 0
 description: |
   On a cold start with a last conversation that has messages, offer "Resume conversation" and
