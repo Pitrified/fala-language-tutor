@@ -422,4 +422,45 @@ void main() {
       await after.dispose();
     });
   });
+
+  group('topicCarriedOver', () {
+    test('is true after starting with a topic', () async {
+      await controller.startConversation(topic: 'ciclismo');
+      expect(controller.topicCarriedOver, isTrue);
+    });
+
+    test('is false after starting without a topic', () async {
+      await controller.startConversation();
+      expect(controller.topicCarriedOver, isFalse);
+    });
+
+    test('is false once a topic is picked, even the same one', () async {
+      await controller.startConversation(topic: 'ciclismo');
+      await controller.setTopic('ciclismo');
+      expect(controller.topicCarriedOver, isFalse);
+
+      await controller.startConversation(topic: 'ciclismo');
+      await controller.setTopic('jazz');
+      expect(controller.topicCarriedOver, isFalse);
+    });
+
+    test('is false for a resumed or loaded conversation', () async {
+      final first = await controller.startConversation(topic: 'ciclismo');
+      final after = ConversationController(
+        streamEngine: streamEngine,
+        repository: repo,
+        promptManager: promptManager,
+      );
+      await after.resumeOrStartConversation(
+        language: TargetLanguage.ptBr,
+        cefrLevel: CefrLevel.a1,
+        topic: 'ciclismo',
+      );
+      expect(after.topicCarriedOver, isFalse);
+      await after.dispose();
+
+      await controller.loadConversation(first.id);
+      expect(controller.topicCarriedOver, isFalse);
+    });
+  });
 }

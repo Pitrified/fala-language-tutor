@@ -266,8 +266,27 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen>
     List<ConversationMessage> messages,
   ) {
     if (messages.isEmpty) {
+      final topic = controller.currentConversation?.topic ?? '';
       return Center(
-        child: Text('Say something in ${_copyLanguage.displayName}!'),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('Say something in ${_copyLanguage.displayName}!'),
+            if (topic.isNotEmpty) ...[
+              const SizedBox(height: 8),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: Text(
+                  controller.topicCarriedOver
+                      ? 'Topic: $topic, from your last conversation'
+                      : 'Topic: $topic',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+              ),
+            ],
+          ],
+        ),
       );
     }
 

@@ -53,6 +53,7 @@ class ConversationController {
       StreamController<StructuredDelta<TutorResponse>>.broadcast();
 
   bool _isSending = false;
+  bool _topicCarriedOver = false;
 
   /// Stream of conversation updates for reactive UI.
   Stream<Conversation?> get conversationStream =>
@@ -64,6 +65,14 @@ class ConversationController {
 
   /// Current active conversation.
   Conversation? get currentConversation => _currentConversation;
+
+  /// Whether the active conversation's topic is the one it was started with.
+  ///
+  /// True after [startConversation] with a non-empty topic, since every caller
+  /// passes the default topic, which is the last one used. False once
+  /// [setTopic] is called, and for a conversation that was resumed or loaded
+  /// rather than started. Not persisted.
+  bool get topicCarriedOver => _topicCarriedOver;
 
   /// Start a new conversation.
   Future<Conversation> startConversation({
@@ -83,6 +92,7 @@ class ConversationController {
     );
     await repository.save(conversation);
     _currentConversation = conversation;
+    _topicCarriedOver = topic.isNotEmpty;
     _conversationController.add(conversation);
     return conversation;
   }
@@ -104,6 +114,7 @@ class ConversationController {
     final latest = saved.isEmpty ? null : saved.first;
     if (latest != null && latest.language == language.code) {
       _currentConversation = latest;
+      _topicCarriedOver = false;
       _conversationController.add(latest);
       return latest;
     }
@@ -117,6 +128,7 @@ class ConversationController {
   /// Load an existing conversation by ID.
   Future<void> loadConversation(String id) async {
     _currentConversation = repository.load(id);
+    _topicCarriedOver = false;
     _conversationController.add(_currentConversation);
   }
 
@@ -141,12 +153,20 @@ class ConversationController {
 
   /// Update the topic of the active conversation without restarting it.
   ///
-  /// Empty string clears the topic. Trims [topic] before persisting.
+  /// Empty string clears the topic. Trims [topic] before persisting. Clears
+  /// [topicCarriedOver], also when [topic] is the one already set.
   Future<void> setTopic(String topic) async {
     final current = _currentConversation;
     if (current == null) return;
     final trimmed = topic.trim();
-    if (current.topic == trimmed) return;
+    if (current.topic == trimmed) {
+      if (_topicCarriedOver) {
+        _topicCarriedOver = false;
+        _conversationController.add(current);
+      }
+      return;
+    }
+    _topicCarriedOver = false;
     final updated = current.copyWith(topic: trimmed, updatedAt: DateTime.now());
     await repository.save(updated);
     _currentConversation = updated;
