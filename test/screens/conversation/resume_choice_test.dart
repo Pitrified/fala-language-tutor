@@ -5,6 +5,7 @@ import 'package:fala/models/target_language.dart';
 import 'package:fala/models/tutor_response.dart';
 import 'package:fala/providers/conversation_provider.dart';
 import 'package:fala/providers/settings_provider.dart';
+import 'package:fala/providers/speech_provider.dart';
 import 'package:fala/screens/conversation/conversation_screen.dart';
 import 'package:fala/services/conversation/conversation_controller.dart';
 import 'package:fala/services/inference/inference_engine.dart';
@@ -12,6 +13,7 @@ import 'package:fala/services/inference/structured_stream_engine.dart';
 import 'package:fala/services/persistence/conversation_repository.dart';
 import 'package:fala/services/prompt/prompt_manager.dart';
 import 'package:fala/services/settings/app_settings_repository.dart';
+import 'package:fala/services/speech/fake_speech_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -117,6 +119,7 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
+          speechServiceProvider.overrideWithValue(FakeSpeechService()),
           conversationControllerProvider.overrideWithValue(controller),
           appSettingsRepositoryProvider.overrideWithValue(settings),
         ],

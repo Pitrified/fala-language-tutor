@@ -13,6 +13,7 @@ class MessageBubble extends StatefulWidget {
     super.key,
     required ConversationMessage this.message,
     this.onTranslationRevealed,
+    this.trailing,
   }) : streamingContent = null,
        streamingTranslation = null;
 
@@ -25,7 +26,8 @@ class MessageBubble extends StatefulWidget {
   }) : message = null,
        streamingContent = content,
        streamingTranslation = translation,
-       onTranslationRevealed = null;
+       onTranslationRevealed = null,
+       trailing = null;
 
   /// The committed message, or null for a streaming bubble.
   final ConversationMessage? message;
@@ -39,6 +41,10 @@ class MessageBubble extends StatefulWidget {
   /// Called when a tap expands the translation (not when it collapses). Lets
   /// the screen follow the grown bubble to the bottom if the user is pinned.
   final VoidCallback? onTranslationRevealed;
+
+  /// Shown beside the bubble, on the side away from the screen edge: the
+  /// speaker button for tutor replies.
+  final Widget? trailing;
 
   @override
   State<MessageBubble> createState() => _MessageBubbleState();
@@ -106,18 +112,30 @@ class _MessageBubbleState extends State<MessageBubble> {
       ),
     );
 
+    final Widget body = canToggle
+        ? GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () {
+              setState(() => _showTranslation = !_showTranslation);
+              if (_showTranslation) widget.onTranslationRevealed?.call();
+            },
+            child: bubble,
+          )
+        : bubble;
+    final trailing = widget.trailing;
+
     return Align(
       alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
-      child: canToggle
-          ? GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTap: () {
-                setState(() => _showTranslation = !_showTranslation);
-                if (_showTranslation) widget.onTranslationRevealed?.call();
-              },
-              child: bubble,
-            )
-          : bubble,
+      child: trailing == null
+          ? body
+          : Row(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Flexible(child: body),
+                trailing,
+              ],
+            ),
     );
   }
 }

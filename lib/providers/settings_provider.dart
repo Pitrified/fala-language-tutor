@@ -225,3 +225,22 @@ final defaultTargetLanguageProvider =
     NotifierProvider<DefaultTargetLanguageNotifier, TargetLanguage>(
       DefaultTargetLanguageNotifier.new,
     );
+
+/// Reactive holder for the "Read replies aloud" switch.
+class ReadRepliesAloudNotifier extends Notifier<bool> {
+  @override
+  bool build() => ref.read(appSettingsRepositoryProvider).readRepliesAloud();
+
+  /// Persist [value] and publish it.
+  Future<void> set(bool value) async {
+    if (value == state) return;
+    await ref.read(appSettingsRepositoryProvider).setReadRepliesAloud(value);
+    state = value;
+  }
+}
+
+/// Provider for whether new replies are read aloud.
+final readRepliesAloudProvider =
+    NotifierProvider<ReadRepliesAloudNotifier, bool>(
+      ReadRepliesAloudNotifier.new,
+    );

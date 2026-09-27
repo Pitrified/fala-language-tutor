@@ -8,6 +8,7 @@ import 'package:fala/models/tutor_response.dart';
 import 'package:fala/providers/conversation_provider.dart';
 import 'package:fala/providers/service_providers.dart';
 import 'package:fala/providers/settings_provider.dart';
+import 'package:fala/providers/speech_provider.dart';
 import 'package:fala/screens/settings/language_settings_screen.dart';
 import 'package:fala/services/conversation/conversation_controller.dart';
 import 'package:fala/services/inference/engine_kind.dart';
@@ -16,6 +17,7 @@ import 'package:fala/services/inference/structured_stream_engine.dart';
 import 'package:fala/services/persistence/conversation_repository.dart';
 import 'package:fala/services/prompt/prompt_manager.dart';
 import 'package:fala/services/settings/app_settings_repository.dart';
+import 'package:fala/services/speech/fake_speech_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -45,12 +47,14 @@ void main() {
   late AppSettingsRepository settings;
   late ConversationRepository repo;
   late ConversationController controller;
+  late FakeSpeechService speech;
   // Hive keeps a box open by name across tests; a fresh name per test keeps
   // each test off the previous one's box.
   var run = 0;
 
   setUp(() async {
     run++;
+    speech = FakeSpeechService();
     tempDir = await Directory.systemTemp.createTemp('settings_apply_');
     Hive.init(tempDir.path);
     settings = AppSettingsRepository(boxName: 'settings_apply_$run');
@@ -88,6 +92,7 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
+          speechServiceProvider.overrideWithValue(speech),
           appSettingsRepositoryProvider.overrideWithValue(settings),
           conversationRepositoryProvider.overrideWithValue(repo),
           conversationControllerProvider.overrideWithValue(controller),
@@ -169,5 +174,35 @@ void main() {
       );
       expect(repo.load(before)!.messages, hasLength(1));
     });
+  });
+
+  testWidgets('the Speech switch persists, and no warning with a voice', (
+    tester,
+  ) async {
+    // Tall enough for the whole Language page, Speech section included.
+    tester.view.physicalSize = const Size(800, 1600);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+    await pumpSettings(tester);
+    expect(find.text('Install voice'), findsNothing);
+
+    await tapReal(tester, find.text('Read replies aloud'));
+    expect(settings.readRepliesAloud(), isTrue);
+  });
+
+  testWidgets('without a voice for the language, the Speech section says so', (
+    tester,
+  ) async {
+    // Tall enough for the whole Language page, Speech section included.
+    tester.view.physicalSize = const Size(800, 1600);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+    speech.voices.remove(TargetLanguage.ptBr);
+    await pumpSettings(tester);
+
+    expect(find.textContaining('no Portuguese voice'), findsOneWidget);
+    await tester.tap(find.text('Install voice'));
+    await settle(tester);
+    expect(speech.installRequests, 1);
   });
 }

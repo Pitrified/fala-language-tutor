@@ -38,6 +38,10 @@ class AppSettingsRepository {
   /// Hive key storing the default [TargetLanguage] as its BCP-47 code.
   static const String keyDefaultLanguage = 'default_language';
 
+  /// Hive key storing whether replies are read aloud, as `'true'` or
+  /// `'false'`.
+  static const String keyReadRepliesAloud = 'read_replies_aloud';
+
   /// Fallback when no value is stored or the stored value is unknown.
   static const EngineKind defaultEngineKind = EngineKind.openai;
 
@@ -103,6 +107,15 @@ class AppSettingsRepository {
   /// Returns the persisted default topic seed (or empty string).
   String defaultTopicValue() {
     return _box.get(keyDefaultTopic) ?? defaultTopic;
+  }
+
+  /// Whether each new reply is read aloud. Off unless set to `'true'`, so a
+  /// fresh install stays silent.
+  bool readRepliesAloud() => _box.get(keyReadRepliesAloud) == 'true';
+
+  /// Persist whether new replies are read aloud.
+  Future<void> setReadRepliesAloud(bool value) async {
+    await _box.put(keyReadRepliesAloud, value.toString());
   }
 
   /// Persist [topic] as the default topic seed for new conversations.

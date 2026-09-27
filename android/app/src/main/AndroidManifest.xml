@@ -39,6 +39,10 @@
 
          In particular, this is used by the Flutter engine in io.flutter.plugin.text.ProcessTextPlugin. -->
     <queries>
+        <!-- flutter_tts: find the text-to-speech engine on Android 11 and later. -->
+        <intent>
+            <action android:name="android.intent.action.TTS_SERVICE"/>
+        </intent>
         <!-- url_launcher: open the source link in a browser. -->
         <intent>
             <action android:name="android.intent.action.VIEW"/>
