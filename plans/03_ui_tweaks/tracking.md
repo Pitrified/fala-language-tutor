@@ -1,7 +1,7 @@
 # Ui tweaks - implementation tracking
 
 Small UI and functionality fixes, one sub-plan each, from tap-to-reveal translation to the
-CEFR picker to how an unparseable reply reads. Open: item 08 in the list has no sub-plan yet.
+CEFR picker to how an unparseable reply reads.
 
 This folder ran before `tracking.md` was the convention, so this file was written during the
 normalisation pass in
@@ -21,6 +21,7 @@ Analysis and decisions in [`00_start.md`](00_start.md).
 | 05 | 05 - Higher, wrapping input field                                          | [`05_higher_input_field.md`](05_higher_input_field.md)                       | done |
 | 06 | 06 - New conversation button                                               | [`06_new_conversation_button.md`](06_new_conversation_button.md)             | done |
 | 07 | 07 - Engine selection: correct model name, OpenAI default, scoped settings | [`07_engine_selection.md`](07_engine_selection.md)                           | done |
+| 08 | 08 - A long correction wraps while it streams                               | [`08_long_correction_wrap.md`](08_long_correction_wrap.md)                   | done |
 | 09 | 09 - Split CEFR text into guidance + description                           | [`09_cefr_guidance_and_description.md`](09_cefr_guidance_and_description.md) | done |
 | 10 | 10 - A malformed reply reads as a failed turn, not as the tutor talking    | [`10_malformed_reply_display.md`](10_malformed_reply_display.md)             | done |
 | 11 | 11 - Reopening the app resumes the last conversation                       | [`11_resume_last_conversation.md`](11_resume_last_conversation.md)           | planned |
@@ -37,3 +38,4 @@ Append-only. Newest at the bottom.
 - 2026-09-25 : item 08 in the list, long corrections not wrapping while streaming, has no sub-plan; this folder stays in progress until it does.
 - 2026-09-26 : item 11 added from the first Pixel run of fala-language-tutor: reopening the app starts a new conversation instead of resuming the last. Planned, with two points to decide before building.
 - 2026-09-26 : item 11's two open points decided as proposed (resume only in the current default language; reuse an empty last conversation). Stays `planned`; built later.
+- 2026-09-27 : item 08 - a streaming correction whose corrected form had not arrived sat in a `Row` and did not wrap; now rich text like the finished line. Test seen failing first (1450 px overflow).
