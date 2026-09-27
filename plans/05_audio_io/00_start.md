@@ -150,6 +150,8 @@ Send the user's audio straight to a model that hears.
 
 ### O1. System TTS via `flutter_tts` (on-device)
 
+Spun off on 2026-09-27 into [`../12_system_tts/00_start.md`](../12_system_tts/00_start.md), which carries its integration options from there.
+
 - Effort: low. Mature plugin over Android TextToSpeech.
 - Runs: on-device, free, offline. Per-language voices depend on the device's installed TTS engine.
 - Delivery: sentence-level chunking is easy, so it pairs well with our streaming LLM UI
