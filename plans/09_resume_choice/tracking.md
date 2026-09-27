@@ -17,3 +17,4 @@ Status values: draft / planned / in progress / done / superseded / discarded.
 Append-only. Newest at the bottom.
 
 - 2026-09-27 : folder raised and phase 01 derived from `00_start.md` D1 to D3.
+- 2026-09-27 : phase 01 built: `resumableConversation` in the controller, `ResumeChoice` in the body on a cold start. Controller and widget tests pass; stays in progress until the Pixel run.

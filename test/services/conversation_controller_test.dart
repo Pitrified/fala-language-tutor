@@ -422,4 +422,45 @@ void main() {
       await after.dispose();
     });
   });
+
+  group('resumableConversation', () {
+    test('is the last conversation when it has messages', () async {
+      final first = await controller.startConversation(
+        language: TargetLanguage.ptBr,
+      );
+      await controller.sendMessage('Oi');
+      expect(
+        controller.resumableConversation(TargetLanguage.ptBr)?.id,
+        first.id,
+      );
+    });
+
+    test('is null for an empty last conversation', () async {
+      await controller.startConversation(language: TargetLanguage.ptBr);
+      expect(controller.resumableConversation(TargetLanguage.ptBr), isNull);
+    });
+
+    test('is null when the last conversation is in another language', () async {
+      await controller.startConversation(language: TargetLanguage.ptBr);
+      await controller.sendMessage('Oi');
+      expect(controller.resumableConversation(TargetLanguage.esEs), isNull);
+    });
+
+    test('is null when nothing is saved', () {
+      expect(controller.resumableConversation(TargetLanguage.ptBr), isNull);
+    });
+
+    test('opens nothing', () async {
+      await controller.startConversation(language: TargetLanguage.ptBr);
+      await controller.sendMessage('Oi');
+      final after = ConversationController(
+        streamEngine: streamEngine,
+        repository: repo,
+        promptManager: promptManager,
+      );
+      after.resumableConversation(TargetLanguage.ptBr);
+      expect(after.currentConversation, isNull);
+      await after.dispose();
+    });
+  });
 }

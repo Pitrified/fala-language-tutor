@@ -18,6 +18,7 @@ import 'widgets/cefr_picker_sheet.dart';
 import 'widgets/correction_card.dart';
 import 'widgets/language_picker_sheet.dart';
 import 'widgets/message_bubble.dart';
+import 'widgets/resume_choice.dart';
 import 'widgets/streaming_reply_view.dart';
 import 'widgets/streaming_tutor_entry.dart';
 import 'widgets/topic_picker_sheet.dart';
@@ -45,6 +46,10 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen>
   int _bottomFollowFrames = 0;
   bool _stickScheduled = false;
 
+  /// The last conversation offered on a cold start, until the learner picks
+  /// resume or new. Nothing is open while it is set.
+  Conversation? _resumable;
+
   @override
   void initState() {
     super.initState();
@@ -57,6 +62,13 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen>
     final controller = ref.read(conversationControllerProvider);
     if (controller == null) return;
     if (controller.currentConversation == null) {
+      final resumable = controller.resumableConversation(
+        ref.read(defaultTargetLanguageProvider),
+      );
+      if (resumable != null) {
+        setState(() => _resumable = resumable);
+        return;
+      }
       await controller.resumeOrStartConversation(
         language: ref.read(defaultTargetLanguageProvider),
         cefrLevel: ref.read(defaultCefrLevelProvider),
@@ -77,9 +89,22 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen>
     );
     _textController.clear();
     setState(() {
+      _resumable = null;
       _isPinnedToBottom = true;
       _lastMessageCount = 0;
     });
+  }
+
+  /// Open the conversation offered on a cold start.
+  Future<void> _resumeConversation(Conversation conversation) async {
+    final controller = ref.read(conversationControllerProvider);
+    if (controller == null) return;
+    await controller.loadConversation(conversation.id);
+    setState(() {
+      _resumable = null;
+      _isPinnedToBottom = true;
+    });
+    _scrollToBottom();
   }
 
   Future<void> _sendMessage() async {
@@ -203,6 +228,7 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen>
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
+    final resumable = _resumable;
     return Scaffold(
       appBar: AppBar(
         title: const Text('fala'),
@@ -220,31 +246,41 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen>
       drawer: const _AppDrawer(),
       body: Column(
         children: [
-          Expanded(
-            child: Stack(
-              children: [
-                StreamBuilder<Conversation?>(
-                  stream: controller.conversationStream,
-                  initialData: controller.currentConversation,
-                  builder: (context, snapshot) {
-                    final conversation = snapshot.data;
-                    if (conversation == null) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-                    final messages = conversation.messages;
-                    // Follow a committed turn (message count grew) if pinned.
-                    if (messages.length != _lastMessageCount) {
-                      _lastMessageCount = messages.length;
-                      _autoScrollIfPinned();
-                    }
-                    return _buildMessageList(controller, messages);
-                  },
-                ),
-                _buildScrollToBottomButton(),
-              ],
+          if (resumable != null)
+            Expanded(
+              child: ResumeChoice(
+                conversation: resumable,
+                onResume: () => _resumeConversation(resumable),
+                onNew: _newConversation,
+              ),
+            )
+          else ...[
+            Expanded(
+              child: Stack(
+                children: [
+                  StreamBuilder<Conversation?>(
+                    stream: controller.conversationStream,
+                    initialData: controller.currentConversation,
+                    builder: (context, snapshot) {
+                      final conversation = snapshot.data;
+                      if (conversation == null) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                      final messages = conversation.messages;
+                      // Follow a committed turn (message count grew) if pinned.
+                      if (messages.length != _lastMessageCount) {
+                        _lastMessageCount = messages.length;
+                        _autoScrollIfPinned();
+                      }
+                      return _buildMessageList(controller, messages);
+                    },
+                  ),
+                  _buildScrollToBottomButton(),
+                ],
+              ),
             ),
-          ),
-          _buildInputBar(),
+            _buildInputBar(),
+          ],
         ],
       ),
     );
