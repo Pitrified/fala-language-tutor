@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
-import '../../app.dart';
 import '../../build_info.dart';
-import '../../models/cefr_level.dart';
 import '../../models/conversation.dart';
 import '../../models/conversation_message.dart';
 import '../../models/target_language.dart';
@@ -14,9 +11,8 @@ import '../../providers/conversation_provider.dart';
 import '../../providers/settings_provider.dart';
 import '../../services/conversation/conversation_controller.dart';
 import '../../services/inference/structured_stream_engine.dart';
-import 'widgets/cefr_picker_sheet.dart';
+import '../settings/settings_entries.dart';
 import 'widgets/correction_card.dart';
-import 'widgets/language_picker_sheet.dart';
 import 'widgets/message_bubble.dart';
 import 'widgets/resume_choice.dart';
 import 'widgets/streaming_reply_view.dart';
@@ -231,18 +227,11 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen>
     final resumable = _resumable;
     return Scaffold(
       appBar: AppBar(
-        // The chips sit in the title slot rather than in `actions`, which cannot
-        // shrink: in a row the topic label takes what is left and ellipsizes, so
-        // a long topic cannot push the menu button off screen. The drawer header
-        // carries the app name.
+        // The topic sits in the title slot rather than in `actions`, which
+        // cannot shrink: there the label ellipsizes, so a long topic cannot push
+        // the menu button off screen. The drawer carries the settings.
         titleSpacing: 0,
-        title: Row(
-          children: [
-            _LanguageAction(controller: controller),
-            Flexible(child: _TopicAction(controller: controller)),
-            _CefrAction(controller: controller),
-          ],
-        ),
+        title: _TopicAction(controller: controller),
         actions: [
           IconButton(
             tooltip: 'New conversation',
@@ -473,17 +462,14 @@ class _AppDrawer extends StatelessWidget {
       child: SafeArea(
         child: ListView(
           children: [
-            const DrawerHeader(
-              child: Text('fala', style: TextStyle(fontSize: 24)),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+              child: Text(
+                'Settings',
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
             ),
-            ListTile(
-              leading: const Icon(Icons.settings_outlined),
-              title: const Text('Settings'),
-              onTap: () {
-                Navigator.of(context).pop();
-                context.push(AppRoutes.settings);
-              },
-            ),
+            const SettingsEntries(),
             const ListTile(
               dense: true,
               enabled: false,
@@ -492,87 +478,6 @@ class _AppDrawer extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class _CefrAction extends ConsumerWidget {
-  const _CefrAction({required this.controller});
-
-  final ConversationController controller;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return StreamBuilder<Conversation?>(
-      stream: controller.conversationStream,
-      initialData: controller.currentConversation,
-      builder: (context, snapshot) {
-        final current =
-            CefrLevelX.fromString(snapshot.data?.cefrLevel) ?? CefrLevel.a1;
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
-          child: ActionChip(
-            label: Text(current.displayName),
-            tooltip: 'CEFR level: ${current.description}',
-            onPressed: () async {
-              final picked = await showCefrPickerSheet(
-                context,
-                current: current,
-              );
-              if (picked == null || picked == current) return;
-              await controller.setCefrLevel(picked);
-              await ref.read(defaultCefrLevelProvider.notifier).select(picked);
-            },
-          ),
-        );
-      },
-    );
-  }
-}
-
-/// App-bar chip showing the conversation's language, opening the picker.
-///
-/// Writes twice like the CEFR and topic chips: the conversation through the
-/// controller and the app default through the provider. The language of a
-/// conversation with messages cannot change, so picking a different one offers a
-/// new conversation instead, and the default is stored either way so the next
-/// conversation honours the choice.
-class _LanguageAction extends ConsumerWidget {
-  const _LanguageAction({required this.controller});
-
-  final ConversationController controller;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return StreamBuilder<Conversation?>(
-      stream: controller.conversationStream,
-      initialData: controller.currentConversation,
-      builder: (context, snapshot) {
-        final conversation = snapshot.data;
-        final TargetLanguage current =
-            TargetLanguageX.fromCode(conversation?.language) ??
-            ref.read(defaultTargetLanguageProvider);
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
-          child: ActionChip(
-            label: Text(current.endonym),
-            tooltip: 'Learning ${current.displayName}',
-            onPressed: () async {
-              final picked = await showLanguagePickerSheet(
-                context,
-                current: current,
-              );
-              if (picked == null || !context.mounted) return;
-              await applyLanguageChoice(
-                context: context,
-                ref: ref,
-                controller: controller,
-                picked: picked,
-              );
-            },
-          ),
-        );
-      },
     );
   }
 }

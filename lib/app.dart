@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 
 import 'providers/app_provider.dart';
 import 'screens/conversation/conversation_screen.dart';
+import 'screens/settings/language_settings_screen.dart';
+import 'screens/settings/model_settings_screen.dart';
 import 'screens/settings/settings_screen.dart';
 import 'screens/welcome/welcome_screen.dart';
 import 'services/app/app_controller.dart';
@@ -13,6 +15,8 @@ abstract final class AppRoutes {
   static const welcome = '/';
   static const conversation = '/conversation';
   static const settings = '/settings';
+  static const languageSettings = '/settings/language';
+  static const modelSettings = '/settings/model';
 }
 
 /// App-level GoRouter configuration.
@@ -28,8 +32,8 @@ final routerProvider = Provider<GoRouter>((ref) {
       final appState = appController.state;
       final location = state.matchedLocation;
 
-      // Settings is always reachable.
-      if (location == AppRoutes.settings) return null;
+      // Settings and its pages are always reachable.
+      if (location.startsWith(AppRoutes.settings)) return null;
 
       // Prevent accessing conversation if not ready
       if (location == AppRoutes.conversation && appState is! AppReady) {
@@ -50,6 +54,16 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: AppRoutes.settings,
         builder: (context, state) => const SettingsScreen(),
+        routes: [
+          GoRoute(
+            path: 'language',
+            builder: (context, state) => const LanguageSettingsScreen(),
+          ),
+          GoRoute(
+            path: 'model',
+            builder: (context, state) => const ModelSettingsScreen(),
+          ),
+        ],
       ),
     ],
   );

@@ -113,8 +113,6 @@ void main() {
 
     expect(find.text('Say something in Spanish!'), findsOneWidget);
     expect(find.text('Type in Spanish...'), findsOneWidget);
-    // The chip shows the language's own name.
-    expect(find.text('español'), findsOneWidget);
   });
 
   testWidgets('a pt-BR conversation still reads as Portuguese', (tester) async {
