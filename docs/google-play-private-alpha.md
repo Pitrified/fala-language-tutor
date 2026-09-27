@@ -23,8 +23,9 @@ making it public**. Use **Internal Testing** for fastest turnaround.
   flutter build appbundle --release
   ```
   Output: `build/app/outputs/bundle/release/app-release.aab`.
-- A privacy policy URL hosted somewhere stable (GitHub Pages is acceptable).
-  Source lives in [privacy-policy.md](privacy-policy.md).
+- A privacy policy URL. fala uses the policy's page in the public repository,
+  <https://github.com/Pitrified/fala-language-tutor/blob/main/docs/privacy-policy.md>, so the URL follows [privacy-policy.md](privacy-policy.md) on every
+  merge to `main` and there is no second copy to keep in sync.
 
 ---
 
@@ -85,7 +86,7 @@ These block AAB upload or rollout if missing:
 - [ ] **Government app** - No
 - [ ] **Financial features** - No
 - [ ] **Health** - No
-- [ ] **Privacy policy URL**
+- [ ] **Privacy policy URL** - <https://github.com/Pitrified/fala-language-tutor/blob/main/docs/privacy-policy.md>
 
 Data Safety for fala depends on the active engine (see
 [privacy-policy.md](privacy-policy.md)):
@@ -196,7 +197,7 @@ If a build is broken:
 | Target SDK too low              | Bump `targetSdk` in `android/app/build.gradle.kts` (currently 36) |
 | 32-bit-only AAB                 | Ship arm64-v8a; armeabi-v7a is already dropped (see build-and-release.md) |
 | Missing Data Safety form        | Fill in §6                                                    |
-| Privacy policy URL 404          | Host a stable page                                            |
+| Privacy policy URL 404          | The repository went private or the file moved; the URL is in §2 |
 | Permissions declared but unused | Trim from `AndroidManifest.xml` or justify in console         |
 
 ---

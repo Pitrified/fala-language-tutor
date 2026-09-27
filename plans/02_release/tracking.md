@@ -26,3 +26,4 @@ Append-only. Newest at the bottom.
 
 - 2026-07-09 : 3/3 plans written, 2/3 executed. The release build and signing are done.
 - 2026-07-09 : the Play Console steps are manual and outstanding, which is why this folder is still in progress.
+- 2026-09-27 : privacy policy URL chosen (user): the file's GitHub page in the public repository, recorded in `docs/google-play-private-alpha.md`. The policy was brought up to date the same day. The Play Console steps are still outstanding.
