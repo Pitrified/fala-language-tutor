@@ -85,4 +85,18 @@ void main() {
     await repo.deleteAll();
     expect(repo.listAll(), isEmpty);
   });
+
+  test('listAll skips an entry it cannot read and keeps the rest', () async {
+    final good = makeConversation(id: 'good');
+    await repo.save(good);
+    // Written by hand, as an older build or a half-written record could leave
+    // it: a message with no id, content or timestamp.
+    final box = await Hive.openBox<String>('test_conversations');
+    await box.put('broken', '{"id":"broken","messages":[{"role":"tutor"}]}');
+
+    final all = repo.listAll();
+
+    expect(all.map((c) => c.id), ['good']);
+    expect(repo.unreadableCount, 1);
+  });
 }

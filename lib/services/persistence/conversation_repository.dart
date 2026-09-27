@@ -4,6 +4,7 @@ import 'package:hive/hive.dart';
 
 import '../../models/conversation.dart';
 import '../../models/conversation_message.dart';
+import '../logging/app_logger.dart';
 
 /// Hive-backed repository for conversation persistence.
 ///
@@ -33,15 +34,30 @@ class ConversationRepository {
     return Conversation.fromJson(jsonDecode(json) as Map<String, dynamic>);
   }
 
+  /// How many stored entries the last [listAll] could not read.
+  int get unreadableCount => _unreadableCount;
+  int _unreadableCount = 0;
+
   /// List all conversations, sorted by updatedAt descending.
+  ///
+  /// An entry that does not parse, such as one written by an older build, is
+  /// skipped and counted in [unreadableCount] rather than failing the whole
+  /// list: one bad record would otherwise hide every good conversation.
   List<Conversation> listAll() {
-    return _box.values
-        .map(
-          (json) =>
-              Conversation.fromJson(jsonDecode(json) as Map<String, dynamic>),
-        )
-        .toList()
-      ..sort((a, b) => b.updatedAt.compareTo(a.updatedAt));
+    final conversations = <Conversation>[];
+    var unreadable = 0;
+    for (final json in _box.values) {
+      try {
+        conversations.add(
+          Conversation.fromJson(jsonDecode(json) as Map<String, dynamic>),
+        );
+      } on Object catch (error) {
+        unreadable++;
+        AppLogger.instance.warn('Skipping an unreadable conversation: $error');
+      }
+    }
+    _unreadableCount = unreadable;
+    return conversations..sort((a, b) => b.updatedAt.compareTo(a.updatedAt));
   }
 
   /// Append a message to an existing conversation.
