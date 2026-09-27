@@ -44,3 +44,22 @@ const List<Topic> kSuggestedTopics = [
   Topic(value: 'Shopping'),
   Topic(value: 'Brazilian culture'),
 ];
+
+/// How many custom topics the picker remembers.
+const int kRecentTopicsCap = 5;
+
+/// Returns [recent] with [topic] moved or added to the front, newest first,
+/// holding at most [kRecentTopicsCap] entries.
+///
+/// Only custom topics are remembered: an empty topic or one of
+/// [kSuggestedTopics] returns [recent] unchanged. [topic] is trimmed first.
+List<String> pushRecentTopic(List<String> recent, String topic) {
+  final trimmed = topic.trim();
+  if (trimmed.isEmpty || kSuggestedTopics.any((t) => t.value == trimmed)) {
+    return List.of(recent);
+  }
+  return [
+    trimmed,
+    ...recent.where((t) => t != trimmed),
+  ].take(kRecentTopicsCap).toList();
+}

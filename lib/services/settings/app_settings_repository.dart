@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:hive/hive.dart';
 
 import '../../models/cefr_level.dart';
@@ -29,6 +31,9 @@ class AppSettingsRepository {
 
   /// Hive key storing the default topic seed for new conversations.
   static const String keyDefaultTopic = 'default_topic';
+
+  /// Hive key storing the recent custom topics as a JSON array, newest first.
+  static const String keyRecentTopics = 'recent_topics';
 
   /// Hive key storing the default [TargetLanguage] as its BCP-47 code.
   static const String keyDefaultLanguage = 'default_language';
@@ -103,6 +108,27 @@ class AppSettingsRepository {
   /// Persist [topic] as the default topic seed for new conversations.
   Future<void> setDefaultTopic(String topic) async {
     await _box.put(keyDefaultTopic, topic);
+  }
+
+  /// Returns the recent custom topics, newest first, or an empty list when
+  /// none are stored or the stored value is not a JSON array of strings.
+  List<String> recentTopics() {
+    final raw = _box.get(keyRecentTopics);
+    if (raw == null) return const [];
+    try {
+      final decoded = jsonDecode(raw);
+      if (decoded is List && decoded.every((e) => e is String)) {
+        return decoded.cast<String>();
+      }
+    } on FormatException {
+      // Fall through to the empty list.
+    }
+    return const [];
+  }
+
+  /// Persist [topics] as the recent custom topics, newest first.
+  Future<void> setRecentTopics(List<String> topics) async {
+    await _box.put(keyRecentTopics, jsonEncode(topics));
   }
 
   /// Returns the persisted default [TargetLanguage], or

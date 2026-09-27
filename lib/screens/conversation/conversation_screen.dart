@@ -205,11 +205,19 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen>
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('fala'),
+        // The chips sit in the title slot rather than in `actions`, which cannot
+        // shrink: in a row the topic label takes what is left and ellipsizes, so
+        // a long topic cannot push the menu button off screen. The drawer header
+        // carries the app name.
+        titleSpacing: 0,
+        title: Row(
+          children: [
+            _LanguageAction(controller: controller),
+            Flexible(child: _TopicAction(controller: controller)),
+            _CefrAction(controller: controller),
+          ],
+        ),
         actions: [
-          _LanguageAction(controller: controller),
-          _TopicAction(controller: controller),
-          _CefrAction(controller: controller),
           IconButton(
             tooltip: 'New conversation',
             icon: const Icon(Icons.add_comment_outlined),
@@ -266,8 +274,27 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen>
     List<ConversationMessage> messages,
   ) {
     if (messages.isEmpty) {
+      final topic = controller.currentConversation?.topic ?? '';
       return Center(
-        child: Text('Say something in ${_copyLanguage.displayName}!'),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('Say something in ${_copyLanguage.displayName}!'),
+            if (topic.isNotEmpty) ...[
+              const SizedBox(height: 8),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: Text(
+                  controller.topicCarriedOver
+                      ? 'Topic: $topic, from your last conversation'
+                      : 'Topic: $topic',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+              ),
+            ],
+          ],
+        ),
       );
     }
 
@@ -529,26 +556,31 @@ class _TopicAction extends ConsumerWidget {
         final current = raw.isEmpty
             ? Topic.none
             : Topic(value: raw, isCustom: !_isSuggested(raw));
-        final label = raw.isEmpty
-            ? 'Pick a topic'
-            : raw.length > 18
-            ? '${raw.substring(0, 17)}\u2026'
-            : raw;
+        final label = raw.isEmpty ? 'Pick a topic' : raw;
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
           child: TextButton.icon(
             icon: const Icon(Icons.bookmark_outline, size: 18),
-            label: Text(label),
+            label: Text(
+              label,
+              maxLines: 1,
+              softWrap: false,
+              overflow: TextOverflow.ellipsis,
+            ),
             onPressed: () async {
+              final recent = ref.read(recentTopicsProvider.notifier);
               final picked = await showTopicPickerSheet(
                 context,
                 current: current,
+                recent: ref.read(recentTopicsProvider),
+                onRemoveRecent: recent.remove,
               );
               if (picked == null) return;
               await controller.setTopic(picked.value);
               await ref
                   .read(defaultTopicProvider.notifier)
                   .select(picked.value);
+              await recent.remember(picked.value);
             },
           ),
         );
