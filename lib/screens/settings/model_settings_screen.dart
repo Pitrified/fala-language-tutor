@@ -3,9 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../providers/settings_provider.dart';
 import '../../services/inference/engine_kind.dart';
+import '../../services/inference/openai_models.dart';
 
 /// Model settings: the active inference engine, then the details of that
-/// engine (the OpenAI key and model id; the fake engine has none).
+/// engine (the OpenAI key and model; the fake engine has none).
 class ModelSettingsScreen extends ConsumerWidget {
   const ModelSettingsScreen({super.key});
 
@@ -82,14 +83,12 @@ class _OpenAiSection extends ConsumerStatefulWidget {
 
 class _OpenAiSectionState extends ConsumerState<_OpenAiSection> {
   final _keyController = TextEditingController();
-  final _modelController = TextEditingController();
   bool _hasStoredKey = false;
   bool _loaded = false;
 
   @override
   void initState() {
     super.initState();
-    _modelController.text = ref.read(openaiModelProvider);
     _refreshKeyStatus();
   }
 
@@ -106,7 +105,6 @@ class _OpenAiSectionState extends ConsumerState<_OpenAiSection> {
   @override
   void dispose() {
     _keyController.dispose();
-    _modelController.dispose();
     super.dispose();
   }
 
@@ -118,9 +116,6 @@ class _OpenAiSectionState extends ConsumerState<_OpenAiSection> {
       await store.write(keyInput);
       _keyController.clear();
     }
-    await ref
-        .read(openaiModelProvider.notifier)
-        .setModel(_modelController.text);
     ref.invalidate(apiKeyPresentProvider);
     await _refreshKeyStatus();
     messenger.showSnackBar(const SnackBar(content: Text('Settings saved.')));
@@ -159,14 +154,7 @@ class _OpenAiSectionState extends ConsumerState<_OpenAiSection> {
           ),
         ),
         const SizedBox(height: 12),
-        TextField(
-          controller: _modelController,
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Model',
-            hintText: 'gpt-4o-mini',
-          ),
-        ),
+        const _ModelDropdown(),
         const SizedBox(height: 12),
         Row(
           children: [
@@ -179,6 +167,39 @@ class _OpenAiSectionState extends ConsumerState<_OpenAiSection> {
           ],
         ),
       ],
+    );
+  }
+}
+
+/// Picks the OpenAI model from [openAiModelOptions], saved on selection, with
+/// the chosen model's description below. A stored id that is not offered any
+/// more stays listed so the picker shows what is in use.
+class _ModelDropdown extends ConsumerWidget {
+  const _ModelDropdown();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final model = ref.watch(openaiModelProvider);
+    final ids = [
+      for (final option in openAiModelOptions) option.id,
+      if (openAiModelOption(model) == null) model,
+    ];
+    return DropdownButtonFormField<String>(
+      initialValue: model,
+      isExpanded: true,
+      decoration: InputDecoration(
+        border: const OutlineInputBorder(),
+        labelText: 'Model',
+        helperText: openAiModelOption(model)?.description,
+        helperMaxLines: 3,
+      ),
+      items: [
+        for (final id in ids) DropdownMenuItem(value: id, child: Text(id)),
+      ],
+      onChanged: (id) async {
+        if (id == null) return;
+        await ref.read(openaiModelProvider.notifier).setModel(id);
+      },
     );
   }
 }

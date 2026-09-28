@@ -90,6 +90,35 @@ void main() {
     ]);
   });
 
+  Future<Map<String, dynamic>> sentBodyFor(String model) async {
+    final store = ApiKeyStore();
+    await store.write('sk-test');
+    late Map<String, dynamic> body;
+    final mock = MockClient((request) async {
+      body = jsonDecode(request.body) as Map<String, dynamic>;
+      return http.Response(
+        _sse(['{"reply":"oi"}']),
+        200,
+        headers: {'content-type': 'text/event-stream'},
+      );
+    });
+    final engine = _engineWith(httpClient: mock, store: store, model: model);
+    await engine.initialize();
+    await engine.generateStream(const InferenceRequest(prompt: 'oi')).toList();
+    return body;
+  }
+
+  test('sends reasoning_effort none for an offered reasoning model', () async {
+    final body = await sentBodyFor('gpt-5.4-nano');
+    expect(body['model'], 'gpt-5.4-nano');
+    expect(body['reasoning_effort'], 'none');
+  });
+
+  test('sends no reasoning_effort for a model not offered', () async {
+    final body = await sentBodyFor('gpt-4o-mini');
+    expect(body.containsKey('reasoning_effort'), isFalse);
+  });
+
   test('throws InferenceStreamException when no key is stored', () async {
     final store = ApiKeyStore();
     final engine = _engineWith(

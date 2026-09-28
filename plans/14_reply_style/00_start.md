@@ -1,5 +1,5 @@
 ---
-status: draft
+status: in progress
 priority: 0
 description: |
   Make the tutor's replies fit the learner: a verbosity setting, and a CEFR level that
@@ -8,7 +8,7 @@ description: |
 
 # Reply length and complexity
 
-Status: note. Nothing researched or implemented.
+Status: prompt and models compared in `prompt_lab/` (runs 1 to 4 below); phases in `tracking.md`.
 
 ## Where this came from
 

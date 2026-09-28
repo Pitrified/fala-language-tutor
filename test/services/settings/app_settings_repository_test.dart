@@ -51,8 +51,8 @@ void main() {
     expect(repo.engineKind(), EngineKind.openai);
   });
 
-  test('openaiModel defaults to gpt-4o-mini and round-trips', () async {
-    expect(repo.openaiModel(), 'gpt-4o-mini');
+  test('openaiModel defaults to gpt-5.4-nano and round-trips', () async {
+    expect(repo.openaiModel(), 'gpt-5.4-nano');
     await repo.setOpenaiModel('gpt-4o');
     expect(repo.openaiModel(), 'gpt-4o');
   });

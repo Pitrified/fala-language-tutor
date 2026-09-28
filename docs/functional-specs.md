@@ -25,7 +25,7 @@
 | LLM inference | OpenAI chat completions via `openai_dart` (swappable via the InferenceEngine interface) |
 | Models (codegen) | freezed + json_serializable |
 | Output enforcement | OpenAI strict `json_schema` response format, then parsing into `TutorResponse` |
-| Model | An OpenAI model id set in Settings, `gpt-4o-mini` by default |
+| Model | An OpenAI model picked in Settings from the ones the prompt was compared on, `gpt-5.4-nano` by default; see [prompt-engineering.md](prompt-engineering.md) |
 | API key | The user's own, stored in `flutter_secure_storage` |
 | Min Android version | API 26 (Android 8.0) |
 | Target Android version | API 36 (Android 16) |

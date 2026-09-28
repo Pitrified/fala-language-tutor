@@ -5,6 +5,7 @@ import 'package:openai_dart/openai_dart.dart';
 import '../../models/inference_status.dart';
 import '../settings/api_key_store.dart';
 import 'inference_engine.dart';
+import 'openai_models.dart';
 
 /// Builds an [OpenAIClient] from an API key.
 ///
@@ -103,12 +104,14 @@ class OpenAiInferenceEngine implements InferenceEngine {
     _setStatus(const InferenceStatus.generating());
     try {
       final client = _clientFor(key);
+      final model = modelProvider();
       final response = await client.chat.completions.create(
         ChatCompletionCreateRequest(
-          model: modelProvider(),
+          model: model,
           messages: [ChatMessage.user(request.prompt)],
           maxCompletionTokens: request.maxTokens,
           temperature: request.temperature,
+          reasoningEffort: openAiModelOption(model)?.reasoningEffort,
           responseFormat: ResponseFormat.jsonSchema(
             name: schemaName,
             schema: schema,
@@ -144,15 +147,17 @@ class OpenAiInferenceEngine implements InferenceEngine {
     final buffer = StringBuffer();
     try {
       final client = _clientFor(key);
+      final model = modelProvider();
       // createStream sends the same request with stream=true, so the strict
       // json_schema constraint is preserved and every partial buffer is a
       // well-formed-JSON prefix.
       final events = client.chat.completions.createStream(
         ChatCompletionCreateRequest(
-          model: modelProvider(),
+          model: model,
           messages: [ChatMessage.user(request.prompt)],
           maxCompletionTokens: request.maxTokens,
           temperature: request.temperature,
+          reasoningEffort: openAiModelOption(model)?.reasoningEffort,
           responseFormat: ResponseFormat.jsonSchema(
             name: schemaName,
             schema: schema,

@@ -5,6 +5,7 @@ import 'package:hive/hive.dart';
 import '../../models/cefr_level.dart';
 import '../../models/target_language.dart';
 import '../inference/engine_kind.dart';
+import '../inference/openai_models.dart';
 
 /// Hive-backed store for non-secret app settings.
 ///
@@ -53,8 +54,8 @@ class AppSettingsRepository {
   /// Fallback when no value is stored or the stored value is unknown.
   static const EngineKind defaultEngineKind = EngineKind.openai;
 
-  /// Fallback OpenAI model id used by 03.2.
-  static const String defaultOpenaiModel = 'gpt-4o-mini';
+  /// OpenAI model id used when none is stored: the first model offered.
+  static final String defaultOpenaiModel = openAiModelOptions.first.id;
 
   /// Fallback CEFR level for the very first conversation.
   static const CefrLevel defaultCefrLevel = CefrLevel.a1;

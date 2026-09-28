@@ -148,4 +148,13 @@ The prompt instructs the model to:
 Worked example, with Portuguese as the target: the model is told it is a
 "Portuguese (Brazilian) language tutor", replies in Portuguese and translates into English.
 
-The prompt is tuned against the OpenAI model set in Settings, `gpt-4o-mini` by default.
+## Models
+
+The Model page offers the models the prompt was compared on with the prompt lab, listed in `lib/services/inference/openai_models.dart` with one line each on how they differ:
+
+| Model | Why it is offered |
+| -- | -- |
+| `gpt-5.4-nano` (default) | Fastest to start the reply, and the most natural text at B2 to C2. Now and then misses a small error, and sometimes lists a correct phrase as an error with `corrected` equal to `original`. |
+| `gpt-6-luna` | The most precise corrections, at about a fifth of the default's cost per turn. Slower to start the reply; at C1 it writes closer to B2. |
+
+Both are reasoning models and are sent `reasoning_effort: none`: with any higher effort they spend hidden output tokens before answering, and reject a temperature other than 1. A higher effort made no visible difference to the replies. A model id stored before the list existed stays selected and is sent without `reasoning_effort`.
