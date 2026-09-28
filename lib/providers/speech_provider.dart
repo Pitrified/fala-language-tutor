@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/target_language.dart';
 import '../services/speech/speech_service.dart';
 import '../services/speech/system_speech_service.dart';
+import 'diagnostics_provider.dart';
 import 'settings_provider.dart';
 
 /// The text-to-speech service. Tests override it with `FakeSpeechService`.
@@ -24,22 +27,48 @@ class SpeechNotifier extends Notifier<String?> {
   String? build() => null;
 
   /// Read [text] in [language] as message [messageId], stopping anything else.
+  /// [trigger] says what started it, `button` or `auto`, for the diagnostics
+  /// line each utterance writes.
   Future<void> play({
     required String messageId,
     required String text,
     required TargetLanguage language,
+    String trigger = 'button',
   }) async {
     final generation = ++_generation;
     state = messageId;
-    await ref
+    final engine = ref.read(speechEngineProvider);
+    final voice = ref.read(speechVoiceProvider)[language];
+    final spoken = speakableText(text);
+    final log = ref.read(diagnosticsLogProvider);
+    final clock = Stopwatch()..start();
+    Duration? started;
+    final outcome = await ref
         .read(speechServiceProvider)
         .speak(
-          speakableText(text),
+          spoken,
           language,
-          engine: ref.read(speechEngineProvider),
-          voice: ref.read(speechVoiceProvider)[language],
+          engine: engine,
+          voice: voice,
+          onStart: () => started = clock.elapsed,
         );
-    if (generation == _generation) state = null;
+    final start = started;
+    unawaited(
+      log.add(
+        [
+          'speak',
+          trigger,
+          language.code,
+          'engine=${engine ?? 'default'}',
+          'voice=${voice ?? 'default'}',
+          'chars=${spoken.length}',
+          'start_ms=${start?.inMilliseconds ?? '-'}',
+          'speak_ms=${start == null ? '-' : (clock.elapsed - start).inMilliseconds}',
+          outcome,
+        ].join(' '),
+      ),
+    );
+    if (ref.mounted && generation == _generation) state = null;
   }
 
   /// Stop whatever is playing.
@@ -74,6 +103,9 @@ class SpeechEngineNotifier extends Notifier<String?> {
     if (engine == state) return;
     await ref.read(appSettingsRepositoryProvider).setSpeechEngine(engine);
     state = engine;
+    unawaited(
+      ref.read(diagnosticsLogProvider).add('engine ${engine ?? 'default'}'),
+    );
   }
 }
 
@@ -107,6 +139,11 @@ class SpeechVoiceNotifier extends Notifier<Map<TargetLanguage, String>> {
       next[language] = voice;
     }
     state = next;
+    unawaited(
+      ref
+          .read(diagnosticsLogProvider)
+          .add('voice ${language.code} ${voice ?? 'default'}'),
+    );
   }
 }
 

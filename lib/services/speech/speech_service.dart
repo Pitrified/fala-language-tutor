@@ -35,14 +35,16 @@ abstract class SpeechService {
 
   /// Stop anything playing, then read [text] in [language] with [engine] and
   /// [voice]. A [voice] the engine no longer has falls back to its default.
+  /// [onStart] runs when the engine reports that sound started.
   ///
-  /// The returned future completes when this utterance ends, whether it
-  /// finished, was stopped, or failed.
-  Future<void> speak(
+  /// The returned future completes when this utterance ends, with how it
+  /// ended: `finished`, `stopped`, or `error` and the engine's message.
+  Future<String> speak(
     String text,
     TargetLanguage language, {
     String? engine,
     String? voice,
+    void Function()? onStart,
   });
 
   /// Stop the current utterance, if any.

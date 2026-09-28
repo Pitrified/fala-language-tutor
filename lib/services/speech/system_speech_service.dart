@@ -16,12 +16,15 @@ import 'speech_service.dart';
 /// before that belongs to the previous one.
 class SystemSpeechService implements SpeechService {
   SystemSpeechService({FlutterTts? tts}) : _tts = tts ?? FlutterTts() {
-    _tts.setStartHandler(() => _started = true);
-    _tts.setCompletionHandler(_finishIfStarted);
-    _tts.setCancelHandler(_finishIfStarted);
+    _tts.setStartHandler(() {
+      _started = true;
+      _onStart?.call();
+    });
+    _tts.setCompletionHandler(() => _finishIfStarted('finished'));
+    _tts.setCancelHandler(() => _finishIfStarted('stopped'));
     _tts.setErrorHandler((message) {
       AppLogger.instance.warn('Text-to-speech error: $message');
-      _finish();
+      _finish('error $message');
     });
   }
 
@@ -29,21 +32,23 @@ class SystemSpeechService implements SpeechService {
   static const _channel = MethodChannel('fala/speech');
 
   final FlutterTts _tts;
-  Completer<void>? _current;
+  Completer<String>? _current;
   bool _started = false;
+  void Function()? _onStart;
 
   /// The engine last set on the plugin; null while it is on the default.
   String? _engine;
 
-  void _finishIfStarted() {
-    if (_started) _finish();
+  void _finishIfStarted(String outcome) {
+    if (_started) _finish(outcome);
   }
 
-  void _finish() {
+  void _finish(String outcome) {
     final current = _current;
     _current = null;
     _started = false;
-    if (current != null && !current.isCompleted) current.complete();
+    _onStart = null;
+    if (current != null && !current.isCompleted) current.complete(outcome);
   }
 
   /// Point the plugin at [engine], or back at the phone's default. An engine
@@ -116,22 +121,24 @@ class SystemSpeechService implements SpeechService {
   }
 
   @override
-  Future<void> speak(
+  Future<String> speak(
     String text,
     TargetLanguage language, {
     String? engine,
     String? voice,
+    void Function()? onStart,
   }) async {
     await stop();
-    final current = Completer<void>();
+    final current = Completer<String>();
     _current = current;
+    _onStart = onStart;
     await _useEngine(engine);
     if (!await _setVoice(language, voice)) {
       await _tts.setLanguage(language.code);
     }
     // Transient focus that lets music duck rather than stop.
     final result = await _tts.speak(text, focus: true);
-    if (result != 1) _finish();
+    if (result != 1) _finish('error not started');
     return current.future;
   }
 
@@ -153,7 +160,7 @@ class SystemSpeechService implements SpeechService {
 
   @override
   Future<void> stop() async {
-    _finish();
+    _finish('stopped');
     await _tts.stop();
   }
 

@@ -165,6 +165,7 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen>
       messageId: last.id,
       text: last.content,
       language: language,
+      trigger: 'auto',
     );
   }
 

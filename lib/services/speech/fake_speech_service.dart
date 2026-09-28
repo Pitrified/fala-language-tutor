@@ -33,7 +33,8 @@ class FakeSpeechService implements SpeechService {
   /// How many times [openVoiceInstall] was called.
   int installRequests = 0;
 
-  Completer<void>? _current;
+  Completer<String>? _current;
+  void Function()? _onStart;
 
   /// Whether an utterance is playing.
   bool get isSpeaking => _current != null;
@@ -57,33 +58,42 @@ class FakeSpeechService implements SpeechService {
   ];
 
   @override
-  Future<void> speak(
+  Future<String> speak(
     String text,
     TargetLanguage language, {
     String? engine,
     String? voice,
+    void Function()? onStart,
   }) {
-    _end();
+    _end('stopped');
     spoken.add((text, language));
     spokenWith.add((engine, voice));
-    final current = Completer<void>();
+    final current = Completer<String>();
     _current = current;
+    _onStart = onStart;
     return current.future;
   }
 
   @override
   Future<void> stop() async {
     stopCount++;
-    _end();
+    _end('stopped');
   }
 
-  /// End the current utterance as if it had finished playing.
-  void finishCurrent() => _end();
+  /// Report that the current utterance's sound started.
+  void startCurrent() => _onStart?.call();
 
-  void _end() {
+  /// End the current utterance as if it had finished playing.
+  void finishCurrent() => _end('finished');
+
+  /// End the current utterance with an engine error.
+  void failCurrent(String message) => _end('error $message');
+
+  void _end(String outcome) {
     final current = _current;
     _current = null;
-    if (current != null && !current.isCompleted) current.complete();
+    _onStart = null;
+    if (current != null && !current.isCompleted) current.complete(outcome);
   }
 
   @override
