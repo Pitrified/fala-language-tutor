@@ -95,7 +95,11 @@ flutter test test/services/prompt_manager_test.dart
 
 Or run the full app with `--dart-define=FAKE_ENGINE=true` to bypass the API entirely and test UI flow with canned responses.
 
-### 5. Debugging model output
+### 5. Comparing prompts and models
+
+`scripts/prompt_lab/lab.py` plays a scripted conversation through each prompt and model in an experiment file and tabulates reply length, CEFR level as rated by a judge model, correction quality and streaming timings. Its [README](../scripts/prompt_lab/README.md) describes the experiment format. It talks to any OpenAI-compatible endpoint, so other providers can be compared the same way.
+
+### 6. Debugging model output
 
 When the model produces unexpected output:
 

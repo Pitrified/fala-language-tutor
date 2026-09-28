@@ -1,0 +1,8 @@
+{
+ "by": "length",
+ "values": {
+  "short": "one or two sentences, at most 25 words.",
+  "normal": "two to four sentences.",
+  "long": "four to six sentences: react, add a related detail or opinion of your own, then ask your question."
+ }
+}

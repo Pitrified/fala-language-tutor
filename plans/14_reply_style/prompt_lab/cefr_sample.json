@@ -1,18 +1,6 @@
 {
- "level_guide": {
-  "A1": "  - Sentences of at most 8 words, one clause each.\n  - Present tense only, plus \"ir\" + infinitive for the future.\n  - Only very common everyday words; no idioms, no slang.",
-  "A2": "  - Short sentences; join clauses only with e, mas, porque.\n  - Present, preterito perfeito and \"ir\" + infinitive.\n  - Common everyday words; no idioms.",
-  "B1": "  - Sentences of up to 15 words, with at most one subordinate clause.\n  - Present, preterito perfeito and imperfeito, future, simple conditional.\n  - Everyday words plus some words on the topic; a common expression now and then.",
-  "B2": "  - Varied sentences with subordinate clauses and connectors such as embora, portanto, enquanto.\n  - All indicative tenses and the present subjunctive.\n  - Topic vocabulary and common idioms.",
-  "C1": "  - Natural, native-like sentences of any length.\n  - Any tense, including the imperfect and future subjunctive and the personal infinitive.\n  - Precise, less common vocabulary, idioms and colloquial expressions where they fit.",
-  "C2": "  - Write as to a native speaker: full range of structures and register.\n  - Rare and precise vocabulary, idioms, wordplay where it fits."
- },
- "length_rule": {
-  "short": "one or two sentences, at most 25 words.",
-  "normal": "two to four sentences.",
-  "long": "four to six sentences: react, add a related detail or opinion of your own, then ask your question."
- },
- "cefr_sample": {
+ "by": "cefr_level",
+ "values": {
   "A1": [
    "Que bom! Eu gosto de café também. Você bebe café todo dia?"
   ],

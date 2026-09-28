@@ -218,6 +218,11 @@ Read from the replies:
 - v7's rule did not stop gpt-5.4-nano from writing no-op entries: one or two per run, used as "this part is fine" notes ("qual eu tenho que pegar", "No change needed"). gpt-6-luna and gpt-4o-mini wrote none. The app-side filter the user described handles it.
 - Reasoning `low` again changed nothing visible.
 
+## Decision after run 4, 2026-09-28
+
+- Default model gpt-5.4-nano; the tested models offered in a dropdown on the model page with a line on how they differ: "gpt-5.4-nano is default, add the two tested model in a dropdown when picking the model with the brief explanation of the differences" (user).
+- The script becomes a reusable tool, "so we can do the same models comparison in the future if we want to compare more providers" (user): `scripts/prompt_lab/`, documented in `docs/prompt-engineering.md`. This folder's `prompt_lab/experiment.json` describes the runs above in its format (v7 setups); `run.py` and `guides.json` are removed, the level guides, samples and length rules are now `level_guide.json`, `cefr_sample.json` and `length_rule.json`. A check run of the tool on gpt-5.4-nano matched run 4.
+
 ## Open questions
 
 - Q1: Is verbosity a separate setting, or tied to the level?
