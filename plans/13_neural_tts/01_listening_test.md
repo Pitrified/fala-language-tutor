@@ -1,5 +1,5 @@
 ---
-status: planned
+status: done
 ---
 
 # 01 - Listening test on the Pixel
@@ -34,3 +34,12 @@ The user runs these; nothing is built in this phase.
   - a neural model wins clearly and runs close to real time, and the next phases (runtime, download, replacement) are derived from D3 to D6;
   - a system voice picked with phase 03 of `12_system_tts` is good enough, and this folder stops there;
   - nothing on the phone is good enough, and the cloud voices in `05_audio_io` are the next place to look.
+
+## Result
+
+Run on the Pixel 7 Pro on 2026-09-28 (user), pt-BR, with the engine and voice picker and the Diagnostics page of `12_system_tts`. Candidates: Google's local voices `pt-BR-language`, `pt-br-x-afs-local`, `pt-br-x-ptd-local`, `pt-br-x-pte-local`, and SherpaTTS with Piper `pt_BR-dii-high`. Only Piper was tried among the neural models, since SherpaTTS offers Piper and Coqui voices.
+
+- By ear: Sherpa dii-high "wins by like a fraction. Good enough to have the external app, not good enough to have the full sherpa onnx" (user).
+- Time to first sound, 70-character reply: Sherpa 117 ms; Google 112 to 260 ms, `afs` 797 ms. The first play after switching engine or voice took 900 ms or more.
+
+Outcome: the second one listed above, in its SherpaTTS form. The external SherpaTTS app, chosen in fala's Engine list, is good enough; building sherpa-onnx into fala is not worth it for this gain.

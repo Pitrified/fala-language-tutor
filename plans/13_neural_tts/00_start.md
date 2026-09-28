@@ -1,5 +1,5 @@
 ---
-status: planned
+status: done
 priority: 0
 description: |
   Replace or supplement the phone's text-to-speech voice with a neural voice model that fala
@@ -147,6 +147,7 @@ Written for Q3. It is not legal advice, and it only matters if M1 or M2 wins.
 - D4: models arrive by download on demand per language (D2 in "How the model reaches the phone"), with a SHA-256 check. The starting point is the template's pattern in flutter-setup-project: `lib/services/model/model_manager.dart` streams a sealed `DownloadStatus` to the UI, keeps files under the app's documents directory and deletes the partial file on failure, and `lib/screens/model_download/model_download_screen.dart` has the progress bar and retry. The template's checksum check is still a TODO, and its real LLM download went through `flutter_gemma`'s own installer, so that manager was never run against a real file.
 - D5: a downloaded neural voice replaces the system voice for its language (S1). The system voice stays for every language without a model.
 - D6: what is still open (M1, M2 or M3; P1 or P2; how model archives are unpacked) waits for the result of phase 01. The later phases are derived then.
+- D7 (2026-09-28, after phase 01): parked. Piper `pt_BR-dii-high` through the external SherpaTTS app beat Google's local pt-BR voices only slightly, so D3 to D5 (bundled runtime, downloads, replacement) are not built. Reopen if another model sounds clearly better: Kokoro or Supertonic through a sherpa-onnx engine app (see Sources) are the untried ones, and trying them is the same no-code test.
 
 ## Sources
 
