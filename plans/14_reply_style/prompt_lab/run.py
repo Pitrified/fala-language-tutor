@@ -31,6 +31,7 @@ PROMPTS = {
     'v3': (REPO / 'assets/prompts/tutor_response/v3.txt').read_text(),
     'v4': (HERE / 'v4.txt').read_text(),
     'v5': (HERE / 'v5.txt').read_text(),
+    'v6': (HERE / 'v6.txt').read_text(),
 }
 GUIDES = json.loads((HERE / 'guides.json').read_text())
 CONVERSATION = json.loads((HERE / 'conversation.json').read_text())
@@ -60,12 +61,15 @@ MODELS = {
     'gpt-6-luna': {'reasoning_effort': 'none', 'temperature': 0.7},
     'gpt-4o-mini': {'temperature': 0.7},
     'gpt-5.4-nano': {'reasoning_effort': 'none', 'temperature': 0.7},
+    # One step up. With reasoning on, these models only accept the default temperature.
+    'gpt-6-luna:low': {'reasoning_effort': 'low'},
+    'gpt-5.4-nano:low': {'reasoning_effort': 'low'},
 }
 # (prompt, level, verbosity, level guide on). v3 ignores verbosity and the guide; v4 has no samples.
+# A template with a '=== USER ===' line is sent as a developer message (above) and a user message.
 SETUPS = [
-    ('v4', 'B1', 'normal', True), ('v4', 'C1', 'normal', True),
-    ('v5', 'B1', 'normal', True), ('v5', 'B2', 'normal', True), ('v5', 'C1', 'normal', True),
-    ('v5', 'C1', 'normal', False),
+    ('v5', 'C1', 'normal', True),
+    ('v6', 'B1', 'normal', True), ('v6', 'C1', 'normal', True), ('v6', 'C2', 'normal', True),
 ]
 JUDGE = 'gpt-5.4-mini'
 
@@ -95,8 +99,11 @@ def fill(prompt, level, verbosity, guide, message, history):
 
 
 def turn(model, prompt_text):
+    developer, _, user = prompt_text.partition('\n=== USER ===\n')
+    messages = ([{'role': 'developer', 'content': developer}, {'role': 'user', 'content': user}]
+                if user else [{'role': 'user', 'content': prompt_text}])
     body = {
-        'model': model, 'messages': [{'role': 'user', 'content': prompt_text}],
+        'model': model.split(':')[0], 'messages': messages,
         'max_completion_tokens': 512, 'stream': True, 'stream_options': {'include_usage': True},
         'response_format': {'type': 'json_schema',
                             'json_schema': {'name': 'tutor_response', 'strict': True, 'schema': SCHEMA}},

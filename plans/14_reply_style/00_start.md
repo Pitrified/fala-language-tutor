@@ -109,6 +109,61 @@ Read from the replies:
 - gpt-5.4-nano is the fastest to start the reply, and its C1 is the most natural ("uma baita confusão", "pontos fixos na rotina"). It skipped the first message's errors twice ("mudei pra", "não acostumei", both common in spoken Brazilian Portuguese), and it sometimes quotes a whole sentence as the `original`.
 - gpt-4o-mini still repeats errors from earlier turns despite the new rule.
 
+## Prompt lab, run 3, 2026-09-28
+
+Asked for: let the tutor play a person ("the tutor is faking a conversation, keeping the chitchat going is ok, it needs to pretend something", user); reasoning one step up where a model has it; a prompt line against quoting whole sentences; C2 "just for fun"; and a check of the prompt against OpenAI's prompting guidance.
+
+OpenAI's guidance, read on 2026-09-28 ([prompt engineering](https://developers.openai.com/api/docs/guides/prompt-engineering), [latest model](https://developers.openai.com/api/docs/guides/latest-model), [GPT-5 prompting guide](https://developers.openai.com/cookbook/examples/gpt-5/gpt-5_prompting_guide)), against what v3 to v5 do:
+
+| Guidance | v3 to v5 |
+| -- | -- |
+| Instructions in a `developer` message, the learner's input in the `user` message | everything in one `user` message |
+| Sections in the order identity, instructions, examples, context, with Markdown headers | one block of rules, context in the middle |
+| XML tags around inserted data | none |
+| The schema gives the structure, the prompt gives what each field means | the prompt repeats the JSON shape and says little about each field |
+| Few-shot examples of the output wanted | none until v5's samples |
+| Fixed content first, for prompt caching | the level and language are in the first line; caching starts at 1024 tokens, above this prompt, so it does not apply yet |
+| Non-reasoning models need precise instructions, reasoning models high-level guidance | precise, which fits `reasoning_effort: none` |
+
+`v6.txt` follows the guidance: a developer part (identity, correction and reply instructions, level guide, samples, one correction example with short quotes) and a user part with `<topic>`, `<conversation_history>` and `<learner_message>`, split in the template at a `=== USER ===` line. It drops the no-invented-experiences rule and tells the tutor to share opinions and small stories. It also tells the model to report errors from the last message only, and to leave alone informal usage that is normal in speech.
+
+Other findings:
+
+- With `reasoning_effort: low`, gpt-6-luna and gpt-5.4-nano only accept the default temperature, so the `:low` setups send none.
+- gpt-6-luna and gpt-5.4-nano accept an API `verbosity` parameter (low, medium, high); gpt-4o-mini accepts only medium. Not yet tested as a way to set reply length.
+
+| Model | Prompt | Level | Judged | Words per reply | Words per sentence | Words per quoted error (max) | Invented | First token | Reply starts |
+| -- | -- | -- | -- | -- | -- | -- | -- | -- | -- |
+| gpt-6-luna | v5 | C1 | B2 | 42 | 17.6 | 3.8 (8) | 0 | 1.5 s | 2.9 s |
+| gpt-4o-mini | v5 | C1 | B2 | 30 | 10.1 | 3.5 (6) | 3 | 0.8 s | 2.4 s |
+| gpt-5.4-nano | v5 | C1 | B2 | 43 | 16.5 | 4.3 (6) | 0 | 0.7 s | 1.3 s |
+| gpt-6-luna:low | v5 | C1 | B2 | 49 | 18.9 | 3.5 (7) | 0 | 1.0 s | 2.2 s |
+| gpt-5.4-nano:low | v5 | C1 | B2 | 45 | 17.2 | 4.8 (8) | 0 | 0.7 s | 1.7 s |
+| gpt-6-luna | v6 | B1 | B1 | 32 | 9.4 | 2.6 (4) | 0 | 1.2 s | 2.0 s |
+| gpt-4o-mini | v6 | B1 | B1 | 27 | 8.0 | 2.0 (4) | 2 | 0.7 s | 1.4 s |
+| gpt-5.4-nano | v6 | B1 | B1 | 32 | 10.1 | 2.8 (4) | 0 | 0.8 s | 1.4 s |
+| gpt-6-luna:low | v6 | B1 | B1 | 30 | 9.2 | 2.9 (5) | 0 | 1.6 s | 2.6 s |
+| gpt-5.4-nano:low | v6 | B1 | B2 | 32 | 9.4 | 2.9 (5) | 0 | 0.7 s | 1.3 s |
+| gpt-6-luna | v6 | C1 | B2 | 55 | 18.3 | 3.0 (5) | 0 | 1.3 s | 2.3 s |
+| gpt-4o-mini | v6 | C1 | B2 | 35 | 10.2 | 1.9 (3) | 0 | 0.7 s | 1.9 s |
+| gpt-5.4-nano | v6 | C1 | B2 | 59 | 21.2 | 2.4 (4) | 0 | 0.7 s | 1.3 s |
+| gpt-6-luna:low | v6 | C1 | B2 | 58 | 19.4 | 2.5 (4) | 0 | 1.4 s | 2.1 s |
+| gpt-5.4-nano:low | v6 | C1 | B2 | 68 | 22.5 | 3.0 (4) | 0 | 0.9 s | 1.2 s |
+| gpt-6-luna | v6 | C2 | C1 | 56 | 18.8 | 3.0 (5) | 0 | 1.1 s | 2.1 s |
+| gpt-4o-mini | v6 | C2 | B2 | 40 | 11.6 | 1.5 (3) | 1 | 0.8 s | 1.7 s |
+| gpt-5.4-nano | v6 | C2 | C1 | 65 | 21.7 | 3.1 (5) | 0 | 0.7 s | 1.3 s |
+| gpt-6-luna:low | v6 | C2 | B2 | 62 | 22.2 | 3.0 (5) | 0 | 2.1 s | 3.1 s |
+| gpt-5.4-nano:low | v6 | C2 | C1 | 57 | 20.4 | 3.4 (6) | 0 | 0.7 s | 1.3 s |
+
+Read from the replies:
+
+- The judge is not steady between B2 and C1: gpt-5.4-nano's v5 C1 was judged C1 in run 2 and B2 here, with the same prompt. A single judged level per setup cannot separate B2 from C1; C2 setups are one step above C1 setups on the two newer models.
+- v6 shortens the quoted errors (mean 2 to 3 words, max 4 or 5, against up to 8 with v5), and the reply starts sooner because the correction before it is shorter.
+- v6 introduced no-op corrections, where `corrected` equals `original` ("qual eu tenho que pegar", "esqueci de levar sacola", "o que você acha?"), on gpt-5.4-nano and gpt-4o-mini. Next prompt: a line that `corrected` must differ, and the script counting them.
+- The tutor now tells small stories ("Quando me mudei para uma cidade nova, passei semanas me orientando mais pelo cheiro das padarias"). gpt-4o-mini's persona is not coherent: it says "Aqui em São Paulo" in a chat about Lisbon.
+- Reasoning `low` gave no visible gain in level or corrections, and gpt-6-luna got slower with it. `none` stays.
+- gpt-5.4-nano at C2 writes long replies with slashes and parenthetical asides ("(tipo Moovit/Google Maps)"), chatty but fine for C2.
+
 ## Open questions
 
 - Q1: Is verbosity a separate setting, or tied to the level?
