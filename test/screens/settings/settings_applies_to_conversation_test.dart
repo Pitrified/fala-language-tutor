@@ -197,7 +197,7 @@ void main() {
     tester.view.physicalSize = const Size(800, 1600);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
-    speech.voices.remove(TargetLanguage.ptBr);
+    speech.languagesWithVoice.remove(TargetLanguage.ptBr);
     await pumpSettings(tester);
 
     expect(find.textContaining('no Portuguese voice'), findsOneWidget);

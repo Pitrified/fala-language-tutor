@@ -32,6 +32,9 @@ class SystemSpeechService implements SpeechService {
   Completer<void>? _current;
   bool _started = false;
 
+  /// The engine last set on the plugin; null while it is on the default.
+  String? _engine;
+
   void _finishIfStarted() {
     if (_started) _finish();
   }
@@ -43,8 +46,67 @@ class SystemSpeechService implements SpeechService {
     if (current != null && !current.isCompleted) current.complete();
   }
 
+  /// Point the plugin at [engine], or back at the phone's default. An engine
+  /// that is no longer installed falls back to the default.
+  Future<void> _useEngine(String? engine) async {
+    var target = engine;
+    if (target != null && !(await engines()).contains(target)) {
+      AppLogger.instance.warn('Speech engine $target is gone, using default');
+      target = null;
+    }
+    if (target == _engine) return;
+    try {
+      final name = target ?? await _tts.getDefaultEngine as String?;
+      if (name != null) await _tts.setEngine(name);
+      _engine = target;
+    } on PlatformException catch (e) {
+      AppLogger.instance.warn('Could not switch speech engine to $target: $e');
+    }
+  }
+
   @override
-  Future<bool> isVoiceAvailable(TargetLanguage language) async {
+  Future<List<String>> engines() async {
+    try {
+      final raw = await _tts.getEngines as List<dynamic>?;
+      return [...?raw?.map((e) => e.toString())];
+    } on PlatformException catch (e) {
+      AppLogger.instance.warn('Could not list speech engines: $e');
+      return const [];
+    }
+  }
+
+  @override
+  Future<List<SpeechVoice>> voices(
+    TargetLanguage language, {
+    String? engine,
+  }) async {
+    await _useEngine(engine);
+    try {
+      final raw = await _tts.getVoices as List<dynamic>?;
+      final voices =
+          [
+              for (final entry in raw ?? const <dynamic>[])
+                if (entry is Map)
+                  SpeechVoice(
+                    name: '${entry['name']}',
+                    locale: '${entry['locale']}',
+                    online: '${entry['network_required']}' == '1',
+                  ),
+            ].where((v) => voiceSpeaks(v.locale, language)).toList()
+            ..sort((a, b) => a.name.compareTo(b.name));
+      return voices;
+    } on PlatformException catch (e) {
+      AppLogger.instance.warn('Could not list voices for ${language.code}: $e');
+      return const [];
+    }
+  }
+
+  @override
+  Future<bool> isVoiceAvailable(
+    TargetLanguage language, {
+    String? engine,
+  }) async {
+    await _useEngine(engine);
     try {
       return await _tts.isLanguageInstalled(language.code) == true;
     } on PlatformException catch (e) {
@@ -54,15 +116,39 @@ class SystemSpeechService implements SpeechService {
   }
 
   @override
-  Future<void> speak(String text, TargetLanguage language) async {
+  Future<void> speak(
+    String text,
+    TargetLanguage language, {
+    String? engine,
+    String? voice,
+  }) async {
     await stop();
     final current = Completer<void>();
     _current = current;
-    await _tts.setLanguage(language.code);
+    await _useEngine(engine);
+    if (!await _setVoice(language, voice)) {
+      await _tts.setLanguage(language.code);
+    }
     // Transient focus that lets music duck rather than stop.
     final result = await _tts.speak(text, focus: true);
     if (result != 1) _finish();
     return current.future;
+  }
+
+  /// Select [name] for [language]; false when there is none to select.
+  Future<bool> _setVoice(TargetLanguage language, String? name) async {
+    if (name == null) return false;
+    final match = (await voices(
+      language,
+      engine: _engine,
+    )).where((v) => v.name == name).firstOrNull;
+    if (match != null &&
+        await _tts.setVoice({'name': match.name, 'locale': match.locale}) ==
+            1) {
+      return true;
+    }
+    AppLogger.instance.warn('Voice $name is gone, using the default');
+    return false;
   }
 
   @override

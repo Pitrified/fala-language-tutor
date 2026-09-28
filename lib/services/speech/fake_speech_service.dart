@@ -6,11 +6,23 @@ import 'speech_service.dart';
 /// [SpeechService] for tests: records what it was asked to say and keeps each
 /// utterance playing until [finishCurrent] or [stop].
 class FakeSpeechService implements SpeechService {
-  FakeSpeechService({Set<TargetLanguage>? voices})
-    : voices = voices ?? TargetLanguage.values.toSet();
+  FakeSpeechService({
+    Set<TargetLanguage>? voices,
+    this.engineNames = const [],
+    this.voiceList = const [],
+  }) : languagesWithVoice = voices ?? TargetLanguage.values.toSet();
+
+  /// What [engines] returns.
+  final List<String> engineNames;
+
+  /// Every voice of every engine; [voices] filters by language.
+  final List<SpeechVoice> voiceList;
+
+  /// The `(engine, voice)` of each [speak], in the order of [spoken].
+  final List<(String?, String?)> spokenWith = [];
 
   /// Languages that have a voice. Tests remove one to simulate a missing voice.
-  final Set<TargetLanguage> voices;
+  final Set<TargetLanguage> languagesWithVoice;
 
   /// Every `(text, language)` passed to [speak], in order.
   final List<(String, TargetLanguage)> spoken = [];
@@ -27,13 +39,33 @@ class FakeSpeechService implements SpeechService {
   bool get isSpeaking => _current != null;
 
   @override
-  Future<bool> isVoiceAvailable(TargetLanguage language) async =>
-      voices.contains(language);
+  Future<bool> isVoiceAvailable(
+    TargetLanguage language, {
+    String? engine,
+  }) async => languagesWithVoice.contains(language);
 
   @override
-  Future<void> speak(String text, TargetLanguage language) {
+  Future<List<String>> engines() async => engineNames;
+
+  @override
+  Future<List<SpeechVoice>> voices(
+    TargetLanguage language, {
+    String? engine,
+  }) async => [
+    for (final voice in voiceList)
+      if (voiceSpeaks(voice.locale, language)) voice,
+  ];
+
+  @override
+  Future<void> speak(
+    String text,
+    TargetLanguage language, {
+    String? engine,
+    String? voice,
+  }) {
     _end();
     spoken.add((text, language));
+    spokenWith.add((engine, voice));
     final current = Completer<void>();
     _current = current;
     return current.future;

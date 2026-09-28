@@ -4,6 +4,8 @@ import 'package:fala/services/speech/fake_speech_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../helpers/speech_overrides.dart';
+
 void main() {
   late FakeSpeechService speech;
   late ProviderContainer container;
@@ -11,7 +13,10 @@ void main() {
   setUp(() {
     speech = FakeSpeechService();
     container = ProviderContainer(
-      overrides: [speechServiceProvider.overrideWithValue(speech)],
+      overrides: [
+        speechServiceProvider.overrideWithValue(speech),
+        ...speechChoiceOverrides,
+      ],
     );
   });
 
