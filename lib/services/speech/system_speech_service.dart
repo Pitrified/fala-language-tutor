@@ -39,6 +39,11 @@ class SystemSpeechService implements SpeechService {
   /// The engine last set on the plugin; null while it is on the default.
   String? _engine;
 
+  /// The end of the last engine switch. Switches run one after the other:
+  /// the plugin queues calls made while an engine starts and runs them outside
+  /// Flutter's error handling, so overlapping switches must not happen.
+  Future<void> _switching = Future.value();
+
   void _finishIfStarted(String outcome) {
     if (_started) _finish(outcome);
   }
@@ -53,7 +58,13 @@ class SystemSpeechService implements SpeechService {
 
   /// Point the plugin at [engine], or back at the phone's default. An engine
   /// that is no longer installed falls back to the default.
-  Future<void> _useEngine(String? engine) async {
+  Future<void> _useEngine(String? engine) {
+    final next = _switching.then((_) => _switchEngine(engine));
+    _switching = next;
+    return next;
+  }
+
+  Future<void> _switchEngine(String? engine) async {
     var target = engine;
     if (target != null && !(await engines()).contains(target)) {
       AppLogger.instance.warn('Speech engine $target is gone, using default');
@@ -113,7 +124,10 @@ class SystemSpeechService implements SpeechService {
   }) async {
     await _useEngine(engine);
     try {
-      return await _tts.isLanguageInstalled(language.code) == true;
+      // Not `isLanguageInstalled`: on Android it walks the engine's voices
+      // without null checks, and a third-party engine whose voice list or
+      // features are null then crashes the app from inside the plugin.
+      return await _tts.isLanguageAvailable(language.code) == true;
     } on PlatformException catch (e) {
       AppLogger.instance.warn('Voice check failed for ${language.code}: $e');
       return false;
