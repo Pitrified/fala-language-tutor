@@ -1,5 +1,5 @@
 ---
-status: in progress
+status: done
 ---
 
 # 02 - Level-shaped prompt in the app
