@@ -26,6 +26,19 @@ Status: note. Nothing researched or implemented.
 - A "say it better" mode: besides the correction, the tutor suggests another way to express what the learner said, with slightly richer words or structures in line with the selected level, so a correct but plain sentence still gets something to learn from. "on top of the correction there could be a mode where the engine also suggests a similar way to express whatever the user said, using slightly more complex words, in line with the selected level" (user, 2026-09-28). It would be a new field in `TutorResponse`, empty when there is nothing to add, and a toggle.
 - Measure before changing: the same conversation at A1 and at C1, with sentence length and word counts compared, to see how much the level changes today.
 
+## Model and baseline test, 2026-09-28
+
+Prices from OpenAI's pricing page, standard tier as read from its layout, USD per million tokens (input / output): gpt-6-luna 0.10 / 0.125, gpt-5.6-luna 0.20 / 0.25, gpt-5-nano 0.05 / 0.40, gpt-4.1-nano 0.10 / 0.40, gpt-4o-mini (the app's default) 0.15 / 0.60.
+
+`v3.txt` sent as the app sends it (strict `tutor_response` schema, 512 tokens, temperature 0.7), pt-BR, explanations in English, two learner messages (one with three errors, one correct), at A1 and C1:
+
+- gpt-6-luna with `reasoning_effort: none`: valid JSON, same corrections as gpt-4o-mini, 2.5 to 5 s. It rejects `minimal`; without the setting it spends hidden reasoning tokens. "gpt 6 luna looks good" (user).
+- gpt-5.6-luna: rejected, it only accepts temperature 1.
+- gpt-4o-mini: valid JSON, 1.1 to 3.2 s.
+- Level: the reply to the message with errors was 12 words at A1 and 12 at C1 on gpt-6-luna, 12 and 16 on gpt-4o-mini. To the correct message, 11 and 21 words on gpt-6-luna, 13 and 19 on gpt-4o-mini. The C1 replies are longer, but the vocabulary and tenses are the same A2-level Portuguese in both. This agrees with the user's report that the level changes little.
+
+Switching the default to gpt-6-luna needs `reasoning_effort: none` sent from `openai_inference_engine.dart`.
+
 ## Open questions
 
 - Q1: Is verbosity a separate setting, or tied to the level?
