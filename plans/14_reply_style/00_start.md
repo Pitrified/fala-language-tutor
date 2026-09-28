@@ -164,6 +164,60 @@ Read from the replies:
 - Reasoning `low` gave no visible gain in level or corrections, and gpt-6-luna got slower with it. `none` stays.
 - gpt-5.4-nano at C2 writes long replies with slashes and parenthetical asides ("(tipo Moovit/Google Maps)"), chatty but fine for C2.
 
+## Prompt lab, run 4, 2026-09-28
+
+User notes on run 3:
+
+- Level: "the target is what matters, so if to have c1 we need to send in a c2 prompt, then it's ok. we care about the end result". The level sent to the prompt can differ from the one the learner picked.
+- No-op corrections: "we can have a sanity check on the sent correction and match it to the original text, if they are the same they are not shown to the user. while streaming they might appear, when completed they disappear".
+
+`v7.txt` is v6 plus: `corrected` must differ from `original`, otherwise leave the error out. All setups at B2, with v7; the `:low` models are the ones from run 3 (reasoning `low`, left in the matrix). "No-op errors" counts entries where `corrected` equals `original`, ignoring case. The judge rated every setup B2 except one C1.
+
+| Model | Length rule | API verbosity | Words per reply | No-op errors | Reply starts |
+| -- | -- | -- | -- | -- | -- |
+| gpt-6-luna | short |  | 29 | 0 | 2.6 s |
+| gpt-4o-mini | short |  | 22 | 0 | 1.6 s |
+| gpt-5.4-nano | short |  | 25 | 1 | 1.4 s |
+| gpt-6-luna:low | short |  | 32 | 0 | 2.2 s |
+| gpt-5.4-nano:low | short |  | 25 | 0 | 1.6 s |
+| gpt-6-luna | normal |  | 53 | 0 | 2.4 s |
+| gpt-4o-mini | normal |  | 39 | 0 | 1.8 s |
+| gpt-5.4-nano | normal |  | 63 | 1 | 1.4 s |
+| gpt-6-luna:low | normal |  | 50 | 0 | 2.7 s |
+| gpt-5.4-nano:low | normal |  | 49 | 2 | 1.6 s |
+| gpt-6-luna | long |  | 70 | 0 | 2.2 s |
+| gpt-4o-mini | long |  | 56 | 0 | 1.8 s |
+| gpt-5.4-nano | long |  | 85 | 2 | 1.5 s |
+| gpt-6-luna:low | long |  | 67 | 0 | 2.2 s |
+| gpt-5.4-nano:low | long |  | 79 | 0 | 1.6 s |
+| gpt-6-luna |  | low | 51 | 0 | 2.6 s |
+| gpt-5.4-nano |  | low | 45 | 2 | 1.4 s |
+| gpt-6-luna:low |  | low | 48 | 0 | 2.4 s |
+| gpt-5.4-nano:low |  | low | 47 | 2 | 1.6 s |
+| gpt-6-luna |  | medium | 56 | 0 | 1.7 s |
+| gpt-5.4-nano |  | medium | 69 | 1 | 1.2 s |
+| gpt-6-luna:low |  | medium | 55 | 0 | 2.0 s |
+| gpt-5.4-nano:low |  | medium | 62 | 0 | 1.5 s |
+| gpt-6-luna |  | high | 61 | 0 | 2.1 s |
+| gpt-5.4-nano |  | high | 65 | 2 | 1.5 s |
+| gpt-6-luna:low |  | high | 56 | 0 | 1.8 s |
+| gpt-5.4-nano:low |  | high | 68 | 2 | 1.6 s |
+| gpt-6-luna | short | low | 31 | 0 | 1.9 s |
+| gpt-5.4-nano | short | low | 27 | 0 | 1.4 s |
+| gpt-6-luna:low | short | low | 28 | 0 | 2.5 s |
+| gpt-5.4-nano:low | short | low | 26 | 0 | 1.4 s |
+| gpt-6-luna | long | high | 70 | 0 | 2.0 s |
+| gpt-5.4-nano | long | high | 83 | 1 | 1.5 s |
+| gpt-6-luna:low | long | high | 68 | 0 | 2.7 s |
+| gpt-5.4-nano:low | long | high | 97 | 0 | 1.4 s |
+
+Read from the replies:
+
+- The prompt's length rule sets the length: short gives 22 to 32 words, normal 39 to 63, long 56 to 97.
+- The API `verbosity` parameter alone barely moves it: low 45 to 51 words, medium 55 to 69, high 56 to 68. With the rule present, the rule decides and the parameter adds nothing visible. The length rule stays, and also works on models without the parameter.
+- v7's rule did not stop gpt-5.4-nano from writing no-op entries: one or two per run, used as "this part is fine" notes ("qual eu tenho que pegar", "No change needed"). gpt-6-luna and gpt-4o-mini wrote none. The app-side filter the user described handles it.
+- Reasoning `low` again changed nothing visible.
+
 ## Open questions
 
 - Q1: Is verbosity a separate setting, or tied to the level?

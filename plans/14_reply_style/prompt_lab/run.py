@@ -32,6 +32,7 @@ PROMPTS = {
     'v4': (HERE / 'v4.txt').read_text(),
     'v5': (HERE / 'v5.txt').read_text(),
     'v6': (HERE / 'v6.txt').read_text(),
+    'v7': (HERE / 'v7.txt').read_text(),
 }
 GUIDES = json.loads((HERE / 'guides.json').read_text())
 CONVERSATION = json.loads((HERE / 'conversation.json').read_text())
@@ -67,10 +68,14 @@ MODELS = {
 }
 # (prompt, level, verbosity, level guide on). v3 ignores verbosity and the guide; v4 has no samples.
 # A template with a '=== USER ===' line is sent as a developer message (above) and a user message.
+# (prompt, level, length rule or '-' for none, level guide on, API verbosity or None). Models
+# without the API verbosity parameter skip the setups that use it.
 SETUPS = [
-    ('v5', 'C1', 'normal', True),
-    ('v6', 'B1', 'normal', True), ('v6', 'C1', 'normal', True), ('v6', 'C2', 'normal', True),
+    ('v7', 'B2', 'short', True, None), ('v7', 'B2', 'normal', True, None), ('v7', 'B2', 'long', True, None),
+    ('v7', 'B2', '-', True, 'low'), ('v7', 'B2', '-', True, 'medium'), ('v7', 'B2', '-', True, 'high'),
+    ('v7', 'B2', 'short', True, 'low'), ('v7', 'B2', 'long', True, 'high'),
 ]
+NO_API_VERBOSITY = {'gpt-4o-mini'}
 JUDGE = 'gpt-5.4-mini'
 
 
@@ -93,12 +98,14 @@ def fill(prompt, level, verbosity, guide, message, history):
         'length_rule': GUIDES['length_rule'].get(verbosity, ''),
     }
     text = PROMPTS[prompt]
+    if verbosity == '-':
+        text = text.replace('- Length: {{length_rule}}\n', '')
     for key, value in values.items():
         text = text.replace('{{' + key + '}}', value)
     return text
 
 
-def turn(model, prompt_text):
+def turn(model, prompt_text, api_verbosity):
     developer, _, user = prompt_text.partition('\n=== USER ===\n')
     messages = ([{'role': 'developer', 'content': developer}, {'role': 'user', 'content': user}]
                 if user else [{'role': 'user', 'content': prompt_text}])
@@ -108,6 +115,7 @@ def turn(model, prompt_text):
         'response_format': {'type': 'json_schema',
                             'json_schema': {'name': 'tutor_response', 'strict': True, 'schema': SCHEMA}},
         **MODELS[model],
+        **({'verbosity': api_verbosity} if api_verbosity else {}),
     }
     start = time.time()
     first = reply_start = None
@@ -130,14 +138,15 @@ def turn(model, prompt_text):
             'usage': usage, 'response': json.loads(buffer)}
 
 
-def run_setup(model, prompt, level, verbosity, guide):
+def run_setup(model, prompt, level, verbosity, guide, api_verbosity=None):
     history, turns = [], []
     for message in CONVERSATION:
         history.append(f'User: {message}')
-        result = turn(model, fill(prompt, level, verbosity, guide, message, history))
+        result = turn(model, fill(prompt, level, verbosity, guide, message, history), api_verbosity)
         history.append(f"Tutor: {result['response']['conversation']['content']}")
         turns.append({'user': message, **result})
-    return {'model': model, 'prompt': prompt, 'level': level, 'verbosity': verbosity, 'guide': guide, 'turns': turns}
+    return {'model': model, 'prompt': prompt, 'level': level, 'verbosity': verbosity, 'guide': guide,
+            'api_verbosity': api_verbosity, 'turns': turns}
 
 
 def judge(replies):
@@ -161,7 +170,8 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--out', default=str(HERE / 'last.json'))
     args = parser.parse_args()
-    jobs = [(m, *s) for s in SETUPS for m in MODELS]
+    jobs = [(m, *s) for s in SETUPS for m in MODELS
+            if not (len(s) > 4 and s[4] and m.split(':')[0] in NO_API_VERBOSITY)]
     with ThreadPoolExecutor(len(jobs)) as pool:
         runs = list(pool.map(lambda job: run_setup(*job), jobs))
         levels = list(pool.map(
@@ -174,10 +184,12 @@ def main():
         mean = lambda key: sum(t[key] or 0 for t in run['turns']) / len(run['turns'])
         invented = sum(1 for t in run['turns'] for e in t['response']['correction']['errors']
                        if e['original'] not in t['user'])
+        noop = sum(1 for t in run['turns'] for e in t['response']['correction']['errors']
+                   if e['original'].strip().lower() == e['corrected'].strip().lower())
         out_tokens = sum(t['usage'].get('completion_tokens', 0) for t in run['turns'])
         print(f"\n## {run['model']} | {run['prompt']} | {run['level']} | {run['verbosity']} "
               f"| judged {level} | {n_words / len(replies):.0f} words/reply "
-              f"| guide {'on' if run['guide'] else 'off'} | invented {invented} "
+              f"| guide {'on' if run['guide'] else 'off'} | api {run['api_verbosity']} | invented {invented} | no-op {noop} "
               f"| {n_words / n_sentences:.1f} words/sentence | ttft {mean('ttft'):.2f}s "
               f"| reply starts {mean('reply_start'):.2f}s | total {mean('total'):.2f}s | out {out_tokens} tok")
         for t in run['turns']:
