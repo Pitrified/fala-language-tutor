@@ -245,7 +245,7 @@ class _EngineDropdown extends ConsumerWidget {
         for (final engine in engines)
           DropdownMenuItem<String?>(
             value: engine,
-            child: Text(engine, overflow: TextOverflow.ellipsis),
+            child: Text(engineLabel(engine), overflow: TextOverflow.ellipsis),
           ),
       ],
       onChanged: (engine) async {
@@ -257,7 +257,6 @@ class _EngineDropdown extends ConsumerWidget {
 }
 
 /// The voice for [language] on the chosen engine, or the engine's default.
-/// Voices that send the text over the network are marked online.
 class _VoiceDropdown extends ConsumerWidget {
   const _VoiceDropdown(this.language);
 
@@ -283,10 +282,7 @@ class _VoiceDropdown extends ConsumerWidget {
         for (final voice in voices)
           DropdownMenuItem<String?>(
             value: voice.name,
-            child: Text(
-              voice.online ? '${voice.name} (online)' : voice.name,
-              overflow: TextOverflow.ellipsis,
-            ),
+            child: Text(voice.name, overflow: TextOverflow.ellipsis),
           ),
       ],
       onChanged: (voice) async {
@@ -296,3 +292,11 @@ class _VoiceDropdown extends ConsumerWidget {
     );
   }
 }
+
+/// A short name for the engines people are likely to have, the package name
+/// for any other.
+String engineLabel(String engine) => switch (engine) {
+  'com.google.android.tts' => 'Google',
+  'org.woheller69.ttsengine' => 'Sherpa',
+  _ => engine,
+};

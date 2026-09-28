@@ -158,10 +158,19 @@ final speechEnginesProvider = FutureProvider<List<String>>(
   (ref) => ref.watch(speechServiceProvider).engines(),
 );
 
-/// The current engine's voices for a language.
+/// The current engine's local voices for a language. Network voices are left
+/// out: the local ones sound as good on the Pixel, and keep the text on the
+/// phone.
 final speechVoicesProvider =
-    FutureProvider.family<List<SpeechVoice>, TargetLanguage>(
-      (ref, language) => ref
+    FutureProvider.family<List<SpeechVoice>, TargetLanguage>((
+      ref,
+      language,
+    ) async {
+      final voices = await ref
           .watch(speechServiceProvider)
-          .voices(language, engine: ref.watch(speechEngineProvider)),
-    );
+          .voices(language, engine: ref.watch(speechEngineProvider));
+      return [
+        for (final voice in voices)
+          if (!voice.online) voice,
+      ];
+    });

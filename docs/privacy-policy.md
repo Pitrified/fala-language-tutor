@@ -44,8 +44,9 @@ reply text to that engine on your device, and fala itself sends it nowhere else.
 Some engines also have network voices: with one of those selected, the engine
 sends the reply text to its maker (Google, for Google's engine) to be spoken, under
 that engine's own terms. The engine and the voice are chosen in fala, under
-Settings > Language > Speech, where network voices are marked "online"; with
-nothing chosen there, fala uses the phone's defaults from Android Settings.
+Settings > Language > Speech, which lists only voices that run on the phone;
+with nothing chosen there, fala uses the phone's defaults from Android
+Settings, which may be a network voice.
 
 ## Local data
 

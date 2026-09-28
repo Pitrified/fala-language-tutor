@@ -124,3 +124,4 @@ What `flutter_tts` 4.2.5 gives on Android, read from its Kotlin source: `getEngi
 
 - Q8: Google's engine also has network voices (`network_required`), often its best, which send the text to Google to be spoken. List them in the Voice dropdown marked "online", with a line in the privacy policy, or leave them out so speech stays on the phone?
   ANS: list them marked online and offer them, and update the privacy policy. "we already send messages to OpenAI, this is not a local-first privacy focused app. messages are also random conversation to learn a language. in the privacy policy it should be clear that you should not type secrets in a random chat app anyway." (user, 2026-09-28)
+  Revisited the same evening after the Pixel run: "We can skip the online ones, local works neatly" (user, 2026-09-28). The Voice list now shows local voices only, for the language's own region (`pt-BR`, not `pt-PT`), and engines get short names (Google, Sherpa).

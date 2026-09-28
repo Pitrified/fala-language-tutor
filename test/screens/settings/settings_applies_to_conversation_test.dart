@@ -215,21 +215,26 @@ void main() {
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
     speech = FakeSpeechService(
-      engineNames: ['com.example.neural'],
+      engineNames: ['com.example.neural', 'org.woheller69.ttsengine'],
       voiceList: const [
         SpeechVoice(name: 'pt-local', locale: 'pt-BR'),
+        SpeechVoice(name: 'pt-pt-local', locale: 'pt-PT'),
         SpeechVoice(name: 'pt-cloud', locale: 'pt-BR', online: true),
         SpeechVoice(name: 'es-local', locale: 'es-ES'),
       ],
     );
     await pumpSettings(tester);
 
-    await pick(tester, 'Phone default', 'com.example.neural');
+    await tester.tap(find.text('Phone default'));
+    await settle(tester);
+    expect(find.text('Sherpa'), findsWidgets);
+    await tapReal(tester, find.text('com.example.neural').last);
     expect(settings.speechEngine(), 'com.example.neural');
 
     await tester.tap(find.text('Engine default'));
     await settle(tester);
-    expect(find.text('pt-cloud (online)'), findsWidgets);
+    expect(find.text('pt-cloud'), findsNothing);
+    expect(find.text('pt-pt-local'), findsNothing);
     expect(find.text('es-local'), findsNothing);
     await tapReal(tester, find.text('pt-local').last);
     expect(settings.speechVoice(TargetLanguage.ptBr), 'pt-local');

@@ -30,7 +30,7 @@ abstract class SpeechService {
   /// Package names of the installed text-to-speech engines.
   Future<List<String>> engines();
 
-  /// The voices [engine] has for [language]'s language, any region.
+  /// The voices [engine] has for [language], in its region.
   Future<List<SpeechVoice>> voices(TargetLanguage language, {String? engine});
 
   /// Stop anything playing, then read [text] in [language] with [engine] and
@@ -55,10 +55,11 @@ abstract class SpeechService {
   Future<bool> openVoiceInstall();
 }
 
-/// Whether a voice tagged [locale] speaks [language], in any region.
+/// Whether a voice tagged [locale] speaks [language] in its region: `pt-BR`
+/// and `pt_br` do, `pt-PT` does not.
 bool voiceSpeaks(String locale, TargetLanguage language) {
-  String primary(String tag) => tag.split(RegExp('[-_]')).first.toLowerCase();
-  return primary(locale) == primary(language.code);
+  String normal(String tag) => tag.replaceAll('_', '-').toLowerCase();
+  return normal(locale) == normal(language.code);
 }
 
 final _emoji = RegExp(

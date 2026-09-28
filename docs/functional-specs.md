@@ -75,7 +75,7 @@ App Launch
 |--------|---------|----------|
 | Welcome | App entry, runtime status, start session (or model setup when a key is missing) | Until navigation |
 | Settings | Index of the settings pages, also listed in the conversation drawer | Until navigation |
-| Language | Target language and CEFR level, applied to the open conversation and to new ones; the "Read replies aloud" switch, and the speech engine and a voice per language, network voices marked "online" | Until navigation |
+| Language | Target language and CEFR level, applied to the open conversation and to new ones; the "Read replies aloud" switch, and the speech engine and a local voice per language | Until navigation |
 | Model | Engine, then the selected engine's details (OpenAI key and model) | Until navigation |
 | Diagnostics | The diagnostics log under a header on the app, phone and current choices, with Copy and Clear, for pasting back after a run on the phone | Until navigation |
 | Conversation | Main interaction: messages, input, corrections; the app bar holds the topic picker, the drawer the settings, a link to the source repository and the version | Session-scoped |
