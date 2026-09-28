@@ -43,8 +43,9 @@ setting, read the reply with your phone's text-to-speech engine. fala passes the
 reply text to that engine on your device, and fala itself sends it nowhere else.
 Some engines also have network voices: with one of those selected, the engine
 sends the reply text to its maker (Google, for Google's engine) to be spoken, under
-that engine's own terms. Which engine runs, and its voice, is chosen in Android
-Settings, under text-to-speech output.
+that engine's own terms. The engine and the voice are chosen in fala, under
+Settings > Language > Speech, where network voices are marked "online"; with
+nothing chosen there, fala uses the phone's defaults from Android Settings.
 
 ## Local data
 
@@ -54,8 +55,8 @@ The app stores the following on your device only:
   reference.
 - **OpenAI API key**: encrypted, as described above (only if you set one).
 - **App preferences**: the selected engine and OpenAI model, the language you are
-  learning, your level, the last five topics you typed, and whether replies are
-  read aloud.
+  learning, your level, the last five topics you typed, whether replies are
+  read aloud, and the speech engine and voices you chose.
 
 ## Data deletion
 
