@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../services/conversation/conversation_controller.dart';
 import 'inference_provider.dart';
 import 'service_providers.dart';
+import 'settings_provider.dart';
 
 /// Provider for the ConversationController.
 ///
@@ -15,5 +16,6 @@ final conversationControllerProvider = Provider<ConversationController?>((ref) {
     streamEngine: streamEngine,
     repository: ref.watch(conversationRepositoryProvider),
     promptManager: ref.watch(promptManagerProvider),
+    replyLength: () => ref.read(replyLengthProvider),
   );
 });

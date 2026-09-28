@@ -5,6 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../build_info.dart';
 
 import '../../models/cefr_level.dart';
+import '../../models/reply_length.dart';
 import '../../models/target_language.dart';
 import '../../providers/conversation_provider.dart';
 import '../../providers/settings_provider.dart';
@@ -47,6 +48,17 @@ class LanguageSettingsScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 8),
           const _CefrDropdown(),
+          const SizedBox(height: 24),
+          const Divider(),
+          const SizedBox(height: 8),
+          Text('Reply length', style: Theme.of(context).textTheme.titleMedium),
+          const SizedBox(height: 4),
+          Text(
+            'How long the tutor\'s replies are, from the next message.',
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+          const SizedBox(height: 8),
+          const _ReplyLengthDropdown(),
           const SizedBox(height: 24),
           const Divider(),
           const SizedBox(height: 8),
@@ -146,6 +158,35 @@ class _CefrDropdown extends ConsumerWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+/// The tutor's reply length, with what it asks for under the dropdown.
+class _ReplyLengthDropdown extends ConsumerWidget {
+  const _ReplyLengthDropdown();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final current = ref.watch(replyLengthProvider);
+    return DropdownButtonFormField<ReplyLength>(
+      initialValue: current,
+      decoration: InputDecoration(
+        border: const OutlineInputBorder(),
+        labelText: 'Length',
+        helperText: current.description,
+      ),
+      items: [
+        for (final length in ReplyLength.values)
+          DropdownMenuItem<ReplyLength>(
+            value: length,
+            child: Text(length.label),
+          ),
+      ],
+      onChanged: (length) async {
+        if (length == null) return;
+        await ref.read(replyLengthProvider.notifier).select(length);
+      },
     );
   }
 }

@@ -145,7 +145,7 @@ How complex and how long the reply is comes from `assets/prompts/tutor_response/
 | `{{reply_level}}` | `reply_level`: the level the reply is written at. It is the learner's level except for C1, which gets C2, because the models write about one level below the one asked for at the top of the scale; the learner sees C1 text |
 | `{{level_guide}}` | `level_guide` for the reply level: sentence length, tenses, vocabulary. Written without grammar names of one language, so it fits every target language |
 | `{{reply_samples}}` | `samples` for the target language and reply level, one or two sample replies with a line asking to match their level and not their content. Empty for a language without samples (pt-BR and es-ES have them) |
-| `{{length_rule}}` | `length_rule`: `short`, `normal` or `long` |
+| `{{length_rule}}` | `length_rule` for the Reply length setting on the Language page: `short`, `normal` or `long`. The API's own `verbosity` parameter was tried instead and barely changed the length |
 
 The level guides alone and the samples alone each moved the reply level less than the two together.
 

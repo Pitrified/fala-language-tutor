@@ -226,6 +226,6 @@ Read from the replies:
 ## Open questions
 
 - Q1: Is verbosity a separate setting, or tied to the level?
-  ANS: ...
+  ANS: separate. Not asked of the user: prompt lab runs 2 to 4 set length and level independently and both held, and the user asked for the phase as a setting of its own ("both phases", after the proposal listing a verbosity setting). Phase 03.
 - Q2: Does the "say it better" suggestion show for every message, or only when the learner's message had no errors?
   ANS: a setting decides. On, it comes with every reply automatically. Off, a button beside the reply bubble asks for it on demand: "The user has a setting to toggle, to turn it on every time automatically, or when not set, show it by pressing a button on the side of the response message bubble." (user, 2026-09-28). Consequence to design for: on demand means a second request to the model after the reply, with the learner's message and the level, while the automatic mode can ride in the same structured response.

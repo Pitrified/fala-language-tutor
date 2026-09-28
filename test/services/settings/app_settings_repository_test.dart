@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:fala/models/cefr_level.dart';
+import 'package:fala/models/reply_length.dart';
 import 'package:fala/models/target_language.dart';
 import 'package:fala/services/inference/engine_kind.dart';
 import 'package:fala/services/settings/app_settings_repository.dart';
@@ -21,6 +22,12 @@ void main() {
   tearDown(() async {
     await repo.close();
     await tempDir.delete(recursive: true);
+  });
+
+  test('replyLength defaults to normal and round-trips', () async {
+    expect(repo.replyLength(), ReplyLength.normal);
+    await repo.setReplyLength(ReplyLength.short);
+    expect(repo.replyLength(), ReplyLength.short);
   });
 
   test('engineKind defaults to openai when nothing is stored', () {

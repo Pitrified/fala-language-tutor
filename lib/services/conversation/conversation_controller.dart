@@ -4,6 +4,7 @@ import '../../models/app_exception.dart';
 import '../../models/cefr_level.dart';
 import '../../models/conversation.dart';
 import '../../models/conversation_message.dart';
+import '../../models/reply_length.dart';
 import '../../models/target_language.dart';
 import '../../models/tutor_response.dart';
 import '../inference/inference_engine.dart';
@@ -26,7 +27,10 @@ class ConversationController {
     required this.repository,
     required this.promptManager,
     this.maxHistoryMessages = 10,
+    this.replyLength = _normalLength,
   });
+
+  static ReplyLength _normalLength() => ReplyLength.normal;
 
   /// Streaming engine for the in-flight turn. Its terminal delta carries the
   /// same fully-typed value the one-shot path would produce, which is what we
@@ -35,6 +39,9 @@ class ConversationController {
   final ConversationRepository repository;
   final PromptManager promptManager;
   final int maxHistoryMessages;
+
+  /// The reply length setting, read on every message.
+  final ReplyLength Function() replyLength;
 
   /// Language the corrections, explanations and translations are written in.
   ///
@@ -258,7 +265,7 @@ class ConversationController {
           'reply_level': replyLevel,
           'level_guide': style.levelGuide(replyLevel),
           'reply_samples': style.samples(language.code, replyLevel),
-          'length_rule': style.lengthRule('normal'),
+          'length_rule': style.lengthRule(replyLength().name),
           'topic': _currentConversation!.topic,
           'user_message': content,
           'conversation_history': _formatHistory(),

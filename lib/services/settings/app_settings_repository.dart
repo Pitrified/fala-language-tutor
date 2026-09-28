@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:hive/hive.dart';
 
 import '../../models/cefr_level.dart';
+import '../../models/reply_length.dart';
 import '../../models/target_language.dart';
 import '../inference/engine_kind.dart';
 import '../inference/openai_models.dart';
@@ -29,6 +30,9 @@ class AppSettingsRepository {
 
   /// Hive key storing the default [CefrLevel] for new conversations.
   static const String keyDefaultCefr = 'default_cefr';
+
+  /// Key for the tutor's reply length.
+  static const String keyReplyLength = 'reply_length';
 
   /// Hive key storing the default topic seed for new conversations.
   static const String keyDefaultTopic = 'default_topic';
@@ -59,6 +63,9 @@ class AppSettingsRepository {
 
   /// Fallback CEFR level for the very first conversation.
   static const CefrLevel defaultCefrLevel = CefrLevel.a1;
+
+  /// Reply length when none is stored.
+  static const ReplyLength defaultReplyLength = ReplyLength.normal;
 
   /// Empty string means "no topic" (the prompt template degrades gracefully).
   static const String defaultTopic = '';
@@ -111,6 +118,17 @@ class AppSettingsRepository {
   /// Persist [level] as the default CEFR level for new conversations.
   Future<void> setDefaultCefr(CefrLevel level) async {
     await _box.put(keyDefaultCefr, level.name);
+  }
+
+  /// Returns the persisted [ReplyLength], or [defaultReplyLength].
+  ReplyLength replyLength() {
+    return ReplyLengthX.fromName(_box.get(keyReplyLength)) ??
+        defaultReplyLength;
+  }
+
+  /// Persist [length] as the tutor's reply length.
+  Future<void> setReplyLength(ReplyLength length) async {
+    await _box.put(keyReplyLength, length.name);
   }
 
   /// Returns the persisted default topic seed (or empty string).

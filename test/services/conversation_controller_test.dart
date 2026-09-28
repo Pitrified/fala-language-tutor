@@ -4,6 +4,7 @@ import 'package:fala/models/app_exception.dart';
 import 'package:fala/models/cefr_level.dart';
 import 'package:fala/models/conversation_message.dart';
 import 'package:fala/models/inference_status.dart';
+import 'package:fala/models/reply_length.dart';
 import 'package:fala/models/target_language.dart';
 import 'package:fala/models/tutor_response.dart';
 import 'package:fala/services/conversation/conversation_controller.dart';
@@ -223,6 +224,31 @@ void main() {
     expect(variables['level_guide'], contains('native speaker'));
     expect(variables['reply_samples'], contains('entre a cruz e a espada'));
     expect(variables['length_rule'], isNotEmpty);
+  });
+
+  test('the length rule follows the reply length setting', () async {
+    var length = ReplyLength.short;
+    final withLength = ConversationController(
+      streamEngine: streamEngine,
+      repository: repo,
+      promptManager: promptManager,
+      replyLength: () => length,
+    );
+    final style = await promptManager.replyStyle();
+    await withLength.startConversation();
+    await withLength.sendMessage('Oi');
+    expect(
+      promptManager.lastVariables!['length_rule'],
+      style.lengthRule('short'),
+    );
+
+    length = ReplyLength.long;
+    await withLength.sendMessage('Tudo bem?');
+    expect(
+      promptManager.lastVariables!['length_rule'],
+      style.lengthRule('long'),
+    );
+    await withLength.dispose();
   });
 
   test('samples follow the language, and are empty without any', () async {
