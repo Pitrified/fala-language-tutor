@@ -176,6 +176,8 @@ Piper (fast, many languages, light) or Kokoro (higher quality) behind the tunnel
 - Effort: medium. Same shape as I5; could live in the same service.
 - Quality: Piper is between system TTS and cloud voices; per-language coverage to verify.
 
+On-device neural voices (Piper, Kokoro, Supertonic run on the phone rather than the box) were spun off on 2026-09-28 into [`../13_neural_tts/00_start.md`](../13_neural_tts/00_start.md).
+
 ### O4. Audio-native LLM output
 
 The Realtime-API end of I6: the model speaks directly. Same verdict - map it, defer it.
