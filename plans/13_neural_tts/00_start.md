@@ -1,5 +1,5 @@
 ---
-status: draft
+status: planned
 priority: 0
 description: |
   Replace or supplement the phone's text-to-speech voice with a neural voice model that fala
@@ -13,6 +13,8 @@ Spun off on 2026-09-28 from [`../12_system_tts/00_start.md`](../12_system_tts/00
 
 Status: research. Nothing implemented, no phases derived.
 
+Update 2026-09-28: Q1 to Q6 answered; the decisions and phase 01 are at the end.
+
 ## Where this came from
 
 "We want a new spin off folder with research on a custom on device tts model. The current one default is very robotic. What are the options? How to integrate it?" (user, 2026-09-28)
@@ -21,7 +23,7 @@ Status: research. Nothing implemented, no phases derived.
 
 - Speech sits behind `SpeechService` (`isVoiceAvailable`, `speak`, `stop`, `openVoiceInstall`), with `SystemSpeechService` over `flutter_tts` and `FakeSpeechService` for tests. A second implementation slots in without touching the screens.
 - `speakableText()` already strips emoji and markdown before anything is spoken.
-- The five target languages are `pt-BR`, `es-ES`, `fr-FR`, `it-IT`, `de-DE`. Any model has to be judged on all five, and on `pt-BR` first.
+- The five target languages are `pt-BR`, `es-ES`, `fr-FR`, `it-IT`, `de-DE`. Any model has to be judged on all five, and on `pt-BR` first. (Narrowed by Q1: `pt-BR` and `es-ES` are the two that matter.)
 - fala has no download screen and no on-device model today: the openai engine is the default and the fake engine is for tests. Anything here is the first large file the app fetches.
 - The build is split per ABI and only arm64 matters for the Pixel.
 
@@ -110,17 +112,41 @@ If one wins, a throwaway Flutter build with `sherpa_onnx` measures the costs abo
 ## Open questions
 
 - Q1: Which languages must a neural voice cover at first: pt-BR only, or all five? Kokoro has no German, and Supertonic's Portuguese may be European.
-  ANS: ...
+  ANS: pt-BR, for the owner, and es-ES, for a friend. The other three are placeholders: nice to have, not judged for now (user, 2026-09-28).
 - Q2: Is a one-time model download per language (D2) acceptable, or must a voice work offline from install (D1)?
-  ANS: ...
+  ANS: D2, downloaded on demand per language. The template repo has patterns for it from its local LLM experiment (user, 2026-09-28).
 - Q3: fala has no licence file. Is linking GPL-3.0 espeak-ng acceptable (M1, M2), or does that rule them out and leave M3?
-  ANS: ...
+  ANS: "while license is a future issue, this app will not be commercially sold. it's for personal use, me and a friend, that's it." (user, 2026-09-28). Not a blocker for now; what GPL-3.0 would mean is under "GPL-3.0 in practice" below.
 - Q4: Does the neural voice replace the system one where available (S1), or is it a per-language choice (S2)?
-  ANS: ...
+  ANS: replace it (S1) (user, 2026-09-28).
 - Q5: Run the no-code listening test on the Pixel first, before any dependency or phase?
-  ANS: ...
+  ANS: yes, with a phase just for it (user, 2026-09-28). Answered together with "both options are interesting, google and sherpa" (O0a and O0b), and "if needed we can re-open the 12 system feature folder with a new phase (or two) for these experiments".
 - Q6: Runtime: sherpa-onnx (R1), or LiteRT through Kotlin (L2) or `flutter_litert` (L1)? LiteRT gives GPU acceleration and Google's samples; sherpa-onnx runs more ready multilingual models today.
-  ANS: ...
+  ANS: R1, sherpa-onnx. "as long as it's real-time we do not care about GPU. it's a mean to an end" (user, 2026-09-28). LiteRT comes back only if no sherpa-onnx model reaches real time on the Pixel.
+
+Also asked on 2026-09-28, outside the questions:
+
+- On the integration: "neat options, good code, simple rather than uselessly convoluted".
+- On measuring: logs that are easy to get from a release APK on the Pixel. adb only sometimes; better a dump on a debug page in the app that can be copied and pasted back, with metadata filled in automatically so nobody has to describe what was done.
+
+## GPL-3.0 in practice
+
+Written for Q3. It is not legal advice, and it only matters if M1 or M2 wins.
+
+- The obligations start when a program is conveyed, meaning a copy is given to someone else. Using a build yourself triggers nothing. Handing the APK to a friend, or through a Play test track, is conveying.
+- When conveying, the whole program that links the GPL code has to be offered under GPL-3.0 terms: the recipient gets the complete source, may change and redistribute it, and no extra restrictions may be added.
+- fala's source is already public on GitHub. Complying would mean adding a GPL-3.0 licence file to the repo, keeping the notices of the bundled libraries in the app, and pointing recipients at the source, which the drawer's "Source: fala" link already does.
+- Apache-2.0 and MIT dependencies (sherpa-onnx, Riverpod and the rest) can be combined into a GPL-3.0 program.
+- It would stop the code from being relicensed as closed source without first removing espeak-ng. Given the answer to Q3, that is a cost on paper only.
+
+## Decisions
+
+- D1: pt-BR and es-ES are the languages a neural voice is chosen for. The code stays per language, so another language is a model entry, not a feature.
+- D2: the listening test runs inside fala rather than through Android settings. Choosing the TTS engine and voice in the app, and the diagnostics page for measurements, are system speech features, so they go into `12_system_tts` as its phases 03 and 04. The test decides this folder, so it is this folder's phase 01, and waits on those two.
+- D3: if the test picks a neural model, the runtime is `sherpa_onnx` (R1). Its dependency approval is asked for then, not now.
+- D4: models arrive by download on demand per language (D2 in "How the model reaches the phone"), with a SHA-256 check. The starting point is the template's pattern in flutter-setup-project: `lib/services/model/model_manager.dart` streams a sealed `DownloadStatus` to the UI, keeps files under the app's documents directory and deletes the partial file on failure, and `lib/screens/model_download/model_download_screen.dart` has the progress bar and retry. The template's checksum check is still a TODO, and its real LLM download went through `flutter_gemma`'s own installer, so that manager was never run against a real file.
+- D5: a downloaded neural voice replaces the system voice for its language (S1). The system voice stays for every language without a model.
+- D6: what is still open (M1, M2 or M3; P1 or P2; how model archives are unpacked) waits for the result of phase 01. The later phases are derived then.
 
 ## Sources
 
