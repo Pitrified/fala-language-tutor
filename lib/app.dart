@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import 'providers/app_provider.dart';
 import 'screens/conversation/conversation_screen.dart';
+import 'screens/settings/diagnostics_screen.dart';
 import 'screens/settings/language_settings_screen.dart';
 import 'screens/settings/model_settings_screen.dart';
 import 'screens/settings/settings_screen.dart';
@@ -17,6 +18,7 @@ abstract final class AppRoutes {
   static const settings = '/settings';
   static const languageSettings = '/settings/language';
   static const modelSettings = '/settings/model';
+  static const diagnostics = '/settings/diagnostics';
 }
 
 /// App-level GoRouter configuration.
@@ -62,6 +64,10 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: 'model',
             builder: (context, state) => const ModelSettingsScreen(),
+          ),
+          GoRoute(
+            path: 'diagnostics',
+            builder: (context, state) => const DiagnosticsScreen(),
           ),
         ],
       ),

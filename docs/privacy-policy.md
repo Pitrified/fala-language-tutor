@@ -57,6 +57,10 @@ The app stores the following on your device only:
 - **App preferences**: the selected engine and OpenAI model, the language you are
   learning, your level, the last five topics you typed, whether replies are
   read aloud, and the speech engine and voices you chose.
+- **Diagnostics log**: one line per reply read aloud (its length, timings and
+  the engine and voice used) and per speech setting you changed, never the
+  message text. It stays on your device; Settings > Diagnostics shows it and can
+  copy it for you to share by hand, or clear it.
 
 ## Data deletion
 
