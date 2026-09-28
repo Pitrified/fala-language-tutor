@@ -8,7 +8,7 @@ Analysis, prompt lab runs and decisions in [`00_start.md`](00_start.md).
 
 | #  | Phase | Plan | Status |
 | -- | ----- | ---- | ------ |
-| 01 | Model picker with the compared models | [`01_model_picker.md`](01_model_picker.md) | in progress |
+| 01 | Model picker with the compared models | [`01_model_picker.md`](01_model_picker.md) | done |
 
 Status values: draft / planned / in progress / done / superseded / discarded.
 
@@ -19,3 +19,4 @@ Append-only. Newest at the bottom.
 - 2026-09-28 : draft written from user notes on verbosity, level and "say it better".
 - 2026-09-28 : prompt lab runs 1 to 4 (v3 to v7, gpt-6-luna, gpt-4o-mini, gpt-5.4-nano, reasoning effort, API verbosity); results in `00_start.md`. The script became `scripts/prompt_lab/`.
 - 2026-09-28 : default model gpt-5.4-nano, the compared models in a dropdown (user). Phase 01 derived and built.
+- 2026-09-28 : Pixel run of 0.0.1+fe650ca1 (user): the Model page shows gpt-5.4-nano with its description, a conversation replies, and it replies after switching to gpt-6-luna. Phase 01 done. Phases 02 (v7 prompt in the app) and 03 (verbosity setting) asked for: "both phases".

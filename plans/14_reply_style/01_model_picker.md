@@ -1,5 +1,5 @@
 ---
-status: in progress
+status: done
 ---
 
 # 01 - Model picker with the compared models
