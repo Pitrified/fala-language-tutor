@@ -19,6 +19,7 @@ import 'widgets/correction_card.dart';
 import 'widgets/message_bubble.dart';
 import 'widgets/model_setup_banner.dart';
 import 'widgets/resume_choice.dart';
+import 'widgets/say_better.dart';
 import 'widgets/source_link.dart';
 import 'widgets/speak_button.dart';
 import 'widgets/streaming_reply_view.dart';
@@ -400,6 +401,7 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen>
         }
         final message = messages[index];
         final errors = message.tutorResponse?.correction.errors;
+        final better = message.tutorResponse?.better;
         final isLast = index == messages.length - 1;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -416,13 +418,22 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen>
               trailing:
                   message.role == MessageRole.tutor &&
                       message.content.isNotEmpty
-                  ? SpeakButton(
-                      messageId: message.id,
-                      text: message.content,
-                      language: language,
+                  ? Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (better != null && better.content.isEmpty)
+                          SayBetterButton(messageId: message.id),
+                        SpeakButton(
+                          messageId: message.id,
+                          text: message.content,
+                          language: language,
+                        ),
+                      ],
                     )
                   : null,
             ),
+            if (better != null && better.content.isNotEmpty)
+              BetterCard(better: better),
           ],
         );
       },

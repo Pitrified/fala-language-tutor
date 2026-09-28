@@ -90,5 +90,9 @@
   "short": "one or two sentences, at most 25 words.",
   "normal": "two to four sentences.",
   "long": "four to six sentences: react, add a related detail or opinion of your own, then ask your question."
+ },
+ "better_rule": {
+  "on": "- better.content: the learner's last message rewritten, not a reply to it. Same speaker, same content, nothing added and nothing left out, said the way a fluent speaker would and a step richer than what the learner wrote: a less common word, a more natural expression or a structure the learner did not use, still readable at the reply level above. Build on the corrected sentence, so it has no errors. Leave it empty when there is nothing to improve, such as a greeting or a one-word answer.\n- better.translation: its translation, in the same language as the other translations, or empty with it.",
+  "off": "- Leave better.content and better.translation empty."
  }
 }

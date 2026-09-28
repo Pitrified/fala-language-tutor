@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-/// How the tutor's reply is shaped, per level and length, from
+/// How the tutor's reply is shaped, per level, length and "say it better", from
 /// `assets/prompts/tutor_response/reply_style.json`.
 ///
 /// The same file feeds the prompt lab, so what the app sends is what was
@@ -11,6 +11,7 @@ class ReplyStyle {
     this._levelGuide,
     this._samples,
     this._lengthRule,
+    this._betterRule,
   );
 
   /// Parses the JSON text of `reply_style.json`.
@@ -32,6 +33,7 @@ class ReplyStyle {
         ),
       ),
       (json['length_rule'] as Map<String, dynamic>).cast<String, String>(),
+      (json['better_rule'] as Map<String, dynamic>).cast<String, String>(),
     );
   }
 
@@ -39,6 +41,7 @@ class ReplyStyle {
   final Map<String, List<String>> _levelGuide;
   final Map<String, Map<String, List<String>>> _samples;
   final Map<String, String> _lengthRule;
+  final Map<String, String> _betterRule;
 
   /// The level the reply is written at for a learner at [cefrLevel]. It can
   /// be higher: the model writes a level below the one it is asked for at the
@@ -59,6 +62,10 @@ class ReplyStyle {
 
   /// The length rule named [length] (`short`, `normal`, `long`).
   String lengthRule(String length) => _lengthRule[length] ?? '';
+
+  /// The "say it better" instruction: fill `better` when [on], leave it
+  /// empty otherwise.
+  String betterRule({required bool on}) => _betterRule[on ? 'on' : 'off']!;
 
   static String _bullets(List<String> lines) =>
       lines.map((line) => '  - $line').join('\n');

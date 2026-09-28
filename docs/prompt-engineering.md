@@ -127,7 +127,7 @@ When the model produces unexpected output:
 
 ---
 
-## Current prompt: tutor_response v4
+## Current prompt: tutor_response v5
 
 The template names no language of its own. It takes `{{target_language}}` (the language being
 learned, e.g. `Portuguese (Brazilian)`) and `{{explanation_language}}` (the language corrections and
@@ -150,6 +150,12 @@ How complex and how long the reply is comes from `assets/prompts/tutor_response/
 The level guides alone and the samples alone each moved the reply level less than the two together.
 
 The tutor plays a person in the chat and may tell small stories of its own to keep the conversation going.
+
+### Say it better
+
+`better` is the learner's message rewritten a step richer, at the reply level. `{{better_rule}}` is the `better_rule` in `reply_style.json`: `on` asks for it, `off` for empty strings (the strict schema requires the field either way). The Language page setting decides which one each reply gets. With it off, the sparkle beside a reply calls `ConversationController.requestBetter`, which sends `assets/prompts/say_better/v1.txt` with the learner's message, its correction and the same `on` rule, through the same schema, and saves the `better` of the answer on the reply.
+
+The rule insists on a rewrite rather than a reply ("Same speaker, same content, nothing added"): without that, gpt-5.4-nano sometimes answered the learner in `better`, or added a sentence of its own. gpt-6-luna's rewrites are the richer of the two.
 
 A correction whose `corrected` equals its `original` is dropped from the finished reply, and a correction left with no errors that only repeats the learner's message is cleared (`correction_filter.dart`). gpt-5.4-nano writes such entries as "this part is fine" notes despite the prompt asking it not to. While the reply streams they can show for a moment.
 

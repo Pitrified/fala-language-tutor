@@ -156,6 +156,25 @@ final replyLengthProvider = NotifierProvider<ReplyLengthNotifier, ReplyLength>(
   ReplyLengthNotifier.new,
 );
 
+/// Whether every reply comes with "say it better". Read by the conversation
+/// controller on every message.
+class SayBetterAutoNotifier extends Notifier<bool> {
+  @override
+  bool build() => ref.read(appSettingsRepositoryProvider).sayBetterAuto();
+
+  /// Persist [on].
+  Future<void> set(bool on) async {
+    if (on == state) return;
+    await ref.read(appSettingsRepositoryProvider).setSayBetterAuto(on);
+    state = on;
+  }
+}
+
+/// Provider for [SayBetterAutoNotifier].
+final sayBetterAutoProvider = NotifierProvider<SayBetterAutoNotifier, bool>(
+  SayBetterAutoNotifier.new,
+);
+
 /// Reactive holder for the default topic seed used when starting new
 /// conversations. Empty string = no topic preference.
 ///

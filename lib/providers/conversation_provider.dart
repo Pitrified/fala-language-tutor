@@ -17,5 +17,6 @@ final conversationControllerProvider = Provider<ConversationController?>((ref) {
     repository: ref.watch(conversationRepositoryProvider),
     promptManager: ref.watch(promptManagerProvider),
     replyLength: () => ref.read(replyLengthProvider),
+    sayBetterAuto: () => ref.read(sayBetterAutoProvider),
   );
 });

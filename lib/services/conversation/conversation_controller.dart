@@ -28,9 +28,11 @@ class ConversationController {
     required this.promptManager,
     this.maxHistoryMessages = 10,
     this.replyLength = _normalLength,
+    this.sayBetterAuto = _off,
   });
 
   static ReplyLength _normalLength() => ReplyLength.normal;
+  static bool _off() => false;
 
   /// Streaming engine for the in-flight turn. Its terminal delta carries the
   /// same fully-typed value the one-shot path would produce, which is what we
@@ -42,6 +44,10 @@ class ConversationController {
 
   /// The reply length setting, read on every message.
   final ReplyLength Function() replyLength;
+
+  /// Whether every reply comes with "say it better", read on every message.
+  /// Off, [requestBetter] asks for it on one reply.
+  final bool Function() sayBetterAuto;
 
   /// Language the corrections, explanations and translations are written in.
   ///
@@ -266,6 +272,7 @@ class ConversationController {
           'level_guide': style.levelGuide(replyLevel),
           'reply_samples': style.samples(language.code, replyLevel),
           'length_rule': style.lengthRule(replyLength().name),
+          'better_rule': style.betterRule(on: sayBetterAuto()),
           'topic': _currentConversation!.topic,
           'user_message': content,
           'conversation_history': _formatHistory(),
@@ -305,6 +312,66 @@ class ConversationController {
     } finally {
       _isSending = false;
     }
+  }
+
+  /// Asks for "say it better" on the tutor reply [tutorMessageId]: the
+  /// learner's message before it, rewritten a step richer. Saves it on the
+  /// reply and returns it; its content is empty when the model found nothing
+  /// to improve. Returns null when the reply is not in the open conversation
+  /// or the request failed.
+  Future<ConversationBlock?> requestBetter(String tutorMessageId) async {
+    final conversation = _currentConversation;
+    if (conversation == null) return null;
+    final messages = conversation.messages;
+    final at = messages.indexWhere((m) => m.id == tutorMessageId);
+    if (at < 1) return null;
+    final tutor = messages[at];
+    final learner = messages[at - 1];
+    final response = tutor.tutorResponse;
+    if (response == null || learner.role != MessageRole.user) return null;
+
+    final language =
+        TargetLanguageX.fromCode(conversation.language) ?? TargetLanguage.ptBr;
+    final style = await promptManager.replyStyle();
+    final replyLevel = style.replyLevel(conversation.cefrLevel);
+    final corrected = response.correction.content;
+    final prompt = await promptManager.buildPrompt(
+      name: 'say_better',
+      variables: {
+        'target_language': language.promptName,
+        'explanation_language': explanationLanguage,
+        'cefr_level': conversation.cefrLevel,
+        'reply_level': replyLevel,
+        'level_guide': style.levelGuide(replyLevel),
+        'better_rule': style.betterRule(on: true),
+        'user_message': learner.content,
+        'corrected_message': corrected.isEmpty ? learner.content : corrected,
+      },
+    );
+    final parts = PromptManager.split(prompt);
+    StructuredDelta<TutorResponse>? terminal;
+    await for (final delta in streamEngine.generateStream(
+      InferenceRequest(prompt: parts.user, developerPrompt: parts.developer),
+    )) {
+      if (delta.isTerminal) terminal = delta;
+    }
+    final better = terminal?.value?.better;
+    if (terminal == null || !terminal.isComplete || better == null) {
+      AppLogger.instance.warn(
+        'Say it better failed: ${terminal?.failure?.error ?? 'no response'}',
+      );
+      return null;
+    }
+
+    final saved = await repository.replaceMessage(
+      conversation.id,
+      tutor.copyWith(tutorResponse: response.copyWith(better: better)),
+    );
+    if (saved != null && _currentConversation?.id == saved.id) {
+      _currentConversation = saved;
+      _conversationController.add(saved);
+    }
+    return better;
   }
 
   /// Map the terminal delta to the persisted reply: typed success -> reply text

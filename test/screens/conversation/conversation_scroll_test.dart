@@ -18,9 +18,15 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 
 /// A complete, schema-conforming TutorResponse document (the "Ola!" reply).
+/// The translation runs to several lines so that revealing it grows the row
+/// past the height of the buttons beside the bubble.
 const _olaJson =
     '{"correction":{"content":"","translation":"","errors":[]},'
-    '"conversation":{"content":"Ola!","translation":"Hello!"}}';
+    '"conversation":{"content":"Ola!","translation":"Hello!\\nHow are you?'
+    '\\nGood to see you.\\nWhat did you do today?"}}';
+
+/// What [_OneShotEngine] emits next.
+var _next = _olaJson;
 
 /// Raw engine that emits the full document in one buffer (no per-token splitting
 /// needed for these scroll tests).
@@ -38,7 +44,7 @@ class _OneShotEngine implements InferenceEngine {
       const InferenceSuccess(rawText: _olaJson);
   @override
   Stream<String> generateStream(InferenceRequest request) async* {
-    yield _olaJson;
+    yield _next;
   }
 
   @override
@@ -62,6 +68,7 @@ void main() {
   late Directory tempDir;
 
   setUp(() async {
+    _next = _olaJson;
     tempDir = await Directory.systemTemp.createTemp('hive_scroll_test_');
     Hive.init(tempDir.path);
 
@@ -204,9 +211,37 @@ void main() {
     await settle(tester);
 
     final pos = scrollPosition(tester);
-    expect(find.text('Hello!'), findsOneWidget); // translation now visible
+    expect(
+      find.textContaining('Hello!'),
+      findsOneWidget,
+    ); // translation now visible
     expect(pos.maxScrollExtent, greaterThan(beforeMax)); // the bubble grew
     expect(pos.pixels, moveTo(pos.maxScrollExtent)); // and we followed it down
+  });
+
+  testWidgets('the sparkle beside a reply asks for say it better', (
+    tester,
+  ) async {
+    await pumpScreen(tester);
+    await tester.drag(find.byType(ListView), const Offset(0, -2000));
+    await settle(tester);
+
+    _next =
+        '{"correction":{"content":"","translation":"","errors":[]},'
+        '"conversation":{"content":"","translation":""},'
+        '"better":{"content":"Olá a todos!","translation":"Hi all!"}}';
+    // The request writes to Hive: run the tap in real time.
+    await tester.runAsync(() async {
+      await tester.tap(find.byTooltip('Say it better').last);
+      await Future<void>.delayed(const Duration(milliseconds: 200));
+    });
+    await settle(tester);
+
+    expect(find.text('Olá a todos!'), findsOneWidget);
+    expect(find.text('Say it better'), findsOneWidget);
+    await tester.tap(find.text('Olá a todos!'));
+    await settle(tester);
+    expect(find.text('Hi all!'), findsOneWidget);
   });
 }
 

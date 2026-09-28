@@ -251,6 +251,62 @@ void main() {
     await withLength.dispose();
   });
 
+  test('say it better is asked for only with the setting on', () async {
+    var auto = false;
+    final withSetting = ConversationController(
+      streamEngine: streamEngine,
+      repository: repo,
+      promptManager: promptManager,
+      sayBetterAuto: () => auto,
+    );
+    final style = await promptManager.replyStyle();
+    await withSetting.startConversation();
+    await withSetting.sendMessage('Oi');
+    expect(
+      promptManager.lastVariables!['better_rule'],
+      style.betterRule(on: false),
+    );
+
+    auto = true;
+    await withSetting.sendMessage('Tudo bem?');
+    expect(
+      promptManager.lastVariables!['better_rule'],
+      style.betterRule(on: true),
+    );
+    await withSetting.dispose();
+  });
+
+  test('requestBetter saves the rewrite on the reply', () async {
+    await controller.startConversation(cefrLevel: CefrLevel.b1);
+    final reply = await controller.sendMessage('Eu vai na praia');
+    expect(reply!.tutorResponse!.better.content, isEmpty);
+
+    const betterJson =
+        '{"correction":{"content":"","translation":"","errors":[]},'
+        '"conversation":{"content":"","translation":""},'
+        '"better":{"content":"Fui à praia","translation":"I went to the beach"}}';
+    engine.buffers = [betterJson];
+    final better = await controller.requestBetter(reply.id);
+
+    expect(better!.content, 'Fui à praia');
+    expect(promptManager.lastVariables!['user_message'], 'Eu vai na praia');
+    expect(promptManager.lastVariables!['reply_level'], 'B1');
+    final saved = repo
+        .load(controller.currentConversation!.id)!
+        .messages
+        .firstWhere((m) => m.id == reply.id);
+    expect(saved.tutorResponse!.better.content, 'Fui à praia');
+    expect(saved.tutorResponse!.conversation.content, 'Ola!');
+  });
+
+  test(
+    'requestBetter returns null for a message not in the conversation',
+    () async {
+      await controller.startConversation();
+      expect(await controller.requestBetter('missing'), isNull);
+    },
+  );
+
   test('samples follow the language, and are empty without any', () async {
     await controller.startConversation(
       language: TargetLanguage.esEs,

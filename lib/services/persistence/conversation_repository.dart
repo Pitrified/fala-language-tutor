@@ -79,6 +79,22 @@ class ConversationRepository {
     return updated;
   }
 
+  /// Replace the message with [message]'s id in a conversation, returning
+  /// the updated conversation, or null when either is not found.
+  Future<Conversation?> replaceMessage(
+    String conversationId,
+    ConversationMessage message,
+  ) async {
+    final conversation = load(conversationId);
+    if (conversation == null) return null;
+    final at = conversation.messages.indexWhere((m) => m.id == message.id);
+    if (at < 0) return null;
+    final messages = [...conversation.messages]..[at] = message;
+    final updated = conversation.copyWith(messages: messages);
+    await save(updated);
+    return updated;
+  }
+
   /// Delete a conversation by ID.
   Future<void> delete(String id) async {
     await _box.delete(id);

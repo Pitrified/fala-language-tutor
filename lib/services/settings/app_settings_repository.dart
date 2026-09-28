@@ -34,6 +34,9 @@ class AppSettingsRepository {
   /// Key for the tutor's reply length.
   static const String keyReplyLength = 'reply_length';
 
+  /// Key for "say it better" with every reply (`'true'`) or on request.
+  static const String keySayBetterAuto = 'say_better_auto';
+
   /// Hive key storing the default topic seed for new conversations.
   static const String keyDefaultTopic = 'default_topic';
 
@@ -129,6 +132,15 @@ class AppSettingsRepository {
   /// Persist [length] as the tutor's reply length.
   Future<void> setReplyLength(ReplyLength length) async {
     await _box.put(keyReplyLength, length.name);
+  }
+
+  /// Whether every reply comes with "say it better". Off when unset: the
+  /// learner asks for it with the button beside a reply.
+  bool sayBetterAuto() => _box.get(keySayBetterAuto) == 'true';
+
+  /// Persist [on] for [sayBetterAuto].
+  Future<void> setSayBetterAuto(bool on) async {
+    await _box.put(keySayBetterAuto, on.toString());
   }
 
   /// Returns the persisted default topic seed (or empty string).

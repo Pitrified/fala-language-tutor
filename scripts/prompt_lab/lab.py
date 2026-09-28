@@ -239,6 +239,9 @@ def summary(exp, runs):
             lines.append(f"- User: {t['user']}")
             lines.append(f"  - Fix: {fixes or '(none)'}")
             lines.append(f"  - Tutor: {t['response']['conversation']['content']}")
+            better = (t['response'].get('better') or {}).get('content')
+            if better:
+                lines.append(f"  - Better: {better}")
         lines.append('')
     return '\n'.join(lines)
 

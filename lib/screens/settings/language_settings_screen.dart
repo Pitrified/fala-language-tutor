@@ -62,6 +62,10 @@ class LanguageSettingsScreen extends ConsumerWidget {
           const SizedBox(height: 24),
           const Divider(),
           const SizedBox(height: 8),
+          const _SayBetterSwitch(),
+          const SizedBox(height: 16),
+          const Divider(),
+          const SizedBox(height: 8),
           Text('Speech', style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 4),
           Text(
@@ -187,6 +191,26 @@ class _ReplyLengthDropdown extends ConsumerWidget {
         if (length == null) return;
         await ref.read(replyLengthProvider.notifier).select(length);
       },
+    );
+  }
+}
+
+/// "Say it better" with every reply, or on request with the button beside a
+/// reply.
+class _SayBetterSwitch extends ConsumerWidget {
+  const _SayBetterSwitch();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return SwitchListTile(
+      contentPadding: EdgeInsets.zero,
+      title: const Text('Say it better with every reply'),
+      subtitle: const Text(
+        'Your message rewritten a step richer, under each reply. Off: tap the '
+        'sparkle beside a reply to ask for it.',
+      ),
+      value: ref.watch(sayBetterAutoProvider),
+      onChanged: (on) => ref.read(sayBetterAutoProvider.notifier).set(on),
     );
   }
 }

@@ -1,22 +1,44 @@
 {
   "type": "object",
-  "required": ["correction", "conversation"],
+  "required": [
+    "correction",
+    "conversation",
+    "better"
+  ],
   "properties": {
     "correction": {
       "type": "object",
-      "required": ["content", "translation", "errors"],
+      "required": [
+        "content",
+        "translation",
+        "errors"
+      ],
       "properties": {
-        "content": {"type": "string"},
-        "translation": {"type": "string"},
+        "content": {
+          "type": "string"
+        },
+        "translation": {
+          "type": "string"
+        },
         "errors": {
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["original", "corrected", "explanation"],
+            "required": [
+              "original",
+              "corrected",
+              "explanation"
+            ],
             "properties": {
-              "original": {"type": "string"},
-              "corrected": {"type": "string"},
-              "explanation": {"type": "string"}
+              "original": {
+                "type": "string"
+              },
+              "corrected": {
+                "type": "string"
+              },
+              "explanation": {
+                "type": "string"
+              }
             }
           }
         }
@@ -24,10 +46,32 @@
     },
     "conversation": {
       "type": "object",
-      "required": ["content", "translation"],
+      "required": [
+        "content",
+        "translation"
+      ],
       "properties": {
-        "content": {"type": "string"},
-        "translation": {"type": "string"}
+        "content": {
+          "type": "string"
+        },
+        "translation": {
+          "type": "string"
+        }
+      }
+    },
+    "better": {
+      "type": "object",
+      "required": [
+        "content",
+        "translation"
+      ],
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "translation": {
+          "type": "string"
+        }
       }
     }
   }

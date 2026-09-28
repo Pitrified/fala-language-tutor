@@ -20,6 +20,7 @@ void main() {
       'level_guide': style.levelGuide('A1'),
       'reply_samples': style.samples(language.code, 'A1'),
       'length_rule': style.lengthRule('normal'),
+      'better_rule': style.betterRule(on: false),
       'topic': '',
       'user_message': 'Oi',
       'conversation_history': '',
