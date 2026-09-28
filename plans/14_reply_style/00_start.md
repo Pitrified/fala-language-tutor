@@ -23,9 +23,12 @@ Status: note. Nothing researched or implemented.
 
 - A verbosity setting (short / normal / long), passed to the prompt as a length rule, such as a sentence count.
 - Concrete per-level instructions in the prompt in place of the bare level name: sentence length, tenses allowed, vocabulary range, idioms or none.
+- A "say it better" mode: besides the correction, the tutor suggests another way to express what the learner said, with slightly richer words or structures in line with the selected level, so a correct but plain sentence still gets something to learn from. "on top of the correction there could be a mode where the engine also suggests a similar way to express whatever the user said, using slightly more complex words, in line with the selected level" (user, 2026-09-28). It would be a new field in `TutorResponse`, empty when there is nothing to add, and a toggle.
 - Measure before changing: the same conversation at A1 and at C1, with sentence length and word counts compared, to see how much the level changes today.
 
 ## Open questions
 
 - Q1: Is verbosity a separate setting, or tied to the level?
+  ANS: ...
+- Q2: Does the "say it better" suggestion show for every message, or only when the learner's message had no errors?
   ANS: ...
