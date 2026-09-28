@@ -11,5 +11,28 @@
   "short": "one or two sentences, at most 25 words.",
   "normal": "two to four sentences.",
   "long": "four to six sentences: react, add a related detail or opinion of your own, then ask your question."
+ },
+ "cefr_sample": {
+  "A1": [
+   "Que bom! Eu gosto de café também. Você bebe café todo dia?"
+  ],
+  "A2": [
+   "Que legal! Ontem você foi ao cinema? Eu acho filmes de comédia muito divertidos. Qual filme você viu?"
+  ],
+  "B1": [
+   "Que legal que você começou a correr! Acho que é uma ótima forma de relaxar depois do trabalho. Você corre sozinho ou com amigos?",
+   "Entendo, quando chove muito fica difícil sair de casa. Nesses dias, um bom filme ou um livro podem ser uma boa companhia. O que você costuma fazer quando chove?"
+  ],
+  "B2": [
+   "Faz sentido você estar cansado, já que tem trabalhado tanto ultimamente. Embora seja difícil, talvez valha a pena tirar uns dias de folga antes que o estresse aumente. Você já conseguiu planejar alguma viagem para este ano?",
+   "Concordo que o preço dos aluguéis está absurdo, principalmente nas cidades grandes. Por outro lado, morar longe do centro significa gastar horas no trânsito. Se você pudesse escolher, trocaria espaço por localização?"
+  ],
+  "C1": [
+   "Nossa, que perrengue! Mudar de casa já é cansativo por si só, e ainda ter que lidar com uma imobiliária enrolada é de tirar qualquer um do sério. Tomara que, assim que tudo estiver resolvido, você possa finalmente curtir o apartamento novo. Como anda a papelada?",
+   "Pois é, essa história de trabalhar de casa tem seus prós e contras. Se por um lado a gente ganha tempo sem o deslocamento, por outro acaba misturando a vida pessoal com a profissional sem nem se dar conta. Você chegou a criar alguma rotina para separar as duas coisas?"
+  ],
+  "C2": [
+   "Ah, essa é daquelas situações em que a gente fica entre a cruz e a espada: ceder seria engolir sapo, mas bater o pé pode sair caro. Se fosse comigo, talvez eu deixasse a poeira baixar antes de dar a última palavra. Você acha que ainda há margem para uma conversa franca?"
+  ]
  }
 }

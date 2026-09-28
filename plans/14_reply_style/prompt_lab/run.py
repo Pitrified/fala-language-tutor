@@ -30,6 +30,7 @@ REPO = HERE.parents[2]
 PROMPTS = {
     'v3': (REPO / 'assets/prompts/tutor_response/v3.txt').read_text(),
     'v4': (HERE / 'v4.txt').read_text(),
+    'v5': (HERE / 'v5.txt').read_text(),
 }
 GUIDES = json.loads((HERE / 'guides.json').read_text())
 CONVERSATION = json.loads((HERE / 'conversation.json').read_text())
@@ -58,12 +59,13 @@ SCHEMA = {
 MODELS = {
     'gpt-6-luna': {'reasoning_effort': 'none', 'temperature': 0.7},
     'gpt-4o-mini': {'temperature': 0.7},
+    'gpt-5.4-nano': {'reasoning_effort': 'none', 'temperature': 0.7},
 }
-# (prompt, level, verbosity). v3 ignores verbosity.
+# (prompt, level, verbosity, level guide on). v3 ignores verbosity and the guide; v4 has no samples.
 SETUPS = [
-    ('v3', 'A1', '-'), ('v3', 'C1', '-'),
-    ('v4', 'A1', 'normal'), ('v4', 'C1', 'normal'),
-    ('v4', 'B1', 'short'), ('v4', 'B1', 'long'),
+    ('v4', 'B1', 'normal', True), ('v4', 'C1', 'normal', True),
+    ('v5', 'B1', 'normal', True), ('v5', 'B2', 'normal', True), ('v5', 'C1', 'normal', True),
+    ('v5', 'C1', 'normal', False),
 ]
 JUDGE = 'gpt-5.4-mini'
 
@@ -77,12 +79,13 @@ def post(body, stream=False):
     return urllib.request.urlopen(req, timeout=120)
 
 
-def fill(prompt, level, verbosity, message, history):
+def fill(prompt, level, verbosity, guide, message, history):
     values = {
         'target_language': 'Brazilian Portuguese', 'explanation_language': 'English',
         'cefr_level': level, 'topic': '', 'user_message': message,
         'conversation_history': '\n'.join(history),
-        'level_guide': GUIDES['level_guide'][level],
+        'level_guide': GUIDES['level_guide'][level] if guide else '',
+        'cefr_sample': '\n'.join(f'  - {s}' for s in GUIDES['cefr_sample'][level]),
         'length_rule': GUIDES['length_rule'].get(verbosity, ''),
     }
     text = PROMPTS[prompt]
@@ -120,14 +123,14 @@ def turn(model, prompt_text):
             'usage': usage, 'response': json.loads(buffer)}
 
 
-def run_setup(model, prompt, level, verbosity):
+def run_setup(model, prompt, level, verbosity, guide):
     history, turns = [], []
     for message in CONVERSATION:
         history.append(f'User: {message}')
-        result = turn(model, fill(prompt, level, verbosity, message, history))
+        result = turn(model, fill(prompt, level, verbosity, guide, message, history))
         history.append(f"Tutor: {result['response']['conversation']['content']}")
         turns.append({'user': message, **result})
-    return {'model': model, 'prompt': prompt, 'level': level, 'verbosity': verbosity, 'turns': turns}
+    return {'model': model, 'prompt': prompt, 'level': level, 'verbosity': verbosity, 'guide': guide, 'turns': turns}
 
 
 def judge(replies):
@@ -162,9 +165,12 @@ def main():
         n_words = sum(words(r) for r in replies)
         n_sentences = sum(sentences(r) for r in replies)
         mean = lambda key: sum(t[key] or 0 for t in run['turns']) / len(run['turns'])
+        invented = sum(1 for t in run['turns'] for e in t['response']['correction']['errors']
+                       if e['original'] not in t['user'])
         out_tokens = sum(t['usage'].get('completion_tokens', 0) for t in run['turns'])
         print(f"\n## {run['model']} | {run['prompt']} | {run['level']} | {run['verbosity']} "
               f"| judged {level} | {n_words / len(replies):.0f} words/reply "
+              f"| guide {'on' if run['guide'] else 'off'} | invented {invented} "
               f"| {n_words / n_sentences:.1f} words/sentence | ttft {mean('ttft'):.2f}s "
               f"| reply starts {mean('reply_start'):.2f}s | total {mean('total'):.2f}s | out {out_tokens} tok")
         for t in run['turns']:

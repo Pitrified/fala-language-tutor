@@ -70,6 +70,45 @@ Read from the replies:
 - Rule breaks: gpt-6-luna at A1 still used past tenses and "confundem"; at B1 long it asked two questions once; it writes em dashes. gpt-4o-mini at B1 long invented a persona ("Eu adoro a comida portuguesa") and asked "Qual é o seu ônibus favorito?".
 - gpt-6-luna is about 1.7 s later to its first token and about 1.7 s later to the start of the reply.
 
+## Prompt lab, run 2, 2026-09-28
+
+Asked for: a `{{cefr_sample}}` variable filled with sample replies of the selected level only; one nano model; A1 and A2 not tuned further, since "seeing a sentence with its translation is more than enough to understand it all" in these languages (user).
+
+- `v5.txt`: v4 plus `{{cefr_sample}}` (one or two sample replies per level, in `guides.json`, with an instruction to match their vocabulary, grammar and sentence length, not their content), a rule that each error's `original` is copied from the user's message, and a rule against invented experiences.
+- gpt-5.4-nano runs with `reasoning_effort: none` and accepts temperature 0.7. gpt-5-nano does not: it only accepts temperature 1.
+- The script now counts "invented" errors: an `original` that is not in the user's message. The count is rough: a correct error quoted with different capitals also counts, and 4o-mini's hits are errors repeated from the previous turn.
+
+| Model | Prompt | Level | Guide | Judged | Words per reply | Words per sentence | Invented | First token | Reply starts |
+| -- | -- | -- | -- | -- | -- | -- | -- | -- | -- |
+| gpt-6-luna | v4 | B1 | on | B1 | 24 | 8.7 | 0 | 1.2 s | 2.5 s |
+| gpt-4o-mini | v4 | B1 | on | B1 | 14 | 5.4 | 1 | 0.7 s | 2.1 s |
+| gpt-5.4-nano | v4 | B1 | on | B1 | 20 | 6.1 | 1 | 0.6 s | 1.3 s |
+| gpt-6-luna | v4 | C1 | on | B2 | 45 | 15.9 | 0 | 1.2 s | 2.4 s |
+| gpt-4o-mini | v4 | C1 | on | B1 | 20 | 9.3 | 1 | 1.1 s | 2.4 s |
+| gpt-5.4-nano | v4 | C1 | on | C1 | 44 | 17.1 | 0 | 0.7 s | 1.3 s |
+| gpt-6-luna | v5 | B1 | on | B1 | 25 | 9.5 | 0 | 1.2 s | 2.4 s |
+| gpt-4o-mini | v5 | B1 | on | B1 | 17 | 6.7 | 1 | 0.9 s | 2.4 s |
+| gpt-5.4-nano | v5 | B1 | on | B1 | 20 | 8.2 | 0 | 0.7 s | 1.5 s |
+| gpt-6-luna | v5 | B2 | on | B2 | 47 | 16.9 | 0 | 1.2 s | 2.4 s |
+| gpt-4o-mini | v5 | B2 | on | B2 | 38 | 12.7 | 0 | 0.8 s | 2.1 s |
+| gpt-5.4-nano | v5 | B2 | on | B2 | 46 | 15.3 | 0 | 0.8 s | 1.6 s |
+| gpt-6-luna | v5 | C1 | on | B2 | 37 | 15.6 | 0 | 1.2 s | 2.7 s |
+| gpt-4o-mini | v5 | C1 | on | B2 | 33 | 11.6 | 2 | 1.0 s | 2.5 s |
+| gpt-5.4-nano | v5 | C1 | on | C1 | 56 | 18.6 | 0 | 0.7 s | 1.8 s |
+| gpt-6-luna | v5 | C1 | off | B2 | 48 | 15.1 | 0 | 1.1 s | 2.6 s |
+| gpt-4o-mini | v5 | C1 | off | B2 | 34 | 12.3 | 0 | 0.7 s | 2.3 s |
+| gpt-5.4-nano | v5 | C1 | off | B2 | 41 | 12.9 | 0 | 0.7 s | 1.7 s |
+
+Mean per turn over the run, at the prices above: gpt-6-luna 783 tokens in and 266 out, about $0.0001; gpt-4o-mini 764 and 256, about $0.0003; gpt-5.4-nano 788 and 242, about $0.0005.
+
+Read from the replies:
+
+- B1 and B2 come out as asked on every model with v5. C1 is judged C1 only on gpt-5.4-nano; gpt-6-luna and gpt-4o-mini stay at B2.
+- Samples alone (guide off) do not reach C1 on any model; guide and samples together do on gpt-5.4-nano.
+- gpt-6-luna's first token came 1.2 s after the request, against 2.6 s in run 1. The difference between runs is as large as the difference between models, so timings need more runs before they decide anything.
+- gpt-5.4-nano is the fastest to start the reply, and its C1 is the most natural ("uma baita confusão", "pontos fixos na rotina"). It skipped the first message's errors twice ("mudei pra", "não acostumei", both common in spoken Brazilian Portuguese), and it sometimes quotes a whole sentence as the `original`.
+- gpt-4o-mini still repeats errors from earlier turns despite the new rule.
+
 ## Open questions
 
 - Q1: Is verbosity a separate setting, or tied to the level?
