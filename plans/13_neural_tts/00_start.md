@@ -123,11 +123,11 @@ If one wins, a throwaway Flutter build with `sherpa_onnx` measures the costs abo
   ANS: ...
 
 ## Sources
+
 - LiteRT samples: https://github.com/google-ai-edge/litert-samples
 - LiteRT Kokoro: https://huggingface.co/litert-community/Kokoro-82M (model card read through search results)
 - flutter_litert: https://pub.dev/packages/flutter_litert
 - Gemma audio: https://ai.google.dev/gemma/docs/capabilities/audio
-
 - sherpa-onnx: https://github.com/k2-fsa/sherpa-onnx and https://pub.dev/packages/sherpa_onnx
 - Piper voices: https://github.com/rhasspy/piper/blob/master/VOICES.md, successor https://github.com/OHF-Voice/piper1-gpl
 - Kokoro-82M: https://huggingface.co/hexgrad/Kokoro-82M (not reachable from this box; languages and voice counts from search results)
