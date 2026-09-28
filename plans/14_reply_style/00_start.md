@@ -39,6 +39,37 @@ Prices from OpenAI's pricing page, standard tier as read from its layout, USD pe
 
 Switching the default to gpt-6-luna needs `reasoning_effort: none` sent from `openai_inference_engine.dart`.
 
+## Prompt lab, run 1, 2026-09-28
+
+Files in `prompt_lab/`: `run.py` (reference script, not used by the app), `v4.txt` (draft prompt: correction and reply rules split, a `{{level_guide}}` with concrete limits per level, a `{{length_rule}}` per verbosity, at most one question), `guides.json` (the level guides and length rules), `conversation.json` (five learner messages, a Brazilian who moved to Lisbon, two or three errors each), and the raw results.
+
+Each setup plays the whole conversation with its own replies as history, streamed as the app streams. A judge (gpt-5.4-mini) rates the CEFR level of each setup's five replies. "We accept that they are super close" (user): gpt-6-luna with `reasoning_effort: none` and gpt-4o-mini.
+
+| Model | Prompt | Level | Length | Judged | Words per reply | Words per sentence | First token | Reply starts |
+| -- | -- | -- | -- | -- | -- | -- | -- | -- |
+| gpt-6-luna | v3 | A1 | | B1 | 19 | | | |
+| gpt-4o-mini | v3 | A1 | | B1 | 19 | | | |
+| gpt-6-luna | v3 | C1 | | B2 | 36 | 13.7 | 2.6 s | 4.2 s |
+| gpt-4o-mini | v3 | C1 | | B2 | 24 | 9.1 | 0.9 s | 2.7 s |
+| gpt-6-luna | v4 | A1 | normal | A2 | 14 | 4.6 | 2.7 s | 4.0 s |
+| gpt-4o-mini | v4 | A1 | normal | A1 | 9 | 4.3 | 0.9 s | 2.1 s |
+| gpt-6-luna | v4 | C1 | normal | B2 | 48 | 17.1 | 2.6 s | 4.3 s |
+| gpt-4o-mini | v4 | C1 | normal | B2 | 23 | 10.5 | 0.9 s | 2.4 s |
+| gpt-6-luna | v4 | B1 | short | B1 | 19 | 7.8 | 2.6 s | 4.1 s |
+| gpt-4o-mini | v4 | B1 | short | B1 | 14 | 5.7 | 0.9 s | 2.6 s |
+| gpt-6-luna | v4 | B1 | long | B1 | 43 | 9.3 | 2.6 s | 3.9 s |
+| gpt-4o-mini | v4 | B1 | long | B1 | 33 | 6.4 | 1.1 s | 2.7 s |
+
+"Reply starts" is when the first character of `conversation.content` arrives; the correction streams before it. Timings are one run with twelve setups in parallel, so they are a rough comparison, not a benchmark.
+
+Read from the replies:
+
+- v3 gives A1 and C1 the same B1 to B2 replies, as the user reported. v4 separates them: A1 replies drop to 9 to 14 words in short sentences, and the length rule works (B1 short 14 to 19 words, long 33 to 43).
+- C1 is still judged B2 on both models. gpt-6-luna writes longer, richer C1 sentences; gpt-4o-mini's C1 is close to its B1.
+- Corrections: gpt-6-luna found every planted error and invented none. gpt-4o-mini invented errors in several turns ("as rua" in a message without it, "atraso -> atrasam", "a sacola -> a sacola") and once corrected "não acostumei" to "não estou acostumado", which changes the meaning.
+- Rule breaks: gpt-6-luna at A1 still used past tenses and "confundem"; at B1 long it asked two questions once; it writes em dashes. gpt-4o-mini at B1 long invented a persona ("Eu adoro a comida portuguesa") and asked "Qual é o seu ônibus favorito?".
+- gpt-6-luna is about 1.7 s later to its first token and about 1.7 s later to the start of the reply.
+
 ## Open questions
 
 - Q1: Is verbosity a separate setting, or tied to the level?
