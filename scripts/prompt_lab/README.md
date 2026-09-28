@@ -43,7 +43,7 @@ JSON. Paths are relative to the experiment file.
 | `prompts` | name to template file |
 | `conversation` | file with a JSON list of learner messages |
 | `variables` | template values shared by every setup |
-| `tables` | variable name to a file (or inline object) `{by, values}`: the variable's value is `values[<value of the variable named by>]`; a list becomes indented `- ` lines |
+| `tables` | variable name to a file or inline object `{by, values, prefix}`, or to `{from, key, by, prefix}` to take `values` from `key` of the JSON file `from`. `by` names one variable or a list of them: the value is `values[v1][v2]...` with the values of those variables, empty when missing. A list becomes indented `- ` lines. `prefix` goes before a non-empty value and can use `{variable}` |
 | `optional_variables` | variables whose line is dropped from the template when their value is empty |
 | `setups` | list of `{prompt, vars, params, models}`; `vars` add or override template values, `params` request fields, `models` narrows `compare` |
 

@@ -64,8 +64,14 @@ class Experiment:
         self.schema = strict(load_json(resolve(spec['schema'])))
         self.conversation = load_json(resolve(spec['conversation']))
         self.variables = spec.get('variables', {})
-        self.tables = {name: load_json(resolve(p)) if isinstance(p, str) else p
-                       for name, p in spec.get('tables', {}).items()}
+        self.tables = {}
+        for name, table in spec.get('tables', {}).items():
+            if isinstance(table, str):
+                table = load_json(resolve(table))
+            if 'from' in table:
+                table = {**table, 'values': load_json(resolve(table['from']))[table['key']]}
+            by = table['by']
+            self.tables[name] = {**table, 'by': [by] if isinstance(by, str) else by}
         self.optional = set(spec.get('optional_variables', []))
         self.setups = spec['setups']
         self.judge = spec.get('judge')
@@ -76,9 +82,14 @@ class Experiment:
         values = {**self.variables, **setup.get('vars', {}),
                   'user_message': message, 'conversation_history': '\n'.join(history)}
         for name, table in self.tables.items():
-            key = values.get(table['by'], '')
-            value = table['values'].get(key, '')
-            values[name] = '\n'.join(f'  - {v}' for v in value) if isinstance(value, list) else value
+            value = table['values']
+            for by in table['by']:
+                value = value.get(values.get(by, ''), '') if isinstance(value, dict) else ''
+            if isinstance(value, list):
+                value = '\n'.join(f'  - {v}' for v in value)
+            if value and table.get('prefix'):
+                value = table['prefix'].format(**values) + value
+            values[name] = value or ''
         text = self.prompts[setup['prompt']]
         lines = []
         for line in text.split('\n'):

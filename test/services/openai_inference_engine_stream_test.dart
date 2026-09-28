@@ -114,6 +114,30 @@ void main() {
     expect(body['reasoning_effort'], 'none');
   });
 
+  test('sends the developer prompt as a developer message first', () async {
+    final store = ApiKeyStore();
+    await store.write('sk-test');
+    late Map<String, dynamic> body;
+    final mock = MockClient((request) async {
+      body = jsonDecode(request.body) as Map<String, dynamic>;
+      return http.Response(
+        _sse(['{"reply":"oi"}']),
+        200,
+        headers: {'content-type': 'text/event-stream'},
+      );
+    });
+    final engine = _engineWith(httpClient: mock, store: store);
+    await engine.initialize();
+    await engine
+        .generateStream(
+          const InferenceRequest(prompt: 'oi', developerPrompt: 'rules'),
+        )
+        .toList();
+    final messages = body['messages'] as List<dynamic>;
+    expect(messages.map((m) => (m as Map)['role']), ['developer', 'user']);
+    expect((messages.first as Map)['content'], 'rules');
+  });
+
   test('sends no reasoning_effort for a model not offered', () async {
     final body = await sentBodyFor('gpt-4o-mini');
     expect(body.containsKey('reasoning_effort'), isFalse);

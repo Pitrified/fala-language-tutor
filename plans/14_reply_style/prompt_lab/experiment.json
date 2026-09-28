@@ -54,49 +54,60 @@
   "v4": "v4.txt",
   "v5": "v5.txt",
   "v6": "v6.txt",
-  "v7": "v7.txt"
+  "v7": "v7.txt",
+  "app_v4": "../../../assets/prompts/tutor_response/v4.txt"
  },
  "conversation": "conversation.json",
  "variables": {
   "target_language": "Brazilian Portuguese",
   "explanation_language": "English",
-  "topic": ""
+  "topic": "",
+  "language_code": "pt-BR"
  },
  "tables": {
-  "level_guide": "level_guide.json",
-  "cefr_sample": "cefr_sample.json",
-  "length_rule": "length_rule.json"
+  "level_guide": {
+   "from": "../../../assets/prompts/tutor_response/reply_style.json",
+   "key": "level_guide",
+   "by": "reply_level"
+  },
+  "reply_samples": {
+   "from": "../../../assets/prompts/tutor_response/reply_style.json",
+   "key": "samples",
+   "by": [
+    "language_code",
+    "reply_level"
+   ],
+   "prefix": "Replies at {reply_level} level. Match their vocabulary, grammar and sentence length, not their content:\n"
+  },
+  "cefr_sample": {
+   "from": "cefr_sample.json",
+   "key": "values",
+   "by": "cefr_level"
+  },
+  "length_rule": {
+   "from": "../../../assets/prompts/tutor_response/reply_style.json",
+   "key": "length_rule",
+   "by": "length"
+  }
  },
  "optional_variables": [
   "length_rule"
  ],
  "setups": [
   {
-   "prompt": "v7",
+   "prompt": "app_v4",
    "vars": {
     "cefr_level": "B1",
+    "reply_level": "B1",
     "length": "normal"
    }
   },
   {
-   "prompt": "v7",
+   "prompt": "app_v4",
    "vars": {
-    "cefr_level": "C2",
+    "cefr_level": "C1",
+    "reply_level": "C2",
     "length": "normal"
-   }
-  },
-  {
-   "prompt": "v7",
-   "vars": {
-    "cefr_level": "B2",
-    "length": "short"
-   }
-  },
-  {
-   "prompt": "v7",
-   "vars": {
-    "cefr_level": "B2",
-    "length": "long"
    }
   }
  ]

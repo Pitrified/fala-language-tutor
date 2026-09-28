@@ -83,6 +83,12 @@ class OpenAiInferenceEngine implements InferenceEngine {
   @override
   bool get isReady => _status == const InferenceStatus.ready();
 
+  static List<ChatMessage> _messages(InferenceRequest request) => [
+    if (request.developerPrompt != null)
+      ChatMessage.developer(request.developerPrompt!),
+    ChatMessage.user(request.prompt),
+  ];
+
   @override
   Future<void> initialize() async {
     // No network call: key validity is verified lazily on the first
@@ -108,7 +114,7 @@ class OpenAiInferenceEngine implements InferenceEngine {
       final response = await client.chat.completions.create(
         ChatCompletionCreateRequest(
           model: model,
-          messages: [ChatMessage.user(request.prompt)],
+          messages: _messages(request),
           maxCompletionTokens: request.maxTokens,
           temperature: request.temperature,
           reasoningEffort: openAiModelOption(model)?.reasoningEffort,
@@ -154,7 +160,7 @@ class OpenAiInferenceEngine implements InferenceEngine {
       final events = client.chat.completions.createStream(
         ChatCompletionCreateRequest(
           model: model,
-          messages: [ChatMessage.user(request.prompt)],
+          messages: _messages(request),
           maxCompletionTokens: request.maxTokens,
           temperature: request.temperature,
           reasoningEffort: openAiModelOption(model)?.reasoningEffort,

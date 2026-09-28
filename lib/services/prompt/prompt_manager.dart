@@ -1,6 +1,7 @@
 import 'package:flutter/services.dart';
 
 import '../../models/app_exception.dart';
+import 'reply_style.dart';
 
 /// Manages versioned prompt templates from app assets.
 ///
@@ -10,6 +11,29 @@ class PromptManager {
   PromptManager();
 
   final Map<String, String> _cache = {};
+  ReplyStyle? _replyStyle;
+
+  /// Line in a template that separates the developer part above from the
+  /// user part below.
+  static const userSplit = '\n=== USER ===\n';
+
+  /// Splits a built prompt at [userSplit]. A prompt without the line is all
+  /// user message.
+  static ({String? developer, String user}) split(String prompt) {
+    final at = prompt.indexOf(userSplit);
+    if (at < 0) return (developer: null, user: prompt);
+    return (
+      developer: prompt.substring(0, at),
+      user: prompt.substring(at + userSplit.length),
+    );
+  }
+
+  /// The tutor reply's level guides, samples and length rules, loaded once.
+  Future<ReplyStyle> replyStyle() async => _replyStyle ??= ReplyStyle.parse(
+    await rootBundle.loadString(
+      'assets/prompts/tutor_response/reply_style.json',
+    ),
+  );
 
   /// Load a prompt template by name, using the specified version.
   ///

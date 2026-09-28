@@ -34,6 +34,7 @@ List<String> _cumulative(String full, {int step = 16}) {
 class _ScriptedEngine implements InferenceEngine {
   List<String> buffers = _cumulative(_olaJson);
   String? throwMessage;
+  InferenceRequest? lastRequest;
 
   @override
   InferenceStatus get status => const InferenceStatus.ready();
@@ -49,6 +50,7 @@ class _ScriptedEngine implements InferenceEngine {
 
   @override
   Stream<String> generateStream(InferenceRequest request) async* {
+    lastRequest = request;
     for (final buffer in buffers) {
       yield buffer;
     }
@@ -64,6 +66,7 @@ class _ScriptedEngine implements InferenceEngine {
 /// Fake PromptManager that returns a fixed string.
 class _FakePromptManager extends PromptManager {
   Map<String, String>? lastVariables;
+  String result = 'fake prompt';
 
   @override
   Future<String> buildPrompt({
@@ -72,7 +75,7 @@ class _FakePromptManager extends PromptManager {
     int? version,
   }) async {
     lastVariables = variables;
-    return 'fake prompt';
+    return result;
   }
 }
 
@@ -208,6 +211,60 @@ void main() {
       expect(promptManager.lastVariables, isNotNull);
       expect(promptManager.lastVariables!['cefr_level'], 'A2');
       expect(promptManager.lastVariables!['topic'], 'Music');
+    },
+  );
+
+  test('a C1 learner gets the C2 guide and samples', () async {
+    await controller.startConversation(cefrLevel: CefrLevel.c1);
+    await controller.sendMessage('Oi');
+    final variables = promptManager.lastVariables!;
+    expect(variables['cefr_level'], 'C1');
+    expect(variables['reply_level'], 'C2');
+    expect(variables['level_guide'], contains('native speaker'));
+    expect(variables['reply_samples'], contains('entre a cruz e a espada'));
+    expect(variables['length_rule'], isNotEmpty);
+  });
+
+  test('samples follow the language, and are empty without any', () async {
+    await controller.startConversation(
+      language: TargetLanguage.esEs,
+      cefrLevel: CefrLevel.b1,
+    );
+    await controller.sendMessage('Hola');
+    expect(promptManager.lastVariables!['reply_samples'], contains('¿'));
+
+    await controller.startConversation(
+      language: TargetLanguage.frFr,
+      cefrLevel: CefrLevel.b1,
+    );
+    await controller.sendMessage('Salut');
+    expect(promptManager.lastVariables!['reply_samples'], isEmpty);
+  });
+
+  test(
+    'the part above the user line goes out as the developer prompt',
+    () async {
+      promptManager.result = 'rules\n=== USER ===\nmessage';
+      await controller.startConversation();
+      await controller.sendMessage('Oi');
+      expect(engine.lastRequest!.developerPrompt, 'rules');
+      expect(engine.lastRequest!.prompt, 'message');
+    },
+  );
+
+  test(
+    'a correction that changes nothing is dropped from the saved reply',
+    () async {
+      const json =
+          '{"correction":{"content":"Eu vou","translation":"I go","errors":['
+          '{"original":"Eu vou","corrected":"Eu vou","explanation":"fine"}]},'
+          '"conversation":{"content":"Legal!","translation":"Cool!"}}';
+      engine.buffers = [json];
+      await controller.startConversation();
+      final reply = await controller.sendMessage('Eu vou');
+      final correction = reply!.tutorResponse!.correction;
+      expect(correction.errors, isEmpty);
+      expect(correction.content, isEmpty);
     },
   );
 

@@ -11,6 +11,7 @@ import '../inference/structured_stream_engine.dart';
 import '../logging/app_logger.dart';
 import '../persistence/conversation_repository.dart';
 import '../prompt/prompt_manager.dart';
+import 'correction_filter.dart';
 
 /// Orchestrates the conversation loop between user and tutor.
 ///
@@ -245,23 +246,32 @@ class ConversationController {
       final language =
           TargetLanguageX.fromCode(_currentConversation!.language) ??
           TargetLanguage.ptBr;
+      final cefrLevel = _currentConversation!.cefrLevel;
+      final style = await promptManager.replyStyle();
+      final replyLevel = style.replyLevel(cefrLevel);
       final prompt = await promptManager.buildPrompt(
         name: 'tutor_response',
         variables: {
           'target_language': language.promptName,
           'explanation_language': explanationLanguage,
-          'cefr_level': _currentConversation!.cefrLevel,
+          'cefr_level': cefrLevel,
+          'reply_level': replyLevel,
+          'level_guide': style.levelGuide(replyLevel),
+          'reply_samples': style.samples(language.code, replyLevel),
+          'length_rule': style.lengthRule('normal'),
           'topic': _currentConversation!.topic,
           'user_message': content,
           'conversation_history': _formatHistory(),
         },
       );
 
+      final parts = PromptManager.split(prompt);
+
       // Drive the streaming engine: forward each partial delta to the live
       // channel and remember the terminal one for persistence.
       StructuredDelta<TutorResponse>? terminal;
       await for (final delta in streamEngine.generateStream(
-        InferenceRequest(prompt: prompt),
+        InferenceRequest(prompt: parts.user, developerPrompt: parts.developer),
       )) {
         if (!_streamingReplyController.isClosed) {
           _streamingReplyController.add(delta);
@@ -269,7 +279,7 @@ class ConversationController {
         if (delta.isTerminal) terminal = delta;
       }
 
-      final (replyContent, tutorResponse) = _resolveReply(terminal);
+      final (replyContent, tutorResponse) = _resolveReply(terminal, content);
 
       final tutorMessage = ConversationMessage(
         id: DateTime.now().millisecondsSinceEpoch.toString(),
@@ -301,12 +311,13 @@ class ConversationController {
   /// broken turn. The raw text still goes to the log, where it is useful.
   (String, TutorResponse?) _resolveReply(
     StructuredDelta<TutorResponse>? terminal,
+    String userMessage,
   ) {
     if (terminal == null) {
       return ('Error generating response: no response received', null);
     }
     if (terminal.isComplete && terminal.value != null) {
-      final value = terminal.value!;
+      final value = dropNoOpCorrections(terminal.value!, userMessage);
       return (value.conversation.content, value);
     }
     final failure = terminal.failure;
