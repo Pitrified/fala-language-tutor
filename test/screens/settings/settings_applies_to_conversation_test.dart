@@ -250,4 +250,19 @@ void main() {
     await settle(tester);
     expect(speech.spokenWith.last, ('com.example.neural', 'pt-local'));
   });
+
+  testWidgets('Sherpa is offered when missing, with how to install it', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(800, 1600);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+    speech = FakeSpeechService(engineNames: ['com.google.android.tts']);
+    await pumpSettings(tester);
+    expect(find.text('How to install Sherpa'), findsNothing);
+
+    await pick(tester, 'Phone default', 'Sherpa (not installed)');
+    expect(settings.speechEngine(), 'org.woheller69.ttsengine');
+    expect(find.text('How to install Sherpa'), findsOneWidget);
+  });
 }
