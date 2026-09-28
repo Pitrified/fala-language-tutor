@@ -2,6 +2,7 @@ package com.fala.app
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.os.Build
 import android.speech.tts.TextToSpeech
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
@@ -10,11 +11,20 @@ import io.flutter.plugin.common.MethodChannel
 class MainActivity : FlutterActivity() {
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
-        // What flutter_tts does not cover: sending the user to install a voice.
+        // What flutter_tts does not cover: sending the user to install a voice,
+        // and the phone's make and Android version for the diagnostics page.
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "fala/speech")
             .setMethodCallHandler { call, result ->
                 when (call.method) {
                     "openVoiceInstall" -> result.success(openVoiceInstall())
+                    "deviceInfo" -> result.success(
+                        mapOf(
+                            "maker" to Build.MANUFACTURER,
+                            "model" to Build.MODEL,
+                            "release" to Build.VERSION.RELEASE,
+                            "sdk" to Build.VERSION.SDK_INT.toString(),
+                        ),
+                    )
                     else -> result.notImplemented()
                 }
             }

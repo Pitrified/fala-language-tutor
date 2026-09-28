@@ -74,9 +74,10 @@ App Launch
 | Screen | Purpose | Lifetime |
 |--------|---------|----------|
 | Welcome | App entry, runtime status, start session (or model setup when a key is missing) | Until navigation |
-| Settings | Index of the two settings pages, also listed in the conversation drawer | Until navigation |
-| Language | Target language and CEFR level, applied to the open conversation and to new ones; the "Read replies aloud" switch | Until navigation |
+| Settings | Index of the settings pages, also listed in the conversation drawer | Until navigation |
+| Language | Target language and CEFR level, applied to the open conversation and to new ones; the "Read replies aloud" switch, and the speech engine and a local voice per language | Until navigation |
 | Model | Engine, then the selected engine's details (OpenAI key and model) | Until navigation |
+| Diagnostics | The diagnostics log under a header on the app, phone and current choices, with Copy and Clear, for pasting back after a run on the phone | Until navigation |
 | Conversation | Main interaction: messages, input, corrections; the app bar holds the topic picker, the drawer the settings, a link to the source repository and the version | Session-scoped |
 
 ## 6. Systems
@@ -129,7 +130,8 @@ and `correction.errors` are empty/empty list.
 | Hive box | Dart model | Contents |
 |----------|------------|----------|
 | conversations | `Conversation` (list of `ConversationMessage` with `TutorResponse`) | Messages: role, content, timestamp, correction data |
-| app_settings | `AppSettingsRepository` (plain strings) | Engine kind, OpenAI model id, target language, CEFR level, recent topics, read replies aloud |
+| app_settings | `AppSettingsRepository` (plain strings) | Engine kind, OpenAI model id, target language, CEFR level, recent topics, read replies aloud, speech engine, voice per language |
+| diagnostics | `DiagnosticsLog` (plain strings) | Newest 500 lines: one per reply read aloud (trigger, language, engine, voice, length, timings, outcome) and per speech choice; no message text |
 
 ## 10. Error Handling
 

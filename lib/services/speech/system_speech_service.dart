@@ -16,12 +16,15 @@ import 'speech_service.dart';
 /// before that belongs to the previous one.
 class SystemSpeechService implements SpeechService {
   SystemSpeechService({FlutterTts? tts}) : _tts = tts ?? FlutterTts() {
-    _tts.setStartHandler(() => _started = true);
-    _tts.setCompletionHandler(_finishIfStarted);
-    _tts.setCancelHandler(_finishIfStarted);
+    _tts.setStartHandler(() {
+      _started = true;
+      _onStart?.call();
+    });
+    _tts.setCompletionHandler(() => _finishIfStarted('finished'));
+    _tts.setCancelHandler(() => _finishIfStarted('stopped'));
     _tts.setErrorHandler((message) {
       AppLogger.instance.warn('Text-to-speech error: $message');
-      _finish();
+      _finish('error $message');
     });
   }
 
@@ -29,24 +32,102 @@ class SystemSpeechService implements SpeechService {
   static const _channel = MethodChannel('fala/speech');
 
   final FlutterTts _tts;
-  Completer<void>? _current;
+  Completer<String>? _current;
   bool _started = false;
+  void Function()? _onStart;
 
-  void _finishIfStarted() {
-    if (_started) _finish();
+  /// The engine last set on the plugin; null while it is on the default.
+  String? _engine;
+
+  /// The end of the last engine switch. Switches run one after the other:
+  /// the plugin queues calls made while an engine starts and runs them outside
+  /// Flutter's error handling, so overlapping switches must not happen.
+  Future<void> _switching = Future.value();
+
+  void _finishIfStarted(String outcome) {
+    if (_started) _finish(outcome);
   }
 
-  void _finish() {
+  void _finish(String outcome) {
     final current = _current;
     _current = null;
     _started = false;
-    if (current != null && !current.isCompleted) current.complete();
+    _onStart = null;
+    if (current != null && !current.isCompleted) current.complete(outcome);
+  }
+
+  /// Point the plugin at [engine], or back at the phone's default. An engine
+  /// that is no longer installed falls back to the default.
+  Future<void> _useEngine(String? engine) {
+    final next = _switching.then((_) => _switchEngine(engine));
+    _switching = next;
+    return next;
+  }
+
+  Future<void> _switchEngine(String? engine) async {
+    var target = engine;
+    if (target != null && !(await engines()).contains(target)) {
+      AppLogger.instance.warn('Speech engine $target is gone, using default');
+      target = null;
+    }
+    if (target == _engine) return;
+    try {
+      final name = target ?? await _tts.getDefaultEngine as String?;
+      if (name != null) await _tts.setEngine(name);
+      _engine = target;
+    } on PlatformException catch (e) {
+      AppLogger.instance.warn('Could not switch speech engine to $target: $e');
+    }
   }
 
   @override
-  Future<bool> isVoiceAvailable(TargetLanguage language) async {
+  Future<List<String>> engines() async {
     try {
-      return await _tts.isLanguageInstalled(language.code) == true;
+      final raw = await _tts.getEngines as List<dynamic>?;
+      return [...?raw?.map((e) => e.toString())];
+    } on PlatformException catch (e) {
+      AppLogger.instance.warn('Could not list speech engines: $e');
+      return const [];
+    }
+  }
+
+  @override
+  Future<List<SpeechVoice>> voices(
+    TargetLanguage language, {
+    String? engine,
+  }) async {
+    await _useEngine(engine);
+    try {
+      final raw = await _tts.getVoices as List<dynamic>?;
+      final voices =
+          [
+              for (final entry in raw ?? const <dynamic>[])
+                if (entry is Map)
+                  SpeechVoice(
+                    name: '${entry['name']}',
+                    locale: '${entry['locale']}',
+                    online: '${entry['network_required']}' == '1',
+                  ),
+            ].where((v) => voiceSpeaks(v.locale, language)).toList()
+            ..sort((a, b) => a.name.compareTo(b.name));
+      return voices;
+    } on PlatformException catch (e) {
+      AppLogger.instance.warn('Could not list voices for ${language.code}: $e');
+      return const [];
+    }
+  }
+
+  @override
+  Future<bool> isVoiceAvailable(
+    TargetLanguage language, {
+    String? engine,
+  }) async {
+    await _useEngine(engine);
+    try {
+      // Not `isLanguageInstalled`: on Android it walks the engine's voices
+      // without null checks, and a third-party engine whose voice list or
+      // features are null then crashes the app from inside the plugin.
+      return await _tts.isLanguageAvailable(language.code) == true;
     } on PlatformException catch (e) {
       AppLogger.instance.warn('Voice check failed for ${language.code}: $e');
       return false;
@@ -54,20 +135,46 @@ class SystemSpeechService implements SpeechService {
   }
 
   @override
-  Future<void> speak(String text, TargetLanguage language) async {
+  Future<String> speak(
+    String text,
+    TargetLanguage language, {
+    String? engine,
+    String? voice,
+    void Function()? onStart,
+  }) async {
     await stop();
-    final current = Completer<void>();
+    final current = Completer<String>();
     _current = current;
-    await _tts.setLanguage(language.code);
+    _onStart = onStart;
+    await _useEngine(engine);
+    if (!await _setVoice(language, voice)) {
+      await _tts.setLanguage(language.code);
+    }
     // Transient focus that lets music duck rather than stop.
     final result = await _tts.speak(text, focus: true);
-    if (result != 1) _finish();
+    if (result != 1) _finish('error not started');
     return current.future;
+  }
+
+  /// Select [name] for [language]; false when there is none to select.
+  Future<bool> _setVoice(TargetLanguage language, String? name) async {
+    if (name == null) return false;
+    final match = (await voices(
+      language,
+      engine: _engine,
+    )).where((v) => v.name == name).firstOrNull;
+    if (match != null &&
+        await _tts.setVoice({'name': match.name, 'locale': match.locale}) ==
+            1) {
+      return true;
+    }
+    AppLogger.instance.warn('Voice $name is gone, using the default');
+    return false;
   }
 
   @override
   Future<void> stop() async {
-    _finish();
+    _finish('stopped');
     await _tts.stop();
   }
 

@@ -19,6 +19,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 
+import '../../helpers/speech_overrides.dart';
+
 const _reply =
     '{"correction":{"content":"","translation":"","errors":[]},'
     '"conversation":{"content":"Tudo bem!","translation":"All good!"}}';
@@ -104,6 +106,7 @@ void main() {
       ProviderScope(
         overrides: [
           speechServiceProvider.overrideWithValue(speech),
+          ...speechChoiceOverrides,
           conversationControllerProvider.overrideWithValue(controller),
           modelSetupNeededProvider.overrideWithValue(false),
           readRepliesAloudProvider.overrideWith(
@@ -159,7 +162,7 @@ void main() {
   testWidgets('with read aloud on but no voice, the reply stays silent', (
     tester,
   ) async {
-    speech.voices.remove(TargetLanguage.ptBr);
+    speech.languagesWithVoice.remove(TargetLanguage.ptBr);
     await pumpScreen(tester, readAloud: true);
     await send(tester, 'Oi');
 

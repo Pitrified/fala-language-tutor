@@ -1,17 +1,51 @@
 import '../../models/target_language.dart';
 
+/// One voice of a text-to-speech engine.
+class SpeechVoice {
+  const SpeechVoice({
+    required this.name,
+    required this.locale,
+    this.online = false,
+  });
+
+  /// The engine's name for the voice, which is what gets stored.
+  final String name;
+
+  /// BCP-47 tag of the voice, e.g. `'pt-BR'`.
+  final String locale;
+
+  /// Whether the engine sends the text over the network to speak it.
+  final bool online;
+}
+
 /// Reads text aloud in a [TargetLanguage] with the phone's text-to-speech.
 ///
 /// One utterance at a time: [speak] stops whatever is playing first.
+/// [engine] is an engine's package name and null means the phone's default;
+/// a voice of null means the engine's default voice for the language.
 abstract class SpeechService {
-  /// Whether a voice for [language] is installed and usable.
-  Future<bool> isVoiceAvailable(TargetLanguage language);
+  /// Whether a voice for [language] is installed and usable on [engine].
+  Future<bool> isVoiceAvailable(TargetLanguage language, {String? engine});
 
-  /// Stop anything playing, then read [text] in [language].
+  /// Package names of the installed text-to-speech engines.
+  Future<List<String>> engines();
+
+  /// The voices [engine] has for [language], in its region.
+  Future<List<SpeechVoice>> voices(TargetLanguage language, {String? engine});
+
+  /// Stop anything playing, then read [text] in [language] with [engine] and
+  /// [voice]. A [voice] the engine no longer has falls back to its default.
+  /// [onStart] runs when the engine reports that sound started.
   ///
-  /// The returned future completes when this utterance ends, whether it
-  /// finished, was stopped, or failed.
-  Future<void> speak(String text, TargetLanguage language);
+  /// The returned future completes when this utterance ends, with how it
+  /// ended: `finished`, `stopped`, or `error` and the engine's message.
+  Future<String> speak(
+    String text,
+    TargetLanguage language, {
+    String? engine,
+    String? voice,
+    void Function()? onStart,
+  });
 
   /// Stop the current utterance, if any.
   Future<void> stop();
@@ -19,6 +53,13 @@ abstract class SpeechService {
   /// Open the system screen for installing voice data. Returns false when no
   /// such screen could be opened.
   Future<bool> openVoiceInstall();
+}
+
+/// Whether a voice tagged [locale] speaks [language] in its region: `pt-BR`
+/// and `pt_br` do, `pt-PT` does not.
+bool voiceSpeaks(String locale, TargetLanguage language) {
+  String normal(String tag) => tag.replaceAll('_', '-').toLowerCase();
+  return normal(locale) == normal(language.code);
 }
 
 final _emoji = RegExp(

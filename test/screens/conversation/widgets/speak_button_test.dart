@@ -6,11 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../../../helpers/speech_overrides.dart';
+
 void main() {
   Future<void> pumpButton(WidgetTester tester, FakeSpeechService speech) async {
     await tester.pumpWidget(
       ProviderScope(
-        overrides: [speechServiceProvider.overrideWithValue(speech)],
+        overrides: [
+          speechServiceProvider.overrideWithValue(speech),
+          ...speechChoiceOverrides,
+        ],
         child: const MaterialApp(
           home: Scaffold(
             body: SpeakButton(

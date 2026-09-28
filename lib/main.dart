@@ -3,8 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'app.dart';
+import 'providers/diagnostics_provider.dart';
 import 'providers/service_providers.dart';
 import 'providers/settings_provider.dart';
+import 'services/diagnostics/diagnostics_log.dart';
 import 'services/inference/engine_kind.dart';
 import 'services/persistence/conversation_repository.dart';
 import 'services/settings/app_settings_repository.dart';
@@ -34,11 +36,14 @@ void main() async {
   final repo = ConversationRepository();
   await repo.initialize();
 
+  final diagnostics = await DiagnosticsLog.open();
+
   runApp(
     ProviderScope(
       overrides: [
         appSettingsRepositoryProvider.overrideWithValue(settings),
         conversationRepositoryProvider.overrideWithValue(repo),
+        diagnosticsLogProvider.overrideWithValue(diagnostics),
       ],
       child: const FalaApp(),
     ),

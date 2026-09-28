@@ -42,6 +42,14 @@ class AppSettingsRepository {
   /// `'false'`.
   static const String keyReadRepliesAloud = 'read_replies_aloud';
 
+  /// Key for the text-to-speech engine's package name; unset is the phone's
+  /// default engine.
+  static const String keySpeechEngine = 'speech_engine';
+
+  /// Prefix of the per-language voice keys, e.g. `speech_voice_pt-BR`; unset
+  /// is the engine's default voice.
+  static const String keySpeechVoicePrefix = 'speech_voice_';
+
   /// Fallback when no value is stored or the stored value is unknown.
   static const EngineKind defaultEngineKind = EngineKind.openai;
 
@@ -117,6 +125,24 @@ class AppSettingsRepository {
   Future<void> setReadRepliesAloud(bool value) async {
     await _box.put(keyReadRepliesAloud, value.toString());
   }
+
+  /// The chosen text-to-speech engine, or null for the phone's default.
+  String? speechEngine() => _box.get(keySpeechEngine);
+
+  /// Persist the text-to-speech engine; null returns to the phone's default.
+  Future<void> setSpeechEngine(String? engine) =>
+      _putOrDelete(keySpeechEngine, engine);
+
+  /// The chosen voice for [language], or null for the engine's default.
+  String? speechVoice(TargetLanguage language) =>
+      _box.get('$keySpeechVoicePrefix${language.code}');
+
+  /// Persist the voice for [language]; null returns to the engine's default.
+  Future<void> setSpeechVoice(TargetLanguage language, String? voice) =>
+      _putOrDelete('$keySpeechVoicePrefix${language.code}', voice);
+
+  Future<void> _putOrDelete(String key, String? value) =>
+      value == null ? _box.delete(key) : _box.put(key, value);
 
   /// Persist [topic] as the default topic seed for new conversations.
   Future<void> setDefaultTopic(String topic) async {

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:fala/models/cefr_level.dart';
@@ -18,6 +19,7 @@ import 'package:fala/services/persistence/conversation_repository.dart';
 import 'package:fala/services/prompt/prompt_manager.dart';
 import 'package:fala/services/settings/app_settings_repository.dart';
 import 'package:fala/services/speech/fake_speech_service.dart';
+import 'package:fala/services/speech/speech_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -197,12 +199,70 @@ void main() {
     tester.view.physicalSize = const Size(800, 1600);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
-    speech.voices.remove(TargetLanguage.ptBr);
+    speech.languagesWithVoice.remove(TargetLanguage.ptBr);
     await pumpSettings(tester);
 
     expect(find.textContaining('no Portuguese voice'), findsOneWidget);
     await tester.tap(find.text('Install voice'));
     await settle(tester);
     expect(speech.installRequests, 1);
+  });
+
+  testWidgets('the engine and a voice are picked and used to speak', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(800, 1600);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+    speech = FakeSpeechService(
+      engineNames: ['com.example.neural', 'org.woheller69.ttsengine'],
+      voiceList: const [
+        SpeechVoice(name: 'pt-local', locale: 'pt-BR'),
+        SpeechVoice(name: 'pt-pt-local', locale: 'pt-PT'),
+        SpeechVoice(name: 'pt-cloud', locale: 'pt-BR', online: true),
+        SpeechVoice(name: 'es-local', locale: 'es-ES'),
+      ],
+    );
+    await pumpSettings(tester);
+
+    await tester.tap(find.text('Phone default'));
+    await settle(tester);
+    expect(find.text('Sherpa'), findsWidgets);
+    await tapReal(tester, find.text('com.example.neural').last);
+    expect(settings.speechEngine(), 'com.example.neural');
+
+    await tester.tap(find.text('Engine default'));
+    await settle(tester);
+    expect(find.text('pt-cloud'), findsNothing);
+    expect(find.text('pt-pt-local'), findsNothing);
+    expect(find.text('es-local'), findsNothing);
+    await tapReal(tester, find.text('pt-local').last);
+    expect(settings.speechVoice(TargetLanguage.ptBr), 'pt-local');
+
+    final container = ProviderScope.containerOf(
+      tester.element(find.byType(LanguageSettingsScreen)),
+    );
+    unawaited(
+      container
+          .read(speechProvider.notifier)
+          .play(messageId: 'm1', text: 'Oi', language: TargetLanguage.ptBr),
+    );
+    await settle(tester);
+    expect(speech.spokenWith.last, ('com.example.neural', 'pt-local'));
+  });
+
+  testWidgets('Sherpa is offered when missing, with how to install it', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(800, 1600);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+    speech = FakeSpeechService(engineNames: ['com.google.android.tts']);
+    await pumpSettings(tester);
+    expect(find.text('How to install Sherpa'), findsNothing);
+
+    await pick(tester, 'Phone default', 'Sherpa (not installed)');
+    expect(settings.speechEngine(), 'org.woheller69.ttsengine');
+    expect(find.text('How to install Sherpa'), findsOneWidget);
   });
 }

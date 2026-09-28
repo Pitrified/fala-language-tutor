@@ -80,6 +80,22 @@ void main() {
     expect(repo.readRepliesAloud(), isFalse);
   });
 
+  test('speech engine and voices default to unset and round-trip', () async {
+    expect(repo.speechEngine(), isNull);
+    expect(repo.speechVoice(TargetLanguage.ptBr), isNull);
+
+    await repo.setSpeechEngine('com.example.tts');
+    await repo.setSpeechVoice(TargetLanguage.ptBr, 'pt-voice');
+    expect(repo.speechEngine(), 'com.example.tts');
+    expect(repo.speechVoice(TargetLanguage.ptBr), 'pt-voice');
+    expect(repo.speechVoice(TargetLanguage.esEs), isNull);
+
+    await repo.setSpeechEngine(null);
+    await repo.setSpeechVoice(TargetLanguage.ptBr, null);
+    expect(repo.speechEngine(), isNull);
+    expect(repo.speechVoice(TargetLanguage.ptBr), isNull);
+  });
+
   test('defaultTopic defaults to empty and round-trips', () async {
     expect(repo.defaultTopicValue(), '');
     await repo.setDefaultTopic('Daily routine');

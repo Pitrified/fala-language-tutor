@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../../build_info.dart';
 
 import '../../models/cefr_level.dart';
 import '../../models/target_language.dart';
 import '../../providers/conversation_provider.dart';
 import '../../providers/settings_provider.dart';
 import '../../providers/speech_provider.dart';
+import '../../services/speech/speech_service.dart';
 import '../conversation/widgets/speak_button.dart';
 import 'widgets/language_switch.dart';
 
@@ -175,7 +179,11 @@ class _SpeechSectionState extends ConsumerState<_SpeechSection>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      ref.invalidate(voiceAvailableProvider);
+      // An engine or voice may have been installed in Android settings.
+      ref
+        ..invalidate(voiceAvailableProvider)
+        ..invalidate(speechEnginesProvider)
+        ..invalidate(speechVoicesProvider);
     }
   }
 
@@ -194,6 +202,11 @@ class _SpeechSectionState extends ConsumerState<_SpeechSection>
           onChanged: (value) =>
               ref.read(readRepliesAloudProvider.notifier).set(value),
         ),
+        const SizedBox(height: 8),
+        const _EngineDropdown(),
+        const SizedBox(height: 16),
+        _VoiceDropdown(language),
+        const SizedBox(height: 8),
         if (available.hasValue && !available.requireValue) ...[
           Text(
             'This phone has no ${language.displayName} voice yet, so replies '
@@ -212,3 +225,117 @@ class _SpeechSectionState extends ConsumerState<_SpeechSection>
     );
   }
 }
+
+/// The text-to-speech engine, from those installed, or the phone's default.
+class _EngineDropdown extends ConsumerWidget {
+  const _EngineDropdown();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final installed = ref.watch(speechEnginesProvider).value;
+    final engines = [
+      ...?installed,
+      if (!(installed ?? const []).contains(sherpaEngine)) sherpaEngine,
+    ];
+    final chosen = ref.watch(speechEngineProvider);
+    final current = engines.contains(chosen) ? chosen : null;
+    final sherpaMissing =
+        installed != null && !installed.contains(sherpaEngine);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        DropdownButtonFormField<String?>(
+          key: ValueKey('engine/$current/${engines.length}'),
+          initialValue: current,
+          isExpanded: true,
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: 'Engine',
+          ),
+          items: [
+            const DropdownMenuItem<String?>(child: Text('Phone default')),
+            for (final engine in engines)
+              DropdownMenuItem<String?>(
+                value: engine,
+                child: Text(
+                  engine == sherpaEngine && sherpaMissing
+                      ? '${engineLabel(engine)} (not installed)'
+                      : engineLabel(engine),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+          ],
+          onChanged: (engine) async {
+            await ref.read(speechProvider.notifier).stop();
+            await ref.read(speechEngineProvider.notifier).set(engine);
+          },
+        ),
+        if (current == sherpaEngine && sherpaMissing) ...[
+          const SizedBox(height: 8),
+          Text(
+            'Sherpa is a free voice app that runs on the phone. Install '
+            'SherpaTTS and download a voice in it; until then the phone '
+            'default reads the replies.',
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+          TextButton(
+            onPressed: () => launchUrl(
+              Uri.parse(sherpaGuideUrl),
+              mode: LaunchMode.externalApplication,
+            ),
+            child: const Text('How to install Sherpa'),
+          ),
+        ],
+      ],
+    );
+  }
+}
+
+/// The voice for [language] on the chosen engine, or the engine's default.
+class _VoiceDropdown extends ConsumerWidget {
+  const _VoiceDropdown(this.language);
+
+  final TargetLanguage language;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final voices =
+        ref.watch(speechVoicesProvider(language)).value ??
+        const <SpeechVoice>[];
+    final chosen = ref.watch(speechVoiceProvider)[language];
+    final current = voices.any((v) => v.name == chosen) ? chosen : null;
+    return DropdownButtonFormField<String?>(
+      key: ValueKey('voice/${language.code}/$current/${voices.length}'),
+      initialValue: current,
+      isExpanded: true,
+      decoration: const InputDecoration(
+        border: OutlineInputBorder(),
+        labelText: 'Voice',
+      ),
+      items: [
+        const DropdownMenuItem<String?>(child: Text('Engine default')),
+        for (final voice in voices)
+          DropdownMenuItem<String?>(
+            value: voice.name,
+            child: Text(voice.name, overflow: TextOverflow.ellipsis),
+          ),
+      ],
+      onChanged: (voice) async {
+        await ref.read(speechProvider.notifier).stop();
+        await ref.read(speechVoiceProvider.notifier).set(language, voice);
+      },
+    );
+  }
+}
+
+/// A short name for the engines people are likely to have, the package name
+/// for any other.
+String engineLabel(String engine) => switch (engine) {
+  'com.google.android.tts' => 'Google',
+  sherpaEngine => 'Sherpa',
+  _ => engine,
+};
+
+/// SherpaTTS's package name. Listed even when not installed, so the learner
+/// can find out about it.
+const String sherpaEngine = 'org.woheller69.ttsengine';
