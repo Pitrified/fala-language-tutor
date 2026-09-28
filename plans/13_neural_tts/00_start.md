@@ -53,6 +53,29 @@ Nothing has been listened to or timed: every quality and speed statement is the 
 
 espeak-ng is GPL-3.0, and sherpa-onnx builds it in for Piper and Kokoro. The fala repo has no LICENSE file. Whether shipping an APK with espeak-ng linked in obliges fala to publish under the GPL is a question for the owner, not something to guess here (Q3). M3 avoids the question.
 
+## Google's stack (LiteRT)
+
+Added on 2026-09-28 after "Litert or the other Google things for a custom model. How to integrate them in flutter?" (user).
+
+What Google offers for speech output on the device, read from the upstream pages that day:
+
+- **No text-to-speech in the higher-level Google tools.** MediaPipe has no text-to-speech task. Gemma 3n and Gemma 4 take audio in and give text out, with no speech output. LiteRT-LM, which `flutter_gemma` wraps, runs language models only.
+- **LiteRT itself** (formerly TensorFlow Lite) runs any converted model, with GPU and NPU acceleration through its CompiledModel API. That is the Google path for a custom voice.
+- **Google's `litert-samples`** has two Android (Kotlin) text-to-speech samples:
+  - Matcha-TTS with a HiFi-GAN vocoder. It is English only, with one LJSpeech voice. Its phonemizer is a dictionary plus a small neural model, with no espeak-ng. Upstream reports a real-time factor of about 0.8 on a Pixel 8a. The code is MIT, and the phonemizer is BSD and MIT.
+  - KittenTTS nano, 15M parameters and 32 MB, which streams sentence by sentence. Its languages are not stated; KittenTTS is English as far as its upstream says.
+- **`litert-community/Kokoro-82M`** is a LiteRT conversion of Kokoro. Its pipeline pairs it with an English-only neural phonemizer (DeepPhonemizer `en_us`). The model card reports a real-time factor of about 1.8 on a Pixel 8a (fp32, CPU, 4 threads), which is slower than real time, and names quantization as the way to real time. The Kokoro voices exist for pt-BR, es, fr and it, but the LiteRT pipeline has no phonemizer for them. Adding one means either espeak-ng (GPL-3.0, the same Q3) or a Portuguese neural phonemizer that has not been looked for yet.
+- **Converting a model ourselves.** Google's PyTorch-to-LiteRT converter (AI Edge Torch) could in principle convert Piper's VITS models or others. That is model engineering (dynamic shapes, unsupported ops, checking the output by ear), not integration.
+
+So LiteRT today gives an accelerated runtime and English samples. For our five languages it leaves the same gap as sherpa-onnx, namely the phonemizer, and it runs fewer ready models.
+
+Flutter integration, if LiteRT were chosen:
+
+- **L1. `flutter_litert` in Dart.** A community package (Apache-2.0, verified publisher, forked from the unmaintained `tflite_flutter`, 3.9.2 at the time of writing) that bundles the LiteRT runtime and exposes both the interpreter and the CompiledModel API, including the GPU delegate. The phonemizer, tokenizer, sentence split and audio assembly would all be written in Dart, and inference runs in a background isolate.
+- **L2. Kotlin, next to `MainActivity`.** Add Google's LiteRT Maven artifact to the Android build and port the Kotlin pipeline from `litert-samples` almost as is. The Dart side stays a thin `NeuralSpeechService` over the existing `fala/speech` method channel: speak, stop, a "done" event. Audio plays through `AudioTrack` in Kotlin with our own audio focus handling, as in P2. Google's samples are Kotlin, so this reuses the most code, and Android is the only platform fala targets.
+
+Either one is a new dependency and needs approval. L2 reuses Google's code; L1 keeps the logic in Dart, where the tests are.
+
 ## How the model reaches the phone
 
 - **D1. Bundled in the APK.** Works offline from install. Grows every download by the model size, for every language, whether the learner uses it or not.
@@ -96,8 +119,14 @@ If one wins, a throwaway Flutter build with `sherpa_onnx` measures the costs abo
   ANS: ...
 - Q5: Run the no-code listening test on the Pixel first, before any dependency or phase?
   ANS: ...
+- Q6: Runtime: sherpa-onnx (R1), or LiteRT through Kotlin (L2) or `flutter_litert` (L1)? LiteRT gives GPU acceleration and Google's samples; sherpa-onnx runs more ready multilingual models today.
+  ANS: ...
 
 ## Sources
+- LiteRT samples: https://github.com/google-ai-edge/litert-samples
+- LiteRT Kokoro: https://huggingface.co/litert-community/Kokoro-82M (model card read through search results)
+- flutter_litert: https://pub.dev/packages/flutter_litert
+- Gemma audio: https://ai.google.dev/gemma/docs/capabilities/audio
 
 - sherpa-onnx: https://github.com/k2-fsa/sherpa-onnx and https://pub.dev/packages/sherpa_onnx
 - Piper voices: https://github.com/rhasspy/piper/blob/master/VOICES.md, successor https://github.com/OHF-Voice/piper1-gpl
