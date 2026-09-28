@@ -1,5 +1,5 @@
 ---
-status: in progress
+status: done
 priority: 0
 description: |
   Read the tutor's replies aloud with Android's system text-to-speech: what is spoken, when it
