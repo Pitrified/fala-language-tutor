@@ -569,6 +569,7 @@ class _AppDrawer extends StatelessWidget {
       child: SafeArea(
         child: ListView(
           children: [
+            _header(context, 'Tutor'),
             ListTile(
               leading: const Icon(Icons.history),
               title: const Text('Conversations'),
@@ -577,13 +578,7 @@ class _AppDrawer extends StatelessWidget {
                 onOpenHistory();
               },
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-              child: Text(
-                'Settings',
-                style: Theme.of(context).textTheme.titleSmall,
-              ),
-            ),
+            _header(context, 'Settings'),
             const SettingsEntries(),
             const SourceLink(),
             const ListTile(
@@ -596,6 +591,11 @@ class _AppDrawer extends StatelessWidget {
       ),
     );
   }
+
+  Widget _header(BuildContext context, String label) => Padding(
+    padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+    child: Text(label, style: Theme.of(context).textTheme.titleSmall),
+  );
 }
 
 class _TopicAction extends ConsumerWidget {

@@ -158,6 +158,10 @@ void main() {
     await settle(tester);
     await tester.tap(find.byTooltip('Open navigation menu'));
     await settle(tester);
+    final tutor = tester.getTopLeft(find.text('Tutor')).dy;
+    final entry = tester.getTopLeft(find.text('Conversations')).dy;
+    final settingsHeader = tester.getTopLeft(find.text('Settings')).dy;
+    expect(tutor < entry && entry < settingsHeader, isTrue);
     await tester.tap(find.text('Conversations'));
     await settle(tester);
   }

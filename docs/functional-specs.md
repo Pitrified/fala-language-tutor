@@ -80,7 +80,7 @@ App Launch
 | Language | Target language and CEFR level, applied to the open conversation and to new ones; the reply length (short, normal, long); "say it better" with every reply or on request; the "Read replies aloud" switch, and the speech engine and a local voice per language | Until navigation |
 | Model | Engine, then the selected engine's details (OpenAI key and model), with a link to [openai-key.md](openai-key.md), the guide to getting a key | Until navigation |
 | Diagnostics | The diagnostics log under a header on the app, phone and current choices, with Copy and Clear, for pasting back after a run on the phone; a button that opens the first-run setup again | Until navigation |
-| Conversation | Main interaction: messages, input, corrections, "say it better" under a reply, or the sparkle beside a reply that asks for it; the app bar holds the topic picker, the drawer Conversations, the settings, a link to the source repository and the version | Session-scoped |
+| Conversation | Main interaction: messages, input, corrections, "say it better" under a reply, or the sparkle beside a reply that asks for it; the app bar holds the topic picker, the drawer Conversations under a Tutor header, then the settings, a link to the source repository and the version | Session-scoped |
 
 ## 6. Systems
 
