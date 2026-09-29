@@ -12,7 +12,7 @@ status: in progress
 
 - `docs/openai-key.md`: account, prepaid credit, creating the key, entering it in fala, what the key allows and how to see the spending. The OpenAI links are the ones OpenAI's own quickstart uses (`platform.openai.com/api-keys`, `platform.openai.com/account/billing/overview`); the dashboard pages themselves refuse requests from this box, so their current layout was not read.
 - `openAiKeyGuideUrl` in `build_info.dart`, next to the Sherpa guide's.
-- "How to get an OpenAI key": a button under the key field on the Model page, which is also the first setup page, and a tile under Model in the settings list (drawer and Settings index).
+- "How to get an OpenAI key": a button under the key field on the Model page, which is also the first setup page, and a tile under Model in the settings list (drawer and Settings index; the tile removed again in phase 03).
 - Docs: `functional-specs.md` (Settings and Model rows).
 
 ## Tests

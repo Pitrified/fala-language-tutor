@@ -22,18 +22,3 @@ class OpenAiKeyGuideButton extends StatelessWidget {
     );
   }
 }
-
-/// Settings list tile for the key guide, next to the Model entry.
-class OpenAiKeyGuideTile extends StatelessWidget {
-  const OpenAiKeyGuideTile({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const ListTile(
-      leading: Icon(Icons.key_outlined),
-      title: Text('How to get an OpenAI key'),
-      trailing: Icon(Icons.open_in_new, size: 18),
-      onTap: openOpenAiKeyGuide,
-    );
-  }
-}

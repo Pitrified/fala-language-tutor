@@ -86,7 +86,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Settings'), findsOneWidget);
-    expect(find.text('How to get an OpenAI key'), findsOneWidget);
+    expect(find.text('How to get an OpenAI key'), findsNothing);
     await tester.tap(find.text('Model'));
     await tester.pumpAndSettle();
     expect(find.text('model page'), findsOneWidget);
