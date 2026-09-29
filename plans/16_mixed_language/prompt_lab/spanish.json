@@ -1,0 +1,7 @@
+[
+ {"text": "¡Hola! Este fin de semana he ido a la montaña con mis amigos, pero hacía mucho frío y no he portado la chaqueta.", "expect": ["portado"]},
+ {"text": "Por la noche cenamos en un restaurante muy carino, la comida era buenísima pero el cuenta fue muy alta.", "expect": ["carino", "el cuenta"]},
+ {"text": "Mañana tengo que trabajar, pero antes quiero hacer un poco de workout en el parque.", "expect": ["workout"]},
+ {"text": "Si tendría más tiempo, aprendería a cocinar platos españoles, sobretodo la paella.", "expect": ["tendría", "sobretodo"]},
+ {"text": "Mi hermana dice que la paella de Valencia es la mejor, pero yo no la he probado ancora.", "expect": ["ancora"]}
+]

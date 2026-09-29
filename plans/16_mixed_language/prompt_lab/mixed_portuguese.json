@@ -1,0 +1,7 @@
+[
+ {"text": "Ele precisa de supervisão claro. Quer descobrir todo mundo e vai caminhar sem dúvida verso o perigolos", "expect": ["verso", "perigolos"]},
+ {"text": "Ontem ele subiu na mesa e quase caiu, ma por sorte eu estava vicino.", "expect": ["ma", "vicino"]},
+ {"text": "Minha esposa diz que eu sou muito preocupado, pero eu acho que é normal com o primeiro filho.", "expect": ["pero"]},
+ {"text": "Na semana que vem vamos levar ele no parque para jogar com a ball, se o tempo é bom.", "expect": ["ball", "é bom"]},
+ {"text": "Ele já sabe dizer algumas palavras, como mamãe, papai e acqua.", "expect": ["acqua"]}
+]

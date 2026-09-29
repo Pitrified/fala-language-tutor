@@ -1,0 +1,2773 @@
+[
+ {
+  "model": "gpt-5.4-nano",
+  "setup": {
+   "prompt": "app_v5",
+   "conversation": "mixed_portuguese.json",
+   "vars": {
+    "cefr_level": "B1",
+    "reply_level": "B1"
+   }
+  },
+  "turns": [
+   {
+    "user": "Ele precisa de supervisão claro. Quer descobrir todo mundo e vai caminhar sem dúvida verso o perigolos",
+    "expect": [
+     "verso",
+     "perigolos"
+    ],
+    "ttft": 1.5342669486999512,
+    "reply_start": 2.5011329650878906,
+    "total": 3.1707255840301514,
+    "usage": {
+     "prompt_tokens": 795,
+     "completion_tokens": 272,
+     "total_tokens": 1067,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Ele precisa de supervisão, claro. Ele quer descobrir todo mundo e vai caminhar, sem dúvida, para o perigo.",
+      "translation": "He needs supervision, of course. He wants to meet everyone and will walk, without a doubt, toward danger.",
+      "errors": [
+       {
+        "original": "supervisão claro",
+        "corrected": "supervisão, claro",
+        "explanation": "Use vírgula para separar “claro” como expressão de ênfase."
+       },
+       {
+        "original": "todo mundo",
+        "corrected": "todo mundo",
+        "explanation": "(sem erro)"
+       },
+       {
+        "original": "perigolos",
+        "corrected": "perigo",
+        "explanation": "A palavra está com erro de ortografia: o correto é “perigo”."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Entendi. Essa frase ficou bem preocupante, porque “perigo” aparece no final. Você quer dizer que ele vai para um lugar perigoso ou que ele vai causar perigo? Eu acho importante colocar mais contexto para ficar claro.",
+      "translation": "I understood. This sentence sounds quite worrying, because “danger” appears at the end. Do you mean he will go to a dangerous place or that he will cause danger? I think it’s important to add more context so it’s clear."
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Ontem ele subiu na mesa e quase caiu, ma por sorte eu estava vicino.",
+    "expect": [
+     "ma",
+     "vicino"
+    ],
+    "ttft": 0.643402099609375,
+    "reply_start": 1.3195428848266602,
+    "total": 1.786949872970581,
+    "usage": {
+     "prompt_tokens": 860,
+     "completion_tokens": 193,
+     "total_tokens": 1053,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Ontem ele subiu na mesa e quase caiu, mas por sorte eu estava perto.",
+      "translation": "Yesterday he climbed onto the table and almost fell, but luckily I was nearby.",
+      "errors": [
+       {
+        "original": "ma",
+        "corrected": "mas",
+        "explanation": "Use “mas” (not “ma”) for the contrast meaning “but”."
+       },
+       {
+        "original": "perto",
+        "corrected": "perto",
+        "explanation": "No correction needed here; keep “perto” as the natural word for nearby."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Nossa, que susto! Fico feliz que você estava perto para ajudar. Você acha que ele fez isso por curiosidade ou por brincadeira?",
+      "translation": "Oh wow, what a scare! I’m glad you were nearby to help. Do you think he did that out of curiosity or as a joke?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Minha esposa diz que eu sou muito preocupado, pero eu acho que é normal com o primeiro filho.",
+    "expect": [
+     "pero"
+    ],
+    "ttft": 0.5959692001342773,
+    "reply_start": 1.2600343227386475,
+    "total": 2.0101613998413086,
+    "usage": {
+     "prompt_tokens": 916,
+     "completion_tokens": 221,
+     "total_tokens": 1137,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Minha esposa diz que eu sou muito preocupado, mas eu acho que é normal com o primeiro filho.",
+      "translation": "My wife says I’m very worried, but I think it’s normal with a first child.",
+      "errors": [
+       {
+        "original": "pero",
+        "corrected": "mas",
+        "explanation": "Em português, use “mas” em vez de “pero” (que é espanhol)."
+       },
+       {
+        "original": "preocupado",
+        "corrected": "preocupado",
+        "explanation": "A palavra está correta; sem erro aqui."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Eu entendo você. Com o primeiro filho, a gente fica mesmo mais atento. Eu também fico preocupado quando algo pode dar errado, mas tento respirar fundo. Você está mais preocupado com a saúde ou com a segurança?",
+      "translation": "I understand you. With a first child, we really become more attentive. I also get worried when something can go wrong, but I try to breathe and calm down. Are you more worried about health or about safety?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Na semana que vem vamos levar ele no parque para jogar com a ball, se o tempo é bom.",
+    "expect": [
+     "ball",
+     "é bom"
+    ],
+    "ttft": 0.5996665954589844,
+    "reply_start": 1.4767193794250488,
+    "total": 2.0386242866516113,
+    "usage": {
+     "prompt_tokens": 986,
+     "completion_tokens": 257,
+     "total_tokens": 1243,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Na semana que vem, vamos levar ele ao parque para jogar com a bola, se o tempo estiver bom.",
+      "translation": "Next week, we’ll take him to the park to play with the ball, if the weather is good.",
+      "errors": [
+       {
+        "original": "no parque",
+        "corrected": "ao parque",
+        "explanation": "In Brazilian Portuguese, we usually use “ir/ levar + ao” with places."
+       },
+       {
+        "original": "a ball",
+        "corrected": "a bola",
+        "explanation": "“Ball” is English; in Portuguese, you should say “bola”."
+       },
+       {
+        "original": "se o tempo é bom",
+        "corrected": "se o tempo estiver bom",
+        "explanation": "After “se”, use the subjunctive: “se o tempo estiver bom”."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Que legal! Levar ele ao parque costuma fazer bem. Eu gosto quando o tempo está agradável, porque dá para relaxar também. Vocês vão de manhã ou à tarde?",
+      "translation": "How nice! Taking him to the park usually does good. I like it when the weather is pleasant, because you can relax too. Will you go in the morning or in the afternoon?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Ele já sabe dizer algumas palavras, como mamãe, papai e acqua.",
+    "expect": [
+     "acqua"
+    ],
+    "ttft": 0.6141684055328369,
+    "reply_start": 0.7135782241821289,
+    "total": 1.5308430194854736,
+    "usage": {
+     "prompt_tokens": 1037,
+     "completion_tokens": 159,
+     "total_tokens": 1196,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "",
+      "translation": "",
+      "errors": []
+     },
+     "conversation": {
+      "content": "Que fofo! Quando ele fala “mamãe” e “papai”, dá uma alegria enorme. “Água” é a forma certa em português, mas entendo que ele ainda pode falar “acqua”. Você quer ensinar mais palavras, ou prefere deixar ele aprender no dia a dia?",
+      "translation": "How cute! When he says “mom” and “dad,” it brings a huge joy. “Water” is the correct way to say it in Portuguese, but I understand he may still say “acqua.” Do you want to teach more words, or do you prefer to let him learn day by day?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   }
+  ],
+  "judged": "B1",
+  "metrics": {
+   "words_per_reply": 32.8,
+   "words_per_sentence": 8.6,
+   "errors": 10,
+   "quoted_words_mean": 1.8,
+   "quoted_words_max": 5,
+   "invented": 1,
+   "expected": 8,
+   "caught": 5,
+   "noop": 3,
+   "ttft_s": 0.8,
+   "reply_start_s": 1.45,
+   "total_s": 2.11,
+   "tokens_in": 4594,
+   "tokens_out": 1102
+  }
+ },
+ {
+  "model": "gpt-6-luna",
+  "setup": {
+   "prompt": "app_v5",
+   "conversation": "mixed_portuguese.json",
+   "vars": {
+    "cefr_level": "B1",
+    "reply_level": "B1"
+   }
+  },
+  "turns": [
+   {
+    "user": "Ele precisa de supervisão claro. Quer descobrir todo mundo e vai caminhar sem dúvida verso o perigolos",
+    "expect": [
+     "verso",
+     "perigolos"
+    ],
+    "ttft": 1.6676239967346191,
+    "reply_start": 3.0959789752960205,
+    "total": 3.9383718967437744,
+    "usage": {
+     "prompt_tokens": 795,
+     "completion_tokens": 261,
+     "total_tokens": 1056,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Ele precisa de supervisão, claro. Quer descobrir tudo e vai caminhar sem dúvida em direção ao perigo.",
+      "translation": "He clearly needs supervision. He wants to discover everything and will undoubtedly walk toward danger.",
+      "errors": [
+       {
+        "original": "supervisão claro",
+        "corrected": "supervisão, claro",
+        "explanation": "Use commas to set off “claro” when it means “obviously.”"
+       },
+       {
+        "original": "todo mundo",
+        "corrected": "tudo",
+        "explanation": "Use “tudo” for things; “todo mundo” refers to people."
+       },
+       {
+        "original": "verso o perigolos",
+        "corrected": "em direção ao perigo",
+        "explanation": "“Em direção ao perigo” is the natural expression, and “perigo” is spelled without an extra ending."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Parece que ele é muito curioso e não percebe os riscos. Eu também já segui uma trilha sem prestar atenção e me perdi por alguns minutos. O que ele quer descobrir?",
+      "translation": "It seems he is very curious and doesn’t notice the risks. I once followed a trail without paying attention and got lost for a few minutes, too. What does he want to discover?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Ontem ele subiu na mesa e quase caiu, ma por sorte eu estava vicino.",
+    "expect": [
+     "ma",
+     "vicino"
+    ],
+    "ttft": 1.0476629734039307,
+    "reply_start": 1.903679609298706,
+    "total": 2.430248975753784,
+    "usage": {
+     "prompt_tokens": 849,
+     "completion_tokens": 180,
+     "total_tokens": 1029,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Ontem ele subiu na mesa e quase caiu, mas por sorte eu estava perto.",
+      "translation": "Yesterday he climbed onto the table and almost fell, but luckily I was nearby.",
+      "errors": [
+       {
+        "original": "ma",
+        "corrected": "mas",
+        "explanation": "Use “mas” to mean “but”; “ma” is not the Portuguese spelling."
+       },
+       {
+        "original": "vicino",
+        "corrected": "perto",
+        "explanation": "“Perto” is the usual Portuguese word for “nearby”; “vicino” is Italian."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Que susto! Ainda bem que você estava por perto. Ele costuma subir nos móveis da casa?",
+      "translation": "That must have been scary! Good thing you were nearby. Does he often climb on the furniture at home?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Minha esposa diz que eu sou muito preocupado, pero eu acho que é normal com o primeiro filho.",
+    "expect": [
+     "pero"
+    ],
+    "ttft": 0.7773241996765137,
+    "reply_start": 1.3968853950500488,
+    "total": 2.135812997817993,
+    "usage": {
+     "prompt_tokens": 895,
+     "completion_tokens": 186,
+     "total_tokens": 1081,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Minha esposa diz que eu sou muito preocupado, mas eu acho que é normal com o primeiro filho.",
+      "translation": "My wife says that I worry too much, but I think it’s normal with the first child.",
+      "errors": [
+       {
+        "original": "pero",
+        "corrected": "mas",
+        "explanation": "In Portuguese, the conjunction “mas” means “but”; “pero” is Spanish."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Entendo! Com o primeiro filho, é fácil ficar de olho em tudo. Eu também seria cuidadoso, mas tentaria deixar a criança explorar com segurança. O que mais preocupa você?",
+      "translation": "I understand! With the first child, it’s easy to keep an eye on everything. I’d be careful too, but I’d try to let the child explore safely. What worries you most?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Na semana que vem vamos levar ele no parque para jogar com a ball, se o tempo é bom.",
+    "expect": [
+     "ball",
+     "é bom"
+    ],
+    "ttft": 0.744403600692749,
+    "reply_start": 1.9984889030456543,
+    "total": 2.9761087894439697,
+    "usage": {
+     "prompt_tokens": 959,
+     "completion_tokens": 292,
+     "total_tokens": 1251,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Na semana que vem, vamos levá-lo ao parque para brincar com a bola, se o tempo estiver bom.",
+      "translation": "Next week, we’re going to take him to the park to play with the ball if the weather is good.",
+      "errors": [
+       {
+        "original": "levar ele no parque",
+        "corrected": "levá-lo ao parque",
+        "explanation": "In more formal Brazilian Portuguese, use the pronoun after the infinitive and “ao” for movement toward a place."
+       },
+       {
+        "original": "jogar com a ball",
+        "corrected": "brincar com a bola",
+        "explanation": "“Bola” is the Portuguese word, and “brincar com a bola” is the natural expression here."
+       },
+       {
+        "original": "se o tempo é bom",
+        "corrected": "se o tempo estiver bom",
+        "explanation": "Use the future subjunctive after “se” for a possible future condition."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Que bom! Um parque é ótimo para ele gastar energia, e uma bola pode render muita diversão. Espero que o tempo colabore. Vocês costumam levar brinquedos para o parque?",
+      "translation": "That’s great! A park is a wonderful place for him to burn off energy, and a ball can be lots of fun. I hope the weather cooperates. Do you usually bring toys to the park?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Ele já sabe dizer algumas palavras, como mamãe, papai e acqua.",
+    "expect": [
+     "acqua"
+    ],
+    "ttft": 0.7655644416809082,
+    "reply_start": 1.2970654964447021,
+    "total": 1.7781140804290771,
+    "usage": {
+     "prompt_tokens": 1013,
+     "completion_tokens": 153,
+     "total_tokens": 1166,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Ele já sabe dizer algumas palavras, como mamãe, papai e água.",
+      "translation": "He already knows how to say a few words, like mommy, daddy, and water.",
+      "errors": [
+       {
+        "original": "acqua",
+        "corrected": "água",
+        "explanation": "In Portuguese, the word for “water” is “água”; “acqua” is Italian."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Que gracinha! É muito especial ouvir as primeiras palavras do filho. Qual foi a primeira palavra que ele disse?",
+      "translation": "How adorable! It’s very special to hear your child’s first words. What was the first word he said?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   }
+  ],
+  "judged": "B1",
+  "metrics": {
+   "words_per_reply": 24.8,
+   "words_per_sentence": 7.3,
+   "errors": 10,
+   "quoted_words_mean": 2.4,
+   "quoted_words_max": 5,
+   "invented": 0,
+   "expected": 8,
+   "caught": 8,
+   "noop": 0,
+   "ttft_s": 1.0,
+   "reply_start_s": 1.94,
+   "total_s": 2.65,
+   "tokens_in": 4511,
+   "tokens_out": 1072
+  }
+ },
+ {
+  "model": "gpt-5.4-nano",
+  "setup": {
+   "prompt": "v6",
+   "conversation": "mixed_portuguese.json",
+   "vars": {
+    "cefr_level": "B1",
+    "reply_level": "B1"
+   }
+  },
+  "turns": [
+   {
+    "user": "Ele precisa de supervisão claro. Quer descobrir todo mundo e vai caminhar sem dúvida verso o perigolos",
+    "expect": [
+     "verso",
+     "perigolos"
+    ],
+    "ttft": 2.098184108734131,
+    "reply_start": 3.147275447845459,
+    "total": 3.705958366394043,
+    "usage": {
+     "prompt_tokens": 889,
+     "completion_tokens": 263,
+     "total_tokens": 1152,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Ele precisa de supervisão, claro. Ele quer conhecer todo mundo e vai caminhar sem dúvida em direção ao perigo.",
+      "translation": "He needs clear supervision. He wants to meet everyone and will walk without doubt toward the danger.",
+      "errors": [
+       {
+        "original": "descobrir",
+        "corrected": "conhecer",
+        "explanation": "In this context, “conhecer” means to meet/know people, not “descobrir” (to discover)."
+       },
+       {
+        "original": "sem dúvida verso",
+        "corrected": "sem dúvida em direção",
+        "explanation": "“Verso” doesn’t fit here; use “em direção” for “toward.”"
+       },
+       {
+        "original": "perigolos",
+        "corrected": "perigo",
+        "explanation": "“Perigolos” isn’t correct Portuguese; the correct word is “perigo”."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Entendi. Eu acho que “supervisão” ajuda muito em situações de risco. Você está falando de uma criança, ou de alguém que precisa de atenção no trabalho?",
+      "translation": "I understand. I think “supervisão” helps a lot in risky situations. Are you talking about a child, or someone who needs attention at work?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Ontem ele subiu na mesa e quase caiu, ma por sorte eu estava vicino.",
+    "expect": [
+     "ma",
+     "vicino"
+    ],
+    "ttft": 0.6255614757537842,
+    "reply_start": 1.3812930583953857,
+    "total": 1.8636338710784912,
+    "usage": {
+     "prompt_tokens": 942,
+     "completion_tokens": 187,
+     "total_tokens": 1129,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Ontem ele subiu na mesa e quase caiu, mas por sorte eu estava perto.",
+      "translation": "Yesterday he climbed on the table and almost fell, but luckily I was nearby.",
+      "errors": [
+       {
+        "original": "ma",
+        "corrected": "mas",
+        "explanation": "“Mas” is the correct conjunction for opposition (not “ma”)."
+       },
+       {
+        "original": "porde",
+        "corrected": "perto",
+        "explanation": "Use “perto” in Brazilian Portuguese for “nearby” in this context."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Nossa, que susto! Eu também fico atento quando vejo alguém subindo em lugar alto. Você conseguiu ajudá-lo a ficar mais seguro depois disso?",
+      "translation": "Wow, what a scare! I also stay alert when I see someone climbing somewhere high. Did you help him be safer after that?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Minha esposa diz que eu sou muito preocupado, pero eu acho que é normal com o primeiro filho.",
+    "expect": [
+     "pero"
+    ],
+    "ttft": 0.5465242862701416,
+    "reply_start": 1.0683097839355469,
+    "total": 1.6972591876983643,
+    "usage": {
+     "prompt_tokens": 998,
+     "completion_tokens": 177,
+     "total_tokens": 1175,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Minha esposa diz que eu sou muito preocupado, mas eu acho que é normal com o primeiro filho.",
+      "translation": "My wife says that I worry too much, but I think it’s normal with the first child.",
+      "errors": [
+       {
+        "original": "pero",
+        "corrected": "mas",
+        "explanation": "“pero” é espanhol; em português usamos “mas”."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Entendo você. Com o primeiro filho, a gente fica mesmo mais atento. Eu também fiquei assim quando meu sobrinho nasceu. Você costuma se preocupar mais com segurança ou com saúde?",
+      "translation": "I understand you. With the first child, we really become more attentive. I was like that too when my nephew was born. Do you usually worry more about safety or about health?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Na semana que vem vamos levar ele no parque para jogar com a ball, se o tempo é bom.",
+    "expect": [
+     "ball",
+     "é bom"
+    ],
+    "ttft": 0.5587329864501953,
+    "reply_start": 1.5254876613616943,
+    "total": 1.9339253902435303,
+    "usage": {
+     "prompt_tokens": 1061,
+     "completion_tokens": 236,
+     "total_tokens": 1297,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Na semana que vem, vamos levar ele ao parque para jogar bola, se o tempo estiver bom.",
+      "translation": "Next week we are going to take him to the park to play ball, if the weather is good.",
+      "errors": [
+       {
+        "original": "no parque",
+        "corrected": "ao parque",
+        "explanation": "With verbs like “levar”, we usually use “ao/à” (crase) in Brazilian Portuguese."
+       },
+       {
+        "original": "ball",
+        "corrected": "bola",
+        "explanation": "“ball” is English; in Portuguese you should say “bola”."
+       },
+       {
+        "original": "se o tempo é bom",
+        "corrected": "se o tempo estiver bom",
+        "explanation": "Use “estiver” (future subjunctive) after “se” in this future situation."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Que legal! Eu gosto dessa ideia de parque, porque as crianças gastam energia. Vocês vão de manhã ou à tarde?",
+      "translation": "How nice! I like that park idea, because kids burn energy. Are you going in the morning or in the afternoon?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Ele já sabe dizer algumas palavras, como mamãe, papai e acqua.",
+    "expect": [
+     "acqua"
+    ],
+    "ttft": 0.6107680797576904,
+    "reply_start": 1.1714739799499512,
+    "total": 1.7209880352020264,
+    "usage": {
+     "prompt_tokens": 1102,
+     "completion_tokens": 176,
+     "total_tokens": 1278,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Ele já sabe dizer algumas palavras, como mamãe, papai e água.",
+      "translation": "He already knows how to say a few words, like mommy, daddy, and water.",
+      "errors": [
+       {
+        "original": "acqua",
+        "corrected": "água",
+        "explanation": "“Acqua” é italiano; em português é “água”."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Que fofo! Quando ele fala “mamãe” e “papai”, vocês respondem muito? Eu acho legal repetir as palavras com calma, porque ajuda ele a aprender rápido.",
+      "translation": "How cute! When he says “mommy” and “daddy,” do you respond a lot? I think it’s great to repeat the words calmly, because it helps him learn faster."
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   }
+  ],
+  "judged": "B1",
+  "metrics": {
+   "words_per_reply": 24.8,
+   "words_per_sentence": 7.8,
+   "errors": 10,
+   "quoted_words_mean": 1.7,
+   "quoted_words_max": 5,
+   "invented": 1,
+   "expected": 8,
+   "caught": 7,
+   "noop": 0,
+   "ttft_s": 0.89,
+   "reply_start_s": 1.66,
+   "total_s": 2.18,
+   "tokens_in": 4992,
+   "tokens_out": 1039
+  }
+ },
+ {
+  "model": "gpt-6-luna",
+  "setup": {
+   "prompt": "v6",
+   "conversation": "mixed_portuguese.json",
+   "vars": {
+    "cefr_level": "B1",
+    "reply_level": "B1"
+   }
+  },
+  "turns": [
+   {
+    "user": "Ele precisa de supervisão claro. Quer descobrir todo mundo e vai caminhar sem dúvida verso o perigolos",
+    "expect": [
+     "verso",
+     "perigolos"
+    ],
+    "ttft": 1.7315831184387207,
+    "reply_start": 2.846991539001465,
+    "total": 3.3612451553344727,
+    "usage": {
+     "prompt_tokens": 889,
+     "completion_tokens": 262,
+     "total_tokens": 1151,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Ele precisa de supervisão, claro. Quer descobrir tudo sobre todo mundo e vai caminhar sem dúvida em direção ao perigo.",
+      "translation": "He needs supervision, of course. He wants to find out everything about everyone and will walk straight toward danger.",
+      "errors": [
+       {
+        "original": "supervisão claro",
+        "corrected": "supervisão, claro",
+        "explanation": "Use a comma to separate “claro” when it means “of course.”"
+       },
+       {
+        "original": "descobrir todo mundo",
+        "corrected": "descobrir tudo sobre todo mundo",
+        "explanation": "In Portuguese, “descobrir todo mundo” does not mean “find out everything about everyone.”"
+       },
+       {
+        "original": "verso o perigolos",
+        "corrected": "em direção ao perigo",
+        "explanation": "“Verso” is not the right preposition here, and “perigolos” is not a Portuguese word."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Parece que ele é muito curioso e não percebe os riscos. Eu ficaria preocupado com essa caminhada. O que ele quer descobrir?",
+      "translation": "It seems he is very curious and doesn’t notice the risks. I would be worried about that walk. What does he want to discover?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Ontem ele subiu na mesa e quase caiu, ma por sorte eu estava vicino.",
+    "expect": [
+     "ma",
+     "vicino"
+    ],
+    "ttft": 1.2403836250305176,
+    "reply_start": 1.878523588180542,
+    "total": 2.5095038414001465,
+    "usage": {
+     "prompt_tokens": 933,
+     "completion_tokens": 199,
+     "total_tokens": 1132,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Ontem ele subiu na mesa e quase caiu, mas, por sorte, eu estava perto.",
+      "translation": "Yesterday he climbed onto the table and almost fell, but luckily I was nearby.",
+      "errors": [
+       {
+        "original": "ma",
+        "corrected": "mas",
+        "explanation": "“Ma” is Italian; the Portuguese word for “but” is “mas.”"
+       },
+       {
+        "original": "vicino",
+        "corrected": "perto",
+        "explanation": "“Vicino” is Italian; in Portuguese, use “perto” to mean “nearby.”"
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Ainda bem que você estava por perto! Crianças e animais podem ser muito rápidos quando estão curiosos. Você conseguiu tirá-lo da mesa com facilidade?",
+      "translation": "Good thing you were nearby! Children and animals can be very quick when they’re curious. Were you able to get him off the table easily?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Minha esposa diz que eu sou muito preocupado, pero eu acho que é normal com o primeiro filho.",
+    "expect": [
+     "pero"
+    ],
+    "ttft": 0.9504797458648682,
+    "reply_start": 1.437499761581421,
+    "total": 2.025773286819458,
+    "usage": {
+     "prompt_tokens": 990,
+     "completion_tokens": 163,
+     "total_tokens": 1153,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Minha esposa diz que eu sou muito preocupado, mas eu acho que é normal com o primeiro filho.",
+      "translation": "My wife says that I worry too much, but I think it’s normal with the first child.",
+      "errors": [
+       {
+        "original": "pero",
+        "corrected": "mas",
+        "explanation": "“Pero” is Spanish; the Brazilian Portuguese word is “mas.”"
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Acho bem normal se preocupar, ainda mais com o primeiro filho. Eu também ficaria de olho em cada passo! Como ele se chama?",
+      "translation": "I think it’s quite normal to worry, especially with the first child. I’d also keep an eye on every step! What’s his name?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Na semana que vem vamos levar ele no parque para jogar com a ball, se o tempo é bom.",
+    "expect": [
+     "ball",
+     "é bom"
+    ],
+    "ttft": 0.8147029876708984,
+    "reply_start": 2.120276927947998,
+    "total": 2.8718981742858887,
+    "usage": {
+     "prompt_tokens": 1044,
+     "completion_tokens": 293,
+     "total_tokens": 1337,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 1041,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Na semana que vem, vamos levá-lo ao parque para brincar com a bola, se o tempo estiver bom.",
+      "translation": "Next week, we’re going to take him to the park to play with the ball, if the weather is good.",
+      "errors": [
+       {
+        "original": "levar ele no parque",
+        "corrected": "levá-lo ao parque",
+        "explanation": "In more careful Portuguese, use the pronoun after the infinitive and “ao” for movement toward a place."
+       },
+       {
+        "original": "jogar com a ball",
+        "corrected": "brincar com a bola",
+        "explanation": "“Ball” is an English word; the Brazilian Portuguese word is “bola.” “Brincar” is more natural for a child playing."
+       },
+       {
+        "original": "se o tempo é bom",
+        "corrected": "se o tempo estiver bom",
+        "explanation": "Use the future subjunctive after “se” for a possible future condition."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Que bom, um passeio no parque pode ser ótimo para ele gastar energia. Eu gosto de levar uma bola e fazer um piquenique simples. Vocês costumam ir a esse parque?",
+      "translation": "That’s nice; a trip to the park can be great for him to burn off energy. I like to bring a ball and have a simple picnic. Do you usually go to that park?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Ele já sabe dizer algumas palavras, como mamãe, papai e acqua.",
+    "expect": [
+     "acqua"
+    ],
+    "ttft": 0.9499452114105225,
+    "reply_start": 1.4604623317718506,
+    "total": 1.8268404006958008,
+    "usage": {
+     "prompt_tokens": 1097,
+     "completion_tokens": 148,
+     "total_tokens": 1245,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 1094,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Ele já sabe dizer algumas palavras, como mamãe, papai e água.",
+      "translation": "He already knows how to say a few words, like mommy, daddy, and water.",
+      "errors": [
+       {
+        "original": "acqua",
+        "corrected": "água",
+        "explanation": "“Acqua” is Italian; the Brazilian Portuguese word is “água.”"
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Que gracinha! É muito especial ouvir as primeiras palavras do filho. Qual foi a primeira palavra que ele disse?",
+      "translation": "How cute! It’s very special to hear your child’s first words. What was the first word he said?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   }
+  ],
+  "judged": "B1",
+  "metrics": {
+   "words_per_reply": 23.6,
+   "words_per_sentence": 7.9,
+   "errors": 10,
+   "quoted_words_mean": 2.5,
+   "quoted_words_max": 5,
+   "invented": 0,
+   "expected": 8,
+   "caught": 8,
+   "noop": 0,
+   "ttft_s": 1.14,
+   "reply_start_s": 1.95,
+   "total_s": 2.52,
+   "tokens_in": 4953,
+   "tokens_out": 1065
+  }
+ },
+ {
+  "model": "gpt-5.4-nano",
+  "setup": {
+   "prompt": "app_v5",
+   "conversation": "spanish.json",
+   "vars": {
+    "cefr_level": "B1",
+    "reply_level": "B1",
+    "target_language": "Spanish (Spain)",
+    "language_code": "es-ES"
+   }
+  },
+  "turns": [
+   {
+    "user": "¡Hola! Este fin de semana he ido a la montaña con mis amigos, pero hacía mucho frío y no he portado la chaqueta.",
+    "expect": [
+     "portado"
+    ],
+    "ttft": 1.4374432563781738,
+    "reply_start": 1.538675308227539,
+    "total": 2.126934289932251,
+    "usage": {
+     "prompt_tokens": 815,
+     "completion_tokens": 130,
+     "total_tokens": 945,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "",
+      "translation": "",
+      "errors": []
+     },
+     "conversation": {
+      "content": "¡Qué bien! Ir a la montaña con amigos suena genial, aunque haga frío. La próxima vez, seguro que te acuerdas de la chaqueta. ¿Qué hiciste allí: senderismo, nieve o solo estar en el pueblo?",
+      "translation": "How nice! Going to the mountains with friends sounds great, even if it’s cold. Next time, you’ll surely remember your jacket. What did you do there: hiking, snow, or just hanging out in town?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Por la noche cenamos en un restaurante muy carino, la comida era buenísima pero el cuenta fue muy alta.",
+    "expect": [
+     "carino",
+     "el cuenta"
+    ],
+    "ttft": 0.9028184413909912,
+    "reply_start": 1.7635583877563477,
+    "total": 2.403691530227661,
+    "usage": {
+     "prompt_tokens": 887,
+     "completion_tokens": 276,
+     "total_tokens": 1163,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Por la noche cenamos en un restaurante muy caro; la comida era buenísima, pero la cuenta fue muy alta.",
+      "translation": "At night we had dinner at a very expensive restaurant; the food was amazing, but the bill was very high.",
+      "errors": [
+       {
+        "original": "muy carino",
+        "corrected": "muy caro",
+        "explanation": "“Cariño” no significa “caro”; para precio alto se usa “caro”."
+       },
+       {
+        "original": "el cuenta",
+        "corrected": "la cuenta",
+        "explanation": "“Cuenta” es femenino en español: “la cuenta”."
+       },
+       {
+        "original": "pero el cuenta fue muy alta",
+        "corrected": "pero la cuenta fue muy alta",
+        "explanation": "Debes mantener el artículo correcto con el sustantivo femenino."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "¡Qué bien que la comida te gustara tanto! A mí me pasa igual: si el sitio es bueno, vuelvo aunque sea caro. ¿Recuerdas qué pedisteis: algo de carne, pescado o pasta?",
+      "translation": "How great that you liked the food so much! It happens to me too: if the place is good, I go back even if it’s expensive. Do you remember what you ordered: meat, fish, or pasta?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Mañana tengo que trabajar, pero antes quiero hacer un poco de workout en el parque.",
+    "expect": [
+     "workout"
+    ],
+    "ttft": 0.8823668956756592,
+    "reply_start": 1.0283176898956299,
+    "total": 1.8551385402679443,
+    "usage": {
+     "prompt_tokens": 951,
+     "completion_tokens": 140,
+     "total_tokens": 1091,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "",
+      "translation": "",
+      "errors": []
+     },
+     "conversation": {
+      "content": "¡Perfecto! Un poco de workout antes de trabajar te va a dar energía. Yo a veces hago estiramientos en el parque, y luego voy al trabajo con mejor humor. ¿Qué tipo de ejercicio harás: correr, pesas o ejercicios con el cuerpo?",
+      "translation": "Perfect! A bit of workout before work will give you energy. I sometimes do stretching in the park, and then I go to work in a better mood. What kind of exercise will you do: running, weights, or bodyweight exercises?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Si tendría más tiempo, aprendería a cocinar platos españoles, sobretodo la paella.",
+    "expect": [
+     "tendría",
+     "sobretodo"
+    ],
+    "ttft": 0.7308611869812012,
+    "reply_start": 1.4816663265228271,
+    "total": 1.9859623908996582,
+    "usage": {
+     "prompt_tokens": 1027,
+     "completion_tokens": 222,
+     "total_tokens": 1249,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Si tuviera más tiempo, aprendería a cocinar platos españoles, sobre todo la paella.",
+      "translation": "If I had more time, I would learn to cook Spanish dishes, especially paella.",
+      "errors": [
+       {
+        "original": "Si tendría",
+        "corrected": "Si tuviera",
+        "explanation": "En condicionales con “si” para el presente se usa el imperfecto de subjuntivo: “tuviera”."
+       },
+       {
+        "original": "sobretodo",
+        "corrected": "sobre todo",
+        "explanation": "“Sobre todo” se escribe separado y significa “especially”."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "¡Qué buena idea! La paella es de esas recetas que dan orgullo cuando sale bien. Si tuvieras tiempo, ¿la aprenderías con una receta tradicional o con algún vídeo?",
+      "translation": "Great idea! Paella is one of those recipes that makes you proud when it turns out well. If you had time, would you learn it with a traditional recipe or with a video?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Mi hermana dice que la paella de Valencia es la mejor, pero yo no la he probado ancora.",
+    "expect": [
+     "ancora"
+    ],
+    "ttft": 0.6464905738830566,
+    "reply_start": 1.19203519821167,
+    "total": 1.919257402420044,
+    "usage": {
+     "prompt_tokens": 1093,
+     "completion_tokens": 225,
+     "total_tokens": 1318,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Mi hermana dice que la paella de Valencia es la mejor, pero yo todavía no la he probado.",
+      "translation": "My sister says that Valencia paella is the best, but I still haven’t tried it.",
+      "errors": [
+       {
+        "original": "ancora",
+        "corrected": "todavía",
+        "explanation": "En español de España, usa “todavía” para decir “still/yet”."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "¡Qué bien! Si la pruebas, seguro que entiendes por qué a tu hermana le encanta. Yo la primera vez la probé en una fiesta del barrio, y me sorprendió el sabor. ¿Vas a probarla pronto o tienes que esperar a un viaje a Valencia?",
+      "translation": "Great! If you try it, you’ll probably understand why your sister loves it. The first time I tried it was at a neighborhood festival, and I was surprised by the flavor. Are you going to try it soon, or do you have to wait for a trip to Valencia?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   }
+  ],
+  "judged": "B1",
+  "metrics": {
+   "words_per_reply": 35.6,
+   "words_per_sentence": 9.9,
+   "errors": 6,
+   "quoted_words_mean": 2.3,
+   "quoted_words_max": 6,
+   "invented": 0,
+   "expected": 7,
+   "caught": 5,
+   "noop": 0,
+   "ttft_s": 0.92,
+   "reply_start_s": 1.4,
+   "total_s": 2.06,
+   "tokens_in": 4773,
+   "tokens_out": 993
+  }
+ },
+ {
+  "model": "gpt-6-luna",
+  "setup": {
+   "prompt": "app_v5",
+   "conversation": "spanish.json",
+   "vars": {
+    "cefr_level": "B1",
+    "reply_level": "B1",
+    "target_language": "Spanish (Spain)",
+    "language_code": "es-ES"
+   }
+  },
+  "turns": [
+   {
+    "user": "¡Hola! Este fin de semana he ido a la montaña con mis amigos, pero hacía mucho frío y no he portado la chaqueta.",
+    "expect": [
+     "portado"
+    ],
+    "ttft": 1.6735241413116455,
+    "reply_start": 2.4036436080932617,
+    "total": 3.3757383823394775,
+    "usage": {
+     "prompt_tokens": 815,
+     "completion_tokens": 187,
+     "total_tokens": 1002,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "¡Hola! Este fin de semana he ido a la montaña con mis amigos, pero hacía mucho frío y no he llevado la chaqueta.",
+      "translation": "Hi! This weekend I went to the mountains with my friends, but it was very cold and I didn’t bring my jacket.",
+      "errors": [
+       {
+        "original": "portado la chaqueta",
+        "corrected": "llevado la chaqueta",
+        "explanation": "In Spanish, we say “llevar” a jacket when we mean to bring or wear it."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "¡Vaya, qué frío! A mí también se me olvida la chaqueta a veces. ¿Pudiste entrar en algún sitio para calentarte?",
+      "translation": "Oh, how cold! I forget my jacket sometimes too. Were you able to go somewhere to warm up?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Por la noche cenamos en un restaurante muy carino, la comida era buenísima pero el cuenta fue muy alta.",
+    "expect": [
+     "carino",
+     "el cuenta"
+    ],
+    "ttft": 0.8129153251647949,
+    "reply_start": 1.577564001083374,
+    "total": 2.3053557872772217,
+    "usage": {
+     "prompt_tokens": 870,
+     "completion_tokens": 211,
+     "total_tokens": 1081,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Por la noche cenamos en un restaurante muy caro, la comida era buenísima, pero la cuenta fue muy alta.",
+      "translation": "At night we had dinner at a very expensive restaurant. The food was delicious, but the bill was very high.",
+      "errors": [
+       {
+        "original": "carino",
+        "corrected": "caro",
+        "explanation": "“Carino” means affectionate; “caro” means expensive."
+       },
+       {
+        "original": "el cuenta",
+        "corrected": "la cuenta",
+        "explanation": "“Cuenta” is a feminine noun, so it takes “la”."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "¡Qué pena pagar tanto, aunque la comida estuviera buenísima! A mí me pasó algo parecido en un restaurante junto al mar. ¿Qué plato pedisteis?",
+      "translation": "It’s a shame to pay so much, even if the food was delicious! Something similar happened to me at a restaurant by the sea. What dish did you order?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Mañana tengo que trabajar, pero antes quiero hacer un poco de workout en el parque.",
+    "expect": [
+     "workout"
+    ],
+    "ttft": 0.8279075622558594,
+    "reply_start": 1.4174177646636963,
+    "total": 2.0963659286499023,
+    "usage": {
+     "prompt_tokens": 922,
+     "completion_tokens": 181,
+     "total_tokens": 1103,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Mañana tengo que trabajar, pero antes quiero hacer un poco de ejercicio en el parque.",
+      "translation": "Tomorrow I have to work, but before that I want to do a bit of exercise in the park.",
+      "errors": [
+       {
+        "original": "workout",
+        "corrected": "ejercicio",
+        "explanation": "En español, lo habitual es decir «hacer ejercicio»."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "¡Buena idea! Hacer ejercicio por la mañana ayuda a empezar el día con energía. Yo prefiero salir a correr cuando hace buen tiempo. ¿Qué tipo de ejercicio vas a hacer?",
+      "translation": "Good idea! Exercising in the morning helps you start the day with energy. I prefer going for a run when the weather is nice. What kind of exercise are you going to do?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Si tendría más tiempo, aprendería a cocinar platos españoles, sobretodo la paella.",
+    "expect": [
+     "tendría",
+     "sobretodo"
+    ],
+    "ttft": 0.8993895053863525,
+    "reply_start": 1.7286107540130615,
+    "total": 2.461676836013794,
+    "usage": {
+     "prompt_tokens": 982,
+     "completion_tokens": 210,
+     "total_tokens": 1192,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Si tuviera más tiempo, aprendería a cocinar platos españoles, sobre todo la paella.",
+      "translation": "If I had more time, I would learn to cook Spanish dishes, especially paella.",
+      "errors": [
+       {
+        "original": "tendría",
+        "corrected": "tuviera",
+        "explanation": "In hypothetical sentences, use the imperfect subjunctive after «si»."
+       },
+       {
+        "original": "sobretodo",
+        "corrected": "sobre todo",
+        "explanation": "«Sobre todo» means “especially” and is written as two words."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "¡La paella es una elección estupenda! Me encanta, aunque nunca me sale tan buena como la de mi madre. ¿Qué tipo de paella te gustaría aprender a preparar?",
+      "translation": "Paella is a great choice! I love it, although mine never turns out as good as my mother’s. What kind of paella would you like to learn to make?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Mi hermana dice que la paella de Valencia es la mejor, pero yo no la he probado ancora.",
+    "expect": [
+     "ancora"
+    ],
+    "ttft": 0.8217904567718506,
+    "reply_start": 1.4313323497772217,
+    "total": 2.0541296005249023,
+    "usage": {
+     "prompt_tokens": 1047,
+     "completion_tokens": 177,
+     "total_tokens": 1224,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 1044,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Mi hermana dice que la paella de Valencia es la mejor, pero yo no la he probado todavía.",
+      "translation": "My sister says that Valencian paella is the best, but I still haven’t tried it.",
+      "errors": [
+       {
+        "original": "ancora",
+        "corrected": "todavía",
+        "explanation": "Use the Spanish word “todavía” instead of the Italian “ancora”."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "¡Pues tienes que probarla algún día! La paella valenciana tradicional lleva pollo, conejo y judías verdes. ¿Te gustaría cocinarla con tu hermana?",
+      "translation": "Well, you have to try it someday! Traditional Valencian paella has chicken, rabbit, and green beans. Would you like to cook it with your sister?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   }
+  ],
+  "judged": "B2",
+  "metrics": {
+   "words_per_reply": 24.8,
+   "words_per_sentence": 7.8,
+   "errors": 7,
+   "quoted_words_mean": 1.4,
+   "quoted_words_max": 3,
+   "invented": 0,
+   "expected": 7,
+   "caught": 7,
+   "noop": 0,
+   "ttft_s": 1.01,
+   "reply_start_s": 1.71,
+   "total_s": 2.46,
+   "tokens_in": 4636,
+   "tokens_out": 966
+  }
+ },
+ {
+  "model": "gpt-5.4-nano",
+  "setup": {
+   "prompt": "v6",
+   "conversation": "spanish.json",
+   "vars": {
+    "cefr_level": "B1",
+    "reply_level": "B1",
+    "target_language": "Spanish (Spain)",
+    "language_code": "es-ES"
+   }
+  },
+  "turns": [
+   {
+    "user": "¡Hola! Este fin de semana he ido a la montaña con mis amigos, pero hacía mucho frío y no he portado la chaqueta.",
+    "expect": [
+     "portado"
+    ],
+    "ttft": 1.607959270477295,
+    "reply_start": 1.7125632762908936,
+    "total": 2.380449056625366,
+    "usage": {
+     "prompt_tokens": 917,
+     "completion_tokens": 133,
+     "total_tokens": 1050,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "",
+      "translation": "",
+      "errors": []
+     },
+     "conversation": {
+      "content": "¡Qué bien! Ir a la montaña con amigos suena genial. Si hacía mucho frío, es normal que te arrepintieras de no llevar la chaqueta. ¿Te lo pasaste bien allí, o el frío te fastidió bastante?",
+      "translation": "How nice! Going to the mountains with friends sounds great. If it was very cold, it’s normal that you regretted not bringing a jacket. Did you have a good time there, or did the cold bother you a lot?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Por la noche cenamos en un restaurante muy carino, la comida era buenísima pero el cuenta fue muy alta.",
+    "expect": [
+     "carino",
+     "el cuenta"
+    ],
+    "ttft": 0.6074752807617188,
+    "reply_start": 1.551945447921753,
+    "total": 2.0119545459747314,
+    "usage": {
+     "prompt_tokens": 990,
+     "completion_tokens": 243,
+     "total_tokens": 1233,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Por la noche cenamos en un restaurante muy caro; la comida era buenísima, pero la cuenta fue muy alta.",
+      "translation": "At night we had dinner at a very expensive restaurant; the food was excellent, but the bill was very high.",
+      "errors": [
+       {
+        "original": "carino",
+        "corrected": "caro",
+        "explanation": "“Carino” significa cariño; aquí necesitas el adjetivo “caro” (Spain)."
+       },
+       {
+        "original": "el cuenta",
+        "corrected": "la cuenta",
+        "explanation": "“Cuenta” es femenino, así que va con “la”."
+       },
+       {
+        "original": "fue muy alta",
+        "corrected": "fue muy alta",
+        "explanation": "No hay error: solo ajusté la puntuación para que suene natural."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "¡Uf, ya te entiendo! A veces el sitio es buenísimo, pero la cuenta duele. ¿Recuerdas qué pedisteis para cenar?",
+      "translation": "Ugh, I understand you! Sometimes the place is great, but the bill hurts. Do you remember what you ordered for dinner?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Mañana tengo que trabajar, pero antes quiero hacer un poco de workout en el parque.",
+    "expect": [
+     "workout"
+    ],
+    "ttft": 0.7572605609893799,
+    "reply_start": 1.235236406326294,
+    "total": 1.8602445125579834,
+    "usage": {
+     "prompt_tokens": 1041,
+     "completion_tokens": 207,
+     "total_tokens": 1248,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Mañana tengo que trabajar, pero antes quiero hacer un poco de ejercicio en el parque.",
+      "translation": "Tomorrow I have to work, but before that I want to do a bit of exercise in the park.",
+      "errors": [
+       {
+        "original": "workout",
+        "corrected": "ejercicio",
+        "explanation": "“Workout” es un anglicismo; en español (España) es mejor decir “ejercicio”."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "¡Genial! Hacer ejercicio antes de trabajar te deja con más energía. Si quieres, puedes hacerlo suave, como caminar rápido o estirar. ¿Qué tipo de ejercicio harás: correr, pesas o algo de estiramientos?",
+      "translation": "Great! Doing exercise before work leaves you with more energy. If you want, you can do it gently, like brisk walking or stretching. What kind of exercise will you do: running, weights, or some stretching?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Si tendría más tiempo, aprendería a cocinar platos españoles, sobretodo la paella.",
+    "expect": [
+     "tendría",
+     "sobretodo"
+    ],
+    "ttft": 0.5261375904083252,
+    "reply_start": 1.2620625495910645,
+    "total": 1.7408621311187744,
+    "usage": {
+     "prompt_tokens": 1111,
+     "completion_tokens": 219,
+     "total_tokens": 1330,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Si tuviera más tiempo, aprendería a cocinar platos españoles, sobre todo la paella.",
+      "translation": "If I had more time, I would learn to cook Spanish dishes, especially paella.",
+      "errors": [
+       {
+        "original": "Si tendría",
+        "corrected": "Si tuviera",
+        "explanation": "In conditional sentences, use the imperfect subjunctive after “si” (si tuviera…)."
+       },
+       {
+        "original": "sobretodo",
+        "corrected": "sobre todo",
+        "explanation": "“Sobre todo” (two words) means “especially”; “sobretodo” is incorrect here."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "¡Qué plan tan bueno! La paella requiere paciencia, pero es muy gratificante. Si pudieras elegir, ¿la aprenderías con alguien de tu familia o en un curso?",
+      "translation": "What a great plan! Paella takes patience, but it’s very rewarding. If you could choose, would you learn it with someone from your family or in a course?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Mi hermana dice que la paella de Valencia es la mejor, pero yo no la he probado ancora.",
+    "expect": [
+     "ancora"
+    ],
+    "ttft": 0.5745518207550049,
+    "reply_start": 1.1510179042816162,
+    "total": 1.8240571022033691,
+    "usage": {
+     "prompt_tokens": 1176,
+     "completion_tokens": 216,
+     "total_tokens": 1392,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Mi hermana dice que la paella de Valencia es la mejor, pero yo todavía no la he probado.",
+      "translation": "My sister says that the best paella is Valencia paella, but I still haven’t tried it yet.",
+      "errors": [
+       {
+        "original": "ancora",
+        "corrected": "todavía",
+        "explanation": "“Ancora” es italiano; en español (España) usa “todavía” o “aún”."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "¡Qué bien! Si tu hermana dice que es la mejor, seguro que está riquísima. Yo la probé una vez en una fiesta y me encantó el sabor del arroz. ¿Cuándo crees que podrás probar una paella de Valencia?",
+      "translation": "How great! If your sister says it’s the best, it must be delicious. I tried it once at a party and I loved the rice flavor. When do you think you’ll be able to try a Valencia paella?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   }
+  ],
+  "judged": "B2",
+  "metrics": {
+   "words_per_reply": 30.0,
+   "words_per_sentence": 8.3,
+   "errors": 7,
+   "quoted_words_mean": 1.6,
+   "quoted_words_max": 3,
+   "invented": 0,
+   "expected": 7,
+   "caught": 6,
+   "noop": 1,
+   "ttft_s": 0.81,
+   "reply_start_s": 1.38,
+   "total_s": 1.96,
+   "tokens_in": 5235,
+   "tokens_out": 1018
+  }
+ },
+ {
+  "model": "gpt-6-luna",
+  "setup": {
+   "prompt": "v6",
+   "conversation": "spanish.json",
+   "vars": {
+    "cefr_level": "B1",
+    "reply_level": "B1",
+    "target_language": "Spanish (Spain)",
+    "language_code": "es-ES"
+   }
+  },
+  "turns": [
+   {
+    "user": "¡Hola! Este fin de semana he ido a la montaña con mis amigos, pero hacía mucho frío y no he portado la chaqueta.",
+    "expect": [
+     "portado"
+    ],
+    "ttft": 1.7155447006225586,
+    "reply_start": 2.4393560886383057,
+    "total": 3.121602773666382,
+    "usage": {
+     "prompt_tokens": 917,
+     "completion_tokens": 195,
+     "total_tokens": 1112,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "¡Hola! Este fin de semana he ido a la montaña con mis amigos, pero hacía mucho frío y no he llevado la chaqueta.",
+      "translation": "Hi! This weekend I went to the mountains with my friends, but it was very cold and I didn’t bring my jacket.",
+      "errors": [
+       {
+        "original": "portado",
+        "corrected": "llevado",
+        "explanation": "In Spanish, we say “llevar una chaqueta” when we mean to bring or wear a jacket."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "¡Vaya, qué frío! A mí también se me olvida la chaqueta a veces, y luego me arrepiento. ¿Pudiste entrar en algún sitio para calentarte?",
+      "translation": "Oh, how cold! I forget my jacket sometimes too, and then I regret it. Were you able to go somewhere to warm up?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Por la noche cenamos en un restaurante muy carino, la comida era buenísima pero el cuenta fue muy alta.",
+    "expect": [
+     "carino",
+     "el cuenta"
+    ],
+    "ttft": 0.7538261413574219,
+    "reply_start": 2.0052318572998047,
+    "total": 2.4856584072113037,
+    "usage": {
+     "prompt_tokens": 978,
+     "completion_tokens": 242,
+     "total_tokens": 1220,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Por la noche cenamos en un restaurante muy caro; la comida estaba buenísima, pero la cuenta fue muy alta.",
+      "translation": "At night, we had dinner at a very expensive restaurant; the food was delicious, but the bill was very high.",
+      "errors": [
+       {
+        "original": "carino",
+        "corrected": "caro",
+        "explanation": "“Carino” is Italian; in Spanish, use “caro” to mean expensive."
+       },
+       {
+        "original": "la comida era buenísima",
+        "corrected": "la comida estaba buenísima",
+        "explanation": "Use “estar” for the temporary state or quality of prepared food."
+       },
+       {
+        "original": "el cuenta",
+        "corrected": "la cuenta",
+        "explanation": "“Cuenta” is feminine, so it takes the article “la”."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "¡Qué pena que la cuenta fuera tan alta! A veces merece la pena pagar un poco más por una comida memorable. ¿Qué plato pediste?",
+      "translation": "What a shame the bill was so high! Sometimes it’s worth paying a little more for a memorable meal. What dish did you order?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Mañana tengo que trabajar, pero antes quiero hacer un poco de workout en el parque.",
+    "expect": [
+     "workout"
+    ],
+    "ttft": 0.779191255569458,
+    "reply_start": 1.3447339534759521,
+    "total": 1.8916876316070557,
+    "usage": {
+     "prompt_tokens": 1026,
+     "completion_tokens": 172,
+     "total_tokens": 1198,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Mañana tengo que trabajar, pero antes quiero hacer un poco de ejercicio en el parque.",
+      "translation": "Tomorrow I have to work, but before that I want to do a bit of exercise in the park.",
+      "errors": [
+       {
+        "original": "workout",
+        "corrected": "ejercicio",
+        "explanation": "“Workout” is an English word; in Spanish, say “ejercicio”."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "¡Buena idea! A mí me gusta hacer ejercicio al aire libre, aunque por la mañana me cuesta arrancar. ¿Qué tipo de ejercicio vas a hacer?",
+      "translation": "Good idea! I like exercising outdoors, although in the morning I find it hard to get going. What kind of exercise are you going to do?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Si tendría más tiempo, aprendería a cocinar platos españoles, sobretodo la paella.",
+    "expect": [
+     "tendría",
+     "sobretodo"
+    ],
+    "ttft": 0.7835986614227295,
+    "reply_start": 1.8677215576171875,
+    "total": 2.662933349609375,
+    "usage": {
+     "prompt_tokens": 1080,
+     "completion_tokens": 225,
+     "total_tokens": 1305,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 1077,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Si tuviera más tiempo, aprendería a cocinar platos españoles, sobre todo la paella.",
+      "translation": "If I had more time, I would learn to cook Spanish dishes, especially paella.",
+      "errors": [
+       {
+        "original": "tendría",
+        "corrected": "tuviera",
+        "explanation": "In an unreal condition, use the imperfect subjunctive after «si» and the conditional in the result."
+       },
+       {
+        "original": "sobretodo",
+        "corrected": "sobre todo",
+        "explanation": "«Sobre todo» means “especially” and is written as two words; «sobretodo» is a type of coat."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "¡La paella es un plato estupendo para aprender! Yo la preparé una vez con amigos y nos quedó bastante bien. ¿Qué tipo de paella te gustaría hacer?",
+      "translation": "Paella is a great dish to learn! I made it once with friends, and it turned out quite well. What kind of paella would you like to make?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Mi hermana dice que la paella de Valencia es la mejor, pero yo no la he probado ancora.",
+    "expect": [
+     "ancora"
+    ],
+    "ttft": 0.7750887870788574,
+    "reply_start": 1.4317424297332764,
+    "total": 1.9971003532409668,
+    "usage": {
+     "prompt_tokens": 1144,
+     "completion_tokens": 179,
+     "total_tokens": 1323,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 1141,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Mi hermana dice que la paella de Valencia es la mejor, pero yo no la he probado todavía.",
+      "translation": "My sister says that Valencian paella is the best, but I haven’t tried it yet.",
+      "errors": [
+       {
+        "original": "ancora",
+        "corrected": "todavía",
+        "explanation": "“Ancora” is Italian; in Spanish, use “todavía” to mean “yet.”"
+       }
+      ]
+     },
+     "conversation": {
+      "content": "¡Pues tienes que probarla algún día! La paella valenciana suele llevar pollo, conejo y judías verdes. ¿Te gustaría prepararla en casa?",
+      "translation": "Well, you have to try it one day! Valencian paella usually has chicken, rabbit, and green beans. Would you like to make it at home?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   }
+  ],
+  "judged": "B1",
+  "metrics": {
+   "words_per_reply": 24.2,
+   "words_per_sentence": 8.1,
+   "errors": 8,
+   "quoted_words_mean": 1.5,
+   "quoted_words_max": 4,
+   "invented": 0,
+   "expected": 7,
+   "caught": 7,
+   "noop": 0,
+   "ttft_s": 0.96,
+   "reply_start_s": 1.82,
+   "total_s": 2.43,
+   "tokens_in": 5145,
+   "tokens_out": 1013
+  }
+ },
+ {
+  "model": "gpt-5.4-nano",
+  "setup": {
+   "prompt": "v6",
+   "conversation": "spanish.json",
+   "vars": {
+    "cefr_level": "C1",
+    "reply_level": "C2",
+    "target_language": "Spanish (Spain)",
+    "language_code": "es-ES"
+   }
+  },
+  "turns": [
+   {
+    "user": "¡Hola! Este fin de semana he ido a la montaña con mis amigos, pero hacía mucho frío y no he portado la chaqueta.",
+    "expect": [
+     "portado"
+    ],
+    "ttft": 1.645704746246338,
+    "reply_start": 1.7566888332366943,
+    "total": 2.685877799987793,
+    "usage": {
+     "prompt_tokens": 898,
+     "completion_tokens": 177,
+     "total_tokens": 1075,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "",
+      "translation": "",
+      "errors": []
+     },
+     "conversation": {
+      "content": "¡Qué buena escapada! Eso pasa mucho: uno se confía en la previsión y luego el frío te da un aviso serio. La próxima vez, aunque no la uses, una chaqueta ligera plegable siempre salva la situación. ¿Qué fue lo mejor del plan: el paisaje, alguna actividad concreta o simplemente el ambiente con tus amigos?",
+      "translation": "What a great getaway! That happens a lot: you trust the forecast and then the cold gives you a serious warning. Next time, even if you don’t end up using it, a lightweight foldable jacket always saves the day. What was the best part of the plan: the scenery, a specific activity, or just the vibe with your friends?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Por la noche cenamos en un restaurante muy carino, la comida era buenísima pero el cuenta fue muy alta.",
+    "expect": [
+     "carino",
+     "el cuenta"
+    ],
+    "ttft": 0.5909788608551025,
+    "reply_start": 1.6138312816619873,
+    "total": 2.738394260406494,
+    "usage": {
+     "prompt_tokens": 991,
+     "completion_tokens": 349,
+     "total_tokens": 1340,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Por la noche cenamos en un restaurante muy caro: la comida era buenísima, pero la cuenta fue muy alta.",
+      "translation": "At night we had dinner at a very expensive restaurant; the food was great, but the bill was very high.",
+      "errors": [
+       {
+        "original": "muy carino",
+        "corrected": "muy caro",
+        "explanation": "«carino» no es la palabra española para “expensive”; aquí corresponde «caro»."
+       },
+       {
+        "original": "el cuenta",
+        "corrected": "la cuenta",
+        "explanation": "«Cuenta» es femenino en español; debe ir con «la»."
+       },
+       {
+        "original": "la comida era buenísima",
+        "corrected": "la comida era buenísima",
+        "explanation": "(Ningún error aquí; solo ajuste de puntuación para que suene más natural.)"
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Por la noche cenamos en un restaurante muy caro: la comida era buenísima, pero la cuenta fue muy alta. A mí me pasa justo al revés: me dejo llevar por el menú y luego me llevo el susto en el momento de pagar. ¿Fue una cena “de capricho” o más bien un sitio que os recomendaron y esperabais que no se disparara tanto?",
+      "translation": "At night we had dinner at a very expensive restaurant; the food was great, but the bill was very high. It happens to me almost the other way around: I get carried away by the menu and then I get the shock when it’s time to pay. Was it a “treat” dinner or a place you were recommended and expected it not to be that pricey?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Mañana tengo que trabajar, pero antes quiero hacer un poco de workout en el parque.",
+    "expect": [
+     "workout"
+    ],
+    "ttft": 0.5405690670013428,
+    "reply_start": 1.1352534294128418,
+    "total": 1.970963954925537,
+    "usage": {
+     "prompt_tokens": 1091,
+     "completion_tokens": 243,
+     "total_tokens": 1334,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Mañana tengo que trabajar, pero antes quiero hacer un poco de entrenamiento en el parque.",
+      "translation": "Tomorrow I have to work, but before that I want to do a bit of exercise in the park.",
+      "errors": [
+       {
+        "original": "workout",
+        "corrected": "entrenamiento",
+        "explanation": "Es un anglicismo; en español (España) es más natural “entrenamiento” o “ejercicio”."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "¡Buena forma de empezar el día! Si vas a entrenar en el parque, ¿qué harás: fuerza con calistenia, algo de cardio o una mezcla? Yo suelo hacer un circuito corto y, si el tiempo acompaña, remato con estiramientos para no llegar rígido al trabajo.",
+      "translation": "Good way to start the day! If you’re going to train in the park, what will you do: strength with calisthenics, some cardio, or a mix? I usually do a short circuit and, if the weather allows, finish with stretching so I don’t show up stiff at work."
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Si tendría más tiempo, aprendería a cocinar platos españoles, sobretodo la paella.",
+    "expect": [
+     "tendría",
+     "sobretodo"
+    ],
+    "ttft": 0.5241003036499023,
+    "reply_start": 1.2957024574279785,
+    "total": 1.9777381420135498,
+    "usage": {
+     "prompt_tokens": 1176,
+     "completion_tokens": 263,
+     "total_tokens": 1439,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Si tuviera más tiempo, aprendería a cocinar platos españoles, sobre todo la paella.",
+      "translation": "If I had more time, I would learn to cook Spanish dishes, especially paella.",
+      "errors": [
+       {
+        "original": "Si tendría",
+        "corrected": "Si tuviera",
+        "explanation": "Con “si” en condición irreal del presente, se usa el imperfecto de subjuntivo (“tuviera”)."
+       },
+       {
+        "original": "sobretodo",
+        "corrected": "sobre todo",
+        "explanation": "“Sobre todo” (separado) significa “especially”; “sobretodo” es otra palabra y no vale aquí."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Me gusta el matiz: suena a una intención que te ronda pero que hoy no puedes ejecutar. La paella, además, tiene su truco—¿la harías de marisco, de pollo y conejo, o te tirarías a una versión más atrevida?",
+      "translation": "I like the nuance: it sounds like an intention you keep in mind but can’t carry out right now. Paella also has its tricks—would you make it with seafood, with chicken and rabbit, or go for a more daring version?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Mi hermana dice que la paella de Valencia es la mejor, pero yo no la he probado ancora.",
+    "expect": [
+     "ancora"
+    ],
+    "ttft": 0.5409073829650879,
+    "reply_start": 1.164020299911499,
+    "total": 2.385067939758301,
+    "usage": {
+     "prompt_tokens": 1261,
+     "completion_tokens": 262,
+     "total_tokens": 1523,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Mi hermana dice que la paella de Valencia es la mejor, pero yo no la he probado todavía.",
+      "translation": "My sister says that Valencia paella is the best, but I haven’t tried it yet.",
+      "errors": [
+       {
+        "original": "ancora",
+        "corrected": "todavía",
+        "explanation": "Es un falso amigo del italiano/portugués; en español (España) se usa «todavía»."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Tiene toda la pinta de ser una de esas discusiones gastronómicas que no se resuelven con argumentos, sino con una buena cata. Yo, por ejemplo, siempre acabo defendiendo la paella de la casa… hasta que alguien me enseña una versión distinta y me deja sin palabras. ¿Crees que tu hermana se la hace ella o va a pedirla a algún sitio en concreto?",
+      "translation": "It sounds like one of those food debates that doesn’t get resolved with arguments, but with a good tasting. For example, I always end up defending my family’s paella… until someone shows me a different version and leaves me speechless. Does your sister make it herself or does she order it from a specific place?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   }
+  ],
+  "judged": "C1",
+  "metrics": {
+   "words_per_reply": 52.4,
+   "words_per_sentence": 17.5,
+   "errors": 7,
+   "quoted_words_mean": 1.9,
+   "quoted_words_max": 4,
+   "invented": 0,
+   "expected": 7,
+   "caught": 6,
+   "noop": 1,
+   "ttft_s": 0.77,
+   "reply_start_s": 1.39,
+   "total_s": 2.35,
+   "tokens_in": 5417,
+   "tokens_out": 1294
+  }
+ },
+ {
+  "model": "gpt-6-luna",
+  "setup": {
+   "prompt": "v6",
+   "conversation": "spanish.json",
+   "vars": {
+    "cefr_level": "C1",
+    "reply_level": "C2",
+    "target_language": "Spanish (Spain)",
+    "language_code": "es-ES"
+   }
+  },
+  "turns": [
+   {
+    "user": "¡Hola! Este fin de semana he ido a la montaña con mis amigos, pero hacía mucho frío y no he portado la chaqueta.",
+    "expect": [
+     "portado"
+    ],
+    "ttft": 2.429309606552124,
+    "reply_start": 3.1784255504608154,
+    "total": 4.503082036972046,
+    "usage": {
+     "prompt_tokens": 898,
+     "completion_tokens": 264,
+     "total_tokens": 1162,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "¡Hola! Este fin de semana he ido a la montaña con mis amigos, pero hacía mucho frío y no he llevado la chaqueta.",
+      "translation": "Hi! This weekend I went to the mountains with my friends, but it was very cold and I hadn’t brought my jacket.",
+      "errors": [
+       {
+        "original": "portado",
+        "corrected": "llevado",
+        "explanation": "In Spanish, *portar* does not normally mean ‘to carry’ or ‘to bring’ clothing; use *llevar*."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "¡Vaya, qué faena! El frío en la montaña se mete hasta los huesos, y más si te pilla sin chaqueta. A mí me pasó una vez en una excursión y acabé refugiándome en un bar de pueblo con un chocolate caliente. ¿Pudisteis encontrar algún sitio donde entrar en calor?",
+      "translation": "Oh, what a pain! The cold in the mountains gets right into your bones, especially if it catches you without a jacket. It happened to me once on a hike, and I ended up taking refuge in a village bar with a hot chocolate. Were you able to find somewhere to warm up?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Por la noche cenamos en un restaurante muy carino, la comida era buenísima pero el cuenta fue muy alta.",
+    "expect": [
+     "carino",
+     "el cuenta"
+    ],
+    "ttft": 0.6954774856567383,
+    "reply_start": 1.810279369354248,
+    "total": 3.0171236991882324,
+    "usage": {
+     "prompt_tokens": 990,
+     "completion_tokens": 304,
+     "total_tokens": 1294,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Por la noche cenamos en un restaurante muy bonito; la comida estaba buenísima, pero la cuenta fue muy alta.",
+      "translation": "That evening, we had dinner at a very nice restaurant; the food was delicious, but the bill was very high.",
+      "errors": [
+       {
+        "original": "carino",
+        "corrected": "bonito",
+        "explanation": "“Carino” is Italian; in Spanish, use “bonito” or “agradable” here."
+       },
+       {
+        "original": "era",
+        "corrected": "estaba",
+        "explanation": "Use “estar” for the taste or quality of food on a particular occasion."
+       },
+       {
+        "original": "el cuenta",
+        "corrected": "la cuenta",
+        "explanation": "“Cuenta” is feminine, so it takes the feminine article “la.”"
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Al menos la comida estuvo a la altura, aunque una cuenta desorbitada puede aguar hasta el mejor recuerdo. A mí me consuela pensar que, de vez en cuando, una cena memorable también incluye el momento de mirar el recibo y parpadear dos veces. ¿Qué plato pedisteis?",
+      "translation": "At least the food lived up to expectations, although an exorbitant bill can put a damper on even the best memory. I find it comforting to think that, every now and then, a memorable dinner also includes the moment of looking at the receipt and blinking twice. What dish did you order?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Mañana tengo que trabajar, pero antes quiero hacer un poco de workout en el parque.",
+    "expect": [
+     "workout"
+    ],
+    "ttft": 0.8868918418884277,
+    "reply_start": 1.4891674518585205,
+    "total": 2.8600521087646484,
+    "usage": {
+     "prompt_tokens": 1070,
+     "completion_tokens": 241,
+     "total_tokens": 1311,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 1067,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Mañana tengo que trabajar, pero antes quiero hacer un poco de ejercicio en el parque.",
+      "translation": "Tomorrow I have to work, but beforehand I want to do a bit of exercise in the park.",
+      "errors": [
+       {
+        "original": "workout",
+        "corrected": "ejercicio",
+        "explanation": "“Workout” is an English word; in Spanish, say “hacer ejercicio” or “entrenar”."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "¡Buen plan! Entrenar al aire libre despeja la cabeza, aunque mañana quizá cueste un poco arrancar si hace fresco. Yo suelo salir a caminar antes de trabajar: no es precisamente una sesión de gimnasio, pero me deja con las pilas cargadas. ¿Qué tipo de ejercicio tienes pensado hacer?",
+      "translation": "Sounds like a good plan! Exercising outdoors clears your head, although tomorrow it might be a little hard to get going if it’s chilly. I usually go for a walk before work: it’s not exactly a gym session, but it leaves me feeling energised. What kind of exercise are you planning to do?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Si tendría más tiempo, aprendería a cocinar platos españoles, sobretodo la paella.",
+    "expect": [
+     "tendría",
+     "sobretodo"
+    ],
+    "ttft": 0.8139374256134033,
+    "reply_start": 1.7285335063934326,
+    "total": 2.943793773651123,
+    "usage": {
+     "prompt_tokens": 1154,
+     "completion_tokens": 278,
+     "total_tokens": 1432,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 1151,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Si tuviera más tiempo, aprendería a cocinar platos españoles, sobre todo la paella.",
+      "translation": "If I had more time, I would learn to cook Spanish dishes, especially paella.",
+      "errors": [
+       {
+        "original": "Si tendría",
+        "corrected": "Si tuviera",
+        "explanation": "In hypothetical conditional sentences, the *si*-clause takes the imperfect subjunctive, not the conditional."
+       },
+       {
+        "original": "sobretodo",
+        "corrected": "sobre todo",
+        "explanation": "The adverbial phrase meaning “especially” is written as two words; *sobretodo* is a type of coat."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "La paella merece tiempo y mimo: el punto del arroz no perdona, y cada cual tiene una opinión tajante sobre qué ingredientes son intocables. A mí me gusta la versión más sencilla, con buen caldo y un socarrat bien hecho; ¿qué tipo de paella te gustaría aprender a preparar?",
+      "translation": "Paella deserves time and care: the rice has to be just right, and everyone has a strong opinion about which ingredients are non-negotiable. I like the simpler version, with good stock and a nicely formed socarrat; what kind of paella would you like to learn to make?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   },
+   {
+    "user": "Mi hermana dice que la paella de Valencia es la mejor, pero yo no la he probado ancora.",
+    "expect": [
+     "ancora"
+    ],
+    "ttft": 0.8885619640350342,
+    "reply_start": 1.5007109642028809,
+    "total": 2.9399044513702393,
+    "usage": {
+     "prompt_tokens": 1246,
+     "completion_tokens": 246,
+     "total_tokens": 1492,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 1243,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Mi hermana dice que la paella de Valencia es la mejor, pero yo no la he probado todavía.",
+      "translation": "My sister says that Valencian paella is the best, but I haven’t tried it yet.",
+      "errors": [
+       {
+        "original": "ancora",
+        "corrected": "todavía",
+        "explanation": "“Ancora” is Italian; the Spanish equivalent here is “todavía” or “aún”."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Pues tendrás que ponerle remedio: la paella valenciana auténtica tiene fama de llevar ingredientes muy concretos, aunque sobre eso se discute más que de fútbol. Yo la probé en Valencia y me sorprendió lo distinta que era de las versiones que suelen servir fuera; ¿qué ingredientes lleva la que prepara tu hermana?",
+      "translation": "Then you’ll have to do something about that: authentic Valencian paella is known for having very specific ingredients, though people argue about that more than they do about football. I tried it in Valencia and was surprised by how different it was from the versions usually served elsewhere; what ingredients does your sister’s version have?"
+     },
+     "better": {
+      "content": "",
+      "translation": ""
+     }
+    }
+   }
+  ],
+  "judged": "B2",
+  "metrics": {
+   "words_per_reply": 48.8,
+   "words_per_sentence": 16.3,
+   "errors": 8,
+   "quoted_words_mean": 1.2,
+   "quoted_words_max": 2,
+   "invented": 0,
+   "expected": 7,
+   "caught": 7,
+   "noop": 0,
+   "ttft_s": 1.14,
+   "reply_start_s": 1.94,
+   "total_s": 3.25,
+   "tokens_in": 5358,
+   "tokens_out": 1333
+  }
+ }
+]

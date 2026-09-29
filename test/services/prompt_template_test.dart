@@ -39,6 +39,7 @@ void main() {
       expect(prompt, contains('conversation partner and tutor'));
       expect(prompt, contains('Portuguese (Brazilian)'));
       expect(prompt, contains('its English translation'));
+      expect(prompt, contains('Words from another language mixed into'));
       expect(prompt, isNot(contains('{{')));
     },
   );
