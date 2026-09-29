@@ -8,7 +8,7 @@ Analysis and decisions in [`00_start.md`](00_start.md).
 
 | #  | Phase | Plan | Status |
 | -- | ----- | ---- | ------ |
-| 01 | Mixed-in words rule and the Spanish run | [`01_mixed_words_rule.md`](01_mixed_words_rule.md) | in progress |
+| 01 | Mixed-in words rule and the Spanish run | [`01_mixed_words_rule.md`](01_mixed_words_rule.md) | done |
 
 Status values: draft / planned / in progress / done / superseded / discarded.
 
@@ -17,3 +17,4 @@ Status values: draft / planned / in progress / done / superseded / discarded.
 Append-only. Newest at the bottom.
 
 - 2026-09-29 : folder written from the user's request; prompt lab run 1 on both conversations; v6 shipped as the app's prompt. Stays in progress until the Pixel run.
+- 2026-09-29 : Pixel run of 0.0.1+da68eecc (user): checks work. Phase 01 and the folder done, merged to main.
