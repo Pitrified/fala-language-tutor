@@ -25,10 +25,10 @@ Phases and progress in [`tracking.md`](tracking.md).
 ## Decisions
 
 - D1: the name is derived, not stored: the topic cut at 30 characters with an ellipsis, or "No topic", then the date of `createdAt` in the device's medium format (as the resume choice shows it). A stored name would go stale when the topic changes. Provisional: "for now" per the request.
-- D2: new conversations get a random v4 UUID as `id`, from a short in-house generator on `Random.secure()` rather than the `uuid` package. Existing conversations keep their timestamp ids; `id` stays an opaque string, so both kinds live side by side and nothing is migrated.
+- D2: ~~new conversations get a random v4 UUID as `id`, from a short in-house generator.~~ Reopened 2026-09-29: "UUID are not mandatory if timestamps can do all we need" (user). The millisecond timestamp id is already unique on one device, is the Hive key, and is what a join would use; there is no sync. It stays, so ids are not touched.
 - D3: the page lists only conversations with messages. The empty ones that "New conversation" leaves behind are not history; Clear all deletes them too.
 - D4: each row shows the name, the date, the message count and the language code, with an x at the end. The x deletes without a dialog. Clear all, in the app bar, asks for confirmation first, since it cannot be undone.
-- D5: tapping a row opens that conversation in the conversation screen, as "Resume conversation" does. Provisional: the request lists the page's contents, not what a tap does, and opening is the one use of a list of past conversations that needs nothing new.
+- D5: tapping a row opens that conversation in the conversation screen, as "Resume conversation" does. Confirmed: "Tapping opens" (user, 2026-09-29).
 - D6: the page is a top-level route `/conversations`, reached from a "Conversations" tile at the top of the drawer, above Settings. It is not a setting.
 - D7: deleting the open conversation, one by one or with Clear all, starts a new empty one in the default language, level and topic, so the conversation screen never shows a conversation that is no longer stored.
 

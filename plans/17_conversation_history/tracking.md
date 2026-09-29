@@ -8,7 +8,7 @@ Analysis and decisions in [`00_start.md`](00_start.md).
 
 | #  | Phase | Plan | Status |
 | -- | ----- | ---- | ------ |
-| 01 | Ids, names and deletion in the controller | [`01_controller.md`](01_controller.md) | planned |
+| 01 | Names, list and deletion in the controller | [`01_controller.md`](01_controller.md) | planned |
 | 02 | Conversations page | [`02_page.md`](02_page.md) | planned |
 
 Status values: draft / planned / in progress / done / superseded / discarded.
@@ -18,3 +18,4 @@ Status values: draft / planned / in progress / done / superseded / discarded.
 Append-only. Newest at the bottom.
 
 - 2026-09-29 : folder written from the user's request, after reading the conversation model, repository and controller.
+- 2026-09-29 : D2 reopened, timestamp ids stay (no UUID); D5 confirmed.
