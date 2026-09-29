@@ -24,13 +24,14 @@ Phases and progress in [`tracking.md`](tracking.md).
 
 ## Decisions
 
-- D1: the name is derived, not stored: the topic cut at 30 characters with an ellipsis, or "No topic", then the date of `createdAt` in the device's medium format (as the resume choice shows it). A stored name would go stale when the topic changes. Provisional: "for now" per the request.
+- D1: the name is derived, not stored: the topic cut at 30 characters with an ellipsis, or "No topic", then the date of `updatedAt` (last used) in the device's medium format (as the resume choice shows it). The list is newest first, the order `listAll` already returns. A stored name would go stale when the topic changes. Provisional: "for now" per the request. Last used rather than started: user, 2026-09-29.
 - D2: ~~new conversations get a random v4 UUID as `id`, from a short in-house generator.~~ Reopened 2026-09-29: "UUID are not mandatory if timestamps can do all we need" (user). The millisecond timestamp id is already unique on one device, is the Hive key, and is what a join would use; there is no sync. It stays, so ids are not touched.
 - D3: the page lists only conversations with messages. The empty ones that "New conversation" leaves behind are not history; Clear all deletes them too.
-- D4: each row shows the name, the date, the message count and the language code, with an x at the end. The x deletes without a dialog. Clear all, in the app bar, asks for confirmation first, since it cannot be undone.
+- D4: each row shows the name, the date, the message count and the language code, with an x at the end. The x deletes without a dialog. Clear all, in the app bar, asks for confirmation first, since it cannot be undone. Confirmed by the user, 2026-09-29.
 - D5: tapping a row opens that conversation in the conversation screen, as "Resume conversation" does. Confirmed: "Tapping opens" (user, 2026-09-29).
 - D6: the page is a top-level route `/conversations`, reached from a "Conversations" tile at the top of the drawer, above Settings. It is not a setting.
 - D7: deleting the open conversation, one by one or with Clear all, starts a new empty one in the default language, level and topic, so the conversation screen never shows a conversation that is no longer stored.
+- D8: every language is listed, each row with its language code. Opening one continues it in its own language, since a conversation's language is fixed once it has messages. User, 2026-09-29.
 
 ## Open questions
 

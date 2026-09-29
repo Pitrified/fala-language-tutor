@@ -11,7 +11,7 @@ The page itself: the list, the x on each row, Clear all, and a tap that opens a 
 ## Design
 
 - `lib/screens/history/history_screen.dart`, route `AppRoutes.history = '/conversations'`, top-level in `app.dart` and allowed by the redirect.
-- A row per conversation from `history()`: `conversationTitle` as the title; the subtitle has the date of `createdAt` (`formatMediumDate`), the message count and the language code; an `IconButton` with `Icons.close` and the tooltip "Delete conversation" at the end.
+- A row per conversation from `history()`: `conversationTitle` as the title; the subtitle has the date of `updatedAt` (`formatMediumDate`), the message count and the language code; an `IconButton` with `Icons.close` and the tooltip "Delete conversation" at the end.
 - App bar: a "Clear all" action, disabled when the list is empty, opening an `AlertDialog` ("Delete all conversations?", Cancel, Delete).
 - Empty state: "No conversations yet."
 - A tap on a row calls `loadConversation(id)` and goes to the conversation screen, stopping speech as the drawer tiles do.

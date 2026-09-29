@@ -19,3 +19,4 @@ Append-only. Newest at the bottom.
 
 - 2026-09-29 : folder written from the user's request, after reading the conversation model, repository and controller.
 - 2026-09-29 : D2 reopened, timestamp ids stay (no UUID); D5 confirmed.
+- 2026-09-29 : last-used date, x without a dialog, all languages listed (user). No open questions.
