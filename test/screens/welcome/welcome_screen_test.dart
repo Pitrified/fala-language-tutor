@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:fala/app.dart';
 import 'package:fala/providers/app_provider.dart';
 import 'package:fala/providers/settings_provider.dart';
+import 'package:fala/screens/onboarding/onboarding_screen.dart';
 import 'package:fala/screens/welcome/welcome_screen.dart';
 import 'package:fala/services/app/app_controller.dart';
 import 'package:fala/services/inference/engine_kind.dart';
@@ -51,6 +52,11 @@ void main() {
           path: AppRoutes.modelSettings,
           builder: (context, state) => const Scaffold(body: Text('model page')),
         ),
+        GoRoute(
+          path: OnboardingScreen.routeFor(OnboardingStep.model),
+          builder: (context, state) =>
+              const Scaffold(body: Text('first setup page')),
+        ),
       ],
     );
     await tester.runAsync(() async {
@@ -87,10 +93,25 @@ void main() {
     expect(find.textContaining('Model:'), findsNothing);
   });
 
-  testWidgets('OpenAI without a key offers "Setup model", to the Model page', (
+  testWidgets('a new install offers "Get started", to the first setup page', (
     tester,
   ) async {
     await tester.runAsync(() => settings.setEngineKind(EngineKind.openai));
+    await pumpWelcome(tester);
+
+    expect(find.text('Setup model'), findsNothing);
+    await tester.tap(find.text('Get started'));
+    await tester.pumpAndSettle();
+    expect(find.text('first setup page'), findsOneWidget);
+  });
+
+  testWidgets('OpenAI without a key offers "Setup model", to the Model page', (
+    tester,
+  ) async {
+    await tester.runAsync(() async {
+      await settings.setEngineKind(EngineKind.openai);
+      await settings.setOnboardingDone();
+    });
     await pumpWelcome(tester);
 
     expect(find.text('Start learning'), findsNothing);

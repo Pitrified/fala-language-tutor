@@ -40,6 +40,33 @@ final modelSetupNeededProvider = Provider<bool?>((ref) {
   return present.hasValue ? !present.requireValue : null;
 });
 
+/// Whether the first-run setup pages have been gone through.
+class OnboardingDoneNotifier extends Notifier<bool> {
+  @override
+  bool build() => ref.read(appSettingsRepositoryProvider).onboardingDone();
+
+  /// Records the setup as done.
+  Future<void> finish() async {
+    if (state) return;
+    await ref.read(appSettingsRepositoryProvider).setOnboardingDone();
+    state = true;
+  }
+}
+
+/// Provider for [OnboardingDoneNotifier].
+final onboardingDoneProvider = NotifierProvider<OnboardingDoneNotifier, bool>(
+  OnboardingDoneNotifier.new,
+);
+
+/// Whether the welcome screen leads into the first-run setup pages: they
+/// have not been gone through and the model still needs setup, which is a
+/// new install. Someone who already has a key never sees them. `null` while
+/// the key store has not answered.
+final onboardingNeededProvider = Provider<bool?>((ref) {
+  if (ref.watch(onboardingDoneProvider)) return false;
+  return ref.watch(modelSetupNeededProvider);
+});
+
 /// Reactive holder for the currently selected [EngineKind].
 ///
 /// Reads the initial value from [AppSettingsRepository] and persists every

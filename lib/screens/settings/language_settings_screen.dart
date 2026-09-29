@@ -25,57 +25,89 @@ class LanguageSettingsScreen extends ConsumerWidget {
       appBar: AppBar(title: const Text('Language')),
       body: ListView(
         padding: const EdgeInsets.all(16),
-        children: [
-          Text('Language', style: Theme.of(context).textTheme.titleMedium),
-          const SizedBox(height: 4),
-          Text(
-            'The language you are learning. The open conversation switches too: '
-            'an empty one in place, one with messages by starting a new '
-            'conversation after you confirm.',
-            style: Theme.of(context).textTheme.bodySmall,
-          ),
-          const SizedBox(height: 8),
-          const _LanguageDropdown(),
-          const SizedBox(height: 24),
-          const Divider(),
-          const SizedBox(height: 8),
-          Text('CEFR level', style: Theme.of(context).textTheme.titleMedium),
-          const SizedBox(height: 4),
-          Text(
-            'Applies to the open conversation from the next message, and to '
-            'new conversations.',
-            style: Theme.of(context).textTheme.bodySmall,
-          ),
-          const SizedBox(height: 8),
-          const _CefrDropdown(),
-          const SizedBox(height: 24),
-          const Divider(),
-          const SizedBox(height: 8),
-          Text('Reply length', style: Theme.of(context).textTheme.titleMedium),
-          const SizedBox(height: 4),
-          Text(
-            'How long the tutor\'s replies are, from the next message.',
-            style: Theme.of(context).textTheme.bodySmall,
-          ),
-          const SizedBox(height: 8),
-          const _ReplyLengthDropdown(),
-          const SizedBox(height: 24),
-          const Divider(),
-          const SizedBox(height: 8),
-          const _SayBetterSwitch(),
-          const SizedBox(height: 16),
-          const Divider(),
-          const SizedBox(height: 8),
-          Text('Speech', style: Theme.of(context).textTheme.titleMedium),
-          const SizedBox(height: 4),
-          Text(
-            'Replies are read with your phone\'s text-to-speech. The speaker '
-            'next to a reply reads it again.',
-            style: Theme.of(context).textTheme.bodySmall,
-          ),
-          const _SpeechSection(),
+        children: const [
+          LanguageLevelSettings(),
+          SizedBox(height: 24),
+          Divider(),
+          SizedBox(height: 8),
+          ReplySettings(),
         ],
       ),
+    );
+  }
+}
+
+/// The language being learned and the CEFR level, with their explanations.
+/// On the Language page and the first-run setup.
+class LanguageLevelSettings extends StatelessWidget {
+  const LanguageLevelSettings({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Language', style: Theme.of(context).textTheme.titleMedium),
+        const SizedBox(height: 4),
+        Text(
+          'The language you are learning. The open conversation switches too: '
+          'an empty one in place, one with messages by starting a new '
+          'conversation after you confirm.',
+          style: Theme.of(context).textTheme.bodySmall,
+        ),
+        const SizedBox(height: 8),
+        const _LanguageDropdown(),
+        const SizedBox(height: 24),
+        const Divider(),
+        const SizedBox(height: 8),
+        Text('CEFR level', style: Theme.of(context).textTheme.titleMedium),
+        const SizedBox(height: 4),
+        Text(
+          'Applies to the open conversation from the next message, and to '
+          'new conversations.',
+          style: Theme.of(context).textTheme.bodySmall,
+        ),
+        const SizedBox(height: 8),
+        const _CefrDropdown(),
+      ],
+    );
+  }
+}
+
+/// Reply length, "say it better" and speech. On the Language page and the
+/// first-run setup.
+class ReplySettings extends StatelessWidget {
+  const ReplySettings({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Reply length', style: Theme.of(context).textTheme.titleMedium),
+        const SizedBox(height: 4),
+        Text(
+          'How long the tutor\'s replies are, from the next message.',
+          style: Theme.of(context).textTheme.bodySmall,
+        ),
+        const SizedBox(height: 8),
+        const _ReplyLengthDropdown(),
+        const SizedBox(height: 24),
+        const Divider(),
+        const SizedBox(height: 8),
+        const _SayBetterSwitch(),
+        const SizedBox(height: 16),
+        const Divider(),
+        const SizedBox(height: 8),
+        Text('Speech', style: Theme.of(context).textTheme.titleMedium),
+        const SizedBox(height: 4),
+        Text(
+          'Replies are read with your phone\'s text-to-speech. The speaker '
+          'next to a reply reads it again.',
+          style: Theme.of(context).textTheme.bodySmall,
+        ),
+        const _SpeechSection(),
+      ],
     );
   }
 }

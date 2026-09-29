@@ -7,35 +7,49 @@ import '../../services/inference/openai_models.dart';
 
 /// Model settings: the active inference engine, then the details of that
 /// engine (the OpenAI key and model; the fake engine has none).
-class ModelSettingsScreen extends ConsumerWidget {
+class ModelSettingsScreen extends StatelessWidget {
   const ModelSettingsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Model')),
+      body: ListView(
+        padding: const EdgeInsets.all(16),
+        children: const [ModelSettingsBody()],
+      ),
+    );
+  }
+}
+
+/// The engine picker and the selected engine's settings. On the Model page
+/// and the first-run setup.
+class ModelSettingsBody extends ConsumerWidget {
+  const ModelSettingsBody({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedKind = ref.watch(selectedEngineKindProvider);
 
-    return Scaffold(
-      appBar: AppBar(title: const Text('Model')),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          Text(
-            'Inference engine',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Inference engine',
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
+        const SizedBox(height: 8),
+        _EngineDropdown(selected: selectedKind),
+        // Engine-specific settings: only OpenAI has any; fake shows nothing.
+        if (selectedKind == EngineKind.openai) ...[
+          const SizedBox(height: 24),
+          const Divider(),
           const SizedBox(height: 8),
-          _EngineDropdown(selected: selectedKind),
-          // Engine-specific settings: only OpenAI has any; fake shows nothing.
-          if (selectedKind == EngineKind.openai) ...[
-            const SizedBox(height: 24),
-            const Divider(),
-            const SizedBox(height: 8),
-            Text('OpenAI', style: Theme.of(context).textTheme.titleMedium),
-            const SizedBox(height: 8),
-            const _OpenAiSection(),
-          ],
+          Text('OpenAI', style: Theme.of(context).textTheme.titleMedium),
+          const SizedBox(height: 8),
+          const _OpenAiSection(),
         ],
-      ),
+      ],
     );
   }
 }

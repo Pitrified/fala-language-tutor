@@ -73,7 +73,8 @@ App Launch
 
 | Screen | Purpose | Lifetime |
 |--------|---------|----------|
-| Welcome | App entry, runtime status, start session (or model setup when a key is missing) | Until navigation |
+| Welcome | App entry, runtime status, start session (or model setup when a key is missing; on a new install, "Get started" into the first-run setup) | Until navigation |
+| First-run setup | Three pages in order: the Model page's settings (Next once the model is ready, or "Set it later"), language and level, then reply length, "say it better" and speech. The last two start from the defaults. Shown on a new install, one with no key stored, until Start on the last page; Start opens the conversation, or the welcome screen while the model still needs setup | Until navigation |
 | Settings | Index of the settings pages, also listed in the conversation drawer | Until navigation |
 | Language | Target language and CEFR level, applied to the open conversation and to new ones; the reply length (short, normal, long); "say it better" with every reply or on request; the "Read replies aloud" switch, and the speech engine and a local voice per language | Until navigation |
 | Model | Engine, then the selected engine's details (OpenAI key and model) | Until navigation |
@@ -134,7 +135,7 @@ and `correction.errors` are empty/empty list. `better` is empty unless "say it b
 | Hive box | Dart model | Contents |
 |----------|------------|----------|
 | conversations | `Conversation` (list of `ConversationMessage` with `TutorResponse`) | Messages: role, content, timestamp, correction data |
-| app_settings | `AppSettingsRepository` (plain strings) | Engine kind, OpenAI model id, target language, CEFR level, reply length, "say it better" with every reply, recent topics, read replies aloud, speech engine, voice per language |
+| app_settings | `AppSettingsRepository` (plain strings) | Engine kind, OpenAI model id, target language, CEFR level, reply length, "say it better" with every reply, first-run setup done, recent topics, read replies aloud, speech engine, voice per language |
 | diagnostics | `DiagnosticsLog` (plain strings) | Newest 500 lines: one per reply read aloud (trigger, language, engine, voice, length, timings, outcome) and per speech choice; no message text |
 
 ## 10. Error Handling
