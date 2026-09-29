@@ -25,103 +25,122 @@ class LanguageSettingsScreen extends ConsumerWidget {
       appBar: AppBar(title: const Text('Language')),
       body: ListView(
         padding: const EdgeInsets.all(16),
-        children: [
-          Text('Language', style: Theme.of(context).textTheme.titleMedium),
-          const SizedBox(height: 4),
-          Text(
-            'The language you are learning. The open conversation switches too: '
-            'an empty one in place, one with messages by starting a new '
-            'conversation after you confirm.',
-            style: Theme.of(context).textTheme.bodySmall,
-          ),
-          const SizedBox(height: 8),
-          const _LanguageDropdown(),
-          const SizedBox(height: 24),
-          const Divider(),
-          const SizedBox(height: 8),
-          Text('CEFR level', style: Theme.of(context).textTheme.titleMedium),
-          const SizedBox(height: 4),
-          Text(
-            'Applies to the open conversation from the next message, and to '
-            'new conversations.',
-            style: Theme.of(context).textTheme.bodySmall,
-          ),
-          const SizedBox(height: 8),
-          const _CefrDropdown(),
-          const SizedBox(height: 24),
-          const Divider(),
-          const SizedBox(height: 8),
-          Text('Reply length', style: Theme.of(context).textTheme.titleMedium),
-          const SizedBox(height: 4),
-          Text(
-            'How long the tutor\'s replies are, from the next message.',
-            style: Theme.of(context).textTheme.bodySmall,
-          ),
-          const SizedBox(height: 8),
-          const _ReplyLengthDropdown(),
-          const SizedBox(height: 24),
-          const Divider(),
-          const SizedBox(height: 8),
-          const _SayBetterSwitch(),
-          const SizedBox(height: 16),
-          const Divider(),
-          const SizedBox(height: 8),
-          Text('Speech', style: Theme.of(context).textTheme.titleMedium),
-          const SizedBox(height: 4),
-          Text(
-            'Replies are read with your phone\'s text-to-speech. The speaker '
-            'next to a reply reads it again.',
-            style: Theme.of(context).textTheme.bodySmall,
-          ),
-          const _SpeechSection(),
+        children: const [
+          LanguageLevelSettings(),
+          SizedBox(height: 24),
+          Divider(),
+          SizedBox(height: 8),
+          ReplySettings(),
         ],
       ),
     );
   }
 }
 
-/// Default target language. Built like [_CefrDropdown], with the language's own
-/// name under the dropdown so the user recognises it.
+/// The language being learned and the CEFR level, with their explanations.
+/// On the Language page and the first-run setup.
+class LanguageLevelSettings extends StatelessWidget {
+  const LanguageLevelSettings({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Language', style: Theme.of(context).textTheme.titleMedium),
+        const SizedBox(height: 4),
+        Text(
+          'The language you are learning. The open conversation switches too: '
+          'an empty one in place, one with messages by starting a new '
+          'conversation after you confirm.',
+          style: Theme.of(context).textTheme.bodySmall,
+        ),
+        const SizedBox(height: 8),
+        const _LanguageDropdown(),
+        const SizedBox(height: 24),
+        const Divider(),
+        const SizedBox(height: 8),
+        Text('CEFR level', style: Theme.of(context).textTheme.titleMedium),
+        const SizedBox(height: 4),
+        Text(
+          'Applies to the open conversation from the next message, and to '
+          'new conversations.',
+          style: Theme.of(context).textTheme.bodySmall,
+        ),
+        const SizedBox(height: 8),
+        const _CefrDropdown(),
+      ],
+    );
+  }
+}
+
+/// Reply length, "say it better" and speech. On the Language page and the
+/// first-run setup.
+class ReplySettings extends StatelessWidget {
+  const ReplySettings({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Reply length', style: Theme.of(context).textTheme.titleMedium),
+        const SizedBox(height: 4),
+        Text(
+          'How long the tutor\'s replies are, from the next message.',
+          style: Theme.of(context).textTheme.bodySmall,
+        ),
+        const SizedBox(height: 8),
+        const _ReplyLengthDropdown(),
+        const SizedBox(height: 24),
+        const Divider(),
+        const SizedBox(height: 8),
+        const _SayBetterSwitch(),
+        const SizedBox(height: 16),
+        const Divider(),
+        const SizedBox(height: 8),
+        Text('Speech', style: Theme.of(context).textTheme.titleMedium),
+        const SizedBox(height: 4),
+        Text(
+          'Replies are read with your phone\'s text-to-speech. The speaker '
+          'next to a reply reads it again.',
+          style: Theme.of(context).textTheme.bodySmall,
+        ),
+        const _SpeechSection(),
+      ],
+    );
+  }
+}
+
+/// Default target language, which also switches the open conversation.
 class _LanguageDropdown extends ConsumerWidget {
   const _LanguageDropdown();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final current = ref.watch(defaultTargetLanguageProvider);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        DropdownButtonFormField<TargetLanguage>(
-          initialValue: current,
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Learning',
+    return DropdownButtonFormField<TargetLanguage>(
+      initialValue: current,
+      decoration: const InputDecoration(
+        border: OutlineInputBorder(),
+        labelText: 'Learning',
+      ),
+      items: [
+        for (final language in TargetLanguage.values)
+          DropdownMenuItem<TargetLanguage>(
+            value: language,
+            child: Text(language.promptName),
           ),
-          items: [
-            for (final language in TargetLanguage.values)
-              DropdownMenuItem<TargetLanguage>(
-                value: language,
-                child: Text(language.promptName),
-              ),
-          ],
-          onChanged: (language) async {
-            if (language == null) return;
-            await applyLanguageChoice(
-              context: context,
-              ref: ref,
-              controller: ref.read(conversationControllerProvider),
-              picked: language,
-            );
-          },
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(4, 8, 4, 0),
-          child: Text(
-            current.endonym,
-            style: Theme.of(context).textTheme.bodySmall,
-          ),
-        ),
       ],
+      onChanged: (language) async {
+        if (language == null) return;
+        await applyLanguageChoice(
+          context: context,
+          ref: ref,
+          controller: ref.read(conversationControllerProvider),
+          picked: language,
+        );
+      },
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:fala/build_info.dart';
 import 'package:fala/providers/diagnostics_provider.dart';
 import 'package:fala/providers/settings_provider.dart';
 import 'package:fala/providers/speech_provider.dart';
+import 'package:fala/screens/onboarding/onboarding_screen.dart';
 import 'package:fala/screens/settings/diagnostics_screen.dart';
 import 'package:fala/services/diagnostics/diagnostics_log.dart';
 import 'package:fala/services/settings/app_settings_repository.dart';
@@ -12,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
 
 void main() {
@@ -91,6 +93,37 @@ void main() {
     await tester.pump();
     expect(copied, text);
     expect(find.text('Diagnostics copied'), findsOneWidget);
+  });
+
+  testWidgets('opens the first-run setup again', (tester) async {
+    final router = GoRouter(
+      routes: [
+        GoRoute(
+          path: '/',
+          builder: (context, state) => const DiagnosticsScreen(),
+        ),
+        GoRoute(
+          path: OnboardingScreen.routeFor(OnboardingStep.model),
+          builder: (context, state) =>
+              const Scaffold(body: Text('first setup page')),
+        ),
+      ],
+    );
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          appSettingsRepositoryProvider.overrideWithValue(settings),
+          diagnosticsLogProvider.overrideWithValue(log),
+          speechServiceProvider.overrideWithValue(FakeSpeechService()),
+        ],
+        child: MaterialApp.router(routerConfig: router),
+      ),
+    );
+    await settle(tester);
+
+    await tester.tap(find.byTooltip('Run first-run setup again'));
+    await settle(tester);
+    expect(find.text('first setup page'), findsOneWidget);
   });
 
   testWidgets('Clear empties the log', (tester) async {

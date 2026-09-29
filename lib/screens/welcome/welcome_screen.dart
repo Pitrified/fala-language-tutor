@@ -7,12 +7,14 @@ import '../../models/target_language.dart';
 import '../../providers/app_provider.dart';
 import '../../providers/settings_provider.dart';
 import '../../services/app/app_controller.dart';
+import '../onboarding/onboarding_screen.dart';
 
 /// Welcome screen - app entry point.
 ///
-/// Displays the app name, a loading indicator, and the start button, which
-/// reads "Setup model" and opens the Model page while the selected engine
-/// still needs a key.
+/// Displays the app name, a loading indicator, and the start button. On a new
+/// install it reads "Get started" and opens the first-run setup; after that,
+/// "Setup model" and the Model page while the selected engine still needs a
+/// key, else "Start learning".
 /// Triggers app initialization on first build.
 class WelcomeScreen extends ConsumerStatefulWidget {
   const WelcomeScreen({super.key});
@@ -80,7 +82,15 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
                     const SizedBox(height: 48),
                     _buildStatusWidget(context, state),
                     const SizedBox(height: 32),
-                    if (state is AppReady)
+                    if (state is AppReady &&
+                        ref.watch(onboardingNeededProvider) == true)
+                      FilledButton(
+                        onPressed: () => context.push(
+                          OnboardingScreen.routeFor(OnboardingStep.model),
+                        ),
+                        child: const Text('Get started'),
+                      )
+                    else if (state is AppReady)
                       switch (ref.watch(modelSetupNeededProvider)) {
                         // The key store has not answered yet.
                         null => const SizedBox.shrink(),

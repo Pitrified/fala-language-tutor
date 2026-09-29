@@ -37,6 +37,9 @@ class AppSettingsRepository {
   /// Key for "say it better" with every reply (`'true'`) or on request.
   static const String keySayBetterAuto = 'say_better_auto';
 
+  /// Key set once the first-run setup pages have been gone through.
+  static const String keyOnboardingDone = 'onboarding_done';
+
   /// Hive key storing the default topic seed for new conversations.
   static const String keyDefaultTopic = 'default_topic';
 
@@ -141,6 +144,14 @@ class AppSettingsRepository {
   /// Persist [on] for [sayBetterAuto].
   Future<void> setSayBetterAuto(bool on) async {
     await _box.put(keySayBetterAuto, on.toString());
+  }
+
+  /// Whether the first-run setup pages have been gone through.
+  bool onboardingDone() => _box.get(keyOnboardingDone) == 'true';
+
+  /// Records that the first-run setup pages have been gone through.
+  Future<void> setOnboardingDone() async {
+    await _box.put(keyOnboardingDone, 'true');
   }
 
   /// Returns the persisted default topic seed (or empty string).

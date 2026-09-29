@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../providers/diagnostics_dump_provider.dart';
 import '../../providers/diagnostics_provider.dart';
+import '../onboarding/onboarding_screen.dart';
 
 /// The diagnostics dump as plain text, with Copy and Clear, for pasting back
-/// after a run on the phone.
+/// after a run on the phone, and a way into the first-run setup pages without
+/// clearing the app's data.
 class DiagnosticsScreen extends ConsumerWidget {
   const DiagnosticsScreen({super.key});
 
@@ -18,6 +21,12 @@ class DiagnosticsScreen extends ConsumerWidget {
       appBar: AppBar(
         title: const Text('Diagnostics'),
         actions: [
+          IconButton(
+            tooltip: 'Run first-run setup again',
+            icon: const Icon(Icons.restart_alt),
+            onPressed: () =>
+                context.push(OnboardingScreen.routeFor(OnboardingStep.model)),
+          ),
           IconButton(
             tooltip: 'Clear',
             icon: const Icon(Icons.delete_outline),

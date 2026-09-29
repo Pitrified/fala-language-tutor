@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:fala/build_info.dart';
 import 'package:fala/providers/settings_provider.dart';
 import 'package:fala/screens/settings/model_settings_screen.dart';
 import 'package:fala/services/inference/openai_models.dart';
@@ -76,6 +77,20 @@ void main() {
 
     expect(settings.openaiModel(), luna.id);
     expect(find.text(luna.description), findsOneWidget);
+  });
+
+  testWidgets('links the guide to getting a key', (tester) async {
+    await pump(tester);
+    expect(find.text('How to get an OpenAI key'), findsOneWidget);
+  });
+
+  test('the key guide link points at a file in this repository', () {
+    const prefix = '$sourceRepoUrl/blob/main/';
+    expect(openAiKeyGuideUrl, startsWith(prefix));
+    expect(
+      File(openAiKeyGuideUrl.substring(prefix.length)).existsSync(),
+      isTrue,
+    );
   });
 
   testWidgets('a stored model that is not offered stays listed', (

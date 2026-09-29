@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import 'providers/app_provider.dart';
 import 'screens/conversation/conversation_screen.dart';
+import 'screens/onboarding/onboarding_screen.dart';
 import 'screens/settings/diagnostics_screen.dart';
 import 'screens/settings/language_settings_screen.dart';
 import 'screens/settings/model_settings_screen.dart';
@@ -19,6 +20,7 @@ abstract final class AppRoutes {
   static const languageSettings = '/settings/language';
   static const modelSettings = '/settings/model';
   static const diagnostics = '/settings/diagnostics';
+  static const onboarding = '/onboarding';
 }
 
 /// App-level GoRouter configuration.
@@ -34,8 +36,11 @@ final routerProvider = Provider<GoRouter>((ref) {
       final appState = appController.state;
       final location = state.matchedLocation;
 
-      // Settings and its pages are always reachable.
-      if (location.startsWith(AppRoutes.settings)) return null;
+      // Settings, its pages and the first-run setup are always reachable.
+      if (location.startsWith(AppRoutes.settings) ||
+          location.startsWith(AppRoutes.onboarding)) {
+        return null;
+      }
 
       // Prevent accessing conversation if not ready
       if (location == AppRoutes.conversation && appState is! AppReady) {
@@ -49,6 +54,11 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: AppRoutes.welcome,
         builder: (context, state) => const WelcomeScreen(),
       ),
+      for (final step in OnboardingStep.values)
+        GoRoute(
+          path: OnboardingScreen.routeFor(step),
+          builder: (context, state) => OnboardingScreen(step: step),
+        ),
       GoRoute(
         path: AppRoutes.conversation,
         builder: (context, state) => const ConversationScreen(),
