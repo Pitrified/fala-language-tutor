@@ -11,7 +11,7 @@ Analysis, prompt lab runs and decisions in [`00_start.md`](00_start.md).
 | 01 | Model picker with the compared models | [`01_model_picker.md`](01_model_picker.md) | done |
 | 02 | Level-shaped prompt in the app | [`02_prompt_v4.md`](02_prompt_v4.md) | done |
 | 03 | Reply length setting | [`03_reply_length.md`](03_reply_length.md) | done |
-| 04 | Say it better | [`04_say_it_better.md`](04_say_it_better.md) | in progress |
+| 04 | Say it better | [`04_say_it_better.md`](04_say_it_better.md) | done |
 
 Status values: draft / planned / in progress / done / superseded / discarded.
 
@@ -27,3 +27,4 @@ Append-only. Newest at the bottom.
 - 2026-09-28 : phase 03 built: `ReplyLength`, the `reply_length` setting, the Reply length section on the Language page, the controller sending the matching length rule. A mutation (rule fixed at normal) was seen failing the controller test. Stays in progress until the Pixel run.
 - 2026-09-28 : Pixel run of 0.0.1+f48f4ffd (user): replies read at their level at B1 and C1, no correction changes a phrase into itself, short and long replies differ. Phases 02 and 03 done. "Say it better" asked for next.
 - 2026-09-28 : phase 04 derived and built; the prompt lab run behind the rule wording is in its file. Two mutations (rewrite not saved) seen failing the controller and screen tests. Stays in progress until the Pixel run.
+- 2026-09-29 : Pixel run of 0.0.1+213c9fbc (user): the sparkle brings a rewrite with the switch off, rewrites come with the replies with it on, the card shows its translation. Phase 04 and the folder done; merged to main.
