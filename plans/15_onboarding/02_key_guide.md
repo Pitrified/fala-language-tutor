@@ -1,5 +1,5 @@
 ---
-status: in progress
+status: done
 ---
 
 # 02 - Guide to getting an OpenAI key

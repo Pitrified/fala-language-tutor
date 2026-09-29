@@ -1,5 +1,5 @@
 ---
-status: in progress
+status: done
 ---
 
 # 01 - Setup pages

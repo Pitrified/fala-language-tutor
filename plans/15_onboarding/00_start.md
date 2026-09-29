@@ -1,5 +1,5 @@
 ---
-status: in progress
+status: done
 priority: 0
 description: |
   First-run setup pages after the model setup: language and level, then reply length,
