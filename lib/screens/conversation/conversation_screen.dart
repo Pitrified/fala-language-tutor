@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../app.dart';
 import '../../build_info.dart';
 import '../../models/conversation.dart';
 import '../../models/conversation_message.dart';
@@ -115,6 +117,26 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen>
       _isPinnedToBottom = true;
     });
     _scrollToBottom();
+  }
+
+  /// Open the Conversations page; open the conversation tapped there.
+  ///
+  /// The page may have deleted the conversation offered on a cold start: then
+  /// a new one starts, as when the open conversation is deleted.
+  Future<void> _openHistory() async {
+    unawaited(_speech.stop());
+    final picked = await context.push<Conversation>(AppRoutes.history);
+    if (!mounted) return;
+    final controller = ref.read(conversationControllerProvider);
+    if (controller == null) return;
+    if (picked != null) {
+      await _resumeConversation(picked);
+      return;
+    }
+    final resumable = _resumable;
+    if (resumable != null && controller.repository.load(resumable.id) == null) {
+      await _newConversation();
+    }
   }
 
   Future<void> _sendMessage() async {
@@ -299,7 +321,7 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen>
           ),
         ],
       ),
-      drawer: const _AppDrawer(),
+      drawer: _AppDrawer(onOpenHistory: _openHistory),
       body: Column(
         children: [
           if (ref.watch(modelSetupNeededProvider) ?? false)
@@ -536,7 +558,10 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen>
 }
 
 class _AppDrawer extends StatelessWidget {
-  const _AppDrawer();
+  const _AppDrawer({required this.onOpenHistory});
+
+  /// Opens the Conversations page.
+  final VoidCallback onOpenHistory;
 
   @override
   Widget build(BuildContext context) {
@@ -544,6 +569,14 @@ class _AppDrawer extends StatelessWidget {
       child: SafeArea(
         child: ListView(
           children: [
+            ListTile(
+              leading: const Icon(Icons.history),
+              title: const Text('Conversations'),
+              onTap: () {
+                Scaffold.maybeOf(context)?.closeDrawer();
+                onOpenHistory();
+              },
+            ),
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
               child: Text(
