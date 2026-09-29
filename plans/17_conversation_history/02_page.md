@@ -1,5 +1,5 @@
 ---
-status: in progress
+status: done
 ---
 
 # 02 - Conversations page
@@ -22,4 +22,4 @@ The page itself: the list, the x on each row, Clear all, and a tap that opens a 
 
 - Widget tests: rows show the names of conversations with messages and not the empty one; the x removes its row and the conversation from Hive; Clear all with Delete empties the list, with Cancel keeps it; a tap opens the conversation's messages; the drawer tile opens the page. Hive writes run inside `tester.runAsync`.
 - `scripts/check.sh` passes; an APK for the Pixel run.
-- On the Pixel: the page lists past conversations, deletes one, clears all, and reopens one. Checked by the user.
+- On the Pixel: the page lists past conversations, deletes one, clears all, and reopens one. Checked by the user on 2026-09-29.
