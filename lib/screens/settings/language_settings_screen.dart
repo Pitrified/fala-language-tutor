@@ -112,48 +112,35 @@ class ReplySettings extends StatelessWidget {
   }
 }
 
-/// Default target language. Built like [_CefrDropdown], with the language's own
-/// name under the dropdown so the user recognises it.
+/// Default target language, which also switches the open conversation.
 class _LanguageDropdown extends ConsumerWidget {
   const _LanguageDropdown();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final current = ref.watch(defaultTargetLanguageProvider);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        DropdownButtonFormField<TargetLanguage>(
-          initialValue: current,
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Learning',
+    return DropdownButtonFormField<TargetLanguage>(
+      initialValue: current,
+      decoration: const InputDecoration(
+        border: OutlineInputBorder(),
+        labelText: 'Learning',
+      ),
+      items: [
+        for (final language in TargetLanguage.values)
+          DropdownMenuItem<TargetLanguage>(
+            value: language,
+            child: Text(language.promptName),
           ),
-          items: [
-            for (final language in TargetLanguage.values)
-              DropdownMenuItem<TargetLanguage>(
-                value: language,
-                child: Text(language.promptName),
-              ),
-          ],
-          onChanged: (language) async {
-            if (language == null) return;
-            await applyLanguageChoice(
-              context: context,
-              ref: ref,
-              controller: ref.read(conversationControllerProvider),
-              picked: language,
-            );
-          },
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(4, 8, 4, 0),
-          child: Text(
-            current.endonym,
-            style: Theme.of(context).textTheme.bodySmall,
-          ),
-        ),
       ],
+      onChanged: (language) async {
+        if (language == null) return;
+        await applyLanguageChoice(
+          context: context,
+          ref: ref,
+          controller: ref.read(conversationControllerProvider),
+          picked: language,
+        );
+      },
     );
   }
 }

@@ -8,7 +8,7 @@ status: in progress
 
 - `onboarding_done` setting; `onboardingDoneProvider`, `onboardingNeededProvider` (D1).
 - `ModelSettingsBody`, `LanguageLevelSettings` and `ReplySettings` split out of the Model and Language pages, which now compose them (D2).
-- `OnboardingScreen` for the three steps at `/onboarding/model`, `/onboarding/language`, `/onboarding/reply`, with "n of 3", Next or Start, and "Set it later" on the model step (D3).
+- `OnboardingScreen` for the three steps at `/onboarding/model`, `/onboarding/language`, `/onboarding/reply`, with "n of 3", Next or Start, and "Set it later" on the model step (D3; removed again in phase 03).
 - Welcome: "Get started" into the first step on a new install.
 - Docs: `functional-specs.md` (screens, stored settings).
 

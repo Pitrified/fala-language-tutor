@@ -91,27 +91,11 @@ void main() {
     find.ancestor(of: find.text(label), matching: find.byType(FilledButton)),
   );
 
-  testWidgets('set it later walks the three pages and ends on welcome', (
-    tester,
-  ) async {
+  testWidgets('without a key the model page has no way on', (tester) async {
     await pumpFlow(tester);
     expect(find.text('1 of 3'), findsOneWidget);
     expect(button(tester, 'Next').onPressed, isNull);
-
-    await tapReal(tester, find.text('Set it later'));
-    expect(find.text('Language and level'), findsOneWidget);
-    expect(find.text('CEFR level'), findsOneWidget);
-    expect(find.text('Reply length'), findsNothing);
-
-    await tapReal(tester, find.text('Next').last);
-    expect(find.text('Replies and speech'), findsOneWidget);
-    expect(find.text('Reply length'), findsOneWidget);
-    expect(find.text('Say it better with every reply'), findsOneWidget);
-    expect(find.text('Speech'), findsOneWidget);
-
-    await tapReal(tester, find.text('Start').last);
-    expect(settings.onboardingDone(), isTrue);
-    expect(find.text('welcome page'), findsOneWidget);
+    expect(find.text('Set it later'), findsNothing);
   });
 
   testWidgets(
@@ -122,8 +106,18 @@ void main() {
       expect(button(tester, 'Next').onPressed, isNotNull);
 
       await tapReal(tester, find.text('Next').last);
+      expect(find.text('Language and level'), findsOneWidget);
+      expect(find.text('CEFR level'), findsOneWidget);
+      expect(find.text('Reply length'), findsNothing);
+
       await tapReal(tester, find.text('Next').last);
+      expect(find.text('Replies and speech'), findsOneWidget);
+      expect(find.text('Reply length'), findsOneWidget);
+      expect(find.text('Say it better with every reply'), findsOneWidget);
+      expect(find.text('Speech'), findsOneWidget);
+
       await tapReal(tester, find.text('Start').last);
+      expect(settings.onboardingDone(), isTrue);
       expect(find.text('conversation page'), findsOneWidget);
     },
   );

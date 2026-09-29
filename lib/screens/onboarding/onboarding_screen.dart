@@ -14,10 +14,10 @@ enum OnboardingStep { model, language, reply }
 /// reply length, "say it better" and speech. The settings are the same
 /// widgets as on the settings pages and save as they change.
 ///
-/// The model page's Next waits for the model to be ready; "Set it later"
-/// skips it. The other pages start from the defaults, so Next is always on.
-/// The last page's Start records the setup as done and opens the
-/// conversation, or the welcome screen while the model still needs setup.
+/// The model page's Next waits for the model to be ready: there is no way
+/// past it without a key. The other pages start from the defaults, so Next is
+/// always on. The last page's Start records the setup as done and opens the
+/// conversation, or the welcome screen if the key was cleared on the way.
 class OnboardingScreen extends ConsumerWidget {
   const OnboardingScreen({super.key, required this.step});
 
@@ -70,12 +70,6 @@ class OnboardingScreen extends ConsumerWidget {
           padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
           child: Row(
             children: [
-              if (step == OnboardingStep.model)
-                TextButton(
-                  onPressed: () =>
-                      context.push(routeFor(OnboardingStep.values[index + 1])),
-                  child: const Text('Set it later'),
-                ),
               const Spacer(),
               FilledButton(
                 onPressed: canGoOn ? next : null,
