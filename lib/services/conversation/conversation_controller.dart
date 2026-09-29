@@ -160,6 +160,49 @@ class ConversationController {
     _conversationController.add(_currentConversation);
   }
 
+  /// The saved conversations that have messages, most recently updated
+  /// first. The empty ones "New conversation" leaves behind are not listed.
+  List<Conversation> history() =>
+      repository.listAll().where((c) => c.messages.isNotEmpty).toList();
+
+  /// Delete the conversation with [id].
+  ///
+  /// When it is the open one, a new conversation starts with [language],
+  /// [cefrLevel] and [topic], so nothing shows a conversation that is no
+  /// longer stored.
+  Future<void> deleteConversation(
+    String id, {
+    required TargetLanguage language,
+    required CefrLevel cefrLevel,
+    String topic = '',
+  }) async {
+    await repository.delete(id);
+    if (_currentConversation?.id != id) return;
+    await startConversation(
+      language: language,
+      cefrLevel: cefrLevel,
+      topic: topic,
+    );
+  }
+
+  /// Delete every saved conversation, empty ones included.
+  ///
+  /// When one was open, a new conversation starts with [language],
+  /// [cefrLevel] and [topic], as in [deleteConversation].
+  Future<void> deleteAllConversations({
+    required TargetLanguage language,
+    required CefrLevel cefrLevel,
+    String topic = '',
+  }) async {
+    await repository.deleteAll();
+    if (_currentConversation == null) return;
+    await startConversation(
+      language: language,
+      cefrLevel: cefrLevel,
+      topic: topic,
+    );
+  }
+
   /// Update the CEFR level of the active conversation without restarting it.
   ///
   /// The new level is persisted to the repository and is used by the very
