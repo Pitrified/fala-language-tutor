@@ -95,7 +95,11 @@ flutter test test/services/prompt_manager_test.dart
 
 Or run the full app with `--dart-define=FAKE_ENGINE=true` to bypass the API entirely and test UI flow with canned responses.
 
-### 5. Debugging model output
+### 5. Comparing prompts and models
+
+`scripts/prompt_lab/lab.py` plays a scripted conversation through each prompt and model in an experiment file and tabulates reply length, CEFR level as rated by a judge model, correction quality and streaming timings. Its [README](../scripts/prompt_lab/README.md) describes the experiment format. It talks to any OpenAI-compatible endpoint, so other providers can be compared the same way.
+
+### 6. Debugging model output
 
 When the model produces unexpected output:
 
@@ -123,7 +127,7 @@ When the model produces unexpected output:
 
 ---
 
-## Current prompt: tutor_response v3
+## Current prompt: tutor_response v5
 
 The template names no language of its own. It takes `{{target_language}}` (the language being
 learned, e.g. `Portuguese (Brazilian)`) and `{{explanation_language}}` (the language corrections and
@@ -132,16 +136,36 @@ translations are written in, English today), alongside `{{cefr_level}}`, `{{topi
 is left unsubstituted, because a literal `{{target_language}}` reaching the model produces a reply in
 a guessed language rather than an error.
 
-The prompt instructs the model to:
+It follows OpenAI's prompting guidance: the part above the `=== USER ===` line goes out as a `developer` message (identity, correction and reply instructions, examples), the part below as the `user` message, with the topic, the history and the learner's message in XML tags. `PromptManager.split` cuts it; `InferenceRequest.developerPrompt` carries the developer part. The JSON shape is left to the schema; the prompt says what each field means.
 
-- Act as a tutor in the target language
-- Correct errors in the user's message (max 3)
-- Reply conversationally in the target language
-- Include translations in the explanation language
-- Output structured JSON matching `TutorResponse` schema
-- Match complexity to the user's CEFR level
+How complex and how long the reply is comes from `assets/prompts/tutor_response/reply_style.json`, read by `ReplyStyle`:
 
-Worked example, with Portuguese as the target: the model is told it is a
-"Portuguese (Brazilian) language tutor", replies in Portuguese and translates into English.
+| Variable | From |
+| -- | -- |
+| `{{reply_level}}` | `reply_level`: the level the reply is written at. It is the learner's level except for C1, which gets C2, because the models write about one level below the one asked for at the top of the scale; the learner sees C1 text |
+| `{{level_guide}}` | `level_guide` for the reply level: sentence length, tenses, vocabulary. Written without grammar names of one language, so it fits every target language |
+| `{{reply_samples}}` | `samples` for the target language and reply level, one or two sample replies with a line asking to match their level and not their content. Empty for a language without samples (pt-BR and es-ES have them) |
+| `{{length_rule}}` | `length_rule` for the Reply length setting on the Language page: `short`, `normal` or `long`. The API's own `verbosity` parameter was tried instead and barely changed the length |
 
-The prompt is tuned against the OpenAI model set in Settings, `gpt-4o-mini` by default.
+The level guides alone and the samples alone each moved the reply level less than the two together.
+
+The tutor plays a person in the chat and may tell small stories of its own to keep the conversation going.
+
+### Say it better
+
+`better` is the learner's message rewritten a step richer, at the reply level. `{{better_rule}}` is the `better_rule` in `reply_style.json`: `on` asks for it, `off` for empty strings (the strict schema requires the field either way). The Language page setting decides which one each reply gets. With it off, the sparkle beside a reply calls `ConversationController.requestBetter`, which sends `assets/prompts/say_better/v1.txt` with the learner's message, its correction and the same `on` rule, through the same schema, and saves the `better` of the answer on the reply.
+
+The rule insists on a rewrite rather than a reply ("Same speaker, same content, nothing added"): without that, gpt-5.4-nano sometimes answered the learner in `better`, or added a sentence of its own. gpt-6-luna's rewrites are the richer of the two.
+
+A correction whose `corrected` equals its `original` is dropped from the finished reply, and a correction left with no errors that only repeats the learner's message is cleared (`correction_filter.dart`). gpt-5.4-nano writes such entries as "this part is fine" notes despite the prompt asking it not to. While the reply streams they can show for a moment.
+
+## Models
+
+The Model page offers the models the prompt was compared on with the prompt lab, listed in `lib/services/inference/openai_models.dart` with one line each on how they differ:
+
+| Model | Why it is offered |
+| -- | -- |
+| `gpt-5.4-nano` (default) | Fastest to start the reply, and the most natural text at B2 to C2. Now and then misses a small error, and sometimes lists a correct phrase as an error with `corrected` equal to `original`. |
+| `gpt-6-luna` | The most precise corrections, at about a fifth of the default's cost per turn. Slower to start the reply; at C1 it writes closer to B2. |
+
+Both are reasoning models and are sent `reasoning_effort: none`: with any higher effort they spend hidden output tokens before answering, and reject a temperature other than 1. A higher effort made no visible difference to the replies. A model id stored before the list existed stays selected and is sent without `reasoning_effort`.

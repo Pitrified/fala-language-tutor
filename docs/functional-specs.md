@@ -25,7 +25,7 @@
 | LLM inference | OpenAI chat completions via `openai_dart` (swappable via the InferenceEngine interface) |
 | Models (codegen) | freezed + json_serializable |
 | Output enforcement | OpenAI strict `json_schema` response format, then parsing into `TutorResponse` |
-| Model | An OpenAI model id set in Settings, `gpt-4o-mini` by default |
+| Model | An OpenAI model picked in Settings from the ones the prompt was compared on, `gpt-5.4-nano` by default; see [prompt-engineering.md](prompt-engineering.md) |
 | API key | The user's own, stored in `flutter_secure_storage` |
 | Min Android version | API 26 (Android 8.0) |
 | Target Android version | API 36 (Android 16) |
@@ -75,10 +75,10 @@ App Launch
 |--------|---------|----------|
 | Welcome | App entry, runtime status, start session (or model setup when a key is missing) | Until navigation |
 | Settings | Index of the settings pages, also listed in the conversation drawer | Until navigation |
-| Language | Target language and CEFR level, applied to the open conversation and to new ones; the "Read replies aloud" switch, and the speech engine and a local voice per language | Until navigation |
+| Language | Target language and CEFR level, applied to the open conversation and to new ones; the reply length (short, normal, long); "say it better" with every reply or on request; the "Read replies aloud" switch, and the speech engine and a local voice per language | Until navigation |
 | Model | Engine, then the selected engine's details (OpenAI key and model) | Until navigation |
 | Diagnostics | The diagnostics log under a header on the app, phone and current choices, with Copy and Clear, for pasting back after a run on the phone | Until navigation |
-| Conversation | Main interaction: messages, input, corrections; the app bar holds the topic picker, the drawer the settings, a link to the source repository and the version | Session-scoped |
+| Conversation | Main interaction: messages, input, corrections, "say it better" under a reply, or the sparkle beside a reply that asks for it; the app bar holds the topic picker, the drawer the settings, a link to the source repository and the version | Session-scoped |
 
 ## 6. Systems
 
@@ -118,19 +118,23 @@ App Launch
   "conversation": {
     "content": "tutor reply in target language",
     "translation": "English translation"
+  },
+  "better": {
+    "content": "the user's message rewritten a step richer",
+    "translation": "English translation"
   }
 }
 ```
 
 If the user's message has no errors, `correction.content`, `correction.translation`,
-and `correction.errors` are empty/empty list.
+and `correction.errors` are empty/empty list. `better` is empty unless "say it better" was asked for, and in replies saved before it existed.
 
 ## 9. Persistence
 
 | Hive box | Dart model | Contents |
 |----------|------------|----------|
 | conversations | `Conversation` (list of `ConversationMessage` with `TutorResponse`) | Messages: role, content, timestamp, correction data |
-| app_settings | `AppSettingsRepository` (plain strings) | Engine kind, OpenAI model id, target language, CEFR level, recent topics, read replies aloud, speech engine, voice per language |
+| app_settings | `AppSettingsRepository` (plain strings) | Engine kind, OpenAI model id, target language, CEFR level, reply length, "say it better" with every reply, recent topics, read replies aloud, speech engine, voice per language |
 | diagnostics | `DiagnosticsLog` (plain strings) | Newest 500 lines: one per reply read aloud (trigger, language, engine, voice, length, timings, outcome) and per speech choice; no message text |
 
 ## 10. Error Handling

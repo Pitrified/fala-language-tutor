@@ -1,0 +1,98 @@
+{
+ "reply_level": {
+  "A1": "A1",
+  "A2": "A2",
+  "B1": "B1",
+  "B2": "B2",
+  "C1": "C2",
+  "C2": "C2"
+ },
+ "level_guide": {
+  "A1": [
+   "Sentences of at most 8 words, one clause each.",
+   "Present tense only, plus the near future (the language's equivalent of \"going to\" + infinitive).",
+   "Only very common everyday words; no idioms, no slang."
+  ],
+  "A2": [
+   "Short sentences, joining clauses only with the equivalents of and, but, because.",
+   "Present, simple past and near future.",
+   "Common everyday words; no idioms."
+  ],
+  "B1": [
+   "Sentences of up to 15 words, with at most one subordinate clause.",
+   "Present, the past tenses, future and simple conditional.",
+   "Everyday words plus some words on the topic; a common expression now and then."
+  ],
+  "B2": [
+   "Varied sentences with subordinate clauses and connectors such as the equivalents of although, therefore, while.",
+   "All indicative tenses and the present subjunctive.",
+   "Topic vocabulary and common idioms."
+  ],
+  "C1": [
+   "Natural, native-like sentences of any length.",
+   "Any tense and mood, including the past and future subjunctive where the language has them.",
+   "Precise, less common vocabulary, idioms and colloquial expressions where they fit."
+  ],
+  "C2": [
+   "Write as to a native speaker: full range of structures and register.",
+   "Rare and precise vocabulary, idioms, wordplay where it fits."
+  ]
+ },
+ "samples": {
+  "pt-BR": {
+   "A1": [
+    "Que bom! Eu gosto de café também. Você bebe café todo dia?"
+   ],
+   "A2": [
+    "Que legal! Ontem você foi ao cinema? Eu acho filmes de comédia muito divertidos. Qual filme você viu?"
+   ],
+   "B1": [
+    "Que legal que você começou a correr! Acho que é uma ótima forma de relaxar depois do trabalho. Você corre sozinho ou com amigos?",
+    "Entendo, quando chove muito fica difícil sair de casa. Nesses dias, um bom filme ou um livro podem ser uma boa companhia. O que você costuma fazer quando chove?"
+   ],
+   "B2": [
+    "Faz sentido você estar cansado, já que tem trabalhado tanto ultimamente. Embora seja difícil, talvez valha a pena tirar uns dias de folga antes que o estresse aumente. Você já conseguiu planejar alguma viagem para este ano?",
+    "Concordo que o preço dos aluguéis está absurdo, principalmente nas cidades grandes. Por outro lado, morar longe do centro significa gastar horas no trânsito. Se você pudesse escolher, trocaria espaço por localização?"
+   ],
+   "C1": [
+    "Nossa, que perrengue! Mudar de casa já é cansativo por si só, e ainda ter que lidar com uma imobiliária enrolada é de tirar qualquer um do sério. Tomara que, assim que tudo estiver resolvido, você possa finalmente curtir o apartamento novo. Como anda a papelada?",
+    "Pois é, essa história de trabalhar de casa tem seus prós e contras. Se por um lado a gente ganha tempo sem o deslocamento, por outro acaba misturando a vida pessoal com a profissional sem nem se dar conta. Você chegou a criar alguma rotina para separar as duas coisas?"
+   ],
+   "C2": [
+    "Ah, essa é daquelas situações em que a gente fica entre a cruz e a espada: ceder seria engolir sapo, mas bater o pé pode sair caro. Se fosse comigo, talvez eu deixasse a poeira baixar antes de dar a última palavra. Você acha que ainda há margem para uma conversa franca?"
+   ]
+  },
+  "es-ES": {
+   "A1": [
+    "¡Qué bien! A mí también me gusta el café. ¿Tomas café todos los días?"
+   ],
+   "A2": [
+    "¡Qué divertido! ¿Ayer fuiste al cine? Las películas de comedia me gustan mucho. ¿Qué película viste?"
+   ],
+   "B1": [
+    "¡Qué bien que has empezado a correr! Creo que es una forma estupenda de desconectar después del trabajo. ¿Corres solo o con amigos?",
+    "Entiendo, cuando llueve mucho cuesta salir de casa. Esos días, una buena película o un libro son una buena compañía. ¿Qué sueles hacer cuando llueve?"
+   ],
+   "B2": [
+    "Es normal que estés cansado, ya que has trabajado muchísimo últimamente. Aunque sea difícil, quizá valga la pena tomarte unos días libres antes de que el estrés vaya a más. ¿Has conseguido planear algún viaje para este año?",
+    "Estoy de acuerdo en que el precio de los alquileres es una locura, sobre todo en las ciudades grandes. Por otro lado, vivir lejos del centro significa pasar horas en el transporte. Si pudieras elegir, ¿cambiarías espacio por ubicación?"
+   ],
+   "C1": [
+    "¡Vaya lío! Mudarse ya es agotador de por sí, y encima tener que lidiar con una inmobiliaria que te da largas es para perder los nervios. Ojalá que, en cuanto esté todo resuelto, puedas disfrutar por fin del piso nuevo. ¿Cómo va el papeleo?",
+    "Pues sí, lo de teletrabajar tiene sus pros y sus contras. Si bien te ahorras el desplazamiento, acabas mezclando la vida personal con la profesional sin darte ni cuenta. ¿Has llegado a crear alguna rutina para separar las dos cosas?"
+   ],
+   "C2": [
+    "Ay, esa es de las situaciones en las que uno está entre la espada y la pared: ceder sería tragar sapos, pero plantarse puede salir caro. Si fuera yo, dejaría que las aguas volvieran a su cauce antes de decir la última palabra. ¿Crees que aún hay margen para una conversación franca?"
+   ]
+  }
+ },
+ "length_rule": {
+  "short": "one or two sentences, at most 25 words.",
+  "normal": "two to four sentences.",
+  "long": "four to six sentences: react, add a related detail or opinion of your own, then ask your question."
+ },
+ "better_rule": {
+  "on": "- better.content: the learner's last message rewritten, not a reply to it. Same speaker, same content, nothing added and nothing left out, said the way a fluent speaker would and a step richer than what the learner wrote: a less common word, a more natural expression or a structure the learner did not use, still readable at the reply level above. Build on the corrected sentence, so it has no errors. Leave it empty when there is nothing to improve, such as a greeting or a one-word answer.\n- better.translation: its translation, in the same language as the other translations, or empty with it.",
+  "off": "- Leave better.content and better.translation empty."
+ }
+}

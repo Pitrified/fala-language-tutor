@@ -4,6 +4,7 @@ import '../../models/app_exception.dart';
 import '../../models/cefr_level.dart';
 import '../../models/conversation.dart';
 import '../../models/conversation_message.dart';
+import '../../models/reply_length.dart';
 import '../../models/target_language.dart';
 import '../../models/tutor_response.dart';
 import '../inference/inference_engine.dart';
@@ -11,6 +12,7 @@ import '../inference/structured_stream_engine.dart';
 import '../logging/app_logger.dart';
 import '../persistence/conversation_repository.dart';
 import '../prompt/prompt_manager.dart';
+import 'correction_filter.dart';
 
 /// Orchestrates the conversation loop between user and tutor.
 ///
@@ -25,7 +27,12 @@ class ConversationController {
     required this.repository,
     required this.promptManager,
     this.maxHistoryMessages = 10,
+    this.replyLength = _normalLength,
+    this.sayBetterAuto = _off,
   });
+
+  static ReplyLength _normalLength() => ReplyLength.normal;
+  static bool _off() => false;
 
   /// Streaming engine for the in-flight turn. Its terminal delta carries the
   /// same fully-typed value the one-shot path would produce, which is what we
@@ -34,6 +41,13 @@ class ConversationController {
   final ConversationRepository repository;
   final PromptManager promptManager;
   final int maxHistoryMessages;
+
+  /// The reply length setting, read on every message.
+  final ReplyLength Function() replyLength;
+
+  /// Whether every reply comes with "say it better", read on every message.
+  /// Off, [requestBetter] asks for it on one reply.
+  final bool Function() sayBetterAuto;
 
   /// Language the corrections, explanations and translations are written in.
   ///
@@ -245,23 +259,33 @@ class ConversationController {
       final language =
           TargetLanguageX.fromCode(_currentConversation!.language) ??
           TargetLanguage.ptBr;
+      final cefrLevel = _currentConversation!.cefrLevel;
+      final style = await promptManager.replyStyle();
+      final replyLevel = style.replyLevel(cefrLevel);
       final prompt = await promptManager.buildPrompt(
         name: 'tutor_response',
         variables: {
           'target_language': language.promptName,
           'explanation_language': explanationLanguage,
-          'cefr_level': _currentConversation!.cefrLevel,
+          'cefr_level': cefrLevel,
+          'reply_level': replyLevel,
+          'level_guide': style.levelGuide(replyLevel),
+          'reply_samples': style.samples(language.code, replyLevel),
+          'length_rule': style.lengthRule(replyLength().name),
+          'better_rule': style.betterRule(on: sayBetterAuto()),
           'topic': _currentConversation!.topic,
           'user_message': content,
           'conversation_history': _formatHistory(),
         },
       );
 
+      final parts = PromptManager.split(prompt);
+
       // Drive the streaming engine: forward each partial delta to the live
       // channel and remember the terminal one for persistence.
       StructuredDelta<TutorResponse>? terminal;
       await for (final delta in streamEngine.generateStream(
-        InferenceRequest(prompt: prompt),
+        InferenceRequest(prompt: parts.user, developerPrompt: parts.developer),
       )) {
         if (!_streamingReplyController.isClosed) {
           _streamingReplyController.add(delta);
@@ -269,7 +293,7 @@ class ConversationController {
         if (delta.isTerminal) terminal = delta;
       }
 
-      final (replyContent, tutorResponse) = _resolveReply(terminal);
+      final (replyContent, tutorResponse) = _resolveReply(terminal, content);
 
       final tutorMessage = ConversationMessage(
         id: DateTime.now().millisecondsSinceEpoch.toString(),
@@ -290,6 +314,66 @@ class ConversationController {
     }
   }
 
+  /// Asks for "say it better" on the tutor reply [tutorMessageId]: the
+  /// learner's message before it, rewritten a step richer. Saves it on the
+  /// reply and returns it; its content is empty when the model found nothing
+  /// to improve. Returns null when the reply is not in the open conversation
+  /// or the request failed.
+  Future<ConversationBlock?> requestBetter(String tutorMessageId) async {
+    final conversation = _currentConversation;
+    if (conversation == null) return null;
+    final messages = conversation.messages;
+    final at = messages.indexWhere((m) => m.id == tutorMessageId);
+    if (at < 1) return null;
+    final tutor = messages[at];
+    final learner = messages[at - 1];
+    final response = tutor.tutorResponse;
+    if (response == null || learner.role != MessageRole.user) return null;
+
+    final language =
+        TargetLanguageX.fromCode(conversation.language) ?? TargetLanguage.ptBr;
+    final style = await promptManager.replyStyle();
+    final replyLevel = style.replyLevel(conversation.cefrLevel);
+    final corrected = response.correction.content;
+    final prompt = await promptManager.buildPrompt(
+      name: 'say_better',
+      variables: {
+        'target_language': language.promptName,
+        'explanation_language': explanationLanguage,
+        'cefr_level': conversation.cefrLevel,
+        'reply_level': replyLevel,
+        'level_guide': style.levelGuide(replyLevel),
+        'better_rule': style.betterRule(on: true),
+        'user_message': learner.content,
+        'corrected_message': corrected.isEmpty ? learner.content : corrected,
+      },
+    );
+    final parts = PromptManager.split(prompt);
+    StructuredDelta<TutorResponse>? terminal;
+    await for (final delta in streamEngine.generateStream(
+      InferenceRequest(prompt: parts.user, developerPrompt: parts.developer),
+    )) {
+      if (delta.isTerminal) terminal = delta;
+    }
+    final better = terminal?.value?.better;
+    if (terminal == null || !terminal.isComplete || better == null) {
+      AppLogger.instance.warn(
+        'Say it better failed: ${terminal?.failure?.error ?? 'no response'}',
+      );
+      return null;
+    }
+
+    final saved = await repository.replaceMessage(
+      conversation.id,
+      tutor.copyWith(tutorResponse: response.copyWith(better: better)),
+    );
+    if (saved != null && _currentConversation?.id == saved.id) {
+      _currentConversation = saved;
+      _conversationController.add(saved);
+    }
+    return better;
+  }
+
   /// Map the terminal delta to the persisted reply: typed success -> reply text
   /// + value; either failure kind -> an error line.
   ///
@@ -301,12 +385,13 @@ class ConversationController {
   /// broken turn. The raw text still goes to the log, where it is useful.
   (String, TutorResponse?) _resolveReply(
     StructuredDelta<TutorResponse>? terminal,
+    String userMessage,
   ) {
     if (terminal == null) {
       return ('Error generating response: no response received', null);
     }
     if (terminal.isComplete && terminal.value != null) {
-      final value = terminal.value!;
+      final value = dropNoOpCorrections(terminal.value!, userMessage);
       return (value.conversation.content, value);
     }
     final failure = terminal.failure;

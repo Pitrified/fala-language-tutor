@@ -1,0 +1,131 @@
+{
+ "providers": {
+  "openai": {
+   "base_url": "https://api.openai.com/v1",
+   "api_key_env": "OPENAI_API_KEY"
+  }
+ },
+ "models": {
+  "gpt-5.4-nano": {
+   "provider": "openai",
+   "model": "gpt-5.4-nano",
+   "params": {
+    "reasoning_effort": "none",
+    "temperature": 0.7
+   }
+  },
+  "gpt-6-luna": {
+   "provider": "openai",
+   "model": "gpt-6-luna",
+   "params": {
+    "reasoning_effort": "none",
+    "temperature": 0.7
+   }
+  },
+  "gpt-4o-mini": {
+   "provider": "openai",
+   "model": "gpt-4o-mini",
+   "params": {
+    "temperature": 0.7
+   }
+  },
+  "judge": {
+   "provider": "openai",
+   "model": "gpt-5.4-mini"
+  }
+ },
+ "compare": [
+  "gpt-5.4-nano",
+  "gpt-6-luna",
+  "gpt-4o-mini"
+ ],
+ "judge": {
+  "model": "judge",
+  "params": {
+   "reasoning_effort": "low"
+  }
+ },
+ "request": {
+  "max_completion_tokens": 512
+ },
+ "schema": "../../../assets/prompts/tutor_response_schema.json",
+ "prompts": {
+  "v3": "../../../assets/prompts/tutor_response/v3.txt",
+  "v4": "v4.txt",
+  "v5": "v5.txt",
+  "v6": "v6.txt",
+  "v7": "v7.txt",
+  "app_v4": "../../../assets/prompts/tutor_response/v4.txt",
+  "app_v5": "../../../assets/prompts/tutor_response/v5.txt"
+ },
+ "conversation": "conversation.json",
+ "variables": {
+  "target_language": "Brazilian Portuguese",
+  "explanation_language": "English",
+  "topic": "",
+  "language_code": "pt-BR"
+ },
+ "tables": {
+  "level_guide": {
+   "from": "../../../assets/prompts/tutor_response/reply_style.json",
+   "key": "level_guide",
+   "by": "reply_level"
+  },
+  "reply_samples": {
+   "from": "../../../assets/prompts/tutor_response/reply_style.json",
+   "key": "samples",
+   "by": [
+    "language_code",
+    "reply_level"
+   ],
+   "prefix": "Replies at {reply_level} level. Match their vocabulary, grammar and sentence length, not their content:\n"
+  },
+  "cefr_sample": {
+   "from": "cefr_sample.json",
+   "key": "values",
+   "by": "cefr_level"
+  },
+  "length_rule": {
+   "from": "../../../assets/prompts/tutor_response/reply_style.json",
+   "key": "length_rule",
+   "by": "length"
+  },
+  "better_rule": {
+   "from": "../../../assets/prompts/tutor_response/reply_style.json",
+   "key": "better_rule",
+   "by": "better"
+  }
+ },
+ "optional_variables": [
+  "length_rule"
+ ],
+ "setups": [
+  {
+   "prompt": "app_v5",
+   "vars": {
+    "cefr_level": "B1",
+    "reply_level": "B1",
+    "length": "normal",
+    "better": "on"
+   }
+  },
+  {
+   "prompt": "app_v5",
+   "vars": {
+    "cefr_level": "C1",
+    "reply_level": "C2",
+    "length": "normal",
+    "better": "on"
+   }
+  },
+  {
+   "prompt": "app_v5",
+   "vars": {
+    "cefr_level": "B1",
+    "reply_level": "B1",
+    "length": "normal",
+    "better": "off"
+   }
+  }
+ ]
+}

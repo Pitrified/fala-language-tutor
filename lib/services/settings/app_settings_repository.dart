@@ -3,8 +3,10 @@ import 'dart:convert';
 import 'package:hive/hive.dart';
 
 import '../../models/cefr_level.dart';
+import '../../models/reply_length.dart';
 import '../../models/target_language.dart';
 import '../inference/engine_kind.dart';
+import '../inference/openai_models.dart';
 
 /// Hive-backed store for non-secret app settings.
 ///
@@ -28,6 +30,12 @@ class AppSettingsRepository {
 
   /// Hive key storing the default [CefrLevel] for new conversations.
   static const String keyDefaultCefr = 'default_cefr';
+
+  /// Key for the tutor's reply length.
+  static const String keyReplyLength = 'reply_length';
+
+  /// Key for "say it better" with every reply (`'true'`) or on request.
+  static const String keySayBetterAuto = 'say_better_auto';
 
   /// Hive key storing the default topic seed for new conversations.
   static const String keyDefaultTopic = 'default_topic';
@@ -53,11 +61,14 @@ class AppSettingsRepository {
   /// Fallback when no value is stored or the stored value is unknown.
   static const EngineKind defaultEngineKind = EngineKind.openai;
 
-  /// Fallback OpenAI model id used by 03.2.
-  static const String defaultOpenaiModel = 'gpt-4o-mini';
+  /// OpenAI model id used when none is stored: the first model offered.
+  static final String defaultOpenaiModel = openAiModelOptions.first.id;
 
   /// Fallback CEFR level for the very first conversation.
   static const CefrLevel defaultCefrLevel = CefrLevel.a1;
+
+  /// Reply length when none is stored.
+  static const ReplyLength defaultReplyLength = ReplyLength.normal;
 
   /// Empty string means "no topic" (the prompt template degrades gracefully).
   static const String defaultTopic = '';
@@ -110,6 +121,26 @@ class AppSettingsRepository {
   /// Persist [level] as the default CEFR level for new conversations.
   Future<void> setDefaultCefr(CefrLevel level) async {
     await _box.put(keyDefaultCefr, level.name);
+  }
+
+  /// Returns the persisted [ReplyLength], or [defaultReplyLength].
+  ReplyLength replyLength() {
+    return ReplyLengthX.fromName(_box.get(keyReplyLength)) ??
+        defaultReplyLength;
+  }
+
+  /// Persist [length] as the tutor's reply length.
+  Future<void> setReplyLength(ReplyLength length) async {
+    await _box.put(keyReplyLength, length.name);
+  }
+
+  /// Whether every reply comes with "say it better". Off when unset: the
+  /// learner asks for it with the button beside a reply.
+  bool sayBetterAuto() => _box.get(keySayBetterAuto) == 'true';
+
+  /// Persist [on] for [sayBetterAuto].
+  Future<void> setSayBetterAuto(bool on) async {
+    await _box.put(keySayBetterAuto, on.toString());
   }
 
   /// Returns the persisted default topic seed (or empty string).

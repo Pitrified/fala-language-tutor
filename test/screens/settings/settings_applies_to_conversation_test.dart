@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:fala/models/cefr_level.dart';
 import 'package:fala/models/conversation_message.dart';
 import 'package:fala/models/inference_status.dart';
+import 'package:fala/models/reply_length.dart';
 import 'package:fala/models/target_language.dart';
 import 'package:fala/models/tutor_response.dart';
 import 'package:fala/providers/conversation_provider.dart';
@@ -132,6 +133,15 @@ void main() {
     );
 
     expect(controller.currentConversation!.cefrLevel, CefrLevel.b2.displayName);
+  });
+
+  testWidgets('the reply length is saved and described', (tester) async {
+    await pumpSettings(tester);
+    expect(find.text(ReplyLength.normal.description), findsOneWidget);
+    await pick(tester, ReplyLength.normal.label, ReplyLength.long.label);
+
+    expect(settings.replyLength(), ReplyLength.long);
+    expect(find.text(ReplyLength.long.description), findsOneWidget);
   });
 
   testWidgets('a language change switches an empty conversation in place', (

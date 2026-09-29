@@ -5,6 +5,7 @@ import 'package:openai_dart/openai_dart.dart';
 import '../../models/inference_status.dart';
 import '../settings/api_key_store.dart';
 import 'inference_engine.dart';
+import 'openai_models.dart';
 
 /// Builds an [OpenAIClient] from an API key.
 ///
@@ -82,6 +83,12 @@ class OpenAiInferenceEngine implements InferenceEngine {
   @override
   bool get isReady => _status == const InferenceStatus.ready();
 
+  static List<ChatMessage> _messages(InferenceRequest request) => [
+    if (request.developerPrompt != null)
+      ChatMessage.developer(request.developerPrompt!),
+    ChatMessage.user(request.prompt),
+  ];
+
   @override
   Future<void> initialize() async {
     // No network call: key validity is verified lazily on the first
@@ -103,12 +110,14 @@ class OpenAiInferenceEngine implements InferenceEngine {
     _setStatus(const InferenceStatus.generating());
     try {
       final client = _clientFor(key);
+      final model = modelProvider();
       final response = await client.chat.completions.create(
         ChatCompletionCreateRequest(
-          model: modelProvider(),
-          messages: [ChatMessage.user(request.prompt)],
+          model: model,
+          messages: _messages(request),
           maxCompletionTokens: request.maxTokens,
           temperature: request.temperature,
+          reasoningEffort: openAiModelOption(model)?.reasoningEffort,
           responseFormat: ResponseFormat.jsonSchema(
             name: schemaName,
             schema: schema,
@@ -144,15 +153,17 @@ class OpenAiInferenceEngine implements InferenceEngine {
     final buffer = StringBuffer();
     try {
       final client = _clientFor(key);
+      final model = modelProvider();
       // createStream sends the same request with stream=true, so the strict
       // json_schema constraint is preserved and every partial buffer is a
       // well-formed-JSON prefix.
       final events = client.chat.completions.createStream(
         ChatCompletionCreateRequest(
-          model: modelProvider(),
-          messages: [ChatMessage.user(request.prompt)],
+          model: model,
+          messages: _messages(request),
           maxCompletionTokens: request.maxTokens,
           temperature: request.temperature,
+          reasoningEffort: openAiModelOption(model)?.reasoningEffort,
           responseFormat: ResponseFormat.jsonSchema(
             name: schemaName,
             schema: schema,

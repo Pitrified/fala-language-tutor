@@ -38,6 +38,7 @@ flutter:
   assets:
     - assets/prompts/
     - assets/prompts/tutor_response/
+    - assets/prompts/say_better/
     - assets/fixtures/
   #         style: italic
   #   - family: Trajan Pro

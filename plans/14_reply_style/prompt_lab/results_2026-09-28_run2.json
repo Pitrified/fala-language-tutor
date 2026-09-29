@@ -1,0 +1,4073 @@
+[
+ {
+  "model": "gpt-6-luna",
+  "prompt": "v4",
+  "level": "B1",
+  "verbosity": "normal",
+  "guide": true,
+  "turns": [
+   {
+    "user": "Oi! Eu mudei pra Lisboa mês passado por causa do meu trabalho, mas eu ainda não acostumei com a cidade.",
+    "ttft": 1.839446783065796,
+    "reply_start": 3.2176010608673096,
+    "total": 3.8774704933166504,
+    "usage": {
+     "prompt_tokens": 541,
+     "completion_tokens": 237,
+     "total_tokens": 778,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Oi! Eu me mudei para Lisboa mês passado por causa do meu trabalho, mas ainda não me acostumei com a cidade.",
+      "translation": "Hi! I moved to Lisbon last month because of my job, but I still haven't gotten used to the city.",
+      "errors": [
+       {
+        "original": "Eu mudei pra Lisboa",
+        "corrected": "Eu me mudei para Lisboa",
+        "explanation": "Use the reflexive pronoun “me” when you mean that you moved to a new place."
+       },
+       {
+        "original": "eu ainda não acostumei com a cidade",
+        "corrected": "ainda não me acostumei com a cidade",
+        "explanation": "The verb “acostumar-se” is reflexive, so it needs the pronoun “me” here."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Mudar de cidade pode ser difícil no começo. Lisboa tem lugares bonitos e muito para conhecer. O que você mais estranha na cidade?",
+      "translation": "Moving to a new city can be difficult at first. Lisbon has beautiful places and a lot to explore. What feels most unfamiliar to you in the city?"
+     }
+    }
+   },
+   {
+    "user": "O mais dificil é o transporte. Os ônibus sempre atrasa e eu nunca sei qual eu tenho que pegar.",
+    "ttft": 0.8985428810119629,
+    "reply_start": 2.3150808811187744,
+    "total": 2.6311681270599365,
+    "usage": {
+     "prompt_tokens": 590,
+     "completion_tokens": 223,
+     "total_tokens": 813,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "O mais difícil é o transporte. Os ônibus sempre atrasam, e eu nunca sei qual deles tenho que pegar.",
+      "translation": "The hardest thing is transportation. The buses are always late, and I never know which one I have to take.",
+      "errors": [
+       {
+        "original": "dificil",
+        "corrected": "difícil",
+        "explanation": "The word “difícil” has an accent on the final syllable."
+       },
+       {
+        "original": "Os ônibus sempre atrasa",
+        "corrected": "Os ônibus sempre atrasam",
+        "explanation": "The verb must agree with the plural subject “os ônibus.”"
+       },
+       {
+        "original": "qual eu tenho que pegar",
+        "corrected": "qual deles tenho que pegar",
+        "explanation": "Use “deles” to refer clearly to one bus from a group."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Entendo, é difícil depender de ônibus que atrasam. Em Lisboa, você também usa o metrô?",
+      "translation": "I understand; it’s hard to depend on buses that are late. In Lisbon, do you also use the subway?"
+     }
+    }
+   },
+   {
+    "user": "Se eu teria um carro seria mais fácil, mas estacionar aqui é muito caro e as rua são muito estreitas.",
+    "ttft": 1.1182405948638916,
+    "reply_start": 2.104987859725952,
+    "total": 2.767223596572876,
+    "usage": {
+     "prompt_tokens": 642,
+     "completion_tokens": 214,
+     "total_tokens": 856,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Se eu tivesse um carro, seria mais fácil, mas estacionar aqui é muito caro e as ruas são muito estreitas.",
+      "translation": "If I had a car, it would be easier, but parking here is very expensive and the streets are very narrow.",
+      "errors": [
+       {
+        "original": "Se eu teria um carro",
+        "corrected": "Se eu tivesse um carro",
+        "explanation": "Use the imperfect subjunctive after “se” for an unreal or hypothetical situation."
+       },
+       {
+        "original": "as rua",
+        "corrected": "as ruas",
+        "explanation": "The noun must agree with the plural article “as.”"
+       }
+      ]
+     },
+     "conversation": {
+      "content": "É verdade, estacionar em Lisboa pode pesar no bolso, e muitas ruas são estreitas. Talvez o metrô seja mais prático para algumas viagens. Você costuma usar o metrô?",
+      "translation": "That’s true, parking in Lisbon can be expensive, and many streets are narrow. Maybe the metro is more practical for some trips. Do you usually use the metro?"
+     }
+    }
+   },
+   {
+    "user": "Ontem eu fui no mercado e esqueci de levar sacola, então eu tive que comprar uma. Aqui tudo é diferente do Brasil!",
+    "ttft": 1.1021459102630615,
+    "reply_start": 2.8669679164886475,
+    "total": 3.6905531883239746,
+    "usage": {
+     "prompt_tokens": 716,
+     "completion_tokens": 274,
+     "total_tokens": 990,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Ontem eu fui ao mercado e esqueci de levar uma sacola, então tive que comprar uma. Aqui tudo é diferente do Brasil!",
+      "translation": "Yesterday I went to the market and forgot to bring a bag, so I had to buy one. Everything here is different from Brazil!",
+      "errors": [
+       {
+        "original": "fui no mercado",
+        "corrected": "fui ao mercado",
+        "explanation": "Use “ir a” for going to a place in standard Portuguese; “ao” combines “a” and “o.”"
+       },
+       {
+        "original": "levar sacola",
+        "corrected": "levar uma sacola",
+        "explanation": "Use the article “uma” before a singular countable noun in this sentence."
+       },
+       {
+        "original": "eu tive que comprar",
+        "corrected": "tive que comprar",
+        "explanation": "The subject pronoun “eu” is optional because the verb ending already identifies the subject."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "É verdade, até as coisas simples podem ser diferentes em outro país. Em Lisboa, as sacolas costumam ser pagas. Você já se acostumou com alguma coisa da cidade?",
+      "translation": "That’s true; even simple things can be different in another country. In Lisbon, bags usually cost extra. Have you gotten used to anything about the city yet?"
+     }
+    }
+   },
+   {
+    "user": "Talvez eu vou fazer um curso de português europeu, pra entender melhor as pessoas. O que você acha?",
+    "ttft": 1.1141488552093506,
+    "reply_start": 2.0166923999786377,
+    "total": 2.7568118572235107,
+    "usage": {
+     "prompt_tokens": 772,
+     "completion_tokens": 202,
+     "total_tokens": 974,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Talvez eu faça um curso de português europeu para entender melhor as pessoas. O que você acha?",
+      "translation": "Maybe I’ll take a European Portuguese course to understand people better. What do you think?",
+      "errors": [
+       {
+        "original": "Talvez eu vou fazer",
+        "corrected": "Talvez eu faça",
+        "explanation": "After “talvez,” use the present subjunctive to express possibility."
+       },
+       {
+        "original": "pra",
+        "corrected": "para",
+        "explanation": "“Pra” is informal; “para” is more appropriate in standard writing."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Acho uma ótima ideia, principalmente porque você mora em Lisboa. O curso pode ajudar você a entender o sotaque e algumas palavras diferentes. Você já encontrou algum curso?",
+      "translation": "I think it’s a great idea, especially because you live in Lisbon. The course can help you understand the accent and some different words. Have you found a course yet?"
+     }
+    }
+   }
+  ],
+  "judged_level": "B1"
+ },
+ {
+  "model": "gpt-4o-mini",
+  "prompt": "v4",
+  "level": "B1",
+  "verbosity": "normal",
+  "guide": true,
+  "turns": [
+   {
+    "user": "Oi! Eu mudei pra Lisboa mês passado por causa do meu trabalho, mas eu ainda não acostumei com a cidade.",
+    "ttft": 1.4336247444152832,
+    "reply_start": 3.1924917697906494,
+    "total": 3.618587017059326,
+    "usage": {
+     "prompt_tokens": 547,
+     "completion_tokens": 267,
+     "total_tokens": 814,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Oi! Eu mudei para Lisboa no mês passado por causa do meu trabalho, mas eu ainda não me acostumei com a cidade.",
+      "translation": "Hi! I moved to Lisbon last month because of my job, but I still haven't gotten used to the city.",
+      "errors": [
+       {
+        "original": "mudei pra",
+        "corrected": "mudei para",
+        "explanation": "Use 'para' instead of 'pra' in formal writing."
+       },
+       {
+        "original": "mês passado",
+        "corrected": "no mês passado",
+        "explanation": "Use 'no' to indicate a specific time period."
+       },
+       {
+        "original": "ainda não acostumei",
+        "corrected": "ainda não me acostumei",
+        "explanation": "Use 'me' to indicate that you are the subject who is getting used to something."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Lisboa é uma cidade linda! O que você mais gosta lá até agora?",
+      "translation": "Lisbon is a beautiful city! What do you like the most there so far?"
+     }
+    }
+   },
+   {
+    "user": "O mais dificil é o transporte. Os ônibus sempre atrasa e eu nunca sei qual eu tenho que pegar.",
+    "ttft": 0.5117974281311035,
+    "reply_start": 1.7568142414093018,
+    "total": 2.35150146484375,
+    "usage": {
+     "prompt_tokens": 582,
+     "completion_tokens": 202,
+     "total_tokens": 784,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "O mais difícil é o transporte. Os ônibus sempre atrasam e eu nunca sei qual eu tenho que pegar.",
+      "translation": "The most difficult thing is transportation. The buses are always late and I never know which one I have to take.",
+      "errors": [
+       {
+        "original": "dificil",
+        "corrected": "difícil",
+        "explanation": "The word needs a written accent."
+       },
+       {
+        "original": "atrasa",
+        "corrected": "atrasam",
+        "explanation": "The subject 'ônibus' is plural, so the verb must be plural too."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Os transportes em Lisboa podem ser complicados. Você já tentou usar o metrô?",
+      "translation": "Transportation in Lisbon can be complicated. Have you tried using the metro?"
+     }
+    }
+   },
+   {
+    "user": "Se eu teria um carro seria mais fácil, mas estacionar aqui é muito caro e as rua são muito estreitas.",
+    "ttft": 0.5175459384918213,
+    "reply_start": 2.0737900733947754,
+    "total": 2.3584110736846924,
+    "usage": {
+     "prompt_tokens": 630,
+     "completion_tokens": 248,
+     "total_tokens": 878,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Se eu tivesse um carro, seria mais fácil, mas estacionar aqui é muito caro e as ruas são muito estreitas.",
+      "translation": "If I had a car, it would be easier, but parking here is very expensive and the streets are very narrow.",
+      "errors": [
+       {
+        "original": "teria",
+        "corrected": "tivesse",
+        "explanation": "Use 'tivesse' for hypothetical situations in the past."
+       },
+       {
+        "original": "as rua",
+        "corrected": "as ruas",
+        "explanation": "Use the plural form 'ruas' when talking about more than one street."
+       },
+       {
+        "original": "estreitas.",
+        "corrected": "estreitas.",
+        "explanation": "No error; the original sentence is correct in this part."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Entendo! O transporte pode ser complicado. Você já pensou em andar de bicicleta?",
+      "translation": "I understand! Transportation can be complicated. Have you thought about riding a bike?"
+     }
+    }
+   },
+   {
+    "user": "Ontem eu fui no mercado e esqueci de levar sacola, então eu tive que comprar uma. Aqui tudo é diferente do Brasil!",
+    "ttft": 0.5371792316436768,
+    "reply_start": 1.9535319805145264,
+    "total": 2.2755699157714844,
+    "usage": {
+     "prompt_tokens": 684,
+     "completion_tokens": 239,
+     "total_tokens": 923,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Ontem eu fui ao mercado e esqueci de levar a sacola, então eu tive que comprar uma.",
+      "translation": "Yesterday I went to the market and forgot to take the bag, so I had to buy one.",
+      "errors": [
+       {
+        "original": "no mercado",
+        "corrected": "ao mercado",
+        "explanation": "Use 'ao' with places to indicate direction."
+       },
+       {
+        "original": "sacola",
+        "corrected": "a sacola",
+        "explanation": "Use the definite article 'a' to specify the bag."
+       },
+       {
+        "original": "as rua",
+        "corrected": "as ruas",
+        "explanation": "The plural form of 'rua' is 'ruas'."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "É verdade! Aqui é bem diferente. Você já visitou algum lugar famoso em Lisboa?",
+      "translation": "That's true! Here is quite different. Have you visited any famous places in Lisbon?"
+     }
+    }
+   },
+   {
+    "user": "Talvez eu vou fazer um curso de português europeu, pra entender melhor as pessoas. O que você acha?",
+    "ttft": 0.5785069465637207,
+    "reply_start": 1.6166391372680664,
+    "total": 2.019880533218384,
+    "usage": {
+     "prompt_tokens": 720,
+     "completion_tokens": 204,
+     "total_tokens": 924,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Talvez eu faça um curso de português europeu, para entender melhor as pessoas.",
+      "translation": "Maybe I will take a European Portuguese course, to better understand people.",
+      "errors": [
+       {
+        "original": "eu vou fazer",
+        "corrected": "eu faça",
+        "explanation": "Use the subjunctive 'faça' after 'talvez' for uncertainty."
+       },
+       {
+        "original": "pra",
+        "corrected": "para",
+        "explanation": "'Pra' is informal; use 'para' in writing."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Acho uma ótima ideia! Aprender português europeu pode ajudar muito. Você já escolheu onde fazer o curso?",
+      "translation": "I think it's a great idea! Learning European Portuguese can help a lot. Have you already chosen where to take the course?"
+     }
+    }
+   }
+  ],
+  "judged_level": "B1"
+ },
+ {
+  "model": "gpt-5.4-nano",
+  "prompt": "v4",
+  "level": "B1",
+  "verbosity": "normal",
+  "guide": true,
+  "turns": [
+   {
+    "user": "Oi! Eu mudei pra Lisboa mês passado por causa do meu trabalho, mas eu ainda não acostumei com a cidade.",
+    "ttft": 1.3652582168579102,
+    "reply_start": 1.5658071041107178,
+    "total": 1.9084372520446777,
+    "usage": {
+     "prompt_tokens": 541,
+     "completion_tokens": 96,
+     "total_tokens": 637,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "",
+      "translation": "",
+      "errors": []
+     },
+     "conversation": {
+      "content": "Entendo você. Mudar de cidade dá trabalho no começo. O que você acha mais difícil em Lisboa?",
+      "translation": "I understand you. Moving to a new city takes effort at the beginning. What do you find most difficult in Lisbon?"
+     }
+    }
+   },
+   {
+    "user": "O mais dificil é o transporte. Os ônibus sempre atrasa e eu nunca sei qual eu tenho que pegar.",
+    "ttft": 0.48691678047180176,
+    "reply_start": 1.2349817752838135,
+    "total": 1.5453360080718994,
+    "usage": {
+     "prompt_tokens": 583,
+     "completion_tokens": 196,
+     "total_tokens": 779,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "O mais difícil é o transporte. Os ônibus sempre atrasam e eu nunca sei qual eu tenho que pegar.",
+      "translation": "The hardest thing is transportation. The buses always arrive late and I never know which one I have to take.",
+      "errors": [
+       {
+        "original": "O mais dificil",
+        "corrected": "O mais difícil",
+        "explanation": "Use acento em “difícil” porque é uma palavra proparoxítona."
+       },
+       {
+        "original": "os ônibus sempre atrasa",
+        "corrected": "os ônibus sempre atrasam",
+        "explanation": "O verbo deve concordar com o plural: “ônibus” (eles) atrasam."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Eu entendo você. Em Lisboa, isso acontece bastante com os ônibus. Você usa aplicativo pra ver os horários?",
+      "translation": "I understand you. In Lisbon, this happens quite often with buses. Do you use an app to check the schedules?"
+     }
+    }
+   },
+   {
+    "user": "Se eu teria um carro seria mais fácil, mas estacionar aqui é muito caro e as rua são muito estreitas.",
+    "ttft": 0.46901774406433105,
+    "reply_start": 1.5433151721954346,
+    "total": 2.0028812885284424,
+    "usage": {
+     "prompt_tokens": 636,
+     "completion_tokens": 251,
+     "total_tokens": 887,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Se eu tivesse um carro, seria mais fácil, mas estacionar aqui é muito caro e as ruas são muito estreitas.",
+      "translation": "If I had a car, it would be easier, but parking here is very expensive and the streets are very narrow.",
+      "errors": [
+       {
+        "original": "Se eu teria um carro seria",
+        "corrected": "Se eu tivesse um carro, seria",
+        "explanation": "Use o imperfeito no “se” para uma condição hipotética."
+       },
+       {
+        "original": "as rua são",
+        "corrected": "as ruas são",
+        "explanation": "“Rua” precisa concordar em plural: “as ruas”."
+       },
+       {
+        "original": "Se eu teria um carro seria mais fácil",
+        "corrected": "Se eu tivesse um carro, seria mais fácil",
+        "explanation": "Coloque vírgula após a oração com “se”."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Entendi. Do jeito que você falou, parece uma situação hipotética. Em Lisboa, estacionar realmente custa caro. Você usa carro em outra cidade?",
+      "translation": "I understand. As you said it, it sounds like a hypothetical situation. In Lisbon, parking really is expensive. Do you drive a car in another city?"
+     }
+    }
+   },
+   {
+    "user": "Ontem eu fui no mercado e esqueci de levar sacola, então eu tive que comprar uma. Aqui tudo é diferente do Brasil!",
+    "ttft": 0.41259264945983887,
+    "reply_start": 0.6010494232177734,
+    "total": 1.0140032768249512,
+    "usage": {
+     "prompt_tokens": 703,
+     "completion_tokens": 98,
+     "total_tokens": 801,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "",
+      "translation": "",
+      "errors": []
+     },
+     "conversation": {
+      "content": "Entendi! Isso acontece muito quando a gente está se adaptando. Você comprou sacola de papel ou de plástico?",
+      "translation": "I understand! This happens a lot when we are adjusting. Did you buy a paper bag or a plastic one?"
+     }
+    }
+   },
+   {
+    "user": "Talvez eu vou fazer um curso de português europeu, pra entender melhor as pessoas. O que você acha?",
+    "ttft": 0.4596877098083496,
+    "reply_start": 1.4735620021820068,
+    "total": 1.850154161453247,
+    "usage": {
+     "prompt_tokens": 746,
+     "completion_tokens": 241,
+     "total_tokens": 987,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Talvez eu faça um curso de português europeu para entender melhor as pessoas. O que você acha?",
+      "translation": "Maybe I will take a European Portuguese course to understand people better. What do you think?",
+      "errors": [
+       {
+        "original": "Talvez eu vou fazer",
+        "corrected": "Talvez eu faça",
+        "explanation": "After “talvez”, we use the subjunctive, not “ir” with infinitive."
+       },
+       {
+        "original": "pra entender melhor",
+        "corrected": "para entender melhor",
+        "explanation": "“Para” is more formal and correct in standard writing."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Eu acho uma boa ideia. Assim você entende melhor a pronúncia e o jeito de falar. Você quer um curso online ou presencial?",
+      "translation": "I think it’s a good idea. This way you understand pronunciation and the way people speak better. Do you want an online or in-person course?"
+     }
+    }
+   }
+  ],
+  "judged_level": "B1"
+ },
+ {
+  "model": "gpt-6-luna",
+  "prompt": "v4",
+  "level": "C1",
+  "verbosity": "normal",
+  "guide": true,
+  "turns": [
+   {
+    "user": "Oi! Eu mudei pra Lisboa mês passado por causa do meu trabalho, mas eu ainda não acostumei com a cidade.",
+    "ttft": 1.8272318840026855,
+    "reply_start": 3.39766263961792,
+    "total": 4.654680252075195,
+    "usage": {
+     "prompt_tokens": 537,
+     "completion_tokens": 310,
+     "total_tokens": 847,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Oi! Eu me mudei para Lisboa no mês passado por causa do meu trabalho, mas ainda não me acostumei com a cidade.",
+      "translation": "Hi! I moved to Lisbon last month because of my job, but I still haven’t gotten used to the city.",
+      "errors": [
+       {
+        "original": "Eu mudei pra Lisboa mês passado",
+        "corrected": "Eu me mudei para Lisboa no mês passado",
+        "explanation": "Use the pronominal verb “mudar-se” for moving residence; “no mês passado” is the standard time expression, and “para” is more formal than “pra.”"
+       },
+       {
+        "original": "eu ainda não acostumei com a cidade",
+        "corrected": "ainda não me acostumei com a cidade",
+        "explanation": "“Acostumar-se com” is pronominal, so it requires the reflexive pronoun “me.”"
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Mudar de país é uma grande aventura, mas também pode levar um tempo até a gente se sentir em casa. Lisboa tem bairros e ritmos bem diferentes; talvez explorar a cidade aos poucos ajude você a se adaptar. O que mais tem sido difícil nessa mudança?",
+      "translation": "Moving to another country is a big adventure, but it can also take a while before you feel at home. Lisbon has neighborhoods and rhythms that vary quite a bit; perhaps exploring the city little by little will help you adjust. What has been the hardest part of this move?"
+     }
+    }
+   },
+   {
+    "user": "O mais dificil é o transporte. Os ônibus sempre atrasa e eu nunca sei qual eu tenho que pegar.",
+    "ttft": 0.869154691696167,
+    "reply_start": 2.121918201446533,
+    "total": 3.402674436569214,
+    "usage": {
+     "prompt_tokens": 611,
+     "completion_tokens": 286,
+     "total_tokens": 897,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "O mais difícil é o transporte. Os ônibus sempre atrasam, e eu nunca sei qual deles tenho que pegar.",
+      "translation": "The hardest part is transportation. The buses are always late, and I never know which one I have to take.",
+      "errors": [
+       {
+        "original": "dificil",
+        "corrected": "difícil",
+        "explanation": "The adjective “difícil” has an acute accent on the second-to-last syllable."
+       },
+       {
+        "original": "Os ônibus sempre atrasa",
+        "corrected": "Os ônibus sempre atrasam",
+        "explanation": "The verb must agree with the plural subject “os ônibus”."
+       },
+       {
+        "original": "qual eu tenho que pegar",
+        "corrected": "qual deles tenho que pegar",
+        "explanation": "“Qual deles” is the more natural way to refer to one bus from a group."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Entendo; depender de ônibus atrasados e ainda ter dúvida sobre qual linha pegar pode tornar qualquer trajeto bem estressante. Talvez um aplicativo de transporte ajude a conferir as linhas e os horários em tempo real. Você costuma usar algum para planejar seus trajetos?",
+      "translation": "I understand; relying on late buses and still being unsure which route to take can make any trip quite stressful. Perhaps a transit app could help you check routes and schedules in real time. Do you usually use one to plan your trips?"
+     }
+    }
+   },
+   {
+    "user": "Se eu teria um carro seria mais fácil, mas estacionar aqui é muito caro e as rua são muito estreitas.",
+    "ttft": 1.372208833694458,
+    "reply_start": 2.4024670124053955,
+    "total": 3.61277437210083,
+    "usage": {
+     "prompt_tokens": 696,
+     "completion_tokens": 263,
+     "total_tokens": 959,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Se eu tivesse um carro, seria mais fácil, mas estacionar aqui é muito caro e as ruas são muito estreitas.",
+      "translation": "If I had a car, it would be easier, but parking here is very expensive and the streets are very narrow.",
+      "errors": [
+       {
+        "original": "Se eu teria um carro",
+        "corrected": "Se eu tivesse um carro",
+        "explanation": "In a hypothetical condition, use the imperfect subjunctive in the “se” clause and the conditional in the result clause."
+       },
+       {
+        "original": "as rua",
+        "corrected": "as ruas",
+        "explanation": "The noun must agree with the plural article “as.”"
+       }
+      ]
+     },
+     "conversation": {
+      "content": "É, em Lisboa o carro pode acabar trazendo mais preocupação do que comodidade, especialmente com o preço do estacionamento e as ruas estreitas. Talvez valha a pena combinar ônibus com metrô ou bicicleta, dependendo do trajeto. Você já experimentou algum aplicativo para comparar as opções de transporte?",
+      "translation": "Yes, in Lisbon a car can end up bringing more worry than convenience, especially given the cost of parking and the narrow streets. It might be worth combining buses with the metro or a bicycle, depending on the route. Have you tried an app to compare transportation options?"
+     }
+    }
+   },
+   {
+    "user": "Ontem eu fui no mercado e esqueci de levar sacola, então eu tive que comprar uma. Aqui tudo é diferente do Brasil!",
+    "ttft": 0.9192225933074951,
+    "reply_start": 2.244288682937622,
+    "total": 3.260244131088257,
+    "usage": {
+     "prompt_tokens": 791,
+     "completion_tokens": 256,
+     "total_tokens": 1047,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Ontem eu fui ao mercado e esqueci de levar uma sacola, então tive que comprar uma. Aqui tudo é diferente do Brasil!",
+      "translation": "Yesterday I went to the grocery store and forgot to bring a bag, so I had to buy one. Everything here is different from Brazil!",
+      "errors": [
+       {
+        "original": "fui no mercado",
+        "corrected": "fui ao mercado",
+        "explanation": "In standard usage, the verb “ir” takes the preposition “a” when indicating a destination."
+       },
+       {
+        "original": "levar sacola",
+        "corrected": "levar uma sacola",
+        "explanation": "A singular count noun generally requires an article in this context."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "É verdade, até uma tarefa simples como fazer compras pode revelar diferenças do dia a dia. Em Lisboa, muita gente leva sacolas reutilizáveis, e alguns mercados cobram pelas sacolas descartáveis. Você já percebeu outras diferenças curiosas nas compras por aí?",
+      "translation": "That’s true—even a simple task like grocery shopping can reveal everyday differences. In Lisbon, many people bring reusable bags, and some stores charge for disposable ones. Have you noticed any other curious differences in shopping there?"
+     }
+    }
+   },
+   {
+    "user": "Talvez eu vou fazer um curso de português europeu, pra entender melhor as pessoas. O que você acha?",
+    "ttft": 0.8895900249481201,
+    "reply_start": 1.8641817569732666,
+    "total": 2.9804346561431885,
+    "usage": {
+     "prompt_tokens": 863,
+     "completion_tokens": 253,
+     "total_tokens": 1116,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Talvez eu faça um curso de português europeu para entender melhor as pessoas. O que você acha?",
+      "translation": "Maybe I’ll take a European Portuguese course to understand people better. What do you think?",
+      "errors": [
+       {
+        "original": "Talvez eu vou fazer",
+        "corrected": "Talvez eu faça",
+        "explanation": "After “talvez,” use the present subjunctive to express a possibility."
+       },
+       {
+        "original": "pra",
+        "corrected": "para",
+        "explanation": "“Pra” is common in informal speech, but “para” is more appropriate in standard written Portuguese."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Acho uma ótima ideia, sobretudo porque você está vivendo em Lisboa; o curso pode ajudar tanto com o sotaque quanto com expressões e hábitos locais. Mesmo assim, não precisa esperar pelo curso para praticar: conversar com as pessoas no dia a dia já pode fazer bastante diferença.",
+      "translation": "I think it’s a great idea, especially since you’re living in Lisbon; the course can help with both the accent and local expressions and customs. Even so, you don’t need to wait for the course to practice: talking with people in everyday situations can already make a big difference."
+     }
+    }
+   }
+  ],
+  "judged_level": "B2"
+ },
+ {
+  "model": "gpt-4o-mini",
+  "prompt": "v4",
+  "level": "C1",
+  "verbosity": "normal",
+  "guide": true,
+  "turns": [
+   {
+    "user": "Oi! Eu mudei pra Lisboa mês passado por causa do meu trabalho, mas eu ainda não acostumei com a cidade.",
+    "ttft": 3.315915107727051,
+    "reply_start": 4.937231063842773,
+    "total": 5.269859790802002,
+    "usage": {
+     "prompt_tokens": 543,
+     "completion_tokens": 284,
+     "total_tokens": 827,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Oi! Eu mudei para Lisboa no mês passado por causa do meu trabalho, mas eu ainda não me acostumei com a cidade.",
+      "translation": "Hi! I moved to Lisbon last month because of my job, but I still haven't gotten used to the city.",
+      "errors": [
+       {
+        "original": "pra",
+        "corrected": "para",
+        "explanation": "Pra é uma forma coloquial; o uso de para é mais formal e apropriado em escrita."
+       },
+       {
+        "original": "mês passado",
+        "corrected": "no mês passado",
+        "explanation": "A preposição 'no' é necessária para indicar um tempo específico."
+       },
+       {
+        "original": "acostumei",
+        "corrected": "me acostumei",
+        "explanation": "O verbo 'acostumar-se' exige o pronome reflexivo 'me'."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Entendo, mudar para uma nova cidade pode ser desafiador. Quais aspectos de Lisboa você ainda não se acostumou?",
+      "translation": "I understand, moving to a new city can be challenging. What aspects of Lisbon have you not gotten used to yet?"
+     }
+    }
+   },
+   {
+    "user": "O mais dificil é o transporte. Os ônibus sempre atrasa e eu nunca sei qual eu tenho que pegar.",
+    "ttft": 0.5453271865844727,
+    "reply_start": 1.6690175533294678,
+    "total": 2.0016744136810303,
+    "usage": {
+     "prompt_tokens": 590,
+     "completion_tokens": 218,
+     "total_tokens": 808,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "O mais difícil é o transporte. Os ônibus sempre atrasam e eu nunca sei qual eu tenho que pegar.",
+      "translation": "The most difficult thing is transportation. The buses are always late and I never know which one I have to take.",
+      "errors": [
+       {
+        "original": "dificil",
+        "corrected": "difícil",
+        "explanation": "The word 'difícil' requires an accent on the 'i'."
+       },
+       {
+        "original": "atrasa",
+        "corrected": "atrasam",
+        "explanation": "'Os ônibus' is plural, so the verb must also be in the plural form."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Isso pode ser realmente complicado. Você já considerou usar aplicativos de transporte para facilitar sua locomoção?",
+      "translation": "That can be really complicated. Have you considered using transportation apps to make your commute easier?"
+     }
+    }
+   },
+   {
+    "user": "Se eu teria um carro seria mais fácil, mas estacionar aqui é muito caro e as rua são muito estreitas.",
+    "ttft": 0.517876148223877,
+    "reply_start": 2.0361132621765137,
+    "total": 2.5042002201080322,
+    "usage": {
+     "prompt_tokens": 641,
+     "completion_tokens": 276,
+     "total_tokens": 917,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Se eu tivesse um carro, seria mais fácil, mas estacionar aqui é muito caro e as ruas são muito estreitas.",
+      "translation": "If I had a car, it would be easier, but parking here is very expensive and the streets are very narrow.",
+      "errors": [
+       {
+        "original": "teria",
+        "corrected": "tivesse",
+        "explanation": "The subjunctive mood is used after 'se' to express hypothetical situations."
+       },
+       {
+        "original": "rua",
+        "corrected": "ruas",
+        "explanation": "The plural form 'ruas' is needed to match the context of multiple streets."
+       },
+       {
+        "original": "atras",
+        "corrected": "atrasam",
+        "explanation": "The verb must agree in number with the plural subject 'os ônibus'."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Entendo, realmente pode ser difícil lidar com o transporte público. Você já tentou usar a bicicleta ou caminhar para algumas distâncias?",
+      "translation": "I understand, it can really be difficult to deal with public transportation. Have you tried using a bike or walking for some distances?"
+     }
+    }
+   },
+   {
+    "user": "Ontem eu fui no mercado e esqueci de levar sacola, então eu tive que comprar uma. Aqui tudo é diferente do Brasil!",
+    "ttft": 0.5155148506164551,
+    "reply_start": 1.934769868850708,
+    "total": 2.35172438621521,
+    "usage": {
+     "prompt_tokens": 704,
+     "completion_tokens": 262,
+     "total_tokens": 966,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Ontem eu fui ao mercado e esqueci de levar a sacola, então eu tive que comprar uma. Aqui tudo é diferente do Brasil!",
+      "translation": "Yesterday I went to the market and forgot to bring the bag, so I had to buy one. Everything here is different from Brazil!",
+      "errors": [
+       {
+        "original": "fui no mercado",
+        "corrected": "fui ao mercado",
+        "explanation": "In Portuguese, the correct preposition for going to a place is 'a' (to) when referring to specific locations."
+       },
+       {
+        "original": "de levar sacola",
+        "corrected": "de levar a sacola",
+        "explanation": "The definite article 'a' is needed before 'sacola' to specify which bag you are referring to."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "É verdade, a experiência de viver em um novo país traz muitos desafios. Você já teve a oportunidade de experimentar a comida local?",
+      "translation": "It's true, the experience of living in a new country brings many challenges. Have you had the chance to try the local food?"
+     }
+    }
+   },
+   {
+    "user": "Talvez eu vou fazer um curso de português europeu, pra entender melhor as pessoas. O que você acha?",
+    "ttft": 0.5684964656829834,
+    "reply_start": 1.2413463592529297,
+    "total": 1.7827391624450684,
+    "usage": {
+     "prompt_tokens": 748,
+     "completion_tokens": 170,
+     "total_tokens": 918,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Talvez eu faça um curso de português europeu, pra entender melhor as pessoas.",
+      "translation": "Maybe I'll take a European Portuguese course to better understand people.",
+      "errors": [
+       {
+        "original": "eu vou fazer",
+        "corrected": "eu faça",
+        "explanation": "The subjunctive mood is used for uncertain future actions."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Acho uma ótima ideia! Aprender o português europeu pode realmente ajudar na sua adaptação. Você já encontrou alguma escola ou curso que te interesse?",
+      "translation": "I think it's a great idea! Learning European Portuguese can really help with your adaptation. Have you found any school or course that interests you?"
+     }
+    }
+   }
+  ],
+  "judged_level": "B1"
+ },
+ {
+  "model": "gpt-5.4-nano",
+  "prompt": "v4",
+  "level": "C1",
+  "verbosity": "normal",
+  "guide": true,
+  "turns": [
+   {
+    "user": "Oi! Eu mudei pra Lisboa mês passado por causa do meu trabalho, mas eu ainda não acostumei com a cidade.",
+    "ttft": 1.2495026588439941,
+    "reply_start": 1.4527130126953125,
+    "total": 1.9738805294036865,
+    "usage": {
+     "prompt_tokens": 537,
+     "completion_tokens": 135,
+     "total_tokens": 672,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "",
+      "translation": "",
+      "errors": []
+     },
+     "conversation": {
+      "content": "Entendo perfeitamente—morar em uma cidade nova costuma levar um tempo até a gente se sentir em casa. O que tem sido mais difícil: o ritmo da cidade, o clima ou alguma questão prática no dia a dia?",
+      "translation": "I understand perfectly—moving to a new city usually takes time before you feel at home. What has been hardest: the pace of the city, the weather, or some practical day-to-day issue?"
+     }
+    }
+   },
+   {
+    "user": "O mais dificil é o transporte. Os ônibus sempre atrasa e eu nunca sei qual eu tenho que pegar.",
+    "ttft": 0.4967384338378906,
+    "reply_start": 1.4354233741760254,
+    "total": 1.9798901081085205,
+    "usage": {
+     "prompt_tokens": 602,
+     "completion_tokens": 265,
+     "total_tokens": 867,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "O mais difícil é o transporte. Os ônibus sempre atrasam e eu nunca sei qual eu tenho que pegar.",
+      "translation": "The most difficult thing is transportation. The buses always run late and I never know which one I have to take.",
+      "errors": [
+       {
+        "original": "O mais dificil",
+        "corrected": "O mais difícil",
+        "explanation": "Use the accent on difícil to mark the correct stressed syllable."
+       },
+       {
+        "original": "Os ônibus sempre atrasa",
+        "corrected": "Os ônibus sempre atrasam",
+        "explanation": "Match the verb with the plural subject (ônibus)."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Isso acontece mesmo: quando não dá para prever o horário, o transporte vira um estresse diário. Você já tentou usar algum app de rotas ou consultar os painéis nos pontos para decidir qual ônibus pegar?",
+      "translation": "That really happens: when you can’t predict the schedule, transportation becomes a daily stress. Have you tried using a route app or checking the screens at the stops to decide which bus to take?"
+     }
+    }
+   },
+   {
+    "user": "Se eu teria um carro seria mais fácil, mas estacionar aqui é muito caro e as rua são muito estreitas.",
+    "ttft": 0.5055058002471924,
+    "reply_start": 1.7085602283477783,
+    "total": 2.4134347438812256,
+    "usage": {
+     "prompt_tokens": 674,
+     "completion_tokens": 297,
+     "total_tokens": 971,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Se eu tivesse um carro, seria mais fácil, mas estacionar aqui é muito caro e as ruas são muito estreitas.",
+      "translation": "If I had a car, it would be easier, but parking here is very expensive and the streets are very narrow.",
+      "errors": [
+       {
+        "original": "Se eu teria um carro seria",
+        "corrected": "Se eu tivesse um carro, seria",
+        "explanation": "Use the imperfect subjunctive (tivesse) with the conditional (seria) for an unreal condition."
+       },
+       {
+        "original": "as rua são muito estreitas",
+        "corrected": "as ruas são muito estreitas",
+        "explanation": "Pluralize \"rua\" to match \"as\"."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Faz sentido: quando o transporte e o estacionamento pesam no orçamento, a cidade parece ainda mais difícil. Você considera usar táxi por app em alguns trajetos ou prefere tentar alternativas como bicicletas e transporte público em horários específicos?",
+      "translation": "That makes sense: when transportation and parking weigh on the budget, the city feels even harder. Are you considering using an app taxi for some trips, or do you prefer trying alternatives like bikes and public transport at specific times?"
+     }
+    }
+   },
+   {
+    "user": "Ontem eu fui no mercado e esqueci de levar sacola, então eu tive que comprar uma. Aqui tudo é diferente do Brasil!",
+    "ttft": 0.5088794231414795,
+    "reply_start": 0.7249255180358887,
+    "total": 1.5644431114196777,
+    "usage": {
+     "prompt_tokens": 755,
+     "completion_tokens": 198,
+     "total_tokens": 953,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "",
+      "translation": "",
+      "errors": []
+     },
+     "conversation": {
+      "content": "Entendi! Esquecer a sacola no mercado é daquelas situações que parecem pequenas, mas viram um transtorno na hora. E sim, em outro país a rotina muda mesmo: às vezes até detalhes como embalagem e compras funcionam de um jeito diferente. Você percebeu alguma diferença específica nos mercados de Lisboa, como preços, tipos de sacola ou regras de pagamento?",
+      "translation": "I understand! Forgetting a shopping bag at the market is one of those situations that seem small, but end up being a hassle in the moment. And yes, in another country the routine really changes: sometimes even details like packaging and shopping work differently. Have you noticed any specific differences in Lisbon markets, like prices, bag types, or payment rules?"
+     }
+    }
+   },
+   {
+    "user": "Talvez eu vou fazer um curso de português europeu, pra entender melhor as pessoas. O que você acha?",
+    "ttft": 0.4943978786468506,
+    "reply_start": 1.2325923442840576,
+    "total": 2.2247297763824463,
+    "usage": {
+     "prompt_tokens": 850,
+     "completion_tokens": 282,
+     "total_tokens": 1132,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Talvez eu faça um curso de português europeu para entender melhor as pessoas. O que você acha?",
+      "translation": "Maybe I will take a course of European Portuguese to understand people better. What do you think?",
+      "errors": [
+       {
+        "original": "Talvez eu vou fazer",
+        "corrected": "Talvez eu faça",
+        "explanation": "After “talvez”, in standard C1 Portuguese you typically use the subjunctive (fazer → faça)."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Eu acho uma excelente ideia: um curso ajuda a ajustar pronúncia, ritmo e até escolhas de vocabulário que mudam bastante entre variantes. Além disso, quando você entende melhor a forma de falar, fica mais fácil interpretar intenções e nuances no dia a dia. Você quer focar mais em conversação ou em gramática e escrita?",
+      "translation": "I think it’s an excellent idea: a course helps you adjust pronunciation, rhythm, and even vocabulary choices that vary a lot between varieties. Also, when you understand the way people speak better, it becomes easier to interpret intentions and nuances in everyday life. Do you want to focus more on conversation or on grammar and writing?"
+     }
+    }
+   }
+  ],
+  "judged_level": "C1"
+ },
+ {
+  "model": "gpt-6-luna",
+  "prompt": "v5",
+  "level": "B1",
+  "verbosity": "normal",
+  "guide": true,
+  "turns": [
+   {
+    "user": "Oi! Eu mudei pra Lisboa mês passado por causa do meu trabalho, mas eu ainda não acostumei com a cidade.",
+    "ttft": 1.7178330421447754,
+    "reply_start": 3.1964292526245117,
+    "total": 3.847813606262207,
+    "usage": {
+     "prompt_tokens": 674,
+     "completion_tokens": 243,
+     "total_tokens": 917,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Oi! Eu me mudei para Lisboa mês passado por causa do meu trabalho, mas ainda não me acostumei com a cidade.",
+      "translation": "Hi! I moved to Lisbon last month because of my job, but I still haven’t gotten used to the city.",
+      "errors": [
+       {
+        "original": "Eu mudei pra Lisboa",
+        "corrected": "Eu me mudei para Lisboa",
+        "explanation": "Use the reflexive pronoun “me” with “mudar” when talking about moving to a new place; “para” is more formal than “pra.”"
+       },
+       {
+        "original": "eu ainda não acostumei com a cidade",
+        "corrected": "ainda não me acostumei com a cidade",
+        "explanation": "“Acostumar-se” is reflexive, so it needs the pronoun “me.”"
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Mudar de cidade é uma grande mudança, e Lisboa pode levar um tempo para parecer familiar. O que está sendo mais difícil para você?",
+      "translation": "Moving to a new city is a big change, and Lisbon may take some time to feel familiar. What has been most difficult for you?"
+     }
+    }
+   },
+   {
+    "user": "O mais dificil é o transporte. Os ônibus sempre atrasa e eu nunca sei qual eu tenho que pegar.",
+    "ttft": 0.9177525043487549,
+    "reply_start": 2.168412923812866,
+    "total": 2.7943034172058105,
+    "usage": {
+     "prompt_tokens": 722,
+     "completion_tokens": 246,
+     "total_tokens": 968,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "O mais difícil é o transporte. Os ônibus sempre atrasam, e eu nunca sei qual tenho que pegar.",
+      "translation": "The hardest part is transportation. The buses are always late, and I never know which one I should take.",
+      "errors": [
+       {
+        "original": "dificil",
+        "corrected": "difícil",
+        "explanation": "A palavra “difícil” precisa de acento agudo no “i”."
+       },
+       {
+        "original": "Os ônibus sempre atrasa",
+        "corrected": "Os ônibus sempre atrasam",
+        "explanation": "O verbo deve concordar com “os ônibus”, que está no plural."
+       },
+       {
+        "original": "qual eu tenho que pegar",
+        "corrected": "qual tenho que pegar",
+        "explanation": "O pronome “eu” é desnecessário, pois a forma verbal já indica a pessoa."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Entendo, é difícil depender de ônibus que atrasam. Talvez um aplicativo de transporte ajude a planejar o caminho. Você costuma usar algum aplicativo?",
+      "translation": "I understand; it’s difficult to depend on buses that are late. Maybe a transportation app could help you plan your route. Do you usually use an app?"
+     }
+    }
+   },
+   {
+    "user": "Se eu teria um carro seria mais fácil, mas estacionar aqui é muito caro e as rua são muito estreitas.",
+    "ttft": 1.1088347434997559,
+    "reply_start": 2.1831753253936768,
+    "total": 2.958914041519165,
+    "usage": {
+     "prompt_tokens": 783,
+     "completion_tokens": 215,
+     "total_tokens": 998,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Se eu tivesse um carro, seria mais fácil, mas estacionar aqui é muito caro e as ruas são muito estreitas.",
+      "translation": "If I had a car, it would be easier, but parking here is very expensive and the streets are very narrow.",
+      "errors": [
+       {
+        "original": "Se eu teria um carro",
+        "corrected": "Se eu tivesse um carro",
+        "explanation": "Use the imperfect subjunctive after “se” for an unreal or hypothetical situation."
+       },
+       {
+        "original": "as rua",
+        "corrected": "as ruas",
+        "explanation": "The plural article “as” requires a plural noun: “ruas.”"
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Entendo, estacionar em Lisboa pode pesar bastante no bolso. E as ruas estreitas também tornam a direção mais complicada. Você pensa em usar bicicleta ou transporte por aplicativo?",
+      "translation": "I understand; parking in Lisbon can be quite expensive. And narrow streets also make driving more complicated. Are you thinking of using a bicycle or a ride-hailing app?"
+     }
+    }
+   },
+   {
+    "user": "Ontem eu fui no mercado e esqueci de levar sacola, então eu tive que comprar uma. Aqui tudo é diferente do Brasil!",
+    "ttft": 1.1059880256652832,
+    "reply_start": 2.773604393005371,
+    "total": 3.4882144927978516,
+    "usage": {
+     "prompt_tokens": 854,
+     "completion_tokens": 256,
+     "total_tokens": 1110,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Ontem eu fui ao mercado e esqueci de levar uma sacola, então tive que comprar uma. Aqui tudo é diferente do Brasil!",
+      "translation": "Yesterday I went to the grocery store and forgot to bring a bag, so I had to buy one. Everything here is different from Brazil!",
+      "errors": [
+       {
+        "original": "fui no mercado",
+        "corrected": "fui ao mercado",
+        "explanation": "Use “ir a” to indicate going to a place; “ao” combines “a” and “o.”"
+       },
+       {
+        "original": "levar sacola",
+        "corrected": "levar uma sacola",
+        "explanation": "Use the article “uma” before a singular countable noun."
+       },
+       {
+        "original": "então eu tive que comprar uma",
+        "corrected": "então tive que comprar uma",
+        "explanation": "The subject pronoun “eu” is usually unnecessary when the verb already shows who did the action."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "É verdade, até coisas simples podem ser diferentes em outro país. Em Lisboa, você já descobriu outras diferenças curiosas?",
+      "translation": "That’s true; even simple things can be different in another country. In Lisbon, have you discovered any other interesting differences?"
+     }
+    }
+   },
+   {
+    "user": "Talvez eu vou fazer um curso de português europeu, pra entender melhor as pessoas. O que você acha?",
+    "ttft": 0.9048874378204346,
+    "reply_start": 1.8955888748168945,
+    "total": 2.5531303882598877,
+    "usage": {
+     "prompt_tokens": 897,
+     "completion_tokens": 203,
+     "total_tokens": 1100,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Talvez eu faça um curso de português europeu para entender melhor as pessoas. O que você acha?",
+      "translation": "Maybe I’ll take a European Portuguese course to understand people better. What do you think?",
+      "errors": [
+       {
+        "original": "Talvez eu vou fazer",
+        "corrected": "Talvez eu faça",
+        "explanation": "After “talvez,” use the subjunctive to express possibility."
+       },
+       {
+        "original": "pra",
+        "corrected": "para",
+        "explanation": "“Pra” is informal; “para” is more appropriate in standard writing."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Acho uma ótima ideia, especialmente porque você mora em Lisboa. O curso pode ajudar você a entender o sotaque e algumas palavras diferentes. Você já encontrou algum curso interessante?",
+      "translation": "I think it’s a great idea, especially because you live in Lisbon. The course can help you understand the accent and some different words. Have you found any interesting courses yet?"
+     }
+    }
+   }
+  ],
+  "judged_level": "B1"
+ },
+ {
+  "model": "gpt-4o-mini",
+  "prompt": "v5",
+  "level": "B1",
+  "verbosity": "normal",
+  "guide": true,
+  "turns": [
+   {
+    "user": "Oi! Eu mudei pra Lisboa mês passado por causa do meu trabalho, mas eu ainda não acostumei com a cidade.",
+    "ttft": 1.444894552230835,
+    "reply_start": 3.1584267616271973,
+    "total": 3.759716033935547,
+    "usage": {
+     "prompt_tokens": 680,
+     "completion_tokens": 289,
+     "total_tokens": 969,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Oi! Eu mudei para Lisboa no mês passado por causa do meu trabalho, mas eu ainda não me acostumei com a cidade.",
+      "translation": "Hi! I moved to Lisbon last month because of my job, but I still haven't gotten used to the city.",
+      "errors": [
+       {
+        "original": "mudei pra Lisboa",
+        "corrected": "mudei para Lisboa",
+        "explanation": "Use 'para' instead of 'pra' in formal contexts."
+       },
+       {
+        "original": "mês passado",
+        "corrected": "no mês passado",
+        "explanation": "Add 'no' to indicate a specific time in the past."
+       },
+       {
+        "original": "não acostumei",
+        "corrected": "não me acostumei",
+        "explanation": "'Me' is needed to indicate that you are getting used to something."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Entendo, mudar de cidade é sempre um desafio. Lisboa é linda, mas pode ser diferente. O que você acha da comida aqui?",
+      "translation": "I understand, moving to a city is always a challenge. Lisbon is beautiful, but it can be different. What do you think of the food here?"
+     }
+    }
+   },
+   {
+    "user": "O mais dificil é o transporte. Os ônibus sempre atrasa e eu nunca sei qual eu tenho que pegar.",
+    "ttft": 0.4997291564941406,
+    "reply_start": 1.8855650424957275,
+    "total": 2.182573080062866,
+    "usage": {
+     "prompt_tokens": 728,
+     "completion_tokens": 212,
+     "total_tokens": 940,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "O mais difícil é o transporte. Os ônibus sempre atrasam e eu nunca sei qual eu tenho que pegar.",
+      "translation": "The most difficult thing is transportation. The buses are always late and I never know which one I have to take.",
+      "errors": [
+       {
+        "original": "dificil",
+        "corrected": "difícil",
+        "explanation": "The word needs an accent on the 'i' to be correct."
+       },
+       {
+        "original": "atrasa",
+        "corrected": "atrasam",
+        "explanation": "The subject 'ônibus' is plural, so the verb must also be plural."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Sim, o transporte pode ser complicado. Você já tentou usar aplicativos para saber os horários?",
+      "translation": "Yes, transportation can be complicated. Have you tried using apps to know the schedules?"
+     }
+    }
+   },
+   {
+    "user": "Se eu teria um carro seria mais fácil, mas estacionar aqui é muito caro e as rua são muito estreitas.",
+    "ttft": 0.7091424465179443,
+    "reply_start": 2.1141560077667236,
+    "total": 2.3118505477905273,
+    "usage": {
+     "prompt_tokens": 776,
+     "completion_tokens": 215,
+     "total_tokens": 991,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Se eu tivesse um carro, seria mais fácil, mas estacionar aqui é muito caro e as ruas são muito estreitas.",
+      "translation": "If I had a car, it would be easier, but parking here is very expensive and the streets are very narrow.",
+      "errors": [
+       {
+        "original": "teria",
+        "corrected": "tivesse",
+        "explanation": "Use the subjunctive mood 'tivesse' after 'se' for hypothetical situations."
+       },
+       {
+        "original": "as rua",
+        "corrected": "as ruas",
+        "explanation": "The plural form 'ruas' is needed to match the context."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Entendo. O transporte pode ser complicado mesmo. Você já pensou em andar de bicicleta?",
+      "translation": "I understand. Transportation can be complicated indeed. Have you thought about riding a bike?"
+     }
+    }
+   },
+   {
+    "user": "Ontem eu fui no mercado e esqueci de levar sacola, então eu tive que comprar uma. Aqui tudo é diferente do Brasil!",
+    "ttft": 1.308793544769287,
+    "reply_start": 2.9839906692504883,
+    "total": 3.138705253601074,
+    "usage": {
+     "prompt_tokens": 831,
+     "completion_tokens": 262,
+     "total_tokens": 1093,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Ontem eu fui ao mercado e esqueci de levar a sacola, então eu tive que comprar uma. Aqui tudo é diferente do Brasil!",
+      "translation": "Yesterday I went to the market and forgot to bring the bag, so I had to buy one. Here everything is different from Brazil!",
+      "errors": [
+       {
+        "original": "fui no mercado",
+        "corrected": "fui ao mercado",
+        "explanation": "Use 'ao' for destination instead of 'no'."
+       },
+       {
+        "original": "sacola",
+        "corrected": "a sacola",
+        "explanation": "Use the article 'a' before 'sacola'."
+       },
+       {
+        "original": "as rua",
+        "corrected": "as ruas",
+        "explanation": "The correct plural form of 'rua' is 'ruas'."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "É verdade, muitas coisas mudam quando você se muda. Você já experimentou a comida portuguesa?",
+      "translation": "It's true, many things change when you move. Have you tried Portuguese food yet?"
+     }
+    }
+   },
+   {
+    "user": "Talvez eu vou fazer um curso de português europeu, pra entender melhor as pessoas. O que você acha?",
+    "ttft": 0.5742290019989014,
+    "reply_start": 1.8256173133850098,
+    "total": 2.3387577533721924,
+    "usage": {
+     "prompt_tokens": 869,
+     "completion_tokens": 250,
+     "total_tokens": 1119,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Talvez eu faça um curso de português europeu para entender melhor as pessoas.",
+      "translation": "Maybe I will take a European Portuguese course to better understand people.",
+      "errors": [
+       {
+        "original": "eu vou fazer",
+        "corrected": "eu faça",
+        "explanation": "Use the subjunctive 'faça' after 'talvez' to express uncertainty."
+       },
+       {
+        "original": "pra",
+        "corrected": "para",
+        "explanation": "Use 'para' instead of 'pra' in formal writing."
+       },
+       {
+        "original": "o",
+        "corrected": "as",
+        "explanation": "Use 'as' to agree with the plural noun 'pessoas'."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Fazer um curso pode ser uma ótima ideia! Assim, você aprende mais sobre a cultura também. Você já escolheu a escola?",
+      "translation": "Taking a course can be a great idea! That way, you also learn more about the culture. Have you already chosen the school?"
+     }
+    }
+   }
+  ],
+  "judged_level": "B1"
+ },
+ {
+  "model": "gpt-5.4-nano",
+  "prompt": "v5",
+  "level": "B1",
+  "verbosity": "normal",
+  "guide": true,
+  "turns": [
+   {
+    "user": "Oi! Eu mudei pra Lisboa mês passado por causa do meu trabalho, mas eu ainda não acostumei com a cidade.",
+    "ttft": 1.3575069904327393,
+    "reply_start": 1.5499842166900635,
+    "total": 1.9359307289123535,
+    "usage": {
+     "prompt_tokens": 674,
+     "completion_tokens": 108,
+     "total_tokens": 782,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "",
+      "translation": "",
+      "errors": []
+     },
+     "conversation": {
+      "content": "Entendo, Lisboa pode ser bem diferente no começo. Você sente mais falta de quê: do clima, da comida ou do ritmo da cidade?",
+      "translation": "I understand, Lisbon can be quite different at first. What do you miss most: the weather, the food, or the city’s pace?"
+     }
+    }
+   },
+   {
+    "user": "O mais dificil é o transporte. Os ônibus sempre atrasa e eu nunca sei qual eu tenho que pegar.",
+    "ttft": 0.5117700099945068,
+    "reply_start": 1.4217305183410645,
+    "total": 1.724914789199829,
+    "usage": {
+     "prompt_tokens": 723,
+     "completion_tokens": 233,
+     "total_tokens": 956,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "O mais difícil é o transporte. Os ônibus sempre atrasam e eu nunca sei qual eu tenho que pegar.",
+      "translation": "The hardest part is transportation. The buses always delay, and I never know which one I have to take.",
+      "errors": [
+       {
+        "original": "O mais dificil é o transporte.",
+        "corrected": "O mais difícil é o transporte.",
+        "explanation": "Use the accent on \"difícil\"."
+       },
+       {
+        "original": "Os ônibus sempre atrasa",
+        "corrected": "Os ônibus sempre atrasam",
+        "explanation": "Match the verb number with the plural subject \"ônibus\"."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Eu entendo, isso cansa muito no dia a dia. Você usa algum app para ver os horários dos ônibus?",
+      "translation": "I understand, that’s very tiring day to day. Do you use an app to check the bus schedules?"
+     }
+    }
+   },
+   {
+    "user": "Se eu teria um carro seria mais fácil, mas estacionar aqui é muito caro e as rua são muito estreitas.",
+    "ttft": 0.5047016143798828,
+    "reply_start": 1.6110055446624756,
+    "total": 1.9824929237365723,
+    "usage": {
+     "prompt_tokens": 777,
+     "completion_tokens": 247,
+     "total_tokens": 1024,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Se eu tivesse um carro, seria mais fácil, mas estacionar aqui é muito caro e as ruas são muito estreitas.",
+      "translation": "If I had a car, it would be easier, but parking here is very expensive and the streets are very narrow.",
+      "errors": [
+       {
+        "original": "Se eu teria um carro",
+        "corrected": "Se eu tivesse um carro",
+        "explanation": "Use the conditional with “se” for unreal situations: “tivesse”."
+       },
+       {
+        "original": "as rua são muito estreitas",
+        "corrected": "as ruas são muito estreitas",
+        "explanation": "Use the plural “ruas” to match “as”."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Entendo, isso realmente complica no dia a dia. Sem carro, você vai mais de ônibus ou de metrô?",
+      "translation": "I understand, that really makes everyday life harder. Without a car, do you go more by bus or by metro?"
+     }
+    }
+   },
+   {
+    "user": "Ontem eu fui no mercado e esqueci de levar sacola, então eu tive que comprar uma. Aqui tudo é diferente do Brasil!",
+    "ttft": 0.47758030891418457,
+    "reply_start": 1.4526069164276123,
+    "total": 1.8175044059753418,
+    "usage": {
+     "prompt_tokens": 838,
+     "completion_tokens": 249,
+     "total_tokens": 1087,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Ontem eu fui ao mercado e esqueci de levar a sacola, então eu tive que comprar uma. Aqui tudo é diferente do Brasil!",
+      "translation": "Yesterday I went to the market and I forgot to bring the bag, so I had to buy one. Here everything is different from Brazil!",
+      "errors": [
+       {
+        "original": "fui no mercado",
+        "corrected": "fui ao mercado",
+        "explanation": "Use “ir ao” with places like “mercado”."
+       },
+       {
+        "original": "esqueci de levar sacola",
+        "corrected": "esqueci de levar a sacola",
+        "explanation": "Use the article “a” before a specific noun."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Nossa, isso acontece com todo mundo. Pelo menos você resolveu rápido. Aqui tem sacolas reutilizáveis para comprar também?",
+      "translation": "Wow, that happens to everyone. At least you solved it quickly. Do they also sell reusable bags here?"
+     }
+    }
+   },
+   {
+    "user": "Talvez eu vou fazer um curso de português europeu, pra entender melhor as pessoas. O que você acha?",
+    "ttft": 0.4841012954711914,
+    "reply_start": 1.5309820175170898,
+    "total": 1.975450038909912,
+    "usage": {
+     "prompt_tokens": 881,
+     "completion_tokens": 257,
+     "total_tokens": 1138,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Talvez eu faça um curso de português europeu para entender melhor as pessoas. O que você acha?",
+      "translation": "Maybe I’ll take a European Portuguese course to understand people better. What do you think?",
+      "errors": [
+       {
+        "original": "Talvez eu vou fazer um curso de português europeu, pra entender melhor as pessoas.",
+        "corrected": "Talvez eu faça um curso de português europeu para entender melhor as pessoas.",
+        "explanation": "After \"Talvez\", we use the subjunctive: \"faça\"."
+       },
+       {
+        "original": "pra",
+        "corrected": "para",
+        "explanation": "In formal writing, use \"para\" instead of the shortened \"pra\"."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Eu acho uma boa ideia. Aprender o sotaque ajuda muito na comunicação. Você quer focar mais em fala ou em gramática?",
+      "translation": "I think it’s a good idea. Learning the accent helps a lot with communication. Do you want to focus more on speaking or grammar?"
+     }
+    }
+   }
+  ],
+  "judged_level": "B1"
+ },
+ {
+  "model": "gpt-6-luna",
+  "prompt": "v5",
+  "level": "B2",
+  "verbosity": "normal",
+  "guide": true,
+  "turns": [
+   {
+    "user": "Oi! Eu mudei pra Lisboa mês passado por causa do meu trabalho, mas eu ainda não acostumei com a cidade.",
+    "ttft": 1.5842020511627197,
+    "reply_start": 3.4285075664520264,
+    "total": 4.552019357681274,
+    "usage": {
+     "prompt_tokens": 688,
+     "completion_tokens": 321,
+     "total_tokens": 1009,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Oi! Eu me mudei para Lisboa no mês passado por causa do meu trabalho, mas ainda não me acostumei com a cidade.",
+      "translation": "Hi! I moved to Lisbon last month because of my job, but I still haven’t gotten used to the city.",
+      "errors": [
+       {
+        "original": "Eu mudei pra Lisboa",
+        "corrected": "Eu me mudei para Lisboa",
+        "explanation": "Use the pronominal verb “mudar-se” when you mean to move to a new home or city; “para” is more appropriate in writing."
+       },
+       {
+        "original": "mês passado",
+        "corrected": "no mês passado",
+        "explanation": "Use the preposition “em” with the article in the expression “no mês passado.”"
+       },
+       {
+        "original": "eu ainda não acostumei com a cidade",
+        "corrected": "ainda não me acostumei com a cidade",
+        "explanation": "The verb “acostumar-se” is pronominal, so it needs the pronoun “me” here."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "É normal levar um tempo para se adaptar, especialmente quando a rotina e os costumes são diferentes. Lisboa tem bairros e ritmos variados, portanto talvez você encontre lugares que combinem com o seu estilo; o que tem sido mais difícil até agora?",
+      "translation": "It’s normal to take some time to adjust, especially when the routine and customs are different. Lisbon has varied neighborhoods and rhythms, so perhaps you’ll find places that suit your style; what has been most difficult so far?"
+     }
+    }
+   },
+   {
+    "user": "O mais dificil é o transporte. Os ônibus sempre atrasa e eu nunca sei qual eu tenho que pegar.",
+    "ttft": 0.8985588550567627,
+    "reply_start": 2.1898698806762695,
+    "total": 3.407473087310791,
+    "usage": {
+     "prompt_tokens": 757,
+     "completion_tokens": 287,
+     "total_tokens": 1044,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "O mais difícil é o transporte. Os ônibus sempre atrasam, e eu nunca sei qual deles tenho que pegar.",
+      "translation": "The most difficult thing is transportation. The buses are always late, and I never know which one I have to take.",
+      "errors": [
+       {
+        "original": "dificil",
+        "corrected": "difícil",
+        "explanation": "The word “difícil” has an acute accent on the second-to-last syllable."
+       },
+       {
+        "original": "Os ônibus sempre atrasa",
+        "corrected": "Os ônibus sempre atrasam",
+        "explanation": "The verb must agree with the plural subject “os ônibus”."
+       },
+       {
+        "original": "qual eu tenho que pegar",
+        "corrected": "qual deles tenho que pegar",
+        "explanation": "Use “deles” to refer clearly to one bus among several."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Entendo; quando os ônibus atrasam e as linhas não são claras, fica difícil se locomover pela cidade. Talvez um aplicativo de transporte ajude, embora seja importante conferir os horários, porque eles nem sempre estão atualizados. Você já tentou usar algum?",
+      "translation": "I understand; when the buses are late and the routes aren’t clear, it’s difficult to get around the city. Perhaps a transit app could help, although it’s important to check the schedules because they aren’t always up to date. Have you tried using one?"
+     }
+    }
+   },
+   {
+    "user": "Se eu teria um carro seria mais fácil, mas estacionar aqui é muito caro e as rua são muito estreitas.",
+    "ttft": 1.167515754699707,
+    "reply_start": 2.2494986057281494,
+    "total": 3.5614004135131836,
+    "usage": {
+     "prompt_tokens": 839,
+     "completion_tokens": 285,
+     "total_tokens": 1124,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Se eu tivesse um carro, seria mais fácil, mas estacionar aqui é muito caro e as ruas são muito estreitas.",
+      "translation": "If I had a car, it would be easier, but parking here is very expensive and the streets are very narrow.",
+      "errors": [
+       {
+        "original": "Se eu teria um carro seria mais fácil",
+        "corrected": "Se eu tivesse um carro, seria mais fácil",
+        "explanation": "Use the imperfect subjunctive after “se” for a hypothetical situation, followed by the conditional."
+       },
+       {
+        "original": "as rua",
+        "corrected": "as ruas",
+        "explanation": "The plural article “as” requires the noun to be plural as well."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "É compreensível: embora um carro pudesse facilitar seus deslocamentos, o custo do estacionamento e as ruas estreitas tornam essa opção pouco prática. Enquanto você se adapta à cidade, talvez valha a pena combinar ônibus com metrô ou bicicleta, se essas alternativas forem convenientes. Você já experimentou algum aplicativo para planejar os trajetos?",
+      "translation": "That’s understandable: although a car could make getting around easier, parking costs and narrow streets make that option impractical. While you adjust to the city, it might be worth combining buses with the metro or a bicycle, if those alternatives are convenient. Have you tried an app to plan your routes?"
+     }
+    }
+   },
+   {
+    "user": "Ontem eu fui no mercado e esqueci de levar sacola, então eu tive que comprar uma. Aqui tudo é diferente do Brasil!",
+    "ttft": 1.222876787185669,
+    "reply_start": 2.4245858192443848,
+    "total": 3.715961456298828,
+    "usage": {
+     "prompt_tokens": 944,
+     "completion_tokens": 273,
+     "total_tokens": 1217,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Ontem eu fui ao mercado e esqueci de levar uma sacola, então tive que comprar uma. Aqui tudo é diferente do Brasil!",
+      "translation": "Yesterday I went to the market and forgot to bring a bag, so I had to buy one. Everything here is different from Brazil!",
+      "errors": [
+       {
+        "original": "fui no mercado",
+        "corrected": "fui ao mercado",
+        "explanation": "With the verb “ir,” use “a” to indicate destination in standard Portuguese."
+       },
+       {
+        "original": "levar sacola",
+        "corrected": "levar uma sacola",
+        "explanation": "Use the indefinite article “uma” when referring to a nonspecific bag."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "É verdade, até as compras do dia a dia podem trazer surpresas quando a gente se muda para outro país. Em Lisboa, muitas lojas cobram pelas sacolas, então talvez seja útil deixar uma reutilizável perto da porta para não esquecer. Você já percebeu outras diferenças nas compras por aí?",
+      "translation": "That’s true—even everyday shopping can bring surprises when you move to another country. In Lisbon, many shops charge for bags, so it might be useful to leave a reusable one near the door so you don’t forget it. Have you noticed any other differences in shopping there?"
+     }
+    }
+   },
+   {
+    "user": "Talvez eu vou fazer um curso de português europeu, pra entender melhor as pessoas. O que você acha?",
+    "ttft": 0.9011526107788086,
+    "reply_start": 1.83823823928833,
+    "total": 4.956244945526123,
+    "usage": {
+     "prompt_tokens": 1023,
+     "completion_tokens": 268,
+     "total_tokens": 1291,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Talvez eu faça um curso de português europeu para entender melhor as pessoas. O que você acha?",
+      "translation": "Maybe I’ll take a European Portuguese course to understand people better. What do you think?",
+      "errors": [
+       {
+        "original": "Talvez eu vou fazer",
+        "corrected": "Talvez eu faça",
+        "explanation": "After “talvez,” use the present subjunctive to express possibility."
+       },
+       {
+        "original": "pra",
+        "corrected": "para",
+        "explanation": "“Pra” is an informal contraction; “para” is more appropriate in standard written Portuguese."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Acho uma boa ideia, principalmente porque o português europeu tem diferenças de pronúncia e vocabulário que podem dificultar a compreensão no começo. Além do curso, conversar com moradores e ouvir rádio ou podcasts locais pode ajudar você a se acostumar com o ritmo da fala. Você já encontrou algum curso que pareça interessante?",
+      "translation": "I think it’s a good idea, especially because European Portuguese has differences in pronunciation and vocabulary that can make it difficult to understand at first. In addition to taking a course, talking with local residents and listening to local radio or podcasts can help you get used to the pace of speech. Have you found a course that seems interesting?"
+     }
+    }
+   }
+  ],
+  "judged_level": "B2"
+ },
+ {
+  "model": "gpt-4o-mini",
+  "prompt": "v5",
+  "level": "B2",
+  "verbosity": "normal",
+  "guide": true,
+  "turns": [
+   {
+    "user": "Oi! Eu mudei pra Lisboa mês passado por causa do meu trabalho, mas eu ainda não acostumei com a cidade.",
+    "ttft": 1.4376013278961182,
+    "reply_start": 2.8240513801574707,
+    "total": 3.4651219844818115,
+    "usage": {
+     "prompt_tokens": 694,
+     "completion_tokens": 286,
+     "total_tokens": 980,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Oi! Eu me mudei para Lisboa mês passado por causa do meu trabalho, mas eu ainda não me acostumei com a cidade.",
+      "translation": "Hi! I moved to Lisbon last month because of my job, but I still haven't gotten used to the city.",
+      "errors": [
+       {
+        "original": "mudei pra",
+        "corrected": "me mudei para",
+        "explanation": "The verb 'mudar' requires the reflexive pronoun 'me' when indicating a change of residence."
+       },
+       {
+        "original": "acostumei",
+        "corrected": "me acostumei",
+        "explanation": "The correct form is 'me acostumei' since 'acostumar' is a reflexive verb."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Entendo como pode ser desafiador se adaptar a uma nova cidade. Embora Lisboa seja linda, pode levar um tempo para se sentir em casa. Você já teve a chance de explorar alguns lugares interessantes por lá?",
+      "translation": "I understand how challenging it can be to adapt to a new city. Although Lisbon is beautiful, it can take time to feel at home. Have you had a chance to explore some interesting places there?"
+     }
+    }
+   },
+   {
+    "user": "O mais dificil é o transporte. Os ônibus sempre atrasa e eu nunca sei qual eu tenho que pegar.",
+    "ttft": 0.49775171279907227,
+    "reply_start": 1.868666410446167,
+    "total": 2.5446434020996094,
+    "usage": {
+     "prompt_tokens": 757,
+     "completion_tokens": 282,
+     "total_tokens": 1039,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "O mais difícil é o transporte. Os ônibus sempre atrasam e eu nunca sei qual eu tenho que pegar.",
+      "translation": "The most difficult thing is transportation. The buses are always late and I never know which one I have to take.",
+      "errors": [
+       {
+        "original": "dificil",
+        "corrected": "difícil",
+        "explanation": "The word 'difícil' needs an accent on the 'i' to indicate the correct pronunciation."
+       },
+       {
+        "original": "atrasa",
+        "corrected": "atrasam",
+        "explanation": "The subject 'ônibus' is plural, so the verb should also be in plural form: 'atrasam'."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Eu entendo que o transporte pode ser complicado, especialmente em uma cidade nova. Embora os ônibus sejam um pouco imprevisíveis, talvez você possa usar aplicativos de transporte para facilitar a sua vida. Você já tentou usar algum desses aplicativos?",
+      "translation": "I understand that transportation can be complicated, especially in a new city. Although the buses are a bit unpredictable, maybe you can use transportation apps to make your life easier. Have you tried using any of these apps?"
+     }
+    }
+   },
+   {
+    "user": "Se eu teria um carro seria mais fácil, mas estacionar aqui é muito caro e as rua são muito estreitas.",
+    "ttft": 0.9016447067260742,
+    "reply_start": 1.98234224319458,
+    "total": 2.8473360538482666,
+    "usage": {
+     "prompt_tokens": 834,
+     "completion_tokens": 280,
+     "total_tokens": 1114,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Se eu tivesse um carro, seria mais fácil, mas estacionar aqui é muito caro e as ruas são muito estreitas.",
+      "translation": "If I had a car, it would be easier, but parking here is very expensive and the streets are very narrow.",
+      "errors": [
+       {
+        "original": "teria",
+        "corrected": "tivesse",
+        "explanation": "Use the subjunctive 'tivesse' after 'se' to express a hypothetical situation."
+       },
+       {
+        "original": "rua",
+        "corrected": "ruas",
+        "explanation": "The correct plural form is needed because you are referring to streets in general."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "É verdade, ter um carro poderia facilitar a locomoção, mas o custo e o espaço são complicados. Embora seja caro estacionar, talvez você possa considerar alternativas como a bicicleta ou o metrô. Você já pensou em usar outro meio de transporte?",
+      "translation": "It's true, having a car could make transportation easier, but the cost and space are complicated. Although it's expensive to park, maybe you could consider alternatives like biking or the subway. Have you thought about using another means of transport?"
+     }
+    }
+   },
+   {
+    "user": "Ontem eu fui no mercado e esqueci de levar sacola, então eu tive que comprar uma. Aqui tudo é diferente do Brasil!",
+    "ttft": 0.5880732536315918,
+    "reply_start": 2.192845106124878,
+    "total": 2.856739044189453,
+    "usage": {
+     "prompt_tokens": 923,
+     "completion_tokens": 290,
+     "total_tokens": 1213,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Ontem eu fui ao mercado e esqueci de levar a sacola, então eu tive que comprar uma. Aqui tudo é diferente do que no Brasil!",
+      "translation": "Yesterday I went to the market and forgot to take the bag, so I had to buy one. Everything here is different from what it is in Brazil!",
+      "errors": [
+       {
+        "original": "no mercado",
+        "corrected": "ao mercado",
+        "explanation": "Use 'ao' before places to indicate direction or destination."
+       },
+       {
+        "original": "sacola",
+        "corrected": "a sacola",
+        "explanation": "Definite articles are needed when referring to specific items."
+       },
+       {
+        "original": "do Brasil",
+        "corrected": "do que no Brasil",
+        "explanation": "Use 'do que' to make a comparison in Portuguese."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "É verdade, esquecer a sacola pode ser frustrante! Embora a vida em Lisboa seja diferente, você está se adaptando bem? Tem encontrado produtos que gosta por aí?",
+      "translation": "It's true, forgetting the bag can be frustrating! Although life in Lisbon is different, are you adapting well? Have you found products you like there?"
+     }
+    }
+   },
+   {
+    "user": "Talvez eu vou fazer um curso de português europeu, pra entender melhor as pessoas. O que você acha?",
+    "ttft": 0.5967123508453369,
+    "reply_start": 1.5119431018829346,
+    "total": 2.500359535217285,
+    "usage": {
+     "prompt_tokens": 976,
+     "completion_tokens": 233,
+     "total_tokens": 1209,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Talvez eu faça um curso de português europeu, pra entender melhor as pessoas.",
+      "translation": "Maybe I will take a European Portuguese course to better understand people.",
+      "errors": [
+       {
+        "original": "Talvez eu vou fazer",
+        "corrected": "Talvez eu faça",
+        "explanation": "In Portuguese, the subjunctive mood is used after 'talvez' for uncertain situations."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Fazer um curso de português europeu pode ser uma ótima ideia, principalmente para entender melhor as nuances da língua. Embora os dois tipos de português sejam semelhantes, existem diferenças que podem influenciar a comunicação. Você já pensou em como esse curso pode te ajudar no dia a dia?",
+      "translation": "Taking a European Portuguese course could be a great idea, especially to better understand the nuances of the language. Although the two types of Portuguese are similar, there are differences that can influence communication. Have you thought about how this course could help you in your daily life?"
+     }
+    }
+   }
+  ],
+  "judged_level": "B2"
+ },
+ {
+  "model": "gpt-5.4-nano",
+  "prompt": "v5",
+  "level": "B2",
+  "verbosity": "normal",
+  "guide": true,
+  "turns": [
+   {
+    "user": "Oi! Eu mudei pra Lisboa mês passado por causa do meu trabalho, mas eu ainda não acostumei com a cidade.",
+    "ttft": 1.5684640407562256,
+    "reply_start": 1.7496669292449951,
+    "total": 2.377030611038208,
+    "usage": {
+     "prompt_tokens": 688,
+     "completion_tokens": 162,
+     "total_tokens": 850,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "",
+      "translation": "",
+      "errors": []
+     },
+     "conversation": {
+      "content": "Faz sentido você ainda não ter se acostumado, já que mudar para outra cidade exige tempo. Embora Lisboa seja linda, a rotina e o ritmo do dia a dia podem parecer estranhos no começo. O que tem sido mais difícil: o clima, o transporte ou a adaptação social?",
+      "translation": "It makes sense that you still haven’t gotten used to it, since moving to another city takes time. Although Lisbon is beautiful, the routine and daily pace can feel strange at first. What has been hardest: the weather, transportation, or social adjustment?"
+     }
+    }
+   },
+   {
+    "user": "O mais dificil é o transporte. Os ônibus sempre atrasa e eu nunca sei qual eu tenho que pegar.",
+    "ttft": 0.5256330966949463,
+    "reply_start": 1.6354093551635742,
+    "total": 2.3571670055389404,
+    "usage": {
+     "prompt_tokens": 768,
+     "completion_tokens": 248,
+     "total_tokens": 1016,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "O mais difícil é o transporte. Os ônibus sempre atrasam e eu nunca sei qual eu tenho que pegar.",
+      "translation": "The hardest part is transportation. The buses always run late and I never know which one I have to take.",
+      "errors": [
+       {
+        "original": "O mais dificil é o transporte.",
+        "corrected": "O mais difícil é o transporte.",
+        "explanation": "Use the accent in “difícil” (adjective), as required by Portuguese spelling rules."
+       },
+       {
+        "original": "Os ônibus sempre atrasa",
+        "corrected": "Os ônibus sempre atrasam",
+        "explanation": "The verb must agree with the plural subject “os ônibus” (plural verb form)."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Entendo totalmente, porque isso desgasta mesmo a rotina. Talvez ajude você verificar os horários e rotas no aplicativo antes de sair, já que assim você reduz a incerteza. Você costuma pegar mais de uma linha no mesmo trajeto?",
+      "translation": "I totally understand, because that really wears down your routine. Maybe it helps to check schedules and routes in an app before leaving, since that reduces uncertainty. Do you usually take more than one line on the same trip?"
+     }
+    }
+   },
+   {
+    "user": "Se eu teria um carro seria mais fácil, mas estacionar aqui é muito caro e as rua são muito estreitas.",
+    "ttft": 0.5830583572387695,
+    "reply_start": 2.0736825466156006,
+    "total": 2.8794853687286377,
+    "usage": {
+     "prompt_tokens": 848,
+     "completion_tokens": 323,
+     "total_tokens": 1171,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Se eu tivesse um carro, seria mais fácil, mas estacionar aqui é muito caro e as ruas são muito estreitas.",
+      "translation": "If I had a car, it would be easier, but parking here is very expensive and the streets are very narrow.",
+      "errors": [
+       {
+        "original": "Se eu teria um carro",
+        "corrected": "Se eu tivesse um carro",
+        "explanation": "Use o pretérito imperfeito do subjuntivo em frases condicionais irreais."
+       },
+       {
+        "original": "as rua são muito estreitas.",
+        "corrected": "as ruas são muito estreitas.",
+        "explanation": "A palavra precisa estar no plural quando se refere a mais de uma rua."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Eu entendo sua lógica: com um carro, a mobilidade seria bem melhor. Porém, se estacionar é caro e as ruas são estreitas, talvez valha a pena considerar alternativas, como aplicativos de carona ou estacionamento rotativo. Você costuma se deslocar mais de ônibus, metrô ou a pé?",
+      "translation": "I understand your logic: with a car, mobility would be much better. However, if parking is expensive and the streets are narrow, it might be worth considering alternatives, like ride-sharing apps or paid street parking. Do you usually commute more by bus, metro, or on foot?"
+     }
+    }
+   },
+   {
+    "user": "Ontem eu fui no mercado e esqueci de levar sacola, então eu tive que comprar uma. Aqui tudo é diferente do Brasil!",
+    "ttft": 0.5288491249084473,
+    "reply_start": 0.7158877849578857,
+    "total": 1.5485386848449707,
+    "usage": {
+     "prompt_tokens": 948,
+     "completion_tokens": 180,
+     "total_tokens": 1128,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "",
+      "translation": "",
+      "errors": []
+     },
+     "conversation": {
+      "content": "Isso acontece mesmo, e faz sentido você se sentir estranhando tudo. Mesmo assim, você pode tentar se organizar melhor: colocar uma sacola dobrável na mochila já resolve quase sempre. Além disso, às vezes o mercado oferece sacolas reutilizáveis no caixa ou você pode comprar uma de pano para deixar em casa.",
+      "translation": "That happens a lot, and it makes sense for you to feel like everything is strange. Even so, you can try to organize yourself better: keeping a foldable bag in your backpack usually fixes almost everything. Also, sometimes the store offers reusable bags at checkout, or you can buy a cloth one to keep at home."
+     }
+    }
+   },
+   {
+    "user": "Talvez eu vou fazer um curso de português europeu, pra entender melhor as pessoas. O que você acha?",
+    "ttft": 0.5469622611999512,
+    "reply_start": 1.6695983409881592,
+    "total": 2.7735595703125,
+    "usage": {
+     "prompt_tokens": 1031,
+     "completion_tokens": 315,
+     "total_tokens": 1346,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Talvez eu faça um curso de português europeu para entender melhor as pessoas. O que você acha?",
+      "translation": "Maybe I will take a course in European Portuguese to understand people better. What do you think?",
+      "errors": [
+       {
+        "original": "Talvez eu vou fazer",
+        "corrected": "Talvez eu faça",
+        "explanation": "After “talvez”, we usually use the subjunctive (presente do subjuntivo)."
+       },
+       {
+        "original": "português europeu, pra",
+        "corrected": "português europeu para",
+        "explanation": "In formal writing, avoid the contraction “pra” and use “para”."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Acho uma ótima ideia, porque, embora o português seja parecido, os sotaques e as expressões mudam bastante. Se você fizer o curso com regularidade, provavelmente vai se sentir mais confiante nas conversas do dia a dia. Você quer focar mais em compreensão auditiva, gramática ou situações reais?",
+      "translation": "I think it’s a great idea, because although Portuguese is similar, accents and expressions change quite a lot. If you take the course regularly, you’ll probably feel more confident in everyday conversations. Do you want to focus more on listening comprehension, grammar, or real-life situations?"
+     }
+    }
+   }
+  ],
+  "judged_level": "B2"
+ },
+ {
+  "model": "gpt-6-luna",
+  "prompt": "v5",
+  "level": "C1",
+  "verbosity": "normal",
+  "guide": true,
+  "turns": [
+   {
+    "user": "Oi! Eu mudei pra Lisboa mês passado por causa do meu trabalho, mas eu ainda não acostumei com a cidade.",
+    "ttft": 1.7396070957183838,
+    "reply_start": 3.3301656246185303,
+    "total": 4.184931516647339,
+    "usage": {
+     "prompt_tokens": 729,
+     "completion_tokens": 266,
+     "total_tokens": 995,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Oi! Eu me mudei para Lisboa no mês passado por causa do meu trabalho, mas ainda não me acostumei com a cidade.",
+      "translation": "Hi! I moved to Lisbon last month because of my job, but I still haven’t gotten used to the city.",
+      "errors": [
+       {
+        "original": "Eu mudei pra Lisboa mês passado",
+        "corrected": "Eu me mudei para Lisboa no mês passado",
+        "explanation": "Use the pronominal verb “mudar-se” when describing a change of residence; “no mês passado” is the standard time expression."
+       },
+       {
+        "original": "eu ainda não acostumei com a cidade",
+        "corrected": "ainda não me acostumei com a cidade",
+        "explanation": "“Acostumar-se” is pronominal in this meaning, so it requires the reflexive pronoun “me.”"
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Mudar de país costuma exigir um período de adaptação, ainda mais quando a rotina e os costumes são diferentes. O que tem sido mais difícil para você em Lisboa até agora?",
+      "translation": "Moving to another country usually takes some time to adjust to, especially when the routine and customs are different. What has been the most difficult thing for you in Lisbon so far?"
+     }
+    }
+   },
+   {
+    "user": "O mais dificil é o transporte. Os ônibus sempre atrasa e eu nunca sei qual eu tenho que pegar.",
+    "ttft": 1.0398337841033936,
+    "reply_start": 2.671077251434326,
+    "total": 3.6063344478607178,
+    "usage": {
+     "prompt_tokens": 785,
+     "completion_tokens": 280,
+     "total_tokens": 1065,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "O mais difícil é o transporte. Os ônibus sempre atrasam, e eu nunca sei qual deles tenho que pegar.",
+      "translation": "The hardest part is transportation. The buses are always late, and I never know which one I have to take.",
+      "errors": [
+       {
+        "original": "dificil",
+        "corrected": "difícil",
+        "explanation": "The word “difícil” is stressed on the final syllable and therefore takes an acute accent."
+       },
+       {
+        "original": "Os ônibus sempre atrasa",
+        "corrected": "Os ônibus sempre atrasam",
+        "explanation": "The verb must agree with the plural subject “os ônibus.”"
+       },
+       {
+        "original": "qual eu tenho que pegar",
+        "corrected": "qual deles tenho que pegar",
+        "explanation": "“Qual deles” makes the reference to one bus among several explicit and is more idiomatic here."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Entendo; depender de ônibus que vivem atrasando pode tornar qualquer deslocamento imprevisível. E, quando as linhas não são familiares, fica ainda mais difícil saber qual pegar. Você já usa algum aplicativo para planejar os trajetos?",
+      "translation": "I understand; relying on buses that are often late can make any commute unpredictable. And when the routes are unfamiliar, it becomes even harder to know which one to take. Do you already use an app to plan your trips?"
+     }
+    }
+   },
+   {
+    "user": "Se eu teria um carro seria mais fácil, mas estacionar aqui é muito caro e as rua são muito estreitas.",
+    "ttft": 1.462827444076538,
+    "reply_start": 2.7767302989959717,
+    "total": 4.162431240081787,
+    "usage": {
+     "prompt_tokens": 863,
+     "completion_tokens": 269,
+     "total_tokens": 1132,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Se eu tivesse um carro, seria mais fácil, mas estacionar aqui é muito caro e as ruas são muito estreitas.",
+      "translation": "If I had a car, it would be easier, but parking here is very expensive and the streets are very narrow.",
+      "errors": [
+       {
+        "original": "Se eu teria um carro seria mais fácil",
+        "corrected": "Se eu tivesse um carro, seria mais fácil",
+        "explanation": "Em uma condição hipotética, usa-se o imperfeito do subjuntivo na oração com “se” e o futuro do pretérito na oração principal."
+       },
+       {
+        "original": "as rua",
+        "corrected": "as ruas",
+        "explanation": "O substantivo deve concordar em número com o artigo plural “as”."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "É, um carro poderia facilitar bastante a locomoção, mas, com estacionamento caro e ruas tão estreitas, talvez acabasse trazendo outros transtornos. Lisboa tem muitas ladeiras e vias apertadas; você costuma se virar de metrô ou a pé?",
+      "translation": "Yes, a car could make getting around much easier, but with expensive parking and such narrow streets, it might end up causing other hassles. Lisbon has many hills and narrow roads; do you usually get by on the metro or on foot?"
+     }
+    }
+   },
+   {
+    "user": "Ontem eu fui no mercado e esqueci de levar sacola, então eu tive que comprar uma. Aqui tudo é diferente do Brasil!",
+    "ttft": 1.0370054244995117,
+    "reply_start": 2.9329473972320557,
+    "total": 3.7076265811920166,
+    "usage": {
+     "prompt_tokens": 951,
+     "completion_tokens": 289,
+     "total_tokens": 1240,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Ontem eu fui ao mercado e esqueci de levar uma sacola, então tive que comprar uma. Aqui tudo é diferente do Brasil!",
+      "translation": "Yesterday I went to the grocery store and forgot to bring a bag, so I had to buy one. Everything here is different from Brazil!",
+      "errors": [
+       {
+        "original": "fui no mercado",
+        "corrected": "fui ao mercado",
+        "explanation": "With the verb “ir,” standard Brazilian Portuguese uses “a” to indicate the destination; “no” is common colloquially but is less appropriate in this context."
+       },
+       {
+        "original": "levar sacola",
+        "corrected": "levar uma sacola",
+        "explanation": "The singular count noun “sacola” normally needs an article in this sentence."
+       },
+       {
+        "original": "então eu tive que",
+        "corrected": "então tive que",
+        "explanation": "The subject pronoun is unnecessary because the verb ending already identifies the subject; omitting it sounds more natural here."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Pois é, até uma tarefa simples como fazer compras pode revelar diferenças do dia a dia. Em Lisboa, você já percebeu outros costumes que ainda está tentando incorporar à rotina?",
+      "translation": "That’s true—even a simple task like grocery shopping can reveal everyday differences. In Lisbon, have you noticed any other customs that you’re still trying to incorporate into your routine?"
+     }
+    }
+   },
+   {
+    "user": "Talvez eu vou fazer um curso de português europeu, pra entender melhor as pessoas. O que você acha?",
+    "ttft": 0.8668630123138428,
+    "reply_start": 1.9734408855438232,
+    "total": 3.439814805984497,
+    "usage": {
+     "prompt_tokens": 1004,
+     "completion_tokens": 287,
+     "total_tokens": 1291,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Talvez eu faça um curso de português europeu para entender melhor as pessoas. O que você acha?",
+      "translation": "Maybe I’ll take a European Portuguese course to understand people better. What do you think?",
+      "errors": [
+       {
+        "original": "Talvez eu vou fazer",
+        "corrected": "Talvez eu faça",
+        "explanation": "Depois de “talvez”, usa-se normalmente o presente do subjuntivo para expressar possibilidade."
+       },
+       {
+        "original": "pra",
+        "corrected": "para",
+        "explanation": "“Pra” é uma forma coloquial; em um registro mais neutro, prefira “para”."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Acho uma ótima ideia, sobretudo porque você está morando em Lisboa e provavelmente vai encontrar diferenças de pronúncia, vocabulário e ritmo da fala. Mesmo assim, não precisa esperar pelo curso para praticar: conversar com moradores e pedir que repitam ou expliquem expressões locais pode ajudar bastante. Você já encontrou algum curso que pareça interessante?",
+      "translation": "I think it’s a great idea, especially since you’re living in Lisbon and will probably encounter differences in pronunciation, vocabulary, and pace of speech. Even so, you don’t need to wait for the course to practice: talking with locals and asking them to repeat or explain local expressions can help a lot. Have you found any course that seems interesting?"
+     }
+    }
+   }
+  ],
+  "judged_level": "B2"
+ },
+ {
+  "model": "gpt-4o-mini",
+  "prompt": "v5",
+  "level": "C1",
+  "verbosity": "normal",
+  "guide": true,
+  "turns": [
+   {
+    "user": "Oi! Eu mudei pra Lisboa mês passado por causa do meu trabalho, mas eu ainda não acostumei com a cidade.",
+    "ttft": 1.367485523223877,
+    "reply_start": 3.2051711082458496,
+    "total": 3.9652132987976074,
+    "usage": {
+     "prompt_tokens": 735,
+     "completion_tokens": 312,
+     "total_tokens": 1047,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Oi! Eu mudei para Lisboa no mês passado por causa do meu trabalho, mas eu ainda não me acostumei com a cidade.",
+      "translation": "Hi! I moved to Lisbon last month because of my job, but I still haven't gotten used to the city.",
+      "errors": [
+       {
+        "original": "mudei pra Lisboa",
+        "corrected": "mudei para Lisboa",
+        "explanation": "In formal contexts, 'para' is preferred over the colloquial 'pra'."
+       },
+       {
+        "original": "mês passado",
+        "corrected": "no mês passado",
+        "explanation": "The definite article 'o' is required in this expression to indicate a specific month."
+       },
+       {
+        "original": "não acostumei",
+        "corrected": "não me acostumei",
+        "explanation": "The reflexive pronoun 'me' is needed to indicate that the subject is accustomed to something."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Que legal que você se mudou! Lisboa tem uma cultura incrível, mas realmente pode ser um desafio se acostumar. O que você mais tem achado difícil na cidade?",
+      "translation": "That's cool that you moved! Lisbon has an amazing culture, but it can really be a challenge to get used to. What have you found most difficult about the city?"
+     }
+    }
+   },
+   {
+    "user": "O mais dificil é o transporte. Os ônibus sempre atrasa e eu nunca sei qual eu tenho que pegar.",
+    "ttft": 0.5231211185455322,
+    "reply_start": 1.9959752559661865,
+    "total": 2.7013297080993652,
+    "usage": {
+     "prompt_tokens": 789,
+     "completion_tokens": 273,
+     "total_tokens": 1062,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "O mais difícil é o transporte. Os ônibus sempre atrasam e eu nunca sei qual eu tenho que pegar.",
+      "translation": "The most difficult thing is transportation. The buses are always late, and I never know which one I have to take.",
+      "errors": [
+       {
+        "original": "O mais dificil",
+        "corrected": "O mais difícil",
+        "explanation": "The word 'difícil' needs an accent on the 'i' in Portuguese."
+       },
+       {
+        "original": "os ônibus sempre atrasa",
+        "corrected": "os ônibus sempre atrasam",
+        "explanation": "The verb 'atrasar' must agree with the plural subject 'ônibus' and be conjugated in the third person plural."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Entendo, o transporte público em Lisboa pode ser um pouco complicado, especialmente se você ainda está se acostumando. Você já explorou outras opções, como andar de bicicleta ou usar aplicativos de transporte?",
+      "translation": "I understand, public transportation in Lisbon can be a bit complicated, especially if you're still getting used to it. Have you explored other options, like biking or using transportation apps?"
+     }
+    }
+   },
+   {
+    "user": "Se eu teria um carro seria mais fácil, mas estacionar aqui é muito caro e as rua são muito estreitas.",
+    "ttft": 2.0127146244049072,
+    "reply_start": 3.8996565341949463,
+    "total": 4.666487693786621,
+    "usage": {
+     "prompt_tokens": 860,
+     "completion_tokens": 289,
+     "total_tokens": 1149,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Se eu tivesse um carro, seria mais fácil, mas estacionar aqui é muito caro e as ruas são muito estreitas.",
+      "translation": "If I had a car, it would be easier, but parking here is very expensive and the streets are very narrow.",
+      "errors": [
+       {
+        "original": "Se eu teria um carro",
+        "corrected": "Se eu tivesse um carro",
+        "explanation": "The subjunctive mood is used for hypothetical situations, so 'teria' should be replaced with 'tivesse'."
+       },
+       {
+        "original": "as rua são muito estreitas",
+        "corrected": "as ruas são muito estreitas",
+        "explanation": "The word 'rua' should be in plural form 'ruas' to match with 'são'."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Realmente, estacionar em Lisboa pode ser um pesadelo, especialmente em áreas mais movimentadas. Você já considerou usar transporte alternativo, como bicicletas ou scooters? Às vezes, pode ser mais prático.",
+      "translation": "Indeed, parking in Lisbon can be a nightmare, especially in busier areas. Have you considered using alternative transport, like bicycles or scooters? Sometimes it can be more practical."
+     }
+    }
+   },
+   {
+    "user": "Ontem eu fui no mercado e esqueci de levar sacola, então eu tive que comprar uma. Aqui tudo é diferente do Brasil!",
+    "ttft": 0.44902467727661133,
+    "reply_start": 1.7724354267120361,
+    "total": 2.604004383087158,
+    "usage": {
+     "prompt_tokens": 941,
+     "completion_tokens": 295,
+     "total_tokens": 1236,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Ontem eu fui ao mercado e esqueci de levar sacola, então eu tive que comprar uma. Aqui tudo é diferente do Brasil!",
+      "translation": "Yesterday I went to the market and forgot to bring a bag, so I had to buy one. Everything here is different from Brazil!",
+      "errors": [
+       {
+        "original": "fui no mercado",
+        "corrected": "fui ao mercado",
+        "explanation": "The preposition 'a' is used to indicate direction or destination in this context."
+       },
+       {
+        "original": "as rua são muito estreitas",
+        "corrected": "as ruas são muito estreitas",
+        "explanation": "The noun 'rua' should be pluralized to 'ruas' to match the subject."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "É verdade, as diferenças culturais podem ser bem marcantes. E sobre as sacolas, você viu que aqui há uma lei que proíbe o uso de sacolas plásticas? Como tem sido sua adaptação ao estilo de vida em Lisboa?",
+      "translation": "It's true, the cultural differences can be quite striking. And about the bags, did you see that there is a law here that prohibits the use of plastic bags? How has your adaptation to life in Lisbon been?"
+     }
+    }
+   },
+   {
+    "user": "Talvez eu vou fazer um curso de português europeu, pra entender melhor as pessoas. O que você acha?",
+    "ttft": 0.5198848247528076,
+    "reply_start": 1.3781943321228027,
+    "total": 2.243431806564331,
+    "usage": {
+     "prompt_tokens": 1009,
+     "completion_tokens": 195,
+     "total_tokens": 1204,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Talvez eu faça um curso de português europeu, pra entender melhor as pessoas.",
+      "translation": "Maybe I will take a European Portuguese course to better understand the people.",
+      "errors": [
+       {
+        "original": "eu vou fazer",
+        "corrected": "eu faça",
+        "explanation": "In this context, the subjunctive mood is preferred to express a possibility."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Acho uma ótima ideia! Fazer um curso pode te ajudar a entender melhor as nuances do português europeu e a se comunicar com mais facilidade. Você já encontrou alguma escola ou curso específico que te interesse?",
+      "translation": "I think it's a great idea! Taking a course can help you better understand the nuances of European Portuguese and communicate more easily. Have you found any specific school or course that interests you?"
+     }
+    }
+   }
+  ],
+  "judged_level": "B2"
+ },
+ {
+  "model": "gpt-5.4-nano",
+  "prompt": "v5",
+  "level": "C1",
+  "verbosity": "normal",
+  "guide": true,
+  "turns": [
+   {
+    "user": "Oi! Eu mudei pra Lisboa mês passado por causa do meu trabalho, mas eu ainda não acostumei com a cidade.",
+    "ttft": 1.3548195362091064,
+    "reply_start": 1.5187323093414307,
+    "total": 2.5298755168914795,
+    "usage": {
+     "prompt_tokens": 729,
+     "completion_tokens": 215,
+     "total_tokens": 944,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "",
+      "translation": "",
+      "errors": []
+     },
+     "conversation": {
+      "content": "Entendo perfeitamente: mudar de cidade por trabalho já exige uma adaptação enorme, e Lisboa tem mesmo um ritmo bem próprio. Talvez te ajude escolher alguns “pontos fixos” na rotina — um café, uma rota de caminhada e um lugar para resolver as coisas com calma — para a cidade ir entrando no seu dia a dia sem tanta fricção. O que está sendo mais difícil pra você: o transporte, o clima ou a sensação de estar longe de tudo?",
+      "translation": "I completely understand: moving to a city for work already requires a huge adjustment, and Lisbon really has its own rhythm. Maybe it would help to set some “fixed points” in your routine— a café, a walking route, and a place to handle errands calmly—so the city becomes part of your day-to-day without so much friction. What’s proving most difficult for you: transportation, the weather, or the feeling of being far from everything?"
+     }
+    }
+   },
+   {
+    "user": "O mais dificil é o transporte. Os ônibus sempre atrasa e eu nunca sei qual eu tenho que pegar.",
+    "ttft": 0.46327781677246094,
+    "reply_start": 2.0017433166503906,
+    "total": 2.7079896926879883,
+    "usage": {
+     "prompt_tokens": 845,
+     "completion_tokens": 353,
+     "total_tokens": 1198,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "O mais difícil é o transporte. Os ônibus sempre atrasam e eu nunca sei qual ônibus eu tenho que pegar.",
+      "translation": "The hardest part is transportation. The buses always run late and I never know which bus I have to take.",
+      "errors": [
+       {
+        "original": "O mais dificil",
+        "corrected": "O mais difícil",
+        "explanation": "Use the accent on the adjective «difícil»."
+       },
+       {
+        "original": "Os ônibus sempre atrasa",
+        "corrected": "Os ônibus sempre atrasam",
+        "explanation": "Match the verb number with the plural subject «ônibus»."
+       },
+       {
+        "original": "eu nunca sei qual eu tenho que pegar.",
+        "corrected": "eu nunca sei qual ônibus eu tenho que pegar.",
+        "explanation": "Make the object explicit to avoid an unclear reference for «qual»."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Entendo — quando o transporte fica imprevisível, tudo vira um estresse. Talvez ajude olhar o app de rotas e horários com antecedência, porque assim você consegue comparar alternativas caso um ônibus atrase. No seu caso, você costuma pegar mais ônibus ou também usa metrô/trem?",
+      "translation": "I understand—when transportation is unpredictable, everything becomes stressful. Maybe it helps to check the route and schedule app in advance, because then you can compare alternatives if a bus is delayed. In your case, do you mainly take buses or do you also use metro/train?"
+     }
+    }
+   },
+   {
+    "user": "Se eu teria um carro seria mais fácil, mas estacionar aqui é muito caro e as rua são muito estreitas.",
+    "ttft": 0.46991539001464844,
+    "reply_start": 1.633030891418457,
+    "total": 2.547755241394043,
+    "usage": {
+     "prompt_tokens": 936,
+     "completion_tokens": 356,
+     "total_tokens": 1292,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Se eu tivesse um carro, seria mais fácil, mas estacionar aqui é muito caro e as ruas são muito estreitas.",
+      "translation": "If I had a car, it would be easier, but parking here is very expensive and the streets are very narrow.",
+      "errors": [
+       {
+        "original": "Se eu teria um carro",
+        "corrected": "Se eu tivesse um carro",
+        "explanation": "Use the imperfect subjunctive (pretérito imperfeito do subjuntivo) for unreal conditionals."
+       },
+       {
+        "original": "as rua são muito estreitas",
+        "corrected": "as ruas são muito estreitas",
+        "explanation": "Pluralize the noun and keep agreement: 'as ruas' + 'são'."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Faz sentido: com ruas tão estreitas, o carro até ajudaria no dia a dia, mas o custo de estacionamento vira um problema. Talvez valha a pena testar rotas multimodais — por exemplo, combinar transporte público com caminhadas curtas — para reduzir tanto o tempo quanto a despesa. Você já calculou quanto sai, em média, estacionar versus usar ônibus ou metrô?",
+      "translation": "That makes sense: with streets so narrow, a car could help with everyday life, but the parking cost becomes a problem. Maybe it’s worth trying multimodal routes—like combining public transport with short walks—to cut both time and expense. Have you already estimated, on average, how much parking costs versus using bus or metro?"
+     }
+    }
+   },
+   {
+    "user": "Ontem eu fui no mercado e esqueci de levar sacola, então eu tive que comprar uma. Aqui tudo é diferente do Brasil!",
+    "ttft": 0.5812532901763916,
+    "reply_start": 1.7051548957824707,
+    "total": 2.621926784515381,
+    "usage": {
+     "prompt_tokens": 1053,
+     "completion_tokens": 306,
+     "total_tokens": 1359,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Ontem eu fui ao mercado e esqueci de levar a sacola; então tive que comprar uma. Aqui tudo é diferente do Brasil!",
+      "translation": "Yesterday I went to the market and forgot to bring a bag, so I had to buy one. Everything here is different from Brazil!",
+      "errors": [
+       {
+        "original": "fui no mercado",
+        "corrected": "fui ao mercado",
+        "explanation": "Use the preposition 'ao' with 'ir' + 'lugar' (fui ao mercado)."
+       },
+       {
+        "original": "esqueci de levar sacola",
+        "corrected": "esqueci de levar a sacola",
+        "explanation": "Use the definite article 'a' because it's a specific bag you forgot."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Isso acontece mesmo — pequenas diferenças no dia a dia acabam virando uma baita confusão. Pelo menos você resolveu na hora, né? Você já viu se aqui costuma ter sacolas reutilizáveis ou desconto quando traz a própria?",
+      "translation": "It really happens—small everyday differences can end up turning into a big mess. At least you solved it right away, right? Have you noticed whether here people usually have reusable bags or get a discount when they bring their own?"
+     }
+    }
+   },
+   {
+    "user": "Talvez eu vou fazer um curso de português europeu, pra entender melhor as pessoas. O que você acha?",
+    "ttft": 0.5060975551605225,
+    "reply_start": 1.8993446826934814,
+    "total": 3.23282527923584,
+    "usage": {
+     "prompt_tokens": 1117,
+     "completion_tokens": 305,
+     "total_tokens": 1422,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Talvez eu faça um curso de português europeu para entender melhor as pessoas. O que você acha?",
+      "translation": "Maybe I’ll take a course in European Portuguese to understand people better. What do you think?",
+      "errors": [
+       {
+        "original": "Talvez eu vou fazer um curso de português europeu,",
+        "corrected": "Talvez eu faça um curso de português europeu",
+        "explanation": "After “talvez”, use the subjunctive (“faça”), not the indicative (“vou”)."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Eu acho uma ótima ideia: o português europeu tem umas diferenças bem marcantes de pronúncia e vocabulário, e isso ajuda a captar nuances no dia a dia. Só cuide para não virar uma “troca automática” — tente também manter contato com o uso real (filmes, séries e conversas). Você pretende fazer o curso em uma escola presencial ou online?",
+      "translation": "I think it’s a great idea: European Portuguese has some very noticeable differences in pronunciation and vocabulary, and that helps you catch nuances in everyday life. Just make sure it doesn’t turn into an “automatic switch” — also try to engage with real usage (films, series, and conversations). Do you plan to take the course at an in-person school or online?"
+     }
+    }
+   }
+  ],
+  "judged_level": "C1"
+ },
+ {
+  "model": "gpt-6-luna",
+  "prompt": "v5",
+  "level": "C1",
+  "verbosity": "normal",
+  "guide": false,
+  "turns": [
+   {
+    "user": "Oi! Eu mudei pra Lisboa mês passado por causa do meu trabalho, mas eu ainda não acostumei com a cidade.",
+    "ttft": 1.7560741901397705,
+    "reply_start": 3.8070597648620605,
+    "total": 4.844820022583008,
+    "usage": {
+     "prompt_tokens": 680,
+     "completion_tokens": 356,
+     "total_tokens": 1036,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Oi! Eu me mudei para Lisboa no mês passado por causa do meu trabalho, mas ainda não me acostumei com a cidade.",
+      "translation": "Hi! I moved to Lisbon last month because of my job, but I still haven’t gotten used to the city.",
+      "errors": [
+       {
+        "original": "Eu mudei pra Lisboa",
+        "corrected": "Eu me mudei para Lisboa",
+        "explanation": "Use the pronominal verb “mudar-se” when referring to relocating; “para” is more appropriate than the colloquial “pra” in standard writing."
+       },
+       {
+        "original": "mês passado",
+        "corrected": "no mês passado",
+        "explanation": "In standard Portuguese, the time expression is usually introduced by the preposition “em” with the article: “no mês passado”."
+       },
+       {
+        "original": "eu ainda não acostumei com a cidade",
+        "corrected": "ainda não me acostumei com a cidade",
+        "explanation": "“Acostumar-se” is pronominal when it means to get used to something, so it requires the pronoun “me”."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Oi! Mudar de país é uma grande adaptação, e Lisboa pode levar um tempo para deixar de parecer novidade. Talvez explorar a cidade aos poucos, sem pressão, ajude você a criar uma rotina e se sentir mais em casa. O que tem sido mais difícil nessa adaptação?",
+      "translation": "Hi! Moving to another country is a big adjustment, and it may take a while for Lisbon to stop feeling new. Perhaps exploring the city gradually, without pressure, could help you establish a routine and feel more at home. What has been the most difficult part of this adjustment?"
+     }
+    }
+   },
+   {
+    "user": "O mais dificil é o transporte. Os ônibus sempre atrasa e eu nunca sei qual eu tenho que pegar.",
+    "ttft": 0.9125626087188721,
+    "reply_start": 2.5303502082824707,
+    "total": 3.6203784942626953,
+    "usage": {
+     "prompt_tokens": 759,
+     "completion_tokens": 303,
+     "total_tokens": 1062,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "O mais difícil é o transporte. Os ônibus sempre atrasam, e eu nunca sei qual tenho que pegar.",
+      "translation": "The hardest part is transportation. The buses are always late, and I never know which one I should take.",
+      "errors": [
+       {
+        "original": "dificil",
+        "corrected": "difícil",
+        "explanation": "A palavra “difícil” é acentuada porque é uma paroxítona terminada em “l”."
+       },
+       {
+        "original": "Os ônibus sempre atrasa",
+        "corrected": "Os ônibus sempre atrasam",
+        "explanation": "O verbo deve concordar com o sujeito plural “os ônibus”."
+       },
+       {
+        "original": "qual eu tenho que pegar",
+        "corrected": "qual tenho que pegar",
+        "explanation": "O pronome “eu” é dispensável, pois a forma verbal já indica a pessoa; sua omissão deixa a frase mais natural."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Entendo; depender de ônibus pode ser bem frustrante, ainda mais quando os horários não são confiáveis e as linhas parecem confusas. Talvez um aplicativo de transporte ajude a descobrir qual linha pegar e a acompanhar os horários em tempo real. Você já tentou usar algum?",
+      "translation": "I understand; relying on buses can be really frustrating, especially when the schedules aren’t reliable and the routes seem confusing. Maybe a transit app could help you figure out which line to take and track schedules in real time. Have you tried using one?"
+     }
+    }
+   },
+   {
+    "user": "Se eu teria um carro seria mais fácil, mas estacionar aqui é muito caro e as rua são muito estreitas.",
+    "ttft": 1.1551494598388672,
+    "reply_start": 2.3604865074157715,
+    "total": 3.739380359649658,
+    "usage": {
+     "prompt_tokens": 844,
+     "completion_tokens": 269,
+     "total_tokens": 1113,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Se eu tivesse um carro, seria mais fácil, mas estacionar aqui é muito caro e as ruas são muito estreitas.",
+      "translation": "If I had a car, it would be easier, but parking here is very expensive and the streets are very narrow.",
+      "errors": [
+       {
+        "original": "Se eu teria um carro",
+        "corrected": "Se eu tivesse um carro",
+        "explanation": "Em uma oração condicional hipotética, usa-se o pretérito imperfeito do subjuntivo após “se”."
+       },
+       {
+        "original": "as rua",
+        "corrected": "as ruas",
+        "explanation": "O substantivo deve concordar em número com o artigo plural “as”."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Pois é, ter um carro poderia facilitar os deslocamentos, mas, com o estacionamento caro e as ruas estreitas, talvez acabasse trazendo outros problemas. Lisboa também tem zonas em que dirigir pode ser bem complicado. Você já considerou usar bicicleta ou algum serviço de compartilhamento de carros?",
+      "translation": "That’s true; having a car could make getting around easier, but with expensive parking and narrow streets, it might end up bringing other problems. There are also areas in Lisbon where driving can be quite difficult. Have you considered using a bicycle or some kind of car-sharing service?"
+     }
+    }
+   },
+   {
+    "user": "Ontem eu fui no mercado e esqueci de levar sacola, então eu tive que comprar uma. Aqui tudo é diferente do Brasil!",
+    "ttft": 0.8710536956787109,
+    "reply_start": 2.3441693782806396,
+    "total": 3.600001335144043,
+    "usage": {
+     "prompt_tokens": 938,
+     "completion_tokens": 285,
+     "total_tokens": 1223,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Ontem eu fui ao mercado e esqueci de levar uma sacola, então tive que comprar uma. Aqui tudo é diferente do Brasil!",
+      "translation": "Yesterday I went to the supermarket and forgot to bring a bag, so I had to buy one. Everything here is different from Brazil!",
+      "errors": [
+       {
+        "original": "fui no mercado",
+        "corrected": "fui ao mercado",
+        "explanation": "Com o sentido de ir a um estabelecimento, a forma-padrão é “ir a”; a contração de “a + o” é “ao”."
+       },
+       {
+        "original": "levar sacola",
+        "corrected": "levar uma sacola",
+        "explanation": "No singular contável, o substantivo normalmente precisa de um artigo ou outro determinante."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Pois é, em muitos lugares da Europa é comum levar a própria sacola, e às vezes até cobram pelas sacolas disponíveis no mercado. São esses pequenos hábitos do dia a dia que fazem a mudança parecer ainda maior. Você já começou a se acostumar com essa diferença?",
+      "translation": "That’s true; in many places in Europe, it’s common to bring your own bag, and sometimes they even charge for the bags available at the supermarket. These little everyday habits can make the move feel even bigger. Have you started getting used to this difference?"
+     }
+    }
+   },
+   {
+    "user": "Talvez eu vou fazer um curso de português europeu, pra entender melhor as pessoas. O que você acha?",
+    "ttft": 0.9692931175231934,
+    "reply_start": 1.898164987564087,
+    "total": 3.241082191467285,
+    "usage": {
+     "prompt_tokens": 1012,
+     "completion_tokens": 277,
+     "total_tokens": 1289,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Talvez eu faça um curso de português europeu para entender melhor as pessoas. O que você acha?",
+      "translation": "Maybe I’ll take a European Portuguese course to understand people better. What do you think?",
+      "errors": [
+       {
+        "original": "Talvez eu vou fazer",
+        "corrected": "Talvez eu faça",
+        "explanation": "Depois de “talvez”, usa-se normalmente o presente do subjuntivo para expressar uma possibilidade."
+       },
+       {
+        "original": "pra",
+        "corrected": "para",
+        "explanation": "“Pra” é uma forma informal; “para” é mais adequado na escrita padrão."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Acho uma ótima ideia, especialmente porque a pronúncia e algumas expressões do português europeu podem ser bem diferentes das que você conhece do Brasil. Além do curso, conversar com moradores e ouvir rádio ou podcasts locais pode ajudar bastante a se acostumar com o jeito como as pessoas falam. Você já encontrou algum curso que pareça interessante?",
+      "translation": "I think it’s a great idea, especially because the pronunciation and some expressions in European Portuguese can be quite different from the ones you know from Brazil. In addition to the course, talking with locals and listening to local radio or podcasts can really help you get used to the way people speak. Have you found any courses that seem interesting?"
+     }
+    }
+   }
+  ],
+  "judged_level": "B2"
+ },
+ {
+  "model": "gpt-4o-mini",
+  "prompt": "v5",
+  "level": "C1",
+  "verbosity": "normal",
+  "guide": false,
+  "turns": [
+   {
+    "user": "Oi! Eu mudei pra Lisboa mês passado por causa do meu trabalho, mas eu ainda não acostumei com a cidade.",
+    "ttft": 1.253403902053833,
+    "reply_start": 3.1662099361419678,
+    "total": 4.035496234893799,
+    "usage": {
+     "prompt_tokens": 686,
+     "completion_tokens": 352,
+     "total_tokens": 1038,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Oi! Eu me mudei para Lisboa no mês passado por causa do meu trabalho, mas eu ainda não me acostumei com a cidade.",
+      "translation": "Hi! I moved to Lisbon last month because of my job, but I still haven't gotten used to the city.",
+      "errors": [
+       {
+        "original": "mudei pra",
+        "corrected": "me mudei para",
+        "explanation": "In Portuguese, the reflexive verb 'mudar-se' requires the reflexive pronoun 'me'."
+       },
+       {
+        "original": "mês passado",
+        "corrected": "no mês passado",
+        "explanation": "The preposition 'no' is necessary here to indicate 'in the last month'."
+       },
+       {
+        "original": "não acostumei",
+        "corrected": "não me acostumei",
+        "explanation": "The verb 'acostumar-se' also requires a reflexive pronoun to indicate that the subject is performing the action on themselves."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Oi! Que legal que você se mudou para Lisboa! Eu imagino que a adaptação a uma nova cidade possa ser desafiadora, especialmente com uma cultura tão diferente. Quais aspectos da cidade você está achando mais difíceis de se acostumar?",
+      "translation": "Hi! How cool that you moved to Lisbon! I imagine that adapting to a new city can be challenging, especially with such a different culture. What aspects of the city are you finding the hardest to get used to?"
+     }
+    }
+   },
+   {
+    "user": "O mais dificil é o transporte. Os ônibus sempre atrasa e eu nunca sei qual eu tenho que pegar.",
+    "ttft": 0.7432360649108887,
+    "reply_start": 2.1401476860046387,
+    "total": 2.720472574234009,
+    "usage": {
+     "prompt_tokens": 758,
+     "completion_tokens": 264,
+     "total_tokens": 1022,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "O mais difícil é o transporte. Os ônibus sempre atrasam e eu nunca sei qual eu tenho que pegar.",
+      "translation": "The most difficult thing is transportation. The buses are always late and I never know which one I have to take.",
+      "errors": [
+       {
+        "original": "O mais dificil",
+        "corrected": "O mais difícil",
+        "explanation": "The word 'difícil' needs an accent to indicate the correct pronunciation."
+       },
+       {
+        "original": "atrasa",
+        "corrected": "atrasam",
+        "explanation": "The subject 'ônibus' is plural, so the verb should also be in the plural form 'atrasam'."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Entendo, o transporte público pode ser bem complicado em Lisboa, especialmente para quem está se adaptando. Você já teve a chance de experimentar outras opções, como o metrô ou os bondes?",
+      "translation": "I understand, public transportation can be quite complicated in Lisbon, especially for those who are adapting. Have you had a chance to try other options, like the metro or the trams?"
+     }
+    }
+   },
+   {
+    "user": "Se eu teria um carro seria mais fácil, mas estacionar aqui é muito caro e as rua são muito estreitas.",
+    "ttft": 0.5138795375823975,
+    "reply_start": 2.66352915763855,
+    "total": 3.1052169799804688,
+    "usage": {
+     "prompt_tokens": 828,
+     "completion_tokens": 274,
+     "total_tokens": 1102,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Se eu tivesse um carro, seria mais fácil, mas estacionar aqui é muito caro e as ruas são muito estreitas.",
+      "translation": "If I had a car, it would be easier, but parking here is very expensive and the streets are very narrow.",
+      "errors": [
+       {
+        "original": "Se eu teria um carro",
+        "corrected": "Se eu tivesse um carro",
+        "explanation": "The subjunctive mood is used for hypothetical situations, which requires 'tivesse' instead of 'teria'."
+       },
+       {
+        "original": "as rua são muito estreitas",
+        "corrected": "as ruas são muito estreitas",
+        "explanation": "The noun 'rua' is singular; it should be plural 'ruas' to match the verb 'são'."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Compreendo, realmente a questão do estacionamento pode ser bem complicada em Lisboa. Você já considerou usar serviços de compartilhamento de carro como o Uber para facilitar o transporte?",
+      "translation": "I understand, the parking situation can really be quite complicated in Lisbon. Have you considered using ride-sharing services like Uber to make transportation easier?"
+     }
+    }
+   },
+   {
+    "user": "Ontem eu fui no mercado e esqueci de levar sacola, então eu tive que comprar uma. Aqui tudo é diferente do Brasil!",
+    "ttft": 0.5173213481903076,
+    "reply_start": 1.93656587600708,
+    "total": 2.566390037536621,
+    "usage": {
+     "prompt_tokens": 899,
+     "completion_tokens": 280,
+     "total_tokens": 1179,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Ontem eu fui ao mercado e esqueci de levar a sacola, então eu tive que comprar uma. Aqui tudo é diferente do Brasil!",
+      "translation": "Yesterday I went to the market and forgot to bring the bag, so I had to buy one. Everything here is different from Brazil!",
+      "errors": [
+       {
+        "original": "fui no mercado",
+        "corrected": "fui ao mercado",
+        "explanation": "Use 'ao' instead of 'no' for places that require a direction or destination."
+       },
+       {
+        "original": "sacola",
+        "corrected": "a sacola",
+        "explanation": "Include the definite article 'a' before 'sacola' for grammatical correctness."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Parece que você está tendo algumas dificuldades com as diferenças culturais! É verdade que a vida em Lisboa é bem distinta do Brasil, especialmente em relação ao consumo e serviços. Você já se adaptou a outras mudanças do dia a dia?",
+      "translation": "It seems that you are having some difficulties with the cultural differences! It's true that life in Lisbon is quite different from Brazil, especially regarding consumption and services. Have you adapted to other daily changes yet?"
+     }
+    }
+   },
+   {
+    "user": "Talvez eu vou fazer um curso de português europeu, pra entender melhor as pessoas. O que você acha?",
+    "ttft": 0.6430404186248779,
+    "reply_start": 1.6425940990447998,
+    "total": 2.176391124725342,
+    "usage": {
+     "prompt_tokens": 963,
+     "completion_tokens": 200,
+     "total_tokens": 1163,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Talvez eu faça um curso de português europeu, pra entender melhor as pessoas.",
+      "translation": "Maybe I'll take a European Portuguese course to better understand people.",
+      "errors": [
+       {
+        "original": "Talvez eu vou fazer",
+        "corrected": "Talvez eu faça",
+        "explanation": "In Portuguese, 'talvez' requires the subjunctive mood, so 'faça' is correct instead of 'vou fazer'."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Eu acho que fazer um curso de português europeu pode ser uma ótima ideia! Isso certamente vai te ajudar a se comunicar melhor. Você já encontrou alguma escola ou curso que te interessa?",
+      "translation": "I think taking a European Portuguese course can be a great idea! It will definitely help you communicate better. Have you found any school or course that interests you?"
+     }
+    }
+   }
+  ],
+  "judged_level": "B2"
+ },
+ {
+  "model": "gpt-5.4-nano",
+  "prompt": "v5",
+  "level": "C1",
+  "verbosity": "normal",
+  "guide": false,
+  "turns": [
+   {
+    "user": "Oi! Eu mudei pra Lisboa mês passado por causa do meu trabalho, mas eu ainda não acostumei com a cidade.",
+    "ttft": 1.2991912364959717,
+    "reply_start": 1.502119779586792,
+    "total": 2.256988286972046,
+    "usage": {
+     "prompt_tokens": 680,
+     "completion_tokens": 169,
+     "total_tokens": 849,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "",
+      "translation": "",
+      "errors": []
+     },
+     "conversation": {
+      "content": "Entendo perfeitamente—mudar de cidade costuma levar um tempo. Lisboa tem um ritmo bem diferente, e é normal sentir estranhamento no começo, ainda mais quando a rotina do trabalho já ocupa a cabeça. O que mais está te incomodando: o transporte, o clima ou o jeito das pessoas?",
+      "translation": "I understand perfectly—moving to a new city usually takes time. Lisbon has a very different rhythm, and it’s normal to feel out of place at first, especially when work routine already occupies your mind. What bothers you most: transportation, the weather, or the way people are?"
+     }
+    }
+   },
+   {
+    "user": "O mais dificil é o transporte. Os ônibus sempre atrasa e eu nunca sei qual eu tenho que pegar.",
+    "ttft": 0.5591988563537598,
+    "reply_start": 1.4168987274169922,
+    "total": 1.9733450412750244,
+    "usage": {
+     "prompt_tokens": 762,
+     "completion_tokens": 226,
+     "total_tokens": 988,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "O mais difícil é o transporte. Os ônibus sempre atrasam e eu nunca sei qual eu tenho que pegar.",
+      "translation": "The hardest part is transportation. The buses always run late and I never know which one I have to take.",
+      "errors": [
+       {
+        "original": "O mais dificil é o transporte.",
+        "corrected": "O mais difícil é o transporte.",
+        "explanation": "Use the accent on “difícil” because it is stressed on the i."
+       },
+       {
+        "original": "Os ônibus sempre atrasa",
+        "corrected": "Os ônibus sempre atrasam",
+        "explanation": "Match the verb with the plural subject “os ônibus” (plural verb form)."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Pois é, isso desgasta mesmo—quando o transporte não é previsível, tudo vira um estresse. Você costuma usar algum aplicativo ou site para ver os horários e as linhas antes de sair?",
+      "translation": "Yeah, that really wears you out—when transportation isn’t predictable, everything turns into stress. Do you usually use an app or website to check schedules and lines before you leave?"
+     }
+    }
+   },
+   {
+    "user": "Se eu teria um carro seria mais fácil, mas estacionar aqui é muito caro e as rua são muito estreitas.",
+    "ttft": 0.6675615310668945,
+    "reply_start": 1.9078829288482666,
+    "total": 2.7286715507507324,
+    "usage": {
+     "prompt_tokens": 832,
+     "completion_tokens": 309,
+     "total_tokens": 1141,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Se eu tivesse um carro, seria mais fácil, mas estacionar aqui é muito caro e as ruas são muito estreitas.",
+      "translation": "If I had a car, it would be easier, but parking here is very expensive and the streets are very narrow.",
+      "errors": [
+       {
+        "original": "Se eu teria um carro",
+        "corrected": "Se eu tivesse um carro",
+        "explanation": "Use the conditional imperfect (tivesse) with “se” for an unreal situation."
+       },
+       {
+        "original": "as rua são muito estreitas",
+        "corrected": "as ruas são muito estreitas",
+        "explanation": "“Rua” must be plural (“ruas”) and agree with “as.”"
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Faz sentido: quando a cidade não facilita o carro, o custo do estacionamento vira um problema enorme. E, com ruas estreitas, qualquer manobra já vira um estresse. No seu caso, você está mais perto do metrô ou das paradas de ônibus?",
+      "translation": "That makes sense: when the city doesn’t make it easy to drive, parking costs become a huge problem. And with narrow streets, even small maneuvers become stressful. In your case, are you closer to the metro or to the bus stops?"
+     }
+    }
+   },
+   {
+    "user": "Ontem eu fui no mercado e esqueci de levar sacola, então eu tive que comprar uma. Aqui tudo é diferente do Brasil!",
+    "ttft": 0.4867982864379883,
+    "reply_start": 1.651771068572998,
+    "total": 2.3190996646881104,
+    "usage": {
+     "prompt_tokens": 922,
+     "completion_tokens": 310,
+     "total_tokens": 1232,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Ontem eu fui ao mercado e esqueci de levar a sacola, então tive que comprar uma. Aqui tudo é diferente do Brasil!",
+      "translation": "Yesterday I went to the supermarket and forgot to bring a bag, so I had to buy one. Everything here is different from Brazil!",
+      "errors": [
+       {
+        "original": "fui no mercado",
+        "corrected": "fui ao mercado",
+        "explanation": "In Brazilian Portuguese, we typically use 'ir ao/à' with places like 'mercado'."
+       },
+       {
+        "original": "esqueci de levar sacola",
+        "corrected": "esqueci de levar a sacola",
+        "explanation": "Use the article 'a' before a specific noun ('a sacola') for natural phrasing."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Nossa, isso acontece! Em Lisboa, o jeito das compras e o dia a dia acabam mesmo exigindo uma adaptação rápida. Pelo menos você resolveu na hora, né? O que você costuma fazer agora para não esquecer a sacola?",
+      "translation": "Wow, that happens! In Lisbon, the way shopping and daily life work really demands a quick adjustment. At least you solved it right away, right? What do you usually do now so you don’t forget the bag?"
+     }
+    }
+   },
+   {
+    "user": "Talvez eu vou fazer um curso de português europeu, pra entender melhor as pessoas. O que você acha?",
+    "ttft": 0.5213830471038818,
+    "reply_start": 1.8887875080108643,
+    "total": 2.764036178588867,
+    "usage": {
+     "prompt_tokens": 988,
+     "completion_tokens": 330,
+     "total_tokens": 1318,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+     }
+    },
+    "response": {
+     "correction": {
+      "content": "Talvez eu faça um curso de português europeu para entender melhor as pessoas. O que você acha?",
+      "translation": "Maybe I’ll take a course in European Portuguese to understand people better. What do you think?",
+      "errors": [
+       {
+        "original": "Talvez eu vou fazer um curso de português europeu",
+        "corrected": "Talvez eu faça um curso de português europeu",
+        "explanation": "After “talvez”, use the subjunctive for a future possibility (fazer → faça), not the indicative future (vou fazer)."
+       },
+       {
+        "original": "pra entender melhor as pessoas.",
+        "corrected": "para entender melhor as pessoas.",
+        "explanation": "In formal writing, use the full form “para” instead of the colloquial “pra”."
+       }
+      ]
+     },
+     "conversation": {
+      "content": "Eu acho uma ótima ideia. Se você quer se sentir mais à vontade, entender as diferenças de vocabulário e de ritmo ajuda muito no dia a dia. Além disso, você vai ouvir a língua em contexto real e isso acelera a adaptação. Você já sabe qual curso quer fazer?",
+      "translation": "I think it’s a great idea. If you want to feel more comfortable, understanding differences in vocabulary and rhythm helps a lot in everyday life. Besides, you’ll hear the language in real context and that speeds up adaptation. Do you already know which course you want to take?"
+     }
+    }
+   }
+  ],
+  "judged_level": "B2"
+ }
+]

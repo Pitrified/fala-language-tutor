@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/cefr_level.dart';
+import '../models/reply_length.dart';
 import '../models/target_language.dart';
 import '../models/topic.dart';
 import '../services/inference/engine_kind.dart';
@@ -135,6 +136,44 @@ final defaultCefrLevelProvider =
     NotifierProvider<DefaultCefrLevelNotifier, CefrLevel>(
       DefaultCefrLevelNotifier.new,
     );
+
+/// Reactive holder for the tutor's [ReplyLength]. Read by the conversation
+/// controller on every message, so a change applies to the next reply.
+class ReplyLengthNotifier extends Notifier<ReplyLength> {
+  @override
+  ReplyLength build() => ref.read(appSettingsRepositoryProvider).replyLength();
+
+  /// Persist [length].
+  Future<void> select(ReplyLength length) async {
+    if (length == state) return;
+    await ref.read(appSettingsRepositoryProvider).setReplyLength(length);
+    state = length;
+  }
+}
+
+/// Provider for the tutor's [ReplyLength].
+final replyLengthProvider = NotifierProvider<ReplyLengthNotifier, ReplyLength>(
+  ReplyLengthNotifier.new,
+);
+
+/// Whether every reply comes with "say it better". Read by the conversation
+/// controller on every message.
+class SayBetterAutoNotifier extends Notifier<bool> {
+  @override
+  bool build() => ref.read(appSettingsRepositoryProvider).sayBetterAuto();
+
+  /// Persist [on].
+  Future<void> set(bool on) async {
+    if (on == state) return;
+    await ref.read(appSettingsRepositoryProvider).setSayBetterAuto(on);
+    state = on;
+  }
+}
+
+/// Provider for [SayBetterAutoNotifier].
+final sayBetterAutoProvider = NotifierProvider<SayBetterAutoNotifier, bool>(
+  SayBetterAutoNotifier.new,
+);
 
 /// Reactive holder for the default topic seed used when starting new
 /// conversations. Empty string = no topic preference.

@@ -5,13 +5,20 @@ part 'tutor_response.g.dart';
 
 /// Full structured response from the tutor LLM.
 ///
-/// Contains a correction block (with the corrected sentence + individual errors)
-/// and a conversation block (the tutor's conversational reply).
+/// Contains a correction block (with the corrected sentence + individual errors),
+/// a conversation block (the tutor's conversational reply) and the optional
+/// "say it better" rewrite of the learner's message.
 @freezed
 abstract class TutorResponse with _$TutorResponse {
   const factory TutorResponse({
     required CorrectionBlock correction,
     required ConversationBlock conversation,
+
+    /// "Say it better": the learner's message rewritten a step richer, with
+    /// its translation. Empty when the setting was off, when there was
+    /// nothing to improve, and in replies saved before it existed.
+    @Default(ConversationBlock(content: '', translation: ''))
+    ConversationBlock better,
   }) = _TutorResponse;
 
   factory TutorResponse.fromJson(Map<String, dynamic> json) =>

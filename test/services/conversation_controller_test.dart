@@ -4,6 +4,7 @@ import 'package:fala/models/app_exception.dart';
 import 'package:fala/models/cefr_level.dart';
 import 'package:fala/models/conversation_message.dart';
 import 'package:fala/models/inference_status.dart';
+import 'package:fala/models/reply_length.dart';
 import 'package:fala/models/target_language.dart';
 import 'package:fala/models/tutor_response.dart';
 import 'package:fala/services/conversation/conversation_controller.dart';
@@ -34,6 +35,7 @@ List<String> _cumulative(String full, {int step = 16}) {
 class _ScriptedEngine implements InferenceEngine {
   List<String> buffers = _cumulative(_olaJson);
   String? throwMessage;
+  InferenceRequest? lastRequest;
 
   @override
   InferenceStatus get status => const InferenceStatus.ready();
@@ -49,6 +51,7 @@ class _ScriptedEngine implements InferenceEngine {
 
   @override
   Stream<String> generateStream(InferenceRequest request) async* {
+    lastRequest = request;
     for (final buffer in buffers) {
       yield buffer;
     }
@@ -64,6 +67,7 @@ class _ScriptedEngine implements InferenceEngine {
 /// Fake PromptManager that returns a fixed string.
 class _FakePromptManager extends PromptManager {
   Map<String, String>? lastVariables;
+  String result = 'fake prompt';
 
   @override
   Future<String> buildPrompt({
@@ -72,7 +76,7 @@ class _FakePromptManager extends PromptManager {
     int? version,
   }) async {
     lastVariables = variables;
-    return 'fake prompt';
+    return result;
   }
 }
 
@@ -208,6 +212,141 @@ void main() {
       expect(promptManager.lastVariables, isNotNull);
       expect(promptManager.lastVariables!['cefr_level'], 'A2');
       expect(promptManager.lastVariables!['topic'], 'Music');
+    },
+  );
+
+  test('a C1 learner gets the C2 guide and samples', () async {
+    await controller.startConversation(cefrLevel: CefrLevel.c1);
+    await controller.sendMessage('Oi');
+    final variables = promptManager.lastVariables!;
+    expect(variables['cefr_level'], 'C1');
+    expect(variables['reply_level'], 'C2');
+    expect(variables['level_guide'], contains('native speaker'));
+    expect(variables['reply_samples'], contains('entre a cruz e a espada'));
+    expect(variables['length_rule'], isNotEmpty);
+  });
+
+  test('the length rule follows the reply length setting', () async {
+    var length = ReplyLength.short;
+    final withLength = ConversationController(
+      streamEngine: streamEngine,
+      repository: repo,
+      promptManager: promptManager,
+      replyLength: () => length,
+    );
+    final style = await promptManager.replyStyle();
+    await withLength.startConversation();
+    await withLength.sendMessage('Oi');
+    expect(
+      promptManager.lastVariables!['length_rule'],
+      style.lengthRule('short'),
+    );
+
+    length = ReplyLength.long;
+    await withLength.sendMessage('Tudo bem?');
+    expect(
+      promptManager.lastVariables!['length_rule'],
+      style.lengthRule('long'),
+    );
+    await withLength.dispose();
+  });
+
+  test('say it better is asked for only with the setting on', () async {
+    var auto = false;
+    final withSetting = ConversationController(
+      streamEngine: streamEngine,
+      repository: repo,
+      promptManager: promptManager,
+      sayBetterAuto: () => auto,
+    );
+    final style = await promptManager.replyStyle();
+    await withSetting.startConversation();
+    await withSetting.sendMessage('Oi');
+    expect(
+      promptManager.lastVariables!['better_rule'],
+      style.betterRule(on: false),
+    );
+
+    auto = true;
+    await withSetting.sendMessage('Tudo bem?');
+    expect(
+      promptManager.lastVariables!['better_rule'],
+      style.betterRule(on: true),
+    );
+    await withSetting.dispose();
+  });
+
+  test('requestBetter saves the rewrite on the reply', () async {
+    await controller.startConversation(cefrLevel: CefrLevel.b1);
+    final reply = await controller.sendMessage('Eu vai na praia');
+    expect(reply!.tutorResponse!.better.content, isEmpty);
+
+    const betterJson =
+        '{"correction":{"content":"","translation":"","errors":[]},'
+        '"conversation":{"content":"","translation":""},'
+        '"better":{"content":"Fui à praia","translation":"I went to the beach"}}';
+    engine.buffers = [betterJson];
+    final better = await controller.requestBetter(reply.id);
+
+    expect(better!.content, 'Fui à praia');
+    expect(promptManager.lastVariables!['user_message'], 'Eu vai na praia');
+    expect(promptManager.lastVariables!['reply_level'], 'B1');
+    final saved = repo
+        .load(controller.currentConversation!.id)!
+        .messages
+        .firstWhere((m) => m.id == reply.id);
+    expect(saved.tutorResponse!.better.content, 'Fui à praia');
+    expect(saved.tutorResponse!.conversation.content, 'Ola!');
+  });
+
+  test(
+    'requestBetter returns null for a message not in the conversation',
+    () async {
+      await controller.startConversation();
+      expect(await controller.requestBetter('missing'), isNull);
+    },
+  );
+
+  test('samples follow the language, and are empty without any', () async {
+    await controller.startConversation(
+      language: TargetLanguage.esEs,
+      cefrLevel: CefrLevel.b1,
+    );
+    await controller.sendMessage('Hola');
+    expect(promptManager.lastVariables!['reply_samples'], contains('¿'));
+
+    await controller.startConversation(
+      language: TargetLanguage.frFr,
+      cefrLevel: CefrLevel.b1,
+    );
+    await controller.sendMessage('Salut');
+    expect(promptManager.lastVariables!['reply_samples'], isEmpty);
+  });
+
+  test(
+    'the part above the user line goes out as the developer prompt',
+    () async {
+      promptManager.result = 'rules\n=== USER ===\nmessage';
+      await controller.startConversation();
+      await controller.sendMessage('Oi');
+      expect(engine.lastRequest!.developerPrompt, 'rules');
+      expect(engine.lastRequest!.prompt, 'message');
+    },
+  );
+
+  test(
+    'a correction that changes nothing is dropped from the saved reply',
+    () async {
+      const json =
+          '{"correction":{"content":"Eu vou","translation":"I go","errors":['
+          '{"original":"Eu vou","corrected":"Eu vou","explanation":"fine"}]},'
+          '"conversation":{"content":"Legal!","translation":"Cool!"}}';
+      engine.buffers = [json];
+      await controller.startConversation();
+      final reply = await controller.sendMessage('Eu vou');
+      final correction = reply!.tutorResponse!.correction;
+      expect(correction.errors, isEmpty);
+      expect(correction.content, isEmpty);
     },
   );
 

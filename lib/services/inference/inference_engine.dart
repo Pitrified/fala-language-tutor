@@ -4,12 +4,18 @@ import '../../models/inference_status.dart';
 class InferenceRequest {
   const InferenceRequest({
     required this.prompt,
+    this.developerPrompt,
     this.maxTokens = 512,
     this.temperature = 0.7,
     this.topK = 40,
   });
 
+  /// The user message.
   final String prompt;
+
+  /// Instructions sent ahead of [prompt] with developer authority, or null to
+  /// send [prompt] alone. Engines without message roles ignore it.
+  final String? developerPrompt;
   final int maxTokens;
   final double temperature;
   final int topK;

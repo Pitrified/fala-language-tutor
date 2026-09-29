@@ -3,13 +3,14 @@
 /// Mirrors the freezed model exactly:
 /// - `correction`: { content, translation, errors[] }
 /// - `conversation`: { content, translation }
+/// - `better`: { content, translation }, empty when not asked for
 ///
 /// All properties are `required`, `additionalProperties: false`, so OpenAI's
 /// strict mode rejects shapes that would fail [TutorResponse.fromJson].
 const Map<String, dynamic> tutorResponseJsonSchema = <String, dynamic>{
   'type': 'object',
   'additionalProperties': false,
-  'required': ['correction', 'conversation'],
+  'required': ['correction', 'conversation', 'better'],
   'properties': {
     'correction': {
       'type': 'object',
@@ -34,6 +35,15 @@ const Map<String, dynamic> tutorResponseJsonSchema = <String, dynamic>{
       },
     },
     'conversation': {
+      'type': 'object',
+      'additionalProperties': false,
+      'required': ['content', 'translation'],
+      'properties': {
+        'content': {'type': 'string'},
+        'translation': {'type': 'string'},
+      },
+    },
+    'better': {
       'type': 'object',
       'additionalProperties': false,
       'required': ['content', 'translation'],
