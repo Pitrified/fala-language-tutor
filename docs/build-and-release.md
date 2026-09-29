@@ -126,6 +126,40 @@ flutter build apk --release
 flutter build appbundle --release
 ```
 
+## GitHub release
+
+A release on the repository's Releases page, with the arm64 APK attached, is the way to get a build onto a phone without the Play Console. The APK carries no API key (each user enters their own), so the asset is public.
+Nothing here is automated, and it runs on a machine with the keystore and GitHub credentials, never in a cloud session.
+
+1. **Once:** create the keystore and `android/key.properties` as in [Production signing](#production-signing-required-for-play-store). Back up the `.jks` and both passwords outside the repository: without them no later release installs as an update.
+2. **Version:** raise `version` in `pubspec.yaml` (name and `+` code both) on main, and write the notes in `docs/releases/<version>.md`.
+3. **Build** on a clean checkout of main, so the label has no `-dirty`:
+
+   ```bash
+   git switch main && git pull
+   scripts/build-apk.sh
+   ```
+
+4. **Check the signature.** The certificate printed has to be yours, not `CN=Android Debug`; a build without `key.properties` falls back to the debug key silently.
+
+   ```bash
+   apksigner verify --print-certs build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
+   ```
+
+5. **Publish.** The asset name carries the version, so a phone's Downloads folder tells builds apart.
+
+   ```bash
+   cp build/app/outputs/flutter-apk/app-arm64-v8a-release.apk /tmp/fala-0.1.0-arm64.apk
+   gh release create v0.1.0 /tmp/fala-0.1.0-arm64.apk \
+     --target main --title "fala 0.1.0" --notes-file docs/releases/0.1.0.md
+   ```
+
+   Without `gh`: Releases, "Draft a new release", a new tag `v0.1.0` on main, the notes pasted, the APK dropped in, Publish.
+6. **Install:** open the release page on the phone, download the APK, allow the browser to install unknown apps.
+
+Android refuses an update signed with a different key. Test builds from a cloud session are debug-signed, so going from one to a release build (or from a release build to a Play install, which Google signs) means uninstalling first, which deletes the stored API key, conversations and settings.
+The split APK's versionCode is offset per ABI (arm64 adds 2000), so a later install from Play, whose versionCode is the plain `+` number, is lower and also needs an uninstall.
+
 ## Build outputs
 
 | Command | Output path |
@@ -202,7 +236,7 @@ flutter run --release
 
 Version is in `pubspec.yaml`:
 ```yaml
-version: 0.1.0+1
+version: 0.1.0+2
 ```
 - `0.1.0` = semantic version (shown to users)
 - `+1` = versionCode (increment for each Play Store upload)
