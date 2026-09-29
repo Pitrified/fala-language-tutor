@@ -6,8 +6,10 @@ import 'package:go_router/go_router.dart';
 
 import '../../app.dart';
 import '../../providers/speech_provider.dart';
+import 'widgets/openai_key_guide.dart';
 
-/// The settings pages as a list of tiles: Language, Model and Diagnostics.
+/// The settings pages as a list of tiles: Language, Model and Diagnostics,
+/// with the guide to getting an OpenAI key under Model.
 ///
 /// Shown in the conversation drawer and on the Settings index, so both lead to
 /// the same pages. A tap closes the drawer first when it sits in one, and stops
@@ -34,6 +36,7 @@ class SettingsEntries extends ConsumerWidget {
           title: 'Model',
           route: AppRoutes.modelSettings,
         ),
+        const OpenAiKeyGuideTile(),
         _entry(
           context,
           ref,

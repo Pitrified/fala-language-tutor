@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/settings_provider.dart';
 import '../../services/inference/engine_kind.dart';
 import '../../services/inference/openai_models.dart';
+import 'widgets/openai_key_guide.dart';
 
 /// Model settings: the active inference engine, then the details of that
 /// engine (the OpenAI key and model; the fake engine has none).
@@ -180,6 +181,8 @@ class _OpenAiSectionState extends ConsumerState<_OpenAiSection> {
             ),
           ],
         ),
+        const SizedBox(height: 4),
+        const OpenAiKeyGuideButton(),
       ],
     );
   }

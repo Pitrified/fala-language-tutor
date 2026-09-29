@@ -75,9 +75,9 @@ App Launch
 |--------|---------|----------|
 | Welcome | App entry, runtime status, start session (or model setup when a key is missing; on a new install, "Get started" into the first-run setup) | Until navigation |
 | First-run setup | Three pages in order: the Model page's settings (Next once the model is ready, or "Set it later"), language and level, then reply length, "say it better" and speech. The last two start from the defaults. Shown on a new install, one with no key stored, until Start on the last page; Start opens the conversation, or the welcome screen while the model still needs setup | Until navigation |
-| Settings | Index of the settings pages, also listed in the conversation drawer | Until navigation |
+| Settings | Index of the settings pages, also listed in the conversation drawer, with a link to [openai-key.md](openai-key.md) under Model | Until navigation |
 | Language | Target language and CEFR level, applied to the open conversation and to new ones; the reply length (short, normal, long); "say it better" with every reply or on request; the "Read replies aloud" switch, and the speech engine and a local voice per language | Until navigation |
-| Model | Engine, then the selected engine's details (OpenAI key and model) | Until navigation |
+| Model | Engine, then the selected engine's details (OpenAI key and model), with a link to [openai-key.md](openai-key.md), the guide to getting a key | Until navigation |
 | Diagnostics | The diagnostics log under a header on the app, phone and current choices, with Copy and Clear, for pasting back after a run on the phone | Until navigation |
 | Conversation | Main interaction: messages, input, corrections, "say it better" under a reply, or the sparkle beside a reply that asks for it; the app bar holds the topic picker, the drawer the settings, a link to the source repository and the version | Session-scoped |
 

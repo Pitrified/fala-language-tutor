@@ -20,6 +20,10 @@ const String sourceRepoUrl = 'https://github.com/Pitrified/fala-language-tutor';
 /// Sherpa is chosen but missing.
 const String sherpaGuideUrl = '$sourceRepoUrl/blob/main/docs/sherpa-tts.md';
 
+/// How to get an OpenAI API key, linked from the Model page and the settings
+/// list.
+const String openAiKeyGuideUrl = '$sourceRepoUrl/blob/main/docs/openai-key.md';
+
 /// What the app shows as its version, for example `0.0.1+a739b0e1`. A build
 /// without the defines, such as a plain `flutter run`, shows `dev+local`.
 const String appVersionLabel = '$appVersion+$appCommit';

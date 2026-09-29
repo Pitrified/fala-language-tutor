@@ -9,6 +9,7 @@ Analysis and decisions in [`00_start.md`](00_start.md).
 | #  | Phase | Plan | Status |
 | -- | ----- | ---- | ------ |
 | 01 | Setup pages | [`01_setup_pages.md`](01_setup_pages.md) | in progress |
+| 02 | Guide to getting an OpenAI key | [`02_key_guide.md`](02_key_guide.md) | in progress |
 
 Status values: draft / planned / in progress / done / superseded / discarded.
 
@@ -17,3 +18,4 @@ Status values: draft / planned / in progress / done / superseded / discarded.
 Append-only. Newest at the bottom.
 
 - 2026-09-29 : folder written from the user's request, D1 to D4 decided; phase 01 derived and built. A mutation (Next always on) seen failing the flow test. Stays in progress until the Pixel run.
+- 2026-09-29 : phase 02 asked for and built: `docs/openai-key.md`, linked from the Model page and the settings list. Stays in progress until the Pixel run.
