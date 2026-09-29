@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:fala/models/app_exception.dart';
 import 'package:fala/models/cefr_level.dart';
+import 'package:fala/models/conversation.dart';
 import 'package:fala/models/conversation_message.dart';
 import 'package:fala/models/inference_status.dart';
 import 'package:fala/models/reply_length.dart';
@@ -641,6 +642,85 @@ void main() {
       after.resumableConversation(TargetLanguage.ptBr);
       expect(after.currentConversation, isNull);
       await after.dispose();
+    });
+  });
+
+  group('history', () {
+    /// Ids are millisecond timestamps: wait one out between two starts.
+    Future<Conversation> startWith(String message) async {
+      await Future<void>.delayed(const Duration(milliseconds: 2));
+      final conversation = await controller.startConversation(
+        language: TargetLanguage.ptBr,
+      );
+      await controller.sendMessage(message);
+      return conversation;
+    }
+
+    Future<void> deleteOne(String id) => controller.deleteConversation(
+      id,
+      language: TargetLanguage.esEs,
+      cefrLevel: CefrLevel.b2,
+      topic: 'Travel',
+    );
+
+    test('lists conversations with messages, newest first', () async {
+      final first = await startWith('Oi');
+      final second = await startWith('Olá');
+      await Future<void>.delayed(const Duration(milliseconds: 2));
+      await controller.startConversation(language: TargetLanguage.ptBr);
+      expect(controller.history().map((c) => c.id), [second.id, first.id]);
+    });
+
+    test('deleting another conversation keeps the open one', () async {
+      final first = await startWith('Oi');
+      final second = await startWith('Olá');
+      await deleteOne(first.id);
+      expect(repo.load(first.id), isNull);
+      expect(controller.currentConversation?.id, second.id);
+      expect(controller.history().map((c) => c.id), [second.id]);
+    });
+
+    test('deleting the open conversation starts a new one', () async {
+      final open = await startWith('Oi');
+      await deleteOne(open.id);
+      expect(repo.load(open.id), isNull);
+      final current = controller.currentConversation!;
+      expect(current.id, isNot(open.id));
+      expect(current.messages, isEmpty);
+      expect(current.language, TargetLanguage.esEs.code);
+      expect(current.cefrLevel, CefrLevel.b2.displayName);
+      expect(current.topic, 'Travel');
+      expect(repo.load(current.id), isNotNull);
+    });
+
+    test('delete all leaves only the new empty conversation', () async {
+      await startWith('Oi');
+      await startWith('Olá');
+      await Future<void>.delayed(const Duration(milliseconds: 2));
+      await controller.deleteAllConversations(
+        language: TargetLanguage.ptBr,
+        cefrLevel: CefrLevel.a1,
+      );
+      expect(controller.history(), isEmpty);
+      final saved = repo.listAll();
+      expect(saved.map((c) => c.id), [controller.currentConversation!.id]);
+      expect(saved.single.messages, isEmpty);
+    });
+
+    test('delete all with nothing open starts nothing', () async {
+      await startWith('Oi');
+      final fresh = ConversationController(
+        streamEngine: streamEngine,
+        repository: repo,
+        promptManager: promptManager,
+      );
+      await fresh.deleteAllConversations(
+        language: TargetLanguage.ptBr,
+        cefrLevel: CefrLevel.a1,
+      );
+      expect(fresh.currentConversation, isNull);
+      expect(repo.listAll(), isEmpty);
+      await fresh.dispose();
     });
   });
 }

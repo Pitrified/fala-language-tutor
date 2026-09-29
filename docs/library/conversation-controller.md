@@ -25,6 +25,9 @@ and expose conversation state for UI.
 | `currentConversation` | `Conversation?` | Current active conversation |
 | `startConversation()` | `Future<Conversation>` | Create and persist a new conversation |
 | `loadConversation(id)` | `Future<void>` | Load existing conversation by ID |
+| `history()` | `List<Conversation>` | Saved conversations with messages, most recently updated first |
+| `deleteConversation(id, ...)` | `Future<void>` | Delete one; when it is the open one, start a new one with the given language, level and topic |
+| `deleteAllConversations(...)` | `Future<void>` | Delete all, empty ones included; when one was open, start a new one as above |
 | `sendMessage(content)` | `Future<ConversationMessage?>` | Full round trip: user msg -> prompt -> inference -> parse -> persist |
 | `dispose()` | `Future<void>` | Close stream controller |
 

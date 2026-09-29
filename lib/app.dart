@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import 'providers/app_provider.dart';
 import 'screens/conversation/conversation_screen.dart';
+import 'screens/history/history_screen.dart';
 import 'screens/onboarding/onboarding_screen.dart';
 import 'screens/settings/diagnostics_screen.dart';
 import 'screens/settings/language_settings_screen.dart';
@@ -21,6 +22,7 @@ abstract final class AppRoutes {
   static const modelSettings = '/settings/model';
   static const diagnostics = '/settings/diagnostics';
   static const onboarding = '/onboarding';
+  static const history = '/conversations';
 }
 
 /// App-level GoRouter configuration.
@@ -62,6 +64,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: AppRoutes.conversation,
         builder: (context, state) => const ConversationScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.history,
+        builder: (context, state) => const HistoryScreen(),
       ),
       GoRoute(
         path: AppRoutes.settings,

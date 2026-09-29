@@ -75,11 +75,12 @@ App Launch
 |--------|---------|----------|
 | Welcome | App entry, runtime status, start session (or model setup when a key is missing; on a new install, "Get started" into the first-run setup) | Until navigation |
 | First-run setup | Three pages in order: the Model page's settings (Next once the model is ready; there is no way past it without a key), language and level, then reply length, "say it better" and speech. The last two start from the defaults. Shown on a new install, one with no key stored, until Start on the last page, which opens the conversation. Diagnostics can open it again | Until navigation |
+| Conversations | The saved conversations with messages, most recently used first, each named by its topic cut at 30 characters (or "No topic") with the last-used date, message count and language. A tap opens one; the x on a row deletes it; Clear all deletes every conversation after a confirmation. Deleting the open conversation starts a new one with the current defaults | Until navigation |
 | Settings | Index of the settings pages, also listed in the conversation drawer | Until navigation |
 | Language | Target language and CEFR level, applied to the open conversation and to new ones; the reply length (short, normal, long); "say it better" with every reply or on request; the "Read replies aloud" switch, and the speech engine and a local voice per language | Until navigation |
 | Model | Engine, then the selected engine's details (OpenAI key and model), with a link to [openai-key.md](openai-key.md), the guide to getting a key | Until navigation |
 | Diagnostics | The diagnostics log under a header on the app, phone and current choices, with Copy and Clear, for pasting back after a run on the phone; a button that opens the first-run setup again | Until navigation |
-| Conversation | Main interaction: messages, input, corrections, "say it better" under a reply, or the sparkle beside a reply that asks for it; the app bar holds the topic picker, the drawer the settings, a link to the source repository and the version | Session-scoped |
+| Conversation | Main interaction: messages, input, corrections, "say it better" under a reply, or the sparkle beside a reply that asks for it; the app bar holds the topic picker, the drawer Conversations under a Tutor header, then the settings, a link to the source repository and the version | Session-scoped |
 
 ## 6. Systems
 
