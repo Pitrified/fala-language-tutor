@@ -62,6 +62,7 @@ class Experiment:
         self.compare = spec['compare']
         self.prompts = {name: resolve(p).read_text() for name, p in spec['prompts'].items()}
         self.schema = strict(load_json(resolve(spec['schema'])))
+        self.resolve = resolve
         self.conversation = load_json(resolve(spec['conversation']))
         self.variables = spec.get('variables', {})
         self.tables = {}
@@ -154,14 +155,22 @@ def turn(exp, model_label, setup, prompt_text):
             'usage': usage, 'response': json.loads(buffer)}
 
 
+def conversation_for(exp, setup):
+    """The setup's own conversation file if it names one, else the experiment's. Each message is a
+    string, or {text, expect} where expect lists words a correction should quote."""
+    messages = load_json(exp.resolve(setup['conversation'])) if 'conversation' in setup else exp.conversation
+    return [m if isinstance(m, dict) else {'text': m, 'expect': []} for m in messages]
+
+
 def run_setup(exp, model_label, setup):
     history, turns = [], []
     try:
-        for message in exp.conversation:
+        for item in conversation_for(exp, setup):
+            message = item['text']
             history.append(f'User: {message}')
             result = turn(exp, model_label, setup, exp.fill(setup, message, history))
             history.append(f"Tutor: {result['response']['conversation']['content']}")
-            turns.append({'user': message, **result})
+            turns.append({'user': message, 'expect': item.get('expect', []), **result})
     except urllib.error.HTTPError as e:
         return {'model': model_label, 'setup': setup, 'error': e.read().decode()[:400], 'turns': turns}
     return {'model': model_label, 'setup': setup, 'turns': turns}
@@ -182,7 +191,8 @@ def judge(exp, run):
 
 def metrics(run):
     """Numbers per setup. 'invented' is an error whose original is not in the learner's message;
-    'no-op' one whose corrected equals its original."""
+    'no-op' one whose corrected equals its original; 'caught' counts the expected words that some
+    error's original quotes, out of 'expected'."""
     turns = run['turns']
     replies = [t['response']['conversation']['content'] for t in turns]
     errors = [(t, e) for t in turns for e in t['response']['correction']['errors']]
@@ -197,6 +207,10 @@ def metrics(run):
         'quoted_words_mean': round(sum(quoted) / len(quoted), 1) if quoted else 0,
         'quoted_words_max': max(quoted, default=0),
         'invented': sum(1 for t, e in errors if e['original'] not in t['user']),
+        'expected': sum(len(t.get('expect', [])) for t in turns),
+        'caught': sum(1 for t in turns for word in t.get('expect', [])
+                      if any(word.lower() in e['original'].lower()
+                             for e in t['response']['correction']['errors'])),
         'noop': sum(1 for _, e in errors if e['original'].strip().lower() == e['corrected'].strip().lower()),
         'ttft_s': round(mean('ttft'), 2),
         'reply_start_s': round(mean('reply_start'), 2),
@@ -207,27 +221,29 @@ def metrics(run):
 
 
 def describe(setup):
-    parts = [setup['prompt'], *[f'{k}={v}' for k, v in setup.get('vars', {}).items()],
+    parts = [setup['prompt'], *([Path(setup['conversation']).stem] if 'conversation' in setup else []),
+             *[f'{k}={v}' for k, v in setup.get('vars', {}).items()],
              *[f'{k}={v}' for k, v in setup.get('params', {}).items()]]
     return ' '.join(parts)
 
 
 def summary(exp, runs):
     lines = [f'# Prompt lab: {exp.path.name}', '',
-             f"{datetime.date.today().isoformat()}, {len(exp.conversation)} turns per setup.", '',
+             f"{datetime.date.today().isoformat()}.", '',
              '| Model | Setup | Judged | Words per reply | Words per sentence | Quoted words (max) '
-             '| Invented | No-op | First token | Reply starts | Tokens in / out |',
-             '| -- | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- |']
+             '| Invented | No-op | Caught | First token | Reply starts | Tokens in / out |',
+             '| -- | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- |']
     for run in runs:
         if run.get('error'):
             lines.append(f"| {run['model']} | {describe(run['setup'])} | error: {run['error'][:80]} "
-                         '| | | | | | | | |')
+                         '| | | | | | | | | |')
             continue
         m = run['metrics']
         lines.append(
             f"| {run['model']} | {describe(run['setup'])} | {run.get('judged') or ''} "
             f"| {m['words_per_reply']:.0f} | {m['words_per_sentence']} "
             f"| {m['quoted_words_mean']} ({m['quoted_words_max']}) | {m['invented']} | {m['noop']} "
+            f"| {str(m['caught']) + ' / ' + str(m['expected']) if m['expected'] else ''} "
             f"| {m['ttft_s']} s | {m['reply_start_s']} s | {m['tokens_in']} / {m['tokens_out']} |")
     lines += ['', '## Replies', '']
     for run in runs:
@@ -236,7 +252,8 @@ def summary(exp, runs):
         for t in run['turns']:
             fixes = '; '.join(f"{e['original']} -> {e['corrected']}"
                               for e in t['response']['correction']['errors'])
-            lines.append(f"- User: {t['user']}")
+            expect = f" (expect: {', '.join(t['expect'])})" if t.get('expect') else ''
+            lines.append(f"- User: {t['user']}{expect}")
             lines.append(f"  - Fix: {fixes or '(none)'}")
             lines.append(f"  - Tutor: {t['response']['conversation']['content']}")
             better = (t['response'].get('better') or {}).get('content')

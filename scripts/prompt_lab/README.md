@@ -22,6 +22,7 @@ Per setup the summary gives:
 | Quoted words (max) | mean and largest length of an error's `original`; long quotes mean whole sentences were quoted |
 | Invented | errors whose `original` is not in the learner's message, including ones only differing in case |
 | No-op | errors whose `corrected` equals `original` |
+| Caught | of the words the conversation marks as `expect`, how many some error's `original` quotes |
 | First token | time from request to the first streamed content |
 | Reply starts | time to the first character of `conversation.content`, which is when the learner sees the reply begin; the correction streams before it |
 | Tokens in / out | summed over the turns, for cost |
@@ -41,11 +42,11 @@ JSON. Paths are relative to the experiment file.
 | `request` | fields added to every request, such as `max_completion_tokens` |
 | `schema` | JSON schema of the reply; `additionalProperties: false` is added to every object |
 | `prompts` | name to template file |
-| `conversation` | file with a JSON list of learner messages |
+| `conversation` | file with a JSON list of learner messages: each a string, or `{text, expect}` where `expect` lists words a correction should quote |
 | `variables` | template values shared by every setup |
 | `tables` | variable name to a file or inline object `{by, values, prefix}`, or to `{from, key, by, prefix}` to take `values` from `key` of the JSON file `from`. `by` names one variable or a list of them: the value is `values[v1][v2]...` with the values of those variables, empty when missing. A list becomes indented `- ` lines. `prefix` goes before a non-empty value and can use `{variable}` |
 | `optional_variables` | variables whose line is dropped from the template when their value is empty |
-| `setups` | list of `{prompt, vars, params, models}`; `vars` add or override template values, `params` request fields, `models` narrows `compare` |
+| `setups` | list of `{prompt, vars, params, models, conversation}`; `vars` add or override template values, `params` request fields, `models` narrows `compare`, `conversation` replaces the experiment's |
 
 A template containing a line `=== USER ===` is sent as two messages: a `developer` message with the text above it and a `user` message with the text below. Otherwise the whole text is one `user` message. A placeholder left unsubstituted stops the run.
 

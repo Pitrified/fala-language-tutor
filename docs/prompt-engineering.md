@@ -127,7 +127,7 @@ When the model produces unexpected output:
 
 ---
 
-## Current prompt: tutor_response v5
+## Current prompt: tutor_response v6
 
 The template names no language of its own. It takes `{{target_language}}` (the language being
 learned, e.g. `Portuguese (Brazilian)`) and `{{explanation_language}}` (the language corrections and
@@ -150,6 +150,10 @@ How complex and how long the reply is comes from `assets/prompts/tutor_response/
 The level guides alone and the samples alone each moved the reply level less than the two together.
 
 The tutor plays a person in the chat and may tell small stories of its own to keep the conversation going.
+
+### Mixed-in words
+
+The correction rules treat words from another language as errors, including blends (an Italian word with a Portuguese ending) and false friends, and ask for the source language in the explanation. Learners who speak a related language slip these in ("verso o perigolos" in Portuguese, "ancora" in Spanish), and without the rule gpt-5.4-nano passed some of them by. The prompt lab's test conversations for this mark the words a correction should quote (`expect`), and the summary counts how many were caught.
 
 ### Say it better
 

@@ -1,0 +1,131 @@
+{
+ "providers": {
+  "openai": {
+   "base_url": "https://api.openai.com/v1",
+   "api_key_env": "OPENAI_API_KEY"
+  }
+ },
+ "models": {
+  "gpt-5.4-nano": {
+   "provider": "openai",
+   "model": "gpt-5.4-nano",
+   "params": {
+    "reasoning_effort": "none",
+    "temperature": 0.7
+   }
+  },
+  "gpt-6-luna": {
+   "provider": "openai",
+   "model": "gpt-6-luna",
+   "params": {
+    "reasoning_effort": "none",
+    "temperature": 0.7
+   }
+  },
+  "judge": {
+   "provider": "openai",
+   "model": "gpt-5.4-mini"
+  }
+ },
+ "compare": [
+  "gpt-5.4-nano",
+  "gpt-6-luna"
+ ],
+ "judge": {
+  "model": "judge",
+  "params": {
+   "reasoning_effort": "low"
+  }
+ },
+ "request": {
+  "max_completion_tokens": 512
+ },
+ "schema": "../../../assets/prompts/tutor_response_schema.json",
+ "prompts": {
+  "app_v5": "../../../assets/prompts/tutor_response/v5.txt",
+  "v6": "../../../assets/prompts/tutor_response/v6.txt"
+ },
+ "conversation": "mixed_portuguese.json",
+ "variables": {
+  "target_language": "Brazilian Portuguese",
+  "language_code": "pt-BR",
+  "explanation_language": "English",
+  "topic": "",
+  "length": "normal",
+  "better": "off"
+ },
+ "tables": {
+  "level_guide": {
+   "from": "../../../assets/prompts/tutor_response/reply_style.json",
+   "key": "level_guide",
+   "by": "reply_level"
+  },
+  "reply_samples": {
+   "from": "../../../assets/prompts/tutor_response/reply_style.json",
+   "key": "samples",
+   "by": [
+    "language_code",
+    "reply_level"
+   ],
+   "prefix": "Replies at {reply_level} level. Match their vocabulary, grammar and sentence length, not their content:\n"
+  },
+  "length_rule": {
+   "from": "../../../assets/prompts/tutor_response/reply_style.json",
+   "key": "length_rule",
+   "by": "length"
+  },
+  "better_rule": {
+   "from": "../../../assets/prompts/tutor_response/reply_style.json",
+   "key": "better_rule",
+   "by": "better"
+  }
+ },
+ "setups": [
+  {
+   "prompt": "app_v5",
+   "conversation": "mixed_portuguese.json",
+   "vars": {
+    "cefr_level": "B1",
+    "reply_level": "B1"
+   }
+  },
+  {
+   "prompt": "v6",
+   "conversation": "mixed_portuguese.json",
+   "vars": {
+    "cefr_level": "B1",
+    "reply_level": "B1"
+   }
+  },
+  {
+   "prompt": "app_v5",
+   "conversation": "spanish.json",
+   "vars": {
+    "cefr_level": "B1",
+    "reply_level": "B1",
+    "target_language": "Spanish (Spain)",
+    "language_code": "es-ES"
+   }
+  },
+  {
+   "prompt": "v6",
+   "conversation": "spanish.json",
+   "vars": {
+    "cefr_level": "B1",
+    "reply_level": "B1",
+    "target_language": "Spanish (Spain)",
+    "language_code": "es-ES"
+   }
+  },
+  {
+   "prompt": "v6",
+   "conversation": "spanish.json",
+   "vars": {
+    "cefr_level": "C1",
+    "reply_level": "C2",
+    "target_language": "Spanish (Spain)",
+    "language_code": "es-ES"
+   }
+  }
+ ]
+}
