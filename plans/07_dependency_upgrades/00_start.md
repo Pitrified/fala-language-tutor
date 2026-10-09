@@ -56,6 +56,19 @@ constraints.
 - Anything that changes app behaviour. This folder is maintenance; a behaviour change means a feature
   folder.
 
+## Update 2026-10-09
+
+The release build of `0.1.0` (at `cfc89291`, on g7) printed:
+
+```
+WARNING: Your app uses the following plugins that apply Kotlin Gradle Plugin (KGP): flutter_tts
+Future versions of Flutter will fail to build if your app uses plugins that apply KGP.
+```
+
+`flutter_tts` is locked at 4.2.5 (constraint `^4.2.5`). Whether a later release supports Built-in Kotlin is not checked yet; if none does, the guide says to report it to the plugin.
+Flutter's guides: [for app developers](https://docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin/for-app-developers), [for plugin authors](https://docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin/for-plugin-authors).
+The build passes today; the warning is a deadline on upgrading Flutter rather than on this folder, so it matters before the Flutter version moves.
+
 ## Open questions
 
 - Q1: does this wait for folder 16 as well, which may delete `flutter_gemma` and with it the largest
