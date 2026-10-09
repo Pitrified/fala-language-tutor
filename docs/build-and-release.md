@@ -91,13 +91,31 @@ Key things to look for in logcat:
 ### 1. Generate a keystore
 
 ```bash
+mkdir -p ~/cred/fala
 keytool -genkey -v -keystore ~/cred/fala/upload-keystore.jks \
   -keyalg RSA -keysize 2048 -validity 10000 \
   -alias upload
 ```
 
-You will be prompted to set a **store password** and **key password**.
-These are passwords you choose - remember them for the next step.
+keytool does not create missing folders: without the `mkdir` it asks every question and then fails with `FileNotFoundException`.
+
+You will be prompted for a **store password**, then for the certificate's name fields.
+Together they form the certificate's distinguished name (X.500, written out as in RFC 4514):
+
+| Prompt | Field | Convention |
+| -- | -- | -- |
+| first and last name | `CN`, common name | the person or publisher, a real name or a handle |
+| organizational unit | `OU` | team or product, e.g. the app name |
+| organization | `O` | company or publisher name |
+| city or locality | `L` | city |
+| state or province | `ST` | region |
+| two-letter country code | `C` | ISO 3166-1 alpha-2, e.g. `IT` |
+
+Android checks none of these fields: it only checks that every update is signed with the same key. A blank answer becomes `Unknown`, which is common on Android signing keys.
+The values are public to anyone who inspects the APK (`apksigner verify --print-certs`), and cannot change without a new key, which existing installs cannot update to.
+A comma, plus sign, quote, backslash, angle bracket, semicolon or equals sign in a value gets escaped in the printed name, so plain words read best.
+
+On JDK 9 and later the keystore is PKCS12, which has no separate key password, so keytool does not ask for one: the key password is the store password.
 
 ### 2. Create key.properties
 
@@ -106,7 +124,7 @@ Copy the template:
 cp android/key.properties.example android/key.properties
 ```
 
-Edit `android/key.properties` with the values you set during keytool:
+Edit `android/key.properties` with the values you set during keytool, the same password in both fields:
 ```properties
 storePassword=the_password_you_chose
 keyPassword=the_password_you_chose
@@ -116,7 +134,47 @@ storeFile=/home/you/cred/fala/upload-keystore.jks
 
 This file is gitignored and never committed.
 
-### 3. Build signed APK or AAB
+### 3. Back up the keystore
+
+Without the `.jks` and its password, no later build installs as an update over this one, and every user has to uninstall, losing their data.
+The backup is a Bitwarden secure note holding the keystore as base64 text, which works on the free plan (file attachments need Premium).
+A 2048-bit keystore is a few KB, well under the note's limit of 10,000 characters after encryption.
+
+Upload, on a machine with the keystore (X11 shown; `wl-copy` and `wl-paste` on Wayland):
+
+```bash
+base64 -w0 ~/cred/fala/upload-keystore.jks | xclip -selection clipboard
+```
+
+In Bitwarden, create a secure note named `fala upload keystore`: paste the clipboard into the notes, and add the store password and the alias `upload` as fields.
+Then clear the clipboard:
+
+```bash
+echo -n | xclip -selection clipboard
+```
+
+Check the backup before relying on it: copy the note text back out of Bitwarden and compare.
+
+```bash
+xclip -selection clipboard -o | base64 -d > /tmp/fala-restore.jks
+cmp /tmp/fala-restore.jks ~/cred/fala/upload-keystore.jks && echo identical
+rm /tmp/fala-restore.jks
+```
+
+Restore, on a new machine: copy the note text from Bitwarden, then
+
+```bash
+mkdir -p ~/cred/fala
+xclip -selection clipboard -o | base64 -d > ~/cred/fala/upload-keystore.jks
+keytool -list -v -keystore ~/cred/fala/upload-keystore.jks -alias upload
+```
+
+`keytool` asks for the store password and prints the certificate; its SHA-256 fingerprint matches what `apksigner verify --print-certs` shows for a published APK.
+Then create `android/key.properties` as in step 2.
+
+The note and the password sit in one account, so a second copy of the `.jks` outside Bitwarden, such as an encrypted USB drive, covers losing access to it.
+
+### 4. Build signed APK or AAB
 
 ```bash
 # APK (for direct install)
@@ -131,7 +189,7 @@ flutter build appbundle --release
 A release on the repository's Releases page, with the arm64 APK attached, is the way to get a build onto a phone without the Play Console. The APK carries no API key (each user enters their own), so the asset is public.
 Nothing here is automated, and it runs on a machine with the keystore and GitHub credentials, never in a cloud session.
 
-1. **Once:** create the keystore and `android/key.properties` as in [Production signing](#production-signing-required-for-play-store). Back up the `.jks` and both passwords outside the repository: without them no later release installs as an update.
+1. **Once:** create the keystore and `android/key.properties` as in [Production signing](#production-signing-required-for-play-store), including the backup in its step 3.
 2. **Version:** raise `version` in `pubspec.yaml` (name and `+` code both) on main, and write the notes in `docs/releases/<version>.md`.
 3. **Build** on a clean checkout of main, so the label has no `-dirty`:
 

@@ -1,9 +1,12 @@
 {
     "cSpell.words": [
+        "apksigner",
         "appbundle",
         "armeabi",
+        "Bitwarden",
         "bundletool",
         "cefr",
+        "keytool",
         "libapp",
         "libdartjni",
         "libdatastore",
@@ -11,6 +14,8 @@
         "liblitertlm",
         "libllm",
         "libsqlite",
-        "Qwen"
+        "organisation",
+        "Qwen",
+        "xclip"
     ]
 }
