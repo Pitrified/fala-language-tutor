@@ -105,7 +105,7 @@ When the model produces unexpected output:
 
 1. Check logcat for the raw response:
    ```bash
-   adb logcat --pid=$(adb shell pidof com.fala.app) | grep "flutter"
+   adb logcat --pid=$(adb shell pidof com.pitrified.fala) | grep "flutter"
    ```
 
 2. If the JSON is malformed, the `JsonExtractor` will fail and `StructuredParseFailure` fires. The UI shows the raw text as a fallback.

@@ -1,4 +1,4 @@
-package com.fala.app
+package com.pitrified.fala
 
 import android.content.ActivityNotFoundException
 import android.content.Intent

@@ -5,7 +5,7 @@
 ## 1. Overview
 
 - **App name:** fala (Portuguese for "speak")
-- **Package ID:** `com.fala.app`
+- **Package ID:** `com.pitrified.fala`
 - **Purpose:** language tutoring via conversational AI
 - **Core value:** structured corrections + natural conversation, from a cloud LLM with the user's own key
 - **Target language:** a setting (`default_language`), one of Portuguese (Brazilian),
